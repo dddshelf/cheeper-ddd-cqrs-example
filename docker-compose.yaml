@@ -36,10 +36,11 @@ services:
       - ./.docker/mysql:/docker-entrypoint-initdb.d
 
   app:
-    build:
-      context: .
+    build: ./
     depends_on:
       - mysql
       - rabbitmq
       - elasticsearch
       - redis
+    volumes:
+      - ./:/app:cached
