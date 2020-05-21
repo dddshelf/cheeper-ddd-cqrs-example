@@ -1,0 +1,17 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Cheeper\DomainModel\Author\Author" table="authors">
+        <embedded name="authorId" class="Cheeper\DomainModel\Author\AuthorId" />
+        <embedded name="userName" class="Cheeper\DomainModel\Author\UserName" />
+        <field name="name" length="100" />
+        <field name="biography" type="text" />
+        <field name="location" length="100" />
+        <embedded name="website" class="Cheeper\DomainModel\Author\Website" />
+        <embedded name="birthDate" class="Cheeper\DomainModel\Author\BirthDate" />
+        <field name="following" type="array" />
+    </entity>
+
+</doctrine-mapping>

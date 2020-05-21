@@ -1,0 +1,27 @@
+{# snippet twig-template #}
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {% if error is defined %}
+        <div class="alert error">{{ error }} </div>
+    {% else %}
+        <div class="alert success">Cheep was published successfully!</div>
+    {% endif %}
+    <table>
+        <thead><tr><th>Author</th><th>Message</th></tr></thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.author.username }}</td>
+                <td>{{ result.cheep.message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="/" method="POST">
+        <input type="hidden" name="cheep[author_id]" value="{{ author_id }}"/>
+        <textarea name="cheep[message]"></textarea>
+        <button type="submit">Publish!</button>
+    </form>
+{% endblock %}
+{# end-snippet #}

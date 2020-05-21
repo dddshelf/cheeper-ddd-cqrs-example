@@ -1,0 +1,13 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <mapped-superclass name="Cheeper\DomainModel\Common\UuidBasedIdentity">
+        <id name="id" type="uuid_binary">
+            <generator strategy="NONE" />
+        </id>
+        <field name="idAsString" type="uuid" column="id_as_string" />
+    </mapped-superclass>
+
+</doctrine-mapping>

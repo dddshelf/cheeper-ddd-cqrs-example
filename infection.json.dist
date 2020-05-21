@@ -1,0 +1,16 @@
+{
+    "source": {
+        "directories": [
+            "src/Cheeper"
+        ],
+        "excludes": [
+            "src/Cheeper/Infrastructure"
+        ]
+    },
+    "logs": {
+        "text": "infection.log"
+    },
+    "mutators": {
+        "@default": true
+    }
+}

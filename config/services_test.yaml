@@ -1,0 +1,4 @@
+services:
+    App\Helpers\ServiceLocatorForTests:
+        public: true
+        autowire: true

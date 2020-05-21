@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<psalm
+    totallyTyped="true"
+    resolveFromConfigFile="true"
+    strictBinaryOperands="true"
+    allowPhpStormGenerics="true"
+    findUnusedVariablesAndParams="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="src/CheeperSpaghetti/"/>
+            <file name="src/CheeperLayered/CheepController.php"/>
+            <file name="src/App/Kernel.php"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <stubs>
+        <file name=".psalm-stubs/lstrojny-functional-php.php"/>
+        <file name=".psalm-stubs/doctrine-orm.php"/>
+        <file name=".psalm-stubs/symfony-messenger.php"/>
+        <file name=".psalm-stubs/api-platform.php"/>
+    </stubs>
+
+    <plugins>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+    </plugins>
+</psalm>

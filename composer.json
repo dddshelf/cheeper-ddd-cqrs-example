@@ -1,0 +1,109 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.4",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "beberlei/assert": "^3.2",
+        "lstrojny/functional-php": "^1.11",
+        "ramsey/uuid": "^3.9",
+        "ramsey/uuid-doctrine": "^1.6",
+        "symfony/asset": "5.0.*",
+        "symfony/console": "5.0.*",
+        "symfony/dotenv": "5.0.*",
+        "symfony/expression-language": "5.0.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "5.0.*",
+        "symfony/http-client": "5.0.*",
+        "symfony/orm-pack": "^1.0",
+        "symfony/process": "5.0.*",
+        "symfony/yaml": "5.0.*",
+        "webonyx/graphql-php": "^0.13.8",
+        "api-platform/core": "2.5.*",
+        "nelmio/cors-bundle": "2.0.*",
+        "symfony/security-bundle": "5.0.*",
+        "symfony/twig-bundle": "5.0.*",
+        "symfony/messenger": "5.0.*",
+        "symfony/validator": "5.0.*"
+    },
+    "require-dev": {
+        "bunny/bunny": "^0.2",
+        "dama/doctrine-test-bundle": "^6.3",
+        "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "elasticsearch/elasticsearch": "^6.0",
+        "fzaninotto/faker": "^1.9",
+        "infection/infection": "^0.16.0",
+        "keyvanakbary/mimic": "^1.0",
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^9.0",
+        "predis/predis": "^1.1",
+        "spatie/async": "^1.1",
+        "symfony/browser-kit": "5.0.*",
+        "symfony/debug-pack": "^1.0",
+        "symfony/maker-bundle": "^1.14",
+        "symfony/profiler-pack": "^1.0",
+        "theofidry/psysh-bundle": "^4.3",
+        "twig/twig": "^2.4",
+        "vimeo/psalm": "^3.9",
+        "weirdan/doctrine-psalm-plugin": "^0.10.0",
+        "zumba/json-serializer": "^2.1"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "fix-cs": "php bin/php-cs-fixer --verbose --config=.php_cs.dist --using-cache=no --path-mode=intersection fix",
+        "unit-tests": "php vendor/bin/phpunit",
+        "psalm": "php vendor/bin/psalm --config=psalm.xml --show-info=true --no-cache",
+        "clear-db": [
+            "php bin/console doctrine:database:drop --force",
+            "php bin/console doctrine:database:create",
+            "php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing",
+            "php bin/console messenger:setup-transports"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true,
+            "require": "5.0.*"
+        },
+        "src-dir": "src/App"
+    }
+}
