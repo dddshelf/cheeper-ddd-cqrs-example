@@ -8,7 +8,7 @@ use Cheeper\Application\Command\SyncCommand;
 use Symfony\Component\HttpFoundation\Request;
 
 //snippet post-cheep
-final class PostCheep implements SyncCommand
+final class PostCheep
 {
     private string $cheepId;
     private string $authorId;
