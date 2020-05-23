@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 //snippet doctrine-orm-cheeps
 final class DoctrineOrmCheeps implements Cheeps
 {
+    //ignore
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -25,6 +26,7 @@ final class DoctrineOrmCheeps implements Cheeps
     {
         $this->em->persist($cheep);
     }
+    //end-ignore
 
     public function ofFollowersOfAuthor(Author $author): array
     {
