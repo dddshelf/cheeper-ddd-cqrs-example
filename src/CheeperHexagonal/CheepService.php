@@ -1,14 +1,10 @@
 <?php
 
-namespace Hexagonal;
+namespace CheeperHexagonal;
 
 use CheeperLayered\Authors;
 use CheeperLayered\Cheeps;
 use CheeperLayered\Cheep;
-
-class AuthorNotFound extends \RuntimeException
-{
-}
 
 //snippet cheep-service
 class CheepService
@@ -25,7 +21,7 @@ class CheepService
     public function postCheep(string $username, string $message): Cheep
     {
         if (!$author = $this->authors->byUsername($username)) {
-            throw new AuthorNotFound($username);
+            throw new \RuntimeException(sprintf('%s username not found', $username));
         }
         
         $cheep = $author->compose($message);

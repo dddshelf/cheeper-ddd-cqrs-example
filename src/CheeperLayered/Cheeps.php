@@ -2,10 +2,6 @@
 
 namespace CheeperLayered;
 
-class UnableToCreateCheepException extends \RuntimeException
-{
-}
-
 //snippet cheeps
 class Cheeps
 {
@@ -39,12 +35,12 @@ class Cheeps
                 $cheep->message(),
             ]);
 
-            $this->db->commit();
-
             $cheep->setId((int) $this->db->lastInsertId());
+
+            $this->db->commit();
         } catch (\Exception $e) {
             $this->db->rollback();
-            throw new UnableToCreateCheepException($e->getMessage());
+            throw new \RuntimeException($e->getMessage());
         }
     }
 }
