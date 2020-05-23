@@ -9,6 +9,7 @@ class UnableToCreateCheepException extends \RuntimeException
 //snippet cheeps
 class Cheeps
 {
+    //ignore
     private \PDO $db;
 
     public function __construct()
@@ -22,6 +23,7 @@ class Cheeps
             ]
         );
     }
+    //end-ignore
 
     public function add(Cheep $cheep): void
     {
