@@ -36,7 +36,7 @@ class Author
 
     public function setWebsite(?string $website): void
     {
-        if ($website && !filter_var($website, FILTER_VALIDATE_URL)) {
+        if ($website !== null && !filter_var($website, FILTER_VALIDATE_URL)) {
             throw new \RuntimeException('Website must be a valid URL');
         }
 
@@ -50,7 +50,7 @@ class Author
 
     public function setBio(?string $bio): void
     {
-        if ($bio && empty($bio)) {
+        if ($bio !== null && empty($bio)) {
             throw new \RuntimeException('Bio cannot be empty');
         }
 

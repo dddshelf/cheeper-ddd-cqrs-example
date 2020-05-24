@@ -37,7 +37,10 @@ class Authors
         );
     }
 
-    private function fetchOne(string $sql, string ...$params): ?Author
+    /**
+     * @param mixed $params
+     */
+    private function fetchOne(string $sql, ...$params): ?Author
     {
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
