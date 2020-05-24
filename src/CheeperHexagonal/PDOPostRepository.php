@@ -1,6 +1,6 @@
 <?php
 
-namespace Architecture\Hexagonal;
+namespace CheeperHexagonal;
 
 //snippet pdo-post-repository
 class PDOPostRepository implements PostRepository

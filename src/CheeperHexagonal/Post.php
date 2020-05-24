@@ -1,6 +1,6 @@
 <?php
 
-namespace Architecture\Hexagonal;
+namespace CheeperHexagonal;
 
 class Post
 {

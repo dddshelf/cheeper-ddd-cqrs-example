@@ -1,6 +1,6 @@
 <?php
 
-namespace Architecture\Hexagonal;
+namespace CheeperHexagonal;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase as TestCase;
 
