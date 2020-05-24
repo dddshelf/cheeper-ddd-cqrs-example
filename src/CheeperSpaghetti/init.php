@@ -15,7 +15,9 @@ $sql = <<<SQL
     -- snippet cheeper-schema
     CREATE TABLE authors (
         id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-        username VARCHAR(100) NOT NULL,
+        username VARCHAR(100) NOT NULL UNIQUE,
+        website VARCHAR(255) NULL,
+        bio VARCHAR(255) NULL,
         PRIMARY KEY (id)
     );
 
