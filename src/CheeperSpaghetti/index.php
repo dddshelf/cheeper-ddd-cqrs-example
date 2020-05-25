@@ -21,7 +21,7 @@ if (!$link) {
 mysqli_set_charset($link, 'utf8');
 mysqli_select_db($link, 'db');
 
-$error = null;
+$post_error = null;
 if ($_POST && is_valid($_POST['cheep'])) {
     mysqli_query($link, 'START TRANSACTION');
     $sql = sprintf(
@@ -35,43 +35,56 @@ if ($_POST && is_valid($_POST['cheep'])) {
         mysqli_query($link, 'COMMIT');
     } else {
         mysqli_query($link, 'ROLLBACK');
-        $error = 'Cheep could not be published' . mysqli_error($link);
+        $post_error = 'Cheep could not be published' . mysqli_error($link);
     }
 }
 
-$cheeps_query = mysqli_query($link, <<<SQL
+if (!$timeline_username = htmlspecialchars($_GET['username'])) {
+    die('Specify a username');
+}
+
+$timeline_query = mysqli_query($link, sprintf(<<<SQL
     SELECT
-        username, message
-    FROM
-        cheeps
-    JOIN authors ON authors.id = cheeps.author_id
-SQL);
+        username, message, date
+    FROM cheeps
+        JOIN authors ON cheeps.author_id = authors.id
+        LEFT JOIN follows ON follows.followee_id = authors.id
+    WHERE username = '%s' OR follows.followee_id = authors.id
+    ORDER BY date DESC
+SQL, mysqli_real_escape_string($link, $timeline_username)));
 
 $authors_query = mysqli_query($link, 'SELECT id, username FROM authors');
 
 ?>
 <html>
-    <head></head>
     <body>
         <?php if ($_POST): ?>
-            <?php if ($error): ?>
-                <div class="alert error"><?php echo $error; ?></div>
+            <?php if ($post_error): ?>
+                <div class="alert error"><?php echo $post_error; ?></div>
             <?php else: ?>
                 <div class="alert success">Cheep was published successfully!</div>
             <?php endif; ?>
         <?php endif; ?>
         <table>
-            <thead><tr><th>Username</th><th>Message</th></tr></thead>
-            <tbody>
-            <?php while ($cheep = mysqli_fetch_assoc($cheeps_query)): ?>
+            <h1>Timeline of <strong><?php echo $timeline_username ?></strong></h1>
+            <thead>
                 <tr>
-                    <td><?php echo $cheep['username']; ?></td>
+                    <th>Message</th>
+                    <th>Username</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php while ($cheep = mysqli_fetch_assoc($timeline_query)): ?>
+                <tr>
                     <td><?php echo $cheep['message']; ?></td>
+                    <td><?php echo $cheep['username']; ?></td>
+                    <td><?php echo $cheep['date']; ?></td>
                 </tr>
             <?php endwhile; ?>
             </tbody>
         </table>
-        <form action="/" method="POST">
+        <form action="/?username=<?php echo $timeline_username; ?>" method="POST">
             <select name="cheep[author_id]">
                 <?php while ($author = mysqli_fetch_assoc($authors_query)): ?>
                     <option value="<?php echo $author["id"] ?>">
