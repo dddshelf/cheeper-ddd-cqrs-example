@@ -19,6 +19,15 @@
         </ignoreFiles>
     </projectFiles>
 
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <!-- Due to a bug in PSALM. See https://github.com/vimeo/psalm/issues/2319 -->
+                <file name="src/Architecture/CQRS/Infrastructure/Persistence/Doctrine/DoctrineFollowersRepository.php" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+    </issueHandlers>
+
     <stubs>
         <file name=".psalm-stubs/lstrojny-functional-php.php"/>
         <file name=".psalm-stubs/doctrine-orm.php"/>

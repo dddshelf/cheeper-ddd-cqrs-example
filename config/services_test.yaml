@@ -2,3 +2,11 @@ services:
     App\Helpers\ServiceLocatorForTests:
         public: true
         autowire: true
+    Architecture\CQRS\Application\Query\CountFollowersHandler:
+        public: true
+        autowire: true
+    Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository:
+        public: true
+        autowire: true
+        tags:
+            - doctrine.repository_service
