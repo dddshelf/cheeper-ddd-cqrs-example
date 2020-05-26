@@ -34,6 +34,6 @@ final class FollowHandler
             throw AuthorDoesNotExist::withUserNameOf($followedUserName);
         }
 
-        $author->follow($followed);
+        $author->follow($followed->userId());
     }
 }

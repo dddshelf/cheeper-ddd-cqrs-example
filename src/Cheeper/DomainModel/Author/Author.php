@@ -91,12 +91,12 @@ class Author
         return $this->birthDate;
     }
 
-    public function follow(Author $followed): void
+    public function follow(AuthorId $followed): void
     {
         $alreadyFollowsUser = count(
             filter(
                 $this->following,
-                fn (AuthorId $authorId) => $authorId->equals($followed->userId())
+                fn (AuthorId $authorId) => $authorId->equals($followed)
             )
         ) > 0;
 
@@ -104,7 +104,7 @@ class Author
             return;
         }
 
-        $this->following[] = $followed->userId();
+        $this->following[] = $followed;
     }
 
     public function following(): array

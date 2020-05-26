@@ -51,7 +51,7 @@ final class DoctrineOrmCheepsTest extends WebTestCase
             new BirthDate(new \DateTimeImmutable())
         );
 
-        $author1->follow($author2);
+        $author1->follow($author2->userId());
 
         $authors->add($author1);
         $authors->add($author2);

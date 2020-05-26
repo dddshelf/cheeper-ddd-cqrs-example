@@ -44,7 +44,7 @@ final class InMemoryCheepsTest extends TestCase
             new BirthDate(new \DateTimeImmutable())
         );
 
-        $author1->follow($author2);
+        $author1->follow($author2->userId());
 
         $cheeps = new InMemoryCheeps();
 

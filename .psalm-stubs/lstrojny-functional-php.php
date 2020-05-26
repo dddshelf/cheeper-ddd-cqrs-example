@@ -21,3 +21,13 @@ function select($collection, callable $callback) {}
  * @psalm-return B
  */
 function head($collection, callable $callback = null) {}
+
+/**
+ * @template C
+ * @template D
+ *
+ * @psalm-param \Traversable<C>|list<C> $collection
+ * @psalm-param callable(C, array-key=, C[]=): D $callback
+ * @psalm-return list<D>
+ */
+function map($collection, callable $callback) {}

@@ -11,7 +11,6 @@
         <field name="location" length="100" />
         <embedded name="website" class="Cheeper\DomainModel\Author\Website" />
         <embedded name="birthDate" class="Cheeper\DomainModel\Author\BirthDate" />
-        <field name="following" type="array" />
     </entity>
 
 </doctrine-mapping>
