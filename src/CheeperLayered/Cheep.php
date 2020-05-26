@@ -8,6 +8,7 @@ class Cheep
     private ?int $id = null;
     private int $authorId;
     private string $message;
+    private \DateTimeInterface $date;
 
     public static function compose(int $authorId, string $message): self
     {
@@ -17,6 +18,7 @@ class Cheep
     private function __construct(int $authorId, string $message)
     {
         $this->authorId = $authorId;
+        $this->date = new \DateTimeImmutable();
         $this->setMessage($message);
     }
 
@@ -37,6 +39,11 @@ class Cheep
     public function message(): string
     {
         return $this->message;
+    }
+
+    public function date(): \DateTimeInterface
+    {
+        return $this->date;
     }
 
     public function setId(int $id): void

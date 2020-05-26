@@ -2,8 +2,6 @@
 
 namespace CheeperLayered;
 
-use mimic as m;
-
 //snippet authors
 class Authors
 {
@@ -47,7 +45,7 @@ class Authors
 
         if ($result = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             /** @var Author */
-            $author = m\hydrate(Author::class, $result);
+            $author = \mimic\hydrate(Author::class, $result);
             return $author;
         }
 

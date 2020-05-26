@@ -40,7 +40,7 @@ SQL, mysqli_real_escape_string($link, $timeline_username)));
             <h1><?php echo $timeline_username ?> timeline</h1>
             <thead align="left">
                 <tr>
-                    <th >Message</th>
+                    <th>Message</th>
                     <th>Username</th>
                     <th>Date</th>
                 </tr>

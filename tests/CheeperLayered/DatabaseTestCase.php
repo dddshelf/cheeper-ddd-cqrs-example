@@ -23,8 +23,9 @@ class DatabaseTestCase extends TestCase
 
         $this->db->exec(<<<SQL
             DROP TABLE IF EXISTS cheeps;
+            DROP TABLE IF EXISTS follows;
             DROP TABLE IF EXISTS authors;
-            
+                
             CREATE TABLE authors (
                 id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                 username VARCHAR(100) NOT NULL UNIQUE,
@@ -33,12 +34,20 @@ class DatabaseTestCase extends TestCase
                 PRIMARY KEY (id)
             );
 
+            CREATE TABLE follows (
+                followee_id INT(11) UNSIGNED NOT NULL,
+                follower_id INT(11) UNSIGNED NOT NULL,
+                FOREIGN KEY (followee_id) REFERENCES authors(id) ON DELETE CASCADE,
+                FOREIGN KEY (follower_id) REFERENCES authors(id) ON DELETE CASCADE,
+                PRIMARY KEY (followee_id, follower_id)
+            );
+
             CREATE TABLE cheeps (
                 id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
                 author_id INT(11) UNSIGNED NOT NULL,
                 message VARCHAR(240) NOT NULL,
                 date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (author_id) REFERENCES authors(id),
+                FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE CASCADE,
                 PRIMARY KEY (id)
             );
         SQL);
