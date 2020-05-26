@@ -35,7 +35,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
     public function onDuplicatesThereShouldNotThrowAnError(): void
     {
         $this->expectNotToPerformAssertions();
-        
+
         $this->entityManager->clear();
 
         $authorWithFollowers = $this->authorsRepositories->ofId(AuthorId::fromUuid($this->authorId));
