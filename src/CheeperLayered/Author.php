@@ -10,14 +10,14 @@ class Author
     private ?string $bio = null;
     private string $username;
 
-    private function __construct(string $username)
-    {
-        $this->setUsername($username);
-    }
-
     public static function create(string $username): self
     {
         return new static($username);
+    }
+
+    private function __construct(string $username)
+    {
+        $this->setUsername($username);
     }
 
     public function setUsername(string $username): void
@@ -77,7 +77,7 @@ class Author
         if (!$this->id) {
             throw new \RuntimeException('Author id has not been assigned yet');
         }
-        
+
         return Cheep::compose($this->id, $message);
     }
 }
