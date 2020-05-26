@@ -35,5 +35,7 @@ final class FollowHandler
         }
 
         $author->follow($followed->userId());
+
+        $this->authors->add($author);
     }
 }
