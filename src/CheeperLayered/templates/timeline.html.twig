@@ -1,0 +1,25 @@
+{# snippet twig-template #}
+{% extends "base.html.twig" %}
+
+{% block content %}
+    <table>
+        <h1>{{ username }} timeline</h1>
+        <thead align="left">
+            <tr>
+                <th>Message</th>
+                <th>Username</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.author.username }}</td>
+                <td>{{ result.cheep.message }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="/post">Post a Cheep!</a>
+{% endblock %}
+{# end-snippet #}

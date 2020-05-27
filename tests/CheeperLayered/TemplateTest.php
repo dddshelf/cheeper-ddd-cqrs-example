@@ -24,9 +24,8 @@ class TemplateTest extends TestCase
         $c = Cheep::compose(1, 'A message');
         $c->setId(1);
 
-        $html = $this->twig->render('index.html.twig', [
-            'error' => 'An error',
-            'author_id' => 1,
+        $html = $this->twig->render('timeline.html.twig', [
+            'username' => 'johndoe',
             'cheeps' => [
                 [
                     'author' => ['id' => 1, 'username' => 'johndoe'],
