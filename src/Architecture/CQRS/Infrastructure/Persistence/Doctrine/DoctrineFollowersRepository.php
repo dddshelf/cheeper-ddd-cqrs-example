@@ -19,8 +19,8 @@ final class DoctrineFollowersRepository extends ServiceEntityRepository
         parent::__construct($registry, Followers::class);
     }
 
-    public function ofUserId(UuidInterface $userId): ?Followers
+    public function ofAuthorId(UuidInterface $authorId): ?Followers
     {
-        return $this->find($userId->toString());
+        return $this->find($authorId->toString());
     }
 }

@@ -9,21 +9,21 @@ use Ramsey\Uuid\UuidInterface;
 //snippet count-followers
 final class CountFollowers
 {
-    private UuidInterface $userId;
+    private UuidInterface $authorId;
 
-    private function __construct(UuidInterface $userId)
+    private function __construct(UuidInterface $authorId)
     {
-        $this->userId = $userId;
+        $this->authorId = $authorId;
     }
 
-    public static function ofUser(UuidInterface $userId): self
+    public static function ofAuthor(UuidInterface $authorId): self
     {
-        return new self($userId);
+        return new self($authorId);
     }
 
-    public function userId(): UuidInterface
+    public function authorId(): UuidInterface
     {
-        return $this->userId;
+        return $this->authorId;
     }
 }
 //end-snippet

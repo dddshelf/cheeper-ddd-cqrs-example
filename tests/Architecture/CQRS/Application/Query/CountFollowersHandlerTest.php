@@ -28,7 +28,7 @@ final class CountFollowersHandlerTest extends WebTestCase
         /** @var CountFollowersHandler $handler */
         $handler = $container->get(CountFollowersHandler::class);
         /** @var Followers $result */
-        $result = $handler(CountFollowers::ofUser($userId));
+        $result = $handler(CountFollowers::ofAuthor($userId));
 
         $this->assertNotNull($result);
         $this->assertSame(50, $result->followers());
