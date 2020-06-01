@@ -10,9 +10,6 @@ use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Properties in DTOs always need to be annotated with the @var annotation in order to work properly. This is so because
- * API Platform relies heavily on it to guess property types.
- *
  * @psalm-suppress MissingConstructor
  *
  * @ApiResource(

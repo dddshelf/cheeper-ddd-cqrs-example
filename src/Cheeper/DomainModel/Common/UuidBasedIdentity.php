@@ -9,10 +9,10 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class UuidBasedIdentity extends ValueObject
 {
-    protected UuidInterface $id;
-    protected UuidInterface $idAsString;
+    protected string $id;
+    protected string $idAsString;
 
-    private function __construct(UuidInterface $id)
+    private function __construct(string $id)
     {
         $this->id = $this->idAsString = $id;
     }
@@ -24,18 +24,18 @@ abstract class UuidBasedIdentity extends ValueObject
             throw new \InvalidArgumentException('The value does not represent a valid identifier based in Uuid');
         }
 
-        return new static(Uuid::fromString($uuid));
+        return new static($uuid);
     }
 
     /** @return static */
     public static function fromUuid(UuidInterface $uuid): self
     {
-        return new static($uuid);
+        return new static($uuid->toString());
     }
 
     public function equals(self $other): bool
     {
-        return $this->id->equals($other->id);
+        return $this->id === $other->id;
     }
 
     public function toString(): string
@@ -45,10 +45,10 @@ abstract class UuidBasedIdentity extends ValueObject
 
     public function __toString()
     {
-        return $this->id->toString();
+        return $this->id;
     }
 
-    public function id(): UuidInterface
+    public function id(): string
     {
         return $this->id;
     }

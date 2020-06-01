@@ -10,6 +10,7 @@ use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\Cheeps;
 use Doctrine\ORM\EntityManagerInterface;
+use Ramsey\Uuid\Uuid;
 
 //snippet doctrine-orm-cheeps
 final class DoctrineOrmCheeps implements Cheeps
@@ -44,7 +45,7 @@ final class DoctrineOrmCheeps implements Cheeps
                     );
                     $queryBuilder->setParameter(
                         $index + 1,
-                        $authorId->id()->getBytes()
+                        Uuid::fromString($authorId->id())->getBytes()
                     );
                 }
         );
@@ -57,7 +58,7 @@ final class DoctrineOrmCheeps implements Cheeps
 
     public function ofId(CheepId $cheepId): ?Cheep
     {
-        return $this->em->find(Cheep::class, $cheepId->id());
+        return $this->em->find(Cheep::class, Uuid::fromString($cheepId->id()));
     }
 }
 //end-snippet

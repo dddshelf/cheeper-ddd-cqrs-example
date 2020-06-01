@@ -33,13 +33,13 @@ final class AuthorDataPersister implements ContextAwareDataPersisterInterface
 
         $this->commandBus->execute(
             new SignUp(
-                $authorId,
+                $authorId->toString(),
                 $data->userName,
                 $data->name,
                 $data->biography,
                 $data->location,
                 $data->website,
-                $data->birthDate
+                $data->birthDate->format('Y-m-d')
             )
         );
 

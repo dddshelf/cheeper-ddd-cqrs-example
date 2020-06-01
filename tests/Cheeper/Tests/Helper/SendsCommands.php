@@ -25,7 +25,7 @@ trait SendsCommands
         $this->authors = new InMemoryAuthors();
     }
 
-    private function signUpAuthorWith(UuidInterface $authorId, string $userName, string $name, string $biography, string $location, string $website, DateTimeImmutable $birthDate): void
+    private function signUpAuthorWith(string $authorId, string $userName, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
         (new SignUpHandler(
             $this->authors
@@ -45,7 +45,7 @@ trait SendsCommands
     private function followAuthor(string $followee, string $followed): void
     {
         (new FollowHandler($this->authors))(
-            new Follow(Uuid::uuid4(), $followee, $followed)
+            new Follow(Uuid::uuid4()->toString(), $followee, $followed)
         );
     }
 }

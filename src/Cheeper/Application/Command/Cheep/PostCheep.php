@@ -14,16 +14,7 @@ final class PostCheep
     private string $authorId;
     private string $message;
 
-    public static function fromRequest(Request $request): self
-    {
-        return new static(
-            (string) $request->get('author_id'),
-            (string) $request->get('cheep_id'),
-            (string) $request->get('message')
-        );
-    }
-
-    public static function fromJsonPayload(array $array): self
+    public static function fromArray(array $array): self
     {
         return new static(
             (string) $array['author_id'],

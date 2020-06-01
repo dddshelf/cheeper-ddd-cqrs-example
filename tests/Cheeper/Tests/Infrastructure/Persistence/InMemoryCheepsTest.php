@@ -31,7 +31,7 @@ final class InMemoryCheepsTest extends TestCase
             'test',
             'test',
             new Website('https://google.com/'),
-            new BirthDate(new \DateTimeImmutable())
+            new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
         $author2 = Author::signUp(
@@ -41,7 +41,7 @@ final class InMemoryCheepsTest extends TestCase
             'test2',
             'test2',
             new Website('https://bing.com/'),
-            new BirthDate(new \DateTimeImmutable())
+            new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
         $author1->follow($author2->userId());

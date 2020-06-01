@@ -21,23 +21,23 @@ final class SignUpHandlerTest extends TestCase
         $this->expectException(AuthorAlreadyExists::class);
 
         $this->signUpAuthorWith(
-            Uuid::uuid4(),
+            Uuid::uuid4()->toString(),
             'test',
             'test',
             'test',
             'test',
             'https://google.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $this->signUpAuthorWith(
-            Uuid::uuid4(),
+            Uuid::uuid4()->toString(),
             'test',
             'test',
             'test',
             'test',
             'https://google.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
     }
 
@@ -45,13 +45,13 @@ final class SignUpHandlerTest extends TestCase
     public function givenValidUserDataWhenSignUpThenAValidUserShouldBeCreated(): void
     {
         $this->signUpAuthorWith(
-            Uuid::uuid4(),
+            Uuid::uuid4()->toString(),
             'test',
             'test',
             'test',
             'test',
             'https://google.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $this->assertNotNull(

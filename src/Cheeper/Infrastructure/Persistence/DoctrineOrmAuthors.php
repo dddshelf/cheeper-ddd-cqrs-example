@@ -28,7 +28,9 @@ final class DoctrineOrmAuthors implements Authors
     {
         $author = $this->em
             ->getRepository(Author::class)
-            ->findOneBy(['authorId.id' => $authorId->id()]);
+            ->findOneBy([
+                'authorId.id' => Uuid::fromString($authorId->id())
+            ]);
 
         if (!$author) {
             return null;
@@ -64,7 +66,7 @@ final class DoctrineOrmAuthors implements Authors
 
         $connection = $this->em->getConnection();
 
-        $uuid = $author->userId()->id();
+        $uuid = Uuid::fromString($author->userId()->id());
 
         /** @var AuthorId $userId */
         foreach ($author->following() as $userId) {
@@ -72,7 +74,7 @@ final class DoctrineOrmAuthors implements Authors
                 $connection->insert(
                     'user_followers', [
                         'user_id' => $uuid->getBytes(),
-                        'followed_id' => $userId->id()->getBytes(),
+                        'followed_id' => Uuid::fromString($userId->id())->getBytes(),
                     ]
                 );
             } catch (UniqueConstraintViolationException $_) {
@@ -92,7 +94,7 @@ final class DoctrineOrmAuthors implements Authors
             WHERE user_id = :user_id"
         );
 
-        $stmt->bindValue("user_id", $author->userId()->id()->getBytes());
+        $stmt->bindValue("user_id", Uuid::fromString($author->userId()->id())->getBytes());
         $stmt->execute();
 
         /** @var array{followed_id: string}[] $followers */

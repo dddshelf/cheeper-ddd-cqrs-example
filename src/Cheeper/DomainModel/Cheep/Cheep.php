@@ -20,7 +20,7 @@ class Cheep
             $cheepId,
             $cheepMessage,
             new CheepDate(
-                new \DateTimeImmutable('now')
+                (new \DateTimeImmutable('now'))->format('Y-m-d')
             )
         );
     }

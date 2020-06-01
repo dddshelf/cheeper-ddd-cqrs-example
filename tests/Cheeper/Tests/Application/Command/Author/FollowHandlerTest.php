@@ -29,13 +29,13 @@ final class FollowHandlerTest extends TestCase
         $this->expectException(AuthorDoesNotExist::class);
 
         $this->signUpAuthorWith(
-            Uuid::uuid4(),
+            Uuid::uuid4()->toString(),
             'test',
             'test',
             'test',
             'test',
             'http://google.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $this->followAuthor('test', 'test2');
@@ -47,25 +47,25 @@ final class FollowHandlerTest extends TestCase
         $authorId = Uuid::uuid4();
 
         $this->signUpAuthorWith(
-            $authorId,
+            $authorId->toString(),
             'test',
             'test',
             'test',
             'test',
             'http://google.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $followedId = Uuid::uuid4();
 
         $this->signUpAuthorWith(
-            $followedId,
+            $followedId->toString(),
             'test2',
             'test2',
             'test2',
             'test2',
             'http://bing.com/',
-            new DateTimeImmutable()
+            (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $this->followAuthor('test', 'test2');

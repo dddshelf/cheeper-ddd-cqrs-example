@@ -85,7 +85,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
             'test1',
             'test1',
             new Website('http://test1.com'),
-            new BirthDate(new \DateTimeImmutable())
+            new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
         $this->authorsRepositories->add($author1);
@@ -97,7 +97,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
             'test2',
             'test2',
             new Website('http://test2.com'),
-            new BirthDate(new \DateTimeImmutable())
+            new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
         $this->authorsRepositories->add($author2);
@@ -111,7 +111,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
             'test',
             'test',
             new Website('http://test.com'),
-            new BirthDate(new \DateTimeImmutable())
+            new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
         $authorWithFollowers->follow($author1->userId());

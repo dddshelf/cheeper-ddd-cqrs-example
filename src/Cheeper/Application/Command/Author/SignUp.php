@@ -10,22 +10,22 @@ use Ramsey\Uuid\UuidInterface;
 //snippet sign-up
 final class SignUp
 {
-    private UuidInterface $authorId;
+    private string $authorId;
     private string $userName;
     private string $name;
     private string $biography;
     private string $location;
     private string $website;
-    private DateTimeImmutable $birthDate;
+    private string $birthDate;
 
     public function __construct(
-        UuidInterface $authorId,
+        string $authorId,
         string $userName,
         string $name,
         string $biography,
         string $location,
         string $website,
-        DateTimeImmutable $birthDate
+        string $birthDate
     ) {
         $this->authorId = $authorId;
         $this->userName = $userName;
@@ -36,7 +36,7 @@ final class SignUp
         $this->birthDate = $birthDate;
     }
 
-    public function getAuthorId(): UuidInterface
+    public function getAuthorId(): string
     {
         return $this->authorId;
     }
@@ -61,7 +61,7 @@ final class SignUp
         return $this->website;
     }
 
-    public function getBirthDate(): DateTimeImmutable
+    public function getBirthDate(): string
     {
         return $this->birthDate;
     }
@@ -71,7 +71,7 @@ final class SignUp
         return $this->name;
     }
 
-    public function setAuthorId(UuidInterface $authorId): void
+    public function setAuthorId(string $authorId): void
     {
         $this->authorId = $authorId;
     }
@@ -101,7 +101,7 @@ final class SignUp
         $this->website = $website;
     }
 
-    public function setBirthDate(DateTimeImmutable $birthDate): void
+    public function setBirthDate(string $birthDate): void
     {
         $this->birthDate = $birthDate;
     }

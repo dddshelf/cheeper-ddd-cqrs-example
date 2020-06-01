@@ -32,7 +32,7 @@ final class SignUpHandler
             throw AuthorAlreadyExists::withUserNameOf($userName);
         }
 
-        $authorId   = AuthorId::fromUuid($command->getAuthorId());
+        $authorId   = AuthorId::fromString($command->getAuthorId());
         $website    = new Website($command->getWebsite());
         $birthDate  = new BirthDate($command->getBirthDate());
 
