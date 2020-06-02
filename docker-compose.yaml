@@ -37,6 +37,7 @@ services:
 
   app:
     build: ./
+    network_mode: host
     depends_on:
       - mysql
       - rabbitmq

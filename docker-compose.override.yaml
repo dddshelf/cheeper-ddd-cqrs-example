@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  wait:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - redis
+      - elasticsearch
+      - rabbitmq
+      - mysql
+    command: redis:6379 elasticsearch:9200 rabbitmq:4369 mysql:3306
+
