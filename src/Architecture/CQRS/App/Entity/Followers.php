@@ -12,6 +12,8 @@ use Ramsey\Uuid\UuidInterface;
  * @ORM\Entity(
  *     repositoryClass=DoctrineFollowersRepository::class
  * )
+ *
+ * @ORM\Table(name="architecture_followers")
  */
 class Followers
 {

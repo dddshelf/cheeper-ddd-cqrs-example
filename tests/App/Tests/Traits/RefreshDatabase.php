@@ -21,7 +21,7 @@ trait RefreshDatabase
         $container = $kernel->getContainer();
 
         $process = new Process(
-            ['php', 'bin/console', 'doctrine:schema:drop', '--force'],
+            ['php', 'bin/console', 'doctrine:database:drop', '--force', '--if-exists'],
             $container->getParameter('kernel.project_dir'),
             ['APP_ENV' => 'test']
         );
@@ -32,7 +32,29 @@ trait RefreshDatabase
         }
 
         $process = new Process(
-            ['php', 'bin/console', 'doctrine:schema:create'],
+            ['php', 'bin/console', 'doctrine:database:create'],
+            $container->getParameter('kernel.project_dir'),
+            ['APP_ENV' => 'test']
+        );
+
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $process = new Process(
+            ['php', 'bin/console', 'doctrine:migrations:migrate', '--no-interaction', '--all-or-nothing'],
+            $container->getParameter('kernel.project_dir'),
+            ['APP_ENV' => 'test']
+        );
+
+        $process->run();
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+
+        $process = new Process(
+            ['php', 'bin/console', 'messenger:setup-transports'],
             $container->getParameter('kernel.project_dir'),
             ['APP_ENV' => 'test']
         );

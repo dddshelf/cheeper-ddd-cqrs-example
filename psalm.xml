@@ -14,7 +14,7 @@
         <ignoreFiles>
             <directory name="vendor"/>
             <directory name="src/CheeperSpaghetti/"/>
-            <file name="src/CheeperLayered/CheepController.php"/>
+            <directory name="src/CheeperLayered/"/>
             <file name="src/App/Kernel.php"/>
         </ignoreFiles>
     </projectFiles>
