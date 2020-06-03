@@ -38,6 +38,7 @@ install-deps: build
 
 ci-infection: install-deps
 	wget https://github.com/infection/infection/releases/download/$(INFECTION_VERSION)/infection.phar
+	sudo chown -R `whoami`: var/cache
 	php infection.phar --min-msi=80 --min-covered-msi=70 --threads=4 --show-mutations --only-covered
 	rm -rf infection.phar
 
