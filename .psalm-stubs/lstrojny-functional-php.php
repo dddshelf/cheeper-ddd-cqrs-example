@@ -18,7 +18,7 @@ function select($collection, callable $callback) {}
  *
  * @psalm-param \Traversable<B>|list<B> $collection
  * @psalm-param callable(B, mixed=, B[]): bool $callback
- * @psalm-return B
+ * @psalm-return B|null
  */
 function head($collection, callable $callback = null) {}
 

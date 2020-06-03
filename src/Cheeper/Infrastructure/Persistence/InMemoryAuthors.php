@@ -13,25 +13,43 @@ use function Functional\select;
 
 final class InMemoryAuthors implements Authors
 {
-    /** @var Author[] */
+    /** @var array<string, Author> */
     private array $authors = [];
 
     public function ofId(AuthorId $authorId): ?Author
     {
-        return head(
-            select($this->authors, fn (Author $u): bool => $u->userId()->equals($authorId))
+        $candidate = head(
+            select($this->authors, fn(Author $u): bool => $u->userId()->equals($authorId))
         );
+
+        if (null === $candidate) {
+            return null;
+        }
+
+        return clone $candidate;
     }
 
     public function ofUserName(UserName $userName): ?Author
     {
-        return head(
-            select($this->authors, fn (Author $u): bool => $u->userName()->equalsTo($userName))
+        $candidate = head(
+            select($this->authors, fn(Author $u): bool => $u->userName()->equalsTo($userName))
         );
+
+        if (null === $candidate) {
+            return null;
+        }
+
+        return clone $candidate;
     }
 
-    public function add(Author $author): void
+    public function save(Author $author): void
     {
-        $this->authors[] = $author;
+        $candidate = head(
+            select($this->authors, fn (Author $u): bool => $u->userId()->equals($author->userId()))
+        );
+
+        if ((null !== $candidate && $candidate != $author) || null === $candidate) {
+            $this->authors[$author->userId()->toString()] = $author;
+        }
     }
 }

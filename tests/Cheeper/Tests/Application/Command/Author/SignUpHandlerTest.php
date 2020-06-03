@@ -19,6 +19,7 @@ final class SignUpHandlerTest extends TestCase
     public function givenAUserNameThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorAlreadyExists::class);
+        $this->expectExceptionMessage('Author with name "test" already exists');
 
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),

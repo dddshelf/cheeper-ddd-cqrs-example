@@ -53,8 +53,8 @@ final class DoctrineOrmCheepsTest extends WebTestCase
 
         $author1->follow($author2->userId());
 
-        $authors->add($author1);
-        $authors->add($author2);
+        $authors->save($author1);
+        $authors->save($author2);
 
         $cheeps = $serviceLocator->cheeps();
 

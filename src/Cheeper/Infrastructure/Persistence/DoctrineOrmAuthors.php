@@ -60,7 +60,7 @@ final class DoctrineOrmAuthors implements Authors
         return $author;
     }
 
-    public function add(Author $author): void
+    public function save(Author $author): void
     {
         $this->em->persist($author);
 

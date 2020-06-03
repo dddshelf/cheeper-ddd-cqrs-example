@@ -23,6 +23,8 @@ RUN_APP = $(COMPOSE) run --rm app -d memory_limit=-1
 # Non file-generating targets
 .PHONY: install-deps update-deps ci-analysis ci-tests
 
+INFECTION_VERSION=0.16.3
+
 # Default target when run with just 'make'
 default: ci-tests
 
@@ -33,6 +35,11 @@ build:
 
 install-deps: build
 	$(RUN_APP) /usr/local/bin/composer install
+
+ci-infection:
+	wget https://github.com/infection/infection/releases/download/$(INFECTION_VERSION)/infection.phar
+	php infection.phar --min-msi=80 --min-covered-msi=70 --threads=4 --show-mutations --only-covered
+	rm -rf infection.phar
 
 ci-analysis: install-deps
 	$(RUN_APP) /usr/local/bin/composer psalm

@@ -36,7 +36,7 @@ final class SignUpHandler
         $website    = new Website($command->getWebsite());
         $birthDate  = new BirthDate($command->getBirthDate());
 
-        $this->authors->add(
+        $this->authors->save(
             Author::signUp(
                 $authorId,
                 $userName,

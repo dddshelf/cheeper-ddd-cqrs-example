@@ -24,8 +24,6 @@ final class CheepDate extends ValueObject
 
     private function setDate(string $date): void
     {
-        Assertion::date($date, 'Y-m-d');
-
         $date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
 
         if (!$date) {

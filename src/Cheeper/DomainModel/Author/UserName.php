@@ -18,7 +18,7 @@ final class UserName extends ValueObject
 
     private function setUserName(string $userName): void
     {
-        Assertion::notEmpty($userName);
+        $this->assertNotEmpty($userName);
 
         $this->userName = $userName;
     }
@@ -36,5 +36,12 @@ final class UserName extends ValueObject
     public function equalsTo(UserName $userName): bool
     {
         return $this->userName === $userName->userName;
+    }
+
+    private function assertNotEmpty(string $userName): void
+    {
+        if (empty($userName)) {
+            throw new \InvalidArgumentException("Username cannot be empty");
+        }
     }
 }

@@ -37,21 +37,27 @@ class Author
 
     private function setName(string $name): void
     {
-        Assertion::notEmpty($name);
+        if (empty($name)) {
+            throw new \InvalidArgumentException('Name cannot be empty');
+        }
 
         $this->name = $name;
     }
 
     private function setBiography(string $biography): void
     {
-        Assertion::notEmpty($biography);
+        if (empty($biography)) {
+            throw new \InvalidArgumentException('Biography cannot be empty');
+        }
 
         $this->biography = $biography;
     }
 
     private function setLocation(string $location): void
     {
-        Assertion::notEmpty($location);
+        if (empty($location)) {
+            throw new \InvalidArgumentException('Location cannot be empty');
+        }
 
         $this->location = $location;
     }

@@ -16,3 +16,6 @@ jobs:
 
       - name: Run tests
         run: make ci-tests
+
+      - name: Run Infection
+        run: make ci-infection

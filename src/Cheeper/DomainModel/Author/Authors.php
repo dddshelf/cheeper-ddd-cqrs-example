@@ -11,6 +11,6 @@ interface Authors
 
     public function ofUserName(UserName $userName): ?Author;
 
-    public function add(Author $author): void;
+    public function save(Author $author): void;
 }
 //end-snippet

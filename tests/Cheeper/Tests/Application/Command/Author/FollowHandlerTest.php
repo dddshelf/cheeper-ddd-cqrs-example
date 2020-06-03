@@ -19,14 +19,16 @@ final class FollowHandlerTest extends TestCase
     public function whenFollowerDoesNotExistAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
+        $this->expectExceptionMessage('Author "abcd" does not exist');
 
-        $this->followAuthor('test', 'test');
+        $this->followAuthor('abcd', 'dcba');
     }
 
     /** @test */
     public function whenAuthorFollowedDoesNotExistAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
+        $this->expectExceptionMessage('Author "test2" does not exist');
 
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),

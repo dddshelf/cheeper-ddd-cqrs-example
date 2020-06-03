@@ -41,7 +41,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $authorWithFollowers = $this->authorsRepositories->ofId(AuthorId::fromUuid($this->authorId));
 
         try {
-            $this->authorsRepositories->add($authorWithFollowers);
+            $this->authorsRepositories->save($authorWithFollowers);
         } catch (\Exception $_) {
             $this->fail('An exception has been thrown when saving aggregate twice');
         }
@@ -88,7 +88,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
             new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
-        $this->authorsRepositories->add($author1);
+        $this->authorsRepositories->save($author1);
 
         $author2 = new Author(
             AuthorId::fromUuid(Uuid::uuid4()),
@@ -100,7 +100,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
             new BirthDate((new \DateTimeImmutable())->format('Y-m-d'))
         );
 
-        $this->authorsRepositories->add($author2);
+        $this->authorsRepositories->save($author2);
 
         $this->authorId = Uuid::uuid4();
 
@@ -117,7 +117,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $authorWithFollowers->follow($author1->userId());
         $authorWithFollowers->follow($author2->userId());
 
-        $this->authorsRepositories->add($authorWithFollowers);
+        $this->authorsRepositories->save($authorWithFollowers);
 
         $this->entityManager = $doctrine->getManager();
         $this->entityManager->flush();
