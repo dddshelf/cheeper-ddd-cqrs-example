@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://leanpub.com/cqrs-by-example"><img src="https://raw.githubusercontent.com/cqrs-by-example/cheeper/master/public/assets/images/cheeper.svg?token=AACNUPWXJUX5JIXHLPQH7MC625SB6" alt="CQRS By example" width="100"></a>
+    <a href="https://leanpub.com/cqrs-by-example"><img src="https://raw.githubusercontent.com/cqrs-by-example/cheeper/master/public/assets/images/cheeper.svg" alt="CQRS By example" width="100"></a>
     <br>
     Cheeper
 </h1>
