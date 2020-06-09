@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace CheeperCommands\Instantiation;
 
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;

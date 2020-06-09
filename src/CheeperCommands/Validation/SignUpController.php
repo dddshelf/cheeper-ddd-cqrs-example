@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace CheeperCommands\Validation;
 
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 //snippet validated-signup-controller
-final class ValidatedSignUpController extends AbstractController
+final class SignUpController extends AbstractController
 {
     /** @Route("/signup", methods={"POST"}) */
     public function __invoke(Request $request, ValidatorInterface $validator): Response
