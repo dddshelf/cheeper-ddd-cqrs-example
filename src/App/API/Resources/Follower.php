@@ -22,14 +22,19 @@ use Ramsey\Uuid\UuidInterface;
 final class Follower
 {
     /**
-     * @var UuidInterface|null
+     * This is really not used. It's a convenience property placed here just for API Platform to be
+     * able to generate IRIs. Because, by design, API Platform does not support composite identifiers
+     * on resources.
+     *
      * @ApiProperty(identifier=true)
      */
-    public ?UuidInterface $id;
+    private string $id;
 
-    /** @var string */
     public string $from;
-
-    /** @var string */
     public string $to;
+
+    public function getId(): string
+    {
+        return $this->from . '-' . $this->to;
+    }
 }

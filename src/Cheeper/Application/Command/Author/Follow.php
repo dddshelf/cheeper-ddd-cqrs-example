@@ -6,7 +6,8 @@ namespace Cheeper\Application\Command\Author;
 
 use Cheeper\Application\Command\SyncCommand;
 
-final class Follow implements SyncCommand
+//snippet follow-command
+final class Follow
 {
     private string $followeeUsername;
     private string $followedUsername;
@@ -17,6 +18,7 @@ final class Follow implements SyncCommand
         $this->followedUsername = $followedUsername;
     }
 
+    //ignore
     public function followeeUsername(): string
     {
         return $this->followeeUsername;
@@ -26,4 +28,11 @@ final class Follow implements SyncCommand
     {
         return $this->followedUsername;
     }
+    //end-ignore
+
+    public static function anAuthor(string $followed, string $followee): self
+    {
+        return new self($followee, $followed);
+    }
 }
+//end-snippet

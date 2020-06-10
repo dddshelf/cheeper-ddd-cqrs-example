@@ -29,12 +29,10 @@ final class FollowerDataPersister implements ContextAwareDataPersisterInterface
     /** @param Follower $data */
     public function persist($data, array $context = []): Follower
     {
-        $data->id = Uuid::uuid4();
-
         $this->commandBus->execute(
-            new Follow(
-                $data->from,
-                $data->to
+            Follow::anAuthor(
+                $data->to,
+                $data->from
             )
         );
 
