@@ -56,7 +56,7 @@ trait SendsCommands
     private function followAuthor(string $followee, string $followed): void
     {
         (new FollowHandler($this->authors))(
-            new Follow(Uuid::uuid4()->toString(), $followee, $followed)
+            new Follow($followee, $followed)
         );
     }
 

@@ -4,93 +4,72 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Author;
 
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
-
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
-//snippet signup-builder
+//snippet sign-up-builder
 final class SignUpBuilder
 {
     private string $authorId;
     private string $userName;
-    private string $name;
-    private string $biography;
-    private string $location;
-    private string $website;
-    private string $birthDate;
+    private ?string $name = null;
+    private ?string $biography = null;
+    private ?string $location = null;
+    private ?string $website = null;
+    private ?string $birthDate = null;
 
-    private function __construct()
+    private function __construct(string $authorId, string $userName)
     {
+        $this->authorId = $authorId;
+        $this->userName = $userName;
     }
 
-    public static function create(): self
+    public static function create(string $authorId, string $userName): self
     {
-        $builder = new self();
-        $builder->authorId = Uuid::uuid4()->toString();
-
-        return $builder;
+        return new self($authorId, $userName);
     }
 
-    /** @param string|UuidInterface $authorId */
-    public function withAuthorId($authorId): self
-    {
-        $this->authorId = (string)$authorId;
-
-        return $this;
-    }
-
-    //ignore
-    public function withUserName(string $userName): self
+    public function username(string $userName): self
     {
         $this->userName = $userName;
 
         return $this;
     }
 
-    public function withName(string $name): self
+    public function name(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function withBiography(string $biography): self
+    public function biography(string $biography): self
     {
         $this->biography = $biography;
 
         return $this;
     }
 
-    public function withLocation(string $location): self
+    public function location(string $location): self
     {
         $this->location = $location;
 
         return $this;
     }
 
-    public function withWebsite(string $website): self
+    public function website(string $website): self
     {
         $this->website = $website;
 
         return $this;
     }
 
-    public function withBirthDate(string $birthDate): self
+    public function birthDate(string $birthDate): self
     {
         $this->birthDate = $birthDate;
 
         return $this;
     }
-    //end-ignore
 
     public function build(): SignUp
     {
-        if (!$this->authorId || !$this->userName || !$this->name || !$this->biography || !$this->location || !$this->website || !$this->birthDate) {
-            throw new \BadMethodCallException('Parameters needed to build the SignUp command are incorrect');
-        }
-
         return new SignUp(
             $this->authorId,
             $this->userName,

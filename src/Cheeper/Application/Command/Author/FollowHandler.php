@@ -19,8 +19,8 @@ final class FollowHandler
 
     public function __invoke(Follow $command): void
     {
-        $followeeUserName   = UserName::pick($command->getFollowee());
-        $followedUserName   = UserName::pick($command->getFollowed());
+        $followeeUserName   = UserName::pick($command->followeeUsername());
+        $followedUserName   = UserName::pick($command->followedUsername());
 
         $author = $this->authors->ofUserName($followeeUserName);
 

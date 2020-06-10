@@ -24,7 +24,7 @@ final class SignUpHandler
 
     public function __invoke(SignUp $command): void
     {
-        $userName = UserName::pick($command->getUserName());
+        $userName = UserName::pick($command->userName());
 
         $author = $this->authors->ofUserName($userName);
 
@@ -32,17 +32,17 @@ final class SignUpHandler
             throw AuthorAlreadyExists::withUserNameOf($userName);
         }
 
-        $authorId   = AuthorId::fromString($command->getAuthorId());
-        $website    = new Website($command->getWebsite());
-        $birthDate  = new BirthDate($command->getBirthDate());
+        $authorId   = AuthorId::fromString($command->authorId());
+        $website    = new Website($command->website());
+        $birthDate  = new BirthDate($command->birthDate());
 
         $this->authors->save(
             Author::signUp(
                 $authorId,
                 $userName,
                 $command->name(),
-                $command->getBiography(),
-                $command->getLocation(),
+                $command->biography(),
+                $command->location(),
                 $website,
                 $birthDate
             )

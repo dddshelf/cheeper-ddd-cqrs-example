@@ -11,16 +11,23 @@ class Author
 {
     private AuthorId $authorId;
     private UserName $userName;
-    private string $name;
-    private string $biography;
-    private string $location;
-    private Website $website;
-    private BirthDate $birthDate;
+    private ?string $name;
+    private ?string $biography;
+    private ?string $location;
+    private ?Website $website;
+    private ?BirthDate $birthDate;
     /** @var AuthorId[]  */
     private array $following = [];
 
-    public function __construct(AuthorId $authorId, UserName $userName, string $name, string $biography, string $location, Website $website, BirthDate $birthDate)
-    {
+    private function __construct(
+        AuthorId $authorId,
+        UserName $userName,
+        ?string $name,
+        ?string $biography,
+        ?string $location,
+        ?Website $website,
+        ?BirthDate $birthDate
+    ) {
         $this->authorId = $authorId;
         $this->userName = $userName;
         $this->setName($name);
@@ -30,32 +37,48 @@ class Author
         $this->birthDate = $birthDate;
     }
 
-    public static function signUp(AuthorId $authorId, UserName $userName, string $name, string $biography, string $location, Website $website, BirthDate $birthDate): self
+    public static function signUp(
+        AuthorId $authorId,
+        UserName $userName,
+        ?string $name,
+        ?string $biography,
+        ?string $location,
+        ?Website $website,
+        ?BirthDate $birthDate
+    ): self
     {
-        return new self($authorId, $userName, $name, $biography, $location, $website, $birthDate);
+        return new self(
+            $authorId, 
+            $userName, 
+            $name, 
+            $biography, 
+            $location, 
+            $website, 
+            $birthDate
+        );
     }
 
-    private function setName(string $name): void
+    private function setName(?string $name): void
     {
-        if (empty($name)) {
+        if ($name !== null && empty($name)) {
             throw new \InvalidArgumentException('Name cannot be empty');
         }
 
         $this->name = $name;
     }
 
-    private function setBiography(string $biography): void
+    private function setBiography(?string $biography): void
     {
-        if (empty($biography)) {
+        if ($biography !== null && empty($biography)) {
             throw new \InvalidArgumentException('Biography cannot be empty');
         }
 
         $this->biography = $biography;
     }
 
-    private function setLocation(string $location): void
+    private function setLocation(?string $location): void
     {
-        if (empty($location)) {
+        if ($location !== null && empty($location)) {
             throw new \InvalidArgumentException('Location cannot be empty');
         }
 

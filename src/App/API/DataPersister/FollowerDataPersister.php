@@ -33,7 +33,6 @@ final class FollowerDataPersister implements ContextAwareDataPersisterInterface
 
         $this->commandBus->execute(
             new Follow(
-                $data->id->toString(),
                 $data->from,
                 $data->to
             )

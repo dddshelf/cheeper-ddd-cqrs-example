@@ -78,7 +78,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $doctrine = $serviceLocator->doctrine();
         $this->authorsRepositories = $serviceLocator->authors();
 
-        $author1 = new Author(
+        $author1 = Author::signUp(
             AuthorId::fromUuid(Uuid::uuid4()),
             UserName::pick('test1'),
             'test1',
@@ -90,7 +90,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
 
         $this->authorsRepositories->save($author1);
 
-        $author2 = new Author(
+        $author2 = Author::signUp(
             AuthorId::fromUuid(Uuid::uuid4()),
             UserName::pick('test2'),
             'test2',
@@ -104,7 +104,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
 
         $this->authorId = Uuid::uuid4();
 
-        $authorWithFollowers = new Author(
+        $authorWithFollowers = Author::signUp(
             AuthorId::fromUuid($this->authorId),
             UserName::pick('test'),
             'test',

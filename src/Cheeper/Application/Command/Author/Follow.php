@@ -5,33 +5,25 @@ declare(strict_types=1);
 namespace Cheeper\Application\Command\Author;
 
 use Cheeper\Application\Command\SyncCommand;
-use Ramsey\Uuid\UuidInterface;
 
 final class Follow implements SyncCommand
 {
-    private string $id;
-    private string $followee;
-    private string $followed;
+    private string $followeeUsername;
+    private string $followedUsername;
 
-    public function __construct(string $id, string $followee, string $followed)
+    public function __construct(string $followeeUsername, string $followedUsername)
     {
-        $this->id = $id;
-        $this->followee = $followee;
-        $this->followed = $followed;
+        $this->followeeUsername = $followeeUsername;
+        $this->followedUsername = $followedUsername;
     }
 
-    public function getId(): string
+    public function followeeUsername(): string
     {
-        return $this->id;
+        return $this->followeeUsername;
     }
 
-    public function getFollowee(): string
+    public function followedUsername(): string
     {
-        return $this->followee;
-    }
-
-    public function getFollowed(): string
-    {
-        return $this->followed;
+        return $this->followedUsername;
     }
 }
