@@ -28,7 +28,7 @@ final class Follower
      *
      * @ApiProperty(identifier=true)
      */
-    private string $id;
+    public string $id;
 
     public string $from;
     public string $to;

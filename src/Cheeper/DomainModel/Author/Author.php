@@ -48,12 +48,12 @@ class Author
     ): self
     {
         return new self(
-            $authorId, 
-            $userName, 
-            $name, 
-            $biography, 
-            $location, 
-            $website, 
+            $authorId,
+            $userName,
+            $name,
+            $biography,
+            $location,
+            $website,
             $birthDate
         );
     }
@@ -95,27 +95,27 @@ class Author
         return $this->userName;
     }
 
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
-    public function biography(): string
+    public function biography(): ?string
     {
         return $this->biography;
     }
 
-    public function location(): string
+    public function location(): ?string
     {
         return $this->location;
     }
 
-    public function website(): Website
+    public function website(): ?Website
     {
         return $this->website;
     }
 
-    public function birthDate(): BirthDate
+    public function birthDate(): ?BirthDate
     {
         return $this->birthDate;
     }
