@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Infrastructure\Persistence;
 
 use App\Helpers\ServiceLocatorForTests;
+use App\Tests\Traits\RefreshDatabase;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\BirthDate;
@@ -18,6 +19,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class DoctrineOrmCheepsTest extends WebTestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function cheepsOfPeopleFollowing(): void
     {
