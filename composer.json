@@ -25,6 +25,7 @@
         "symfony/security-bundle": "5.1.*",
         "symfony/twig-bundle": "5.1.*",
         "symfony/validator": "5.1.*",
+        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.1.*",
         "thecodingmachine/safe": "^1.1",
         "webonyx/graphql-php": "^0.13.8"
