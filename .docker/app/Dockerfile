@@ -1,6 +1,6 @@
 FROM php:7.4-alpine
 
-RUN apk add --no-cache --update git wget
+RUN apk add --no-cache --update git
 
 RUN docker-php-ext-install bcmath pdo_mysql pcntl posix mysqli
 

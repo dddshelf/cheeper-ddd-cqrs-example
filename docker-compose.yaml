@@ -2,10 +2,9 @@ version: '3.7'
 
 services:
   redis:
-    image: redis:5.0
+    image: redis
     ports:
       - 6379:6379
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.0
     environment:
@@ -13,15 +12,13 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-
   rabbitmq:
-    image: rabbitmq:3.7.0
+    image: rabbitmq
     ports:
       - 4369:4369
       - 5671:5671
       - 5672:5672
       - 25672:25672
-
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -34,9 +31,8 @@ services:
       MYSQL_DATABASE: db
     volumes:
       - ./.docker/mysql:/docker-entrypoint-initdb.d
-
   app:
-    build: ./
+    build: .docker/app
     network_mode: host
     depends_on:
       - mysql
