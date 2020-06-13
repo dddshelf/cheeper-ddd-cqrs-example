@@ -1,8 +1,12 @@
 {
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.13.0",
+        "bulma": "^0.9.0",
         "@symfony/webpack-encore": "^0.30.0",
         "core-js": "^3.0.0",
+        "node-sass": "^4.14.1",
         "regenerator-runtime": "^0.13.2",
+        "sass-loader": "^8.0.0",
         "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
@@ -12,5 +16,6 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
-    }
+    },
+    "dependencies": {}
 }

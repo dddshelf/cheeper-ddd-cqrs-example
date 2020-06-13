@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<section class="hero is-medium">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <img width="64" src="{{ asset('assets/images/cheeper.svg') }}" alt="cheeper">
+            <h1 class="is-size-2 has-text-info-dark logo-text">
+                Cheeper
+            </h1>
+            <h2>A twitter's clone</h2>
+            <p class="buttons is-centered mt-4">
+                <button class="button is-link">
+                    <span>Sign Up</span>
+                </button>
+                <button class="button is-link">
+                    <span>Log in</span>
+                </button>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
