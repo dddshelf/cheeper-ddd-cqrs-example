@@ -36,7 +36,7 @@ trait SendsCommands
         $this->cheeps = new InMemoryCheeps();
     }
 
-    private function signUpAuthorWith(string $authorId, string $userName, string $name, string $biography, string $location, string $website, string $birthDate): void
+    private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
         (new SignUpHandler(
             $this->authors
@@ -44,6 +44,7 @@ trait SendsCommands
             new SignUp(
                 $authorId,
                 $userName,
+                $email,
                 $name,
                 $biography,
                 $location,

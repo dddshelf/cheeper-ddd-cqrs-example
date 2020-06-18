@@ -11,6 +11,7 @@ class Author
 {
     private AuthorId $authorId;
     private UserName $userName;
+    private EmailAddress $email;
     private ?string $name;
     private ?string $biography;
     private ?string $location;
@@ -22,6 +23,7 @@ class Author
     private function __construct(
         AuthorId $authorId,
         UserName $userName,
+        EmailAddress $email,
         ?string $name,
         ?string $biography,
         ?string $location,
@@ -30,6 +32,7 @@ class Author
     ) {
         $this->authorId = $authorId;
         $this->userName = $userName;
+        $this->email = $email;
         $this->setName($name);
         $this->setBiography($biography);
         $this->setLocation($location);
@@ -40,6 +43,7 @@ class Author
     public static function signUp(
         AuthorId $authorId,
         UserName $userName,
+        EmailAddress $email,
         ?string $name,
         ?string $biography,
         ?string $location,
@@ -50,6 +54,7 @@ class Author
         return new self(
             $authorId,
             $userName,
+            $email,
             $name,
             $biography,
             $location,
@@ -93,6 +98,11 @@ class Author
     public function userName(): UserName
     {
         return $this->userName;
+    }
+
+    public function email(): EmailAddress
+    {
+        return $this->email;
     }
 
     public function name(): ?string

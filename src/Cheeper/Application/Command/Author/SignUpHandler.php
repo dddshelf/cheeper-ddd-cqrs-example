@@ -9,6 +9,7 @@ use Cheeper\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Author\BirthDate;
+use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
 
@@ -33,6 +34,7 @@ final class SignUpHandler
         }
 
         $authorId   = AuthorId::fromString($command->authorId());
+        $email      = new EmailAddress($command->email());
         $website    = $command->website() ? new Website($command->website()) : null;
         $birthDate  = $command->birthDate() ? new BirthDate($command->birthDate()) : null;
 
@@ -40,6 +42,7 @@ final class SignUpHandler
             Author::signUp(
                 $authorId,
                 $userName,
+                $email,
                 $command->name(),
                 $command->biography(),
                 $command->location(),

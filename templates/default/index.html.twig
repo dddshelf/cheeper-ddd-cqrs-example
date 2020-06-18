@@ -1,5 +1,9 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+{{ encore_entry_link_tags("app") }}
+{% endblock %}
+
 {% block content %}
 <section class="hero is-medium">
     <div class="hero-body">
@@ -10,12 +14,12 @@
             </h1>
             <h2>A twitter's clone</h2>
             <p class="buttons is-centered mt-4">
-                <button class="button is-link">
+                <a href="{{ url('sign_up') }}" class="button is-link">
                     <span>Sign Up</span>
-                </button>
-                <button class="button is-link">
+                </a>
+                <a href="{{ url('sign_up') }}" class="button is-link">
                     <span>Log in</span>
-                </button>
+                </a>
             </p>
         </div>
     </div>

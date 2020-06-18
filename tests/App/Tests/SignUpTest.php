@@ -22,6 +22,7 @@ final class SignUpTest extends ApiTestCase
             'json' => [
                 'authorId' => Uuid::uuid4(),
                 'userName' => $faker->userName,
+                'email' => $faker->email,
                 'name' => $faker->name,
                 'biography' => $faker->paragraph,
                 'location' => $faker->word,

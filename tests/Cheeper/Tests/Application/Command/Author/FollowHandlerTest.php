@@ -33,6 +33,7 @@ final class FollowHandlerTest extends TestCase
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),
             'test',
+            'test@email.com',
             'test',
             'test',
             'test',
@@ -51,6 +52,7 @@ final class FollowHandlerTest extends TestCase
         $this->signUpAuthorWith(
             $authorId->toString(),
             'test',
+            'test@gmail.com',
             'test',
             'test',
             'test',
@@ -63,6 +65,7 @@ final class FollowHandlerTest extends TestCase
         $this->signUpAuthorWith(
             $followedId->toString(),
             'test2',
+            'test2@gmail.com',
             'test2',
             'test2',
             'test2',

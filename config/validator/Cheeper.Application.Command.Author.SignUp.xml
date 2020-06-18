@@ -13,6 +13,10 @@
         <property name="userName">
             <constraint name="NotBlank" />
         </property>
+        <property name="email">
+            <constraint name="NotBlank" />
+            <constraint name="Email" />
+        </property>
         <property name="name">
             <constraint name="NotBlank" />
         </property>

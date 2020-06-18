@@ -55,6 +55,7 @@ final class PostCheepHandlerTest extends TestCase
         $this->signUpAuthorWith(
             $authorId,
             'test',
+            'test@email.com',
             'test',
             'test',
             'test',

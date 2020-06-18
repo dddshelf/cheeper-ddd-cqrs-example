@@ -9,15 +9,17 @@ final class SignUp
 {
     private string $authorId;
     private string $userName;
-    private ?string $name = null;
-    private ?string $biography = null;
-    private ?string $location = null;
-    private ?string $website = null;
-    private ?string $birthDate = null;
+    private string $email;
+    private ?string $name;
+    private ?string $biography;
+    private ?string $location;
+    private ?string $website;
+    private ?string $birthDate;
 
     public function __construct(
         string $authorId,
         string $userName,
+        string $email,
         ?string $name,
         ?string $biography,
         ?string $location,
@@ -26,6 +28,7 @@ final class SignUp
     ) {
         $this->authorId = $authorId;
         $this->userName = $userName;
+        $this->email = $email;
         $this->name = $name;
         $this->biography = $biography;
         $this->location = $location;
@@ -41,6 +44,11 @@ final class SignUp
     public function userName(): string
     {
         return $this->userName;
+    }
+
+    public function email(): string
+    {
+        return $this->email;
     }
 
     public function name(): ?string

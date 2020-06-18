@@ -6,6 +6,7 @@
     <entity name="Cheeper\DomainModel\Author\Author" table="authors">
         <embedded name="authorId" class="Cheeper\DomainModel\Author\AuthorId" />
         <embedded name="userName" class="Cheeper\DomainModel\Author\UserName" />
+        <embedded name="email" class="Cheeper\DomainModel\Author\EmailAddress" />
         <field name="name" length="100" />
         <field name="biography" type="text" />
         <field name="location" length="100" />

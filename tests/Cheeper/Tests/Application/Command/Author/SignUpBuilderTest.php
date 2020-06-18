@@ -11,9 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class SignUp {
     //snippet builder-method
-    public static function builder(string $authorId, string $userName): SignUpBuilder
+    public static function builder(string $authorId, string $userName, string $email): SignUpBuilder
     {
-        return SignUpBuilder::create($authorId, $userName);
+        return SignUpBuilder::create($authorId, $userName, $email);
     }
     //end-snippet
 }
@@ -26,7 +26,7 @@ final class SignUpBuilderTest extends TestCase
     public function itBuildsRequiredFields(): void
     {
         //snippet basic-builder-usage
-        $command = SignUp::builder(Uuid::uuid4()->toString(), 'johndoe')->build();
+        $command = SignUp::builder(Uuid::uuid4()->toString(), 'johndoe', 'test@email.com')->build();
         //end-snippet
 
         $this->assertInstanceOf(SignUpCommand::class, $command);
@@ -38,7 +38,7 @@ final class SignUpBuilderTest extends TestCase
     public function itBuildsOptionalFields(): void
     {
         //snippet sophisticated-builder-usage
-        $command = SignUp::builder(Uuid::uuid4()->toString(), 'johndoe')
+        $command = SignUp::builder(Uuid::uuid4()->toString(), 'johndoe', 'test@email.com')
             ->name('John Doe')
             ->website('https://johndoe.com')
             ->biography('An example author')

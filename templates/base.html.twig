@@ -4,9 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Cheeper – Let your cheeps free!{% endblock %}</title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         {% block body %}
@@ -16,8 +14,6 @@
             </div>
         </section>
         {% endblock %}
-        {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

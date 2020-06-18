@@ -24,6 +24,7 @@ final class SignUpHandlerTest extends TestCase
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),
             'test',
+            'test@email.com',
             'test',
             'test',
             'test',
@@ -34,6 +35,7 @@ final class SignUpHandlerTest extends TestCase
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),
             'test',
+            'test@email.com',
             'test',
             'test',
             'test',
@@ -48,6 +50,7 @@ final class SignUpHandlerTest extends TestCase
         $this->signUpAuthorWith(
             Uuid::uuid4()->toString(),
             'test',
+            'test@email.com',
             'test',
             'test',
             'test',

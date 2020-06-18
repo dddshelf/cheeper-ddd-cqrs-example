@@ -9,26 +9,35 @@ final class SignUpBuilder
 {
     private string $authorId;
     private string $userName;
+    private string $email;
     private ?string $name = null;
     private ?string $biography = null;
     private ?string $location = null;
     private ?string $website = null;
     private ?string $birthDate = null;
 
-    private function __construct(string $authorId, string $userName)
+    private function __construct(string $authorId, string $userName, string $email)
     {
         $this->authorId = $authorId;
         $this->userName = $userName;
+        $this->email    = $email;
     }
 
-    public static function create(string $authorId, string $userName): self
+    public static function create(string $authorId, string $userName, string $email): self
     {
-        return new self($authorId, $userName);
+        return new self($authorId, $userName, $email);
     }
 
     public function username(string $userName): self
     {
         $this->userName = $userName;
+
+        return $this;
+    }
+
+    public function email(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -73,6 +82,7 @@ final class SignUpBuilder
         return new SignUp(
             $this->authorId,
             $this->userName,
+            $this->email,
             $this->name,
             $this->biography,
             $this->location,

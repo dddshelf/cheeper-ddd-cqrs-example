@@ -9,6 +9,7 @@ use App\Tests\Traits\RefreshDatabase;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\BirthDate;
+use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
@@ -84,6 +85,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $author1 = Author::signUp(
             AuthorId::fromUuid(Uuid::uuid4()),
             UserName::pick('test1'),
+            new EmailAddress('test1@gmail.com'),
             'test1',
             'test1',
             'test1',
@@ -96,6 +98,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $author2 = Author::signUp(
             AuthorId::fromUuid(Uuid::uuid4()),
             UserName::pick('test2'),
+            new EmailAddress('test2@gmail.com'),
             'test2',
             'test2',
             'test2',
@@ -110,6 +113,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
         $authorWithFollowers = Author::signUp(
             AuthorId::fromUuid($this->authorId),
             UserName::pick('test'),
+            new EmailAddress('test@gmail.com'),
             'test',
             'test',
             'test',

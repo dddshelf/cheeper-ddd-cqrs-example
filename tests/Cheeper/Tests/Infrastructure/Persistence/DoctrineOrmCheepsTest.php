@@ -9,6 +9,7 @@ use App\Tests\Traits\RefreshDatabase;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\BirthDate;
+use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
 use Cheeper\DomainModel\Cheep\Cheep;
@@ -37,6 +38,7 @@ final class DoctrineOrmCheepsTest extends WebTestCase
         $author1 = Author::signUp(
             $author1Id,
             UserName::pick('test'),
+            new EmailAddress('test@gmail.com'),
             'test',
             'test',
             'test',
@@ -47,6 +49,7 @@ final class DoctrineOrmCheepsTest extends WebTestCase
         $author2 = Author::signUp(
             $author2Id,
             UserName::pick('test2'),
+            new EmailAddress('test2@gmail.com'),
             'test2',
             'test2',
             'test2',

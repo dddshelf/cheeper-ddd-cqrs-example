@@ -35,6 +35,7 @@ final class AuthorDataPersister implements ContextAwareDataPersisterInterface
             new SignUp(
                 $authorId->toString(),
                 $data->userName,
+                $data->email,
                 $data->name,
                 $data->biography,
                 $data->location,

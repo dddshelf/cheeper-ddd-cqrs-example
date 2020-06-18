@@ -19,6 +19,7 @@ final class SignupCommand extends Command
         $this
             ->setDescription('Signs up an author')
             ->addArgument('username', InputArgument::REQUIRED, 'Author\'s username')
+            ->addArgument('email', InputArgument::REQUIRED, 'Author\'s email')
             ->addArgument('name', InputArgument::REQUIRED, 'Author\'s name')
             ->addArgument('biography', InputArgument::REQUIRED, 'Author\'s biography')
             ->addArgument('location', InputArgument::REQUIRED, 'Author\'s location')
@@ -30,19 +31,21 @@ final class SignupCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $username = $input->getArgument('username');
+        $email = $input->getArgument('email');
         $name = $input->getArgument('name');
         $biography = $input->getArgument('biography');
         $location = $input->getArgument('location');
         $website = $input->getArgument('website');
         $birthdate = $input->getArgument('birthdate');
 
-        if (!is_string($username) || !is_string($name) || !is_string($biography) || !is_string($location) || !is_string($website) || !is_string($birthdate)) {
+        if (!is_string($username) || !is_string($email) || !is_string($name) || !is_string($biography) || !is_string($location) || !is_string($website) || !is_string($birthdate)) {
             return 2;
         }
 
         $command = new SignUp(
             Uuid::uuid4()->toString(),
             $username,
+            $email,
             $name,
             $biography,
             $location,

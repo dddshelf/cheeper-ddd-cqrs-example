@@ -25,6 +25,7 @@ final class Author
     public ?UuidInterface $id = null;
 
     public string $userName;
+    public string $email;
     public string $name;
     public string $biography;
     public string $location;

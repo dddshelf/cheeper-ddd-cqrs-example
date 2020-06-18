@@ -7,6 +7,7 @@ namespace Cheeper\Tests\DomainModel\Author;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\BirthDate;
+use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,7 @@ final class AuthorTest extends TestCase
         Author::signUp(
             AuthorId::fromUuid(Uuid::uuid4()),
             UserName::pick('test'),
+            new EmailAddress('test@email.com'),
             '',
             'test',
             'test',
