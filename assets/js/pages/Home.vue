@@ -2,11 +2,7 @@
     <section class="hero is-medium">
         <div class="hero-body">
             <div class="container has-text-centered">
-                <img
-                    width="64"
-                    src="/assets/images/cheeper.svg"
-                    alt="cheeper"
-                />
+                <img width="64" :src="logo" alt="cheeper" />
                 <h1 class="is-size-2 has-text-info-dark logo-text">
                     Cheeper
                 </h1>
@@ -27,7 +23,10 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import logo from "@/../images/cheeper.svg";
 
 @Component
-export default class Home extends Vue {}
+export default class Home extends Vue {
+    logo = logo;
+}
 </script>
