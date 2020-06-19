@@ -13,6 +13,8 @@ final class DefaultController extends AbstractController
     /** @Route("/") */
     public function __invoke(): Response
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('spa.html.twig', [
+            'entrypoint' => 'app'
+        ]);
     }
 }
