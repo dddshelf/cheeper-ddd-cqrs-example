@@ -44,7 +44,7 @@ ci-infection: install-deps
 
 .PHONY: ci-analysis
 ci-analysis: install-deps
-	$(RUN_APP) /usr/local/bin/composer psalm
+	$(RUN_APP) /usr/local/bin/composer phpstan
 
 .PHONY: ci-tests
 ci-tests: install-deps
