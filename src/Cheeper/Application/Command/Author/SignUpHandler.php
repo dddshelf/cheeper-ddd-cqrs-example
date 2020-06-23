@@ -35,8 +35,8 @@ final class SignUpHandler
 
         $authorId   = AuthorId::fromString($command->authorId());
         $email      = new EmailAddress($command->email());
-        $website    = $command->website() ? new Website($command->website()) : null;
-        $birthDate  = $command->birthDate() ? new BirthDate($command->birthDate()) : null;
+        $website    = null !== $command->website() ? new Website($command->website()) : null;
+        $birthDate  = null !== $command->birthDate() ? new BirthDate($command->birthDate()) : null;
 
         $this->authors->save(
             Author::signUp(

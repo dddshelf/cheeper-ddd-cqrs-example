@@ -12,7 +12,7 @@ abstract class UuidBasedIdentity extends ValueObject
     protected string $id;
     protected string $idAsString;
 
-    private function __construct(string $id)
+    final private function __construct(string $id)
     {
         $this->id = $this->idAsString = $id;
     }

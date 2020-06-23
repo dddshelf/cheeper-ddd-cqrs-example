@@ -3,17 +3,19 @@
 namespace CheeperLayered;
 
 use PHPUnit\Framework\TestCase;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class TemplateTest extends TestCase
 {
-    private static $TEMPLATES_PATH = 'src/CheeperLayered/templates';
+    private static string $TEMPLATES_PATH = __DIR__ . '/../../src/CheeperLayered/templates';
 
-    private $twig;
+    private Environment $twig;
 
     public function setUp(): void
     {
-        $loader = new \Twig\Loader\FilesystemLoader(self::$TEMPLATES_PATH);
-        $this->twig = new \Twig\Environment($loader);
+        $loader = new FilesystemLoader(self::$TEMPLATES_PATH);
+        $this->twig = new Environment($loader);
     }
 
     /**

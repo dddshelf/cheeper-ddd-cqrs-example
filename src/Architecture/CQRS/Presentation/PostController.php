@@ -5,6 +5,7 @@ namespace Architecture\CQRS\Presentation;
 //snippet post-controller
 class PostController
 {
+    /** @return array{posts: array} */
     public function listAction(): array
     {
         $client = \Elasticsearch\ClientBuilder::create()->build();

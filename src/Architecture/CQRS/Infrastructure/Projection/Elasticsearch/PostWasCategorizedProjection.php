@@ -7,6 +7,7 @@ use Architecture\CQRS\Domain\PostWasCategorized;
 use Architecture\CQRS\Domain\Projection;
 use Elasticsearch\Client;
 
+/** @implements Projection<PostWasCategorized> */
 class PostWasCategorizedProjection implements Projection
 {
     private Client $client;
@@ -21,9 +22,9 @@ class PostWasCategorizedProjection implements Projection
         return PostWasCategorized::class;
     }
 
+    /** @param PostWasCategorized $event */
     public function project(DomainEvent $event): void
     {
-        /** @var PostWasCategorized $event */
         $id = $event->postId()->id();
 
         $this->client->update([

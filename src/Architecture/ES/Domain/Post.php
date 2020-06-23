@@ -3,6 +3,7 @@
 namespace Architecture\ES\Domain;
 
 use Architecture\CQRS\Domain\CategoryId;
+use Architecture\CQRS\Domain\DomainEvent;
 use Architecture\CQRS\Domain\PostContentWasChanged;
 use Architecture\CQRS\Domain\PostId;
 use Architecture\CQRS\Domain\PostTitleWasChanged;
@@ -10,6 +11,7 @@ use Architecture\CQRS\Domain\PostWasCategorized;
 use Architecture\CQRS\Domain\PostWasCreated;
 use Architecture\CQRS\Domain\PostWasPublished;
 
+/** @extends EventSourcedAggregateRoot<PostEvents> */
 //snippet post
 class Post extends EventSourcedAggregateRoot
 {
@@ -18,6 +20,7 @@ class Post extends EventSourcedAggregateRoot
     private ?string $title = null;
     private ?string $content = null;
     private bool $published = false;
+    /** @var CategoryId[] */
     private array $categories = [];
 
     protected function __construct(PostId $id)
@@ -29,7 +32,7 @@ class Post extends EventSourcedAggregateRoot
     {
         $postId = PostId::create();
 
-        $post = new static($postId);
+        $post = new self($postId);
 
         $post->recordApplyAndPublishThat(
             new PostWasCreated($postId, $title, $content)
@@ -81,6 +84,7 @@ class Post extends EventSourcedAggregateRoot
         return $this->content;
     }
 
+    /** @return CategoryId[] */
     public function categories(): array
     {
         return array_values($this->categories);
@@ -119,10 +123,11 @@ class Post extends EventSourcedAggregateRoot
     }
     //end-ignore
 
+    /** @return self */
     public static function reconstitute(EventStream $history):
         EventSourcedAggregateRoot
     {
-        $post = new static(new PostId($history->getAggregateId()));
+        $post = new self(new PostId($history->getAggregateId()));
 
         $post->replay($history);
 

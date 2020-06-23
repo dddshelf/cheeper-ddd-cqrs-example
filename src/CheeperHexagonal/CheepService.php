@@ -5,6 +5,7 @@ namespace CheeperHexagonal;
 use CheeperLayered\Authors;
 use CheeperLayered\Cheeps;
 use CheeperLayered\Cheep;
+use function Safe\sprintf;
 
 //snippet cheep-service
 class CheepService
@@ -20,10 +21,12 @@ class CheepService
 
     public function postCheep(string $username, string $message): Cheep
     {
-        if (!$author = $this->authors->byUsername($username)) {
+        $author = $this->authors->byUsername($username);
+
+        if (null === $author) {
             throw new \RuntimeException(sprintf('%s username not found', $username));
         }
-        
+
         $cheep = $author->compose($message);
 
         $this->cheeps->add($cheep);

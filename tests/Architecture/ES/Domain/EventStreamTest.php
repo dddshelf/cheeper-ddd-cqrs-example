@@ -2,6 +2,7 @@
 
 namespace Architecture\ES\Domain;
 
+use Cheeper\DomainModel\DomainEvent;
 use PHPUnit\Framework\TestCase;
 
 class EventStreamTest extends TestCase
@@ -11,7 +12,13 @@ class EventStreamTest extends TestCase
      */
     public function itShouldBuildAnEventStream(): void
     {
-        $stream = new EventStream('irrelevant', [1, 2, 3]);
+        $domainEvents = [
+            new class implements DomainEvent{},
+            new class implements DomainEvent{},
+            new class implements DomainEvent{},
+        ];
+
+        $stream = new EventStream('irrelevant', $domainEvents);
 
         $collected = [];
         foreach ($stream as $key => $event) {
@@ -19,6 +26,6 @@ class EventStreamTest extends TestCase
         }
 
         $this->assertEquals('irrelevant', $stream->getAggregateId());
-        $this->assertEquals($collected, [1, 2, 3]);
+        $this->assertEquals($collected, $domainEvents);
     }
 }

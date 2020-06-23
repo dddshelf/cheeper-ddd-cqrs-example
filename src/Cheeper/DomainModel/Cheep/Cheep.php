@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Cheep;
 
 use Cheeper\DomainModel\Author\AuthorId;
+use Safe\DateTimeImmutable;
 
 class Cheep
 {
@@ -15,12 +16,12 @@ class Cheep
 
     public static function compose(AuthorId $authorId, CheepId $cheepId, CheepMessage $cheepMessage): self
     {
-        return new static(
+        return new self(
             $authorId,
             $cheepId,
             $cheepMessage,
             new CheepDate(
-                (new \DateTimeImmutable('now'))->format('Y-m-d')
+                (new DateTimeImmutable('now'))->format('Y-m-d')
             )
         );
     }

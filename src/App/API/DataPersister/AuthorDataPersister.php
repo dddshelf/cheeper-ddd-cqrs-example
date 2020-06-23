@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\API\DataPersister;
 
-use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\API\Resources\Author;
 use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;
 
-/** @template-implements ContextAwareDataPersisterInterface<Author> */
-final class AuthorDataPersister implements ContextAwareDataPersisterInterface
+final class AuthorDataPersister implements DataPersisterInterface
 {
     private CommandBus $commandBus;
 
@@ -21,13 +20,13 @@ final class AuthorDataPersister implements ContextAwareDataPersisterInterface
     }
 
     /** @param mixed $data */
-    public function supports($data, array $context = []): bool
+    public function supports($data): bool
     {
         return $data instanceof Author && null === $data->id;
     }
 
-    /** @param Author $data */
-    public function persist($data, array $context = []): Author
+    /** @param mixed|Author $data */
+    public function persist($data): Author
     {
         $authorId = Uuid::uuid4();
 
@@ -49,8 +48,8 @@ final class AuthorDataPersister implements ContextAwareDataPersisterInterface
         return $data;
     }
 
-    /** @param Author $data */
-    public function remove($data, array $context = []): void
+    /** @param mixed|Author $data */
+    public function remove($data): void
     {
         // TODO: Implement remove() method.
     }

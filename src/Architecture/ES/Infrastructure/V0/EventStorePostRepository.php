@@ -12,9 +12,15 @@ use Architecture\ES\Infrastructure\EventStore;
 //snippet event-store-post-repository
 class EventStorePostRepository implements PostRepository
 {
+    /** @var EventStore<PostEvents> */
     private EventStore $eventStore;
+    /** @var Projector<PostEvents> */
     private Projector $projector;
 
+    /**
+     * @param EventStore<PostEvents> $eventStore
+     * @param Projector<PostEvents> $projector
+     */
     public function __construct(EventStore $eventStore, Projector $projector)
     {
         $this->eventStore = $eventStore;
@@ -33,7 +39,6 @@ class EventStorePostRepository implements PostRepository
 
     public function byId(PostId $id): Post
     {
-        /** @var Post */
         return Post::reconstitute(
             $this->eventStore->getEventsFor($id->id())
         );

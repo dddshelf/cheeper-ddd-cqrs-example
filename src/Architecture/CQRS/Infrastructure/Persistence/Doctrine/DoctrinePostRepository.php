@@ -13,8 +13,10 @@ use Doctrine\ORM\EntityManager;
 class DoctrinePostRepository implements PostRepository
 {
     private EntityManager $em;
+    /** @var Projector<PostEvents>  */
     private Projector $projector;
 
+    /** @param Projector<PostEvents> $projector */
     public function __construct(EntityManager $em, Projector $projector)
     {
         $this->em = $em;
@@ -23,7 +25,7 @@ class DoctrinePostRepository implements PostRepository
 
     public function save(Post $post): void
     {
-        $this->em->transactional(function (EntityManager $em) use ($post) {
+        $this->em->transactional(static function(EntityManager $em) use ($post): void {
             $em->persist($post);
 
             foreach ($post->recordedEvents() as $event) {

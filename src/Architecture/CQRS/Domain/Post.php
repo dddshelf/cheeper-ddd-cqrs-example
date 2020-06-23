@@ -2,6 +2,7 @@
 
 namespace Architecture\CQRS\Domain;
 
+/** @extends AggregateRoot<PostEvents> */
 //snippet post
 class Post extends AggregateRoot
 {
@@ -10,6 +11,7 @@ class Post extends AggregateRoot
     private ?string $title = null;
     private ?string $content = null;
     private bool $published = false;
+    /** @var CategoryId[] */
     private array $categories = [];
 
     protected function __construct(PostId $id)
@@ -32,6 +34,7 @@ class Post extends AggregateRoot
         return $this->content;
     }
 
+    /** @return CategoryId[] */
     public function categories(): array
     {
         return array_values($this->categories);
@@ -47,7 +50,7 @@ class Post extends AggregateRoot
     {
         $postId = PostId::create();
 
-        $post = new static($postId);
+        $post = new self($postId);
 
         $post->recordApplyAndPublishThat(
             new PostWasCreated($postId, $title, $content)

@@ -50,6 +50,7 @@ final class SignUpController extends AbstractController
         //end-ignore
     }
 
+    /** @param ConstraintViolationListInterface<ConstraintViolationInterface> $errors */
     private function toJson(ConstraintViolationListInterface $errors): string
     {
         $json = [];

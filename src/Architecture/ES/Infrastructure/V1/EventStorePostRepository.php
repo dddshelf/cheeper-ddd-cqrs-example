@@ -13,10 +13,18 @@ use Architecture\ES\Infrastructure\SnapshotRepository;
 
 class EventStorePostRepository implements PostRepository
 {
-    private SnapshotRepository $snapshotRepository;
-    private EventStore $eventStore;
+    /** @var Projector<PostEvents> */
     private Projector $projector;
+    /** @var EventStore<PostEvents> */
+    private EventStore $eventStore;
+    /** @var SnapshotRepository<Post> */
+    private SnapshotRepository $snapshotRepository;
 
+    /**
+     * @param SnapshotRepository<Post> $snapshotRepository
+     * @param EventStore<PostEvents> $eventStore
+     * @param Projector<PostEvents> $projector
+     */
     public function __construct(
         SnapshotRepository $snapshotRepository,
         EventStore $eventStore,

@@ -7,6 +7,7 @@ use Architecture\CQRS\Domain\PostTitleWasChanged;
 use Architecture\CQRS\Domain\Projection;
 use Elasticsearch\Client;
 
+/** @implements Projection<PostTitleWasChanged> */
 class PostTitleWasChangedProjection implements Projection
 {
     private Client $client;
@@ -21,9 +22,9 @@ class PostTitleWasChangedProjection implements Projection
         return PostTitleWasChanged::class;
     }
 
+    /** @param PostTitleWasChanged $event */
     public function project(DomainEvent $event): void
     {
-        /** @var PostTitleWasChanged $event */
         $id = $event->postId()->id();
 
         $this->client->update([

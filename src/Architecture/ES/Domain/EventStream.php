@@ -4,15 +4,19 @@ namespace Architecture\ES\Domain;
 
 use Architecture\CQRS\Domain\DomainEvent;
 
+/**
+ * @template T of DomainEvent
+ * @implements \Iterator<T>
+ */
 class EventStream implements \Iterator
 {
     private string $aggregateId;
-    /** @var DomainEvent[] */
+    /** @var T[] */
     private array $events;
 
     /**
      * @param string $aggregateId
-     * @param DomainEvent[] $events
+     * @param T[] $events
      */
     public function __construct(string $aggregateId, array $events)
     {
@@ -25,11 +29,12 @@ class EventStream implements \Iterator
         return $this->aggregateId;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->events);
     }
 
+    /** @return T */
     public function current()
     {
         return current($this->events);
@@ -40,12 +45,12 @@ class EventStream implements \Iterator
         return key($this->events);
     }
 
-    public function next()
+    public function next(): void
     {
         next($this->events);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return key($this->events) !== null;
     }

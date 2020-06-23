@@ -40,7 +40,7 @@ final class UserName extends ValueObject
 
     private function assertNotEmpty(string $userName): void
     {
-        if (empty($userName)) {
+        if ('' === $userName) {
             throw new \InvalidArgumentException("Username cannot be empty");
         }
     }

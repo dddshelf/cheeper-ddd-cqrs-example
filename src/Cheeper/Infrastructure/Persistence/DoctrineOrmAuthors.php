@@ -32,7 +32,7 @@ final class DoctrineOrmAuthors implements Authors
                 'authorId.id' => Uuid::fromString($authorId->id())
             ]);
 
-        if (!$author) {
+        if (null === $author) {
             return null;
         }
 
@@ -49,7 +49,7 @@ final class DoctrineOrmAuthors implements Authors
             ->getRepository(Author::class)
             ->findOneBy(['userName.userName' => $userName->userName()]);
 
-        if (!$author) {
+        if (null === $author) {
             return null;
         }
 

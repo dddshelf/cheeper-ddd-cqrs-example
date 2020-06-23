@@ -4,6 +4,7 @@ namespace CheeperHexagonal;
 
 use CheeperLayered\Authors;
 use CheeperLayered\Author;
+use function Safe\sprintf;
 
 //snippet author-service
 class AuthorService
@@ -22,10 +23,12 @@ class AuthorService
         ?string $bio
     ): Author
     {
-        if (!$author = $this->authors->byId($id)) {
+        $author = $this->authors->byId($id);
+
+        if (null === $author) {
             throw new \RuntimeException(sprintf('%s author not found', $username));
         }
-        
+
         $author->setUsername($username);
         $author->setWebsite($website);
         $author->setBio($bio);

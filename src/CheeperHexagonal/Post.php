@@ -10,7 +10,7 @@ class Post
 
     public static function writeNewFrom(string $title, string $content): self
     {
-        return new static($title, $content);
+        return new self($title, $content);
     }
 
     private function __construct(string $title, string $content)
@@ -21,7 +21,7 @@ class Post
 
     private function setTitle(string $title): void
     {
-        if (empty($title)) {
+        if ('' === $title) {
             throw new \RuntimeException('Title cannot be empty');
         }
 
@@ -30,7 +30,7 @@ class Post
 
     private function setContent(string $content): void
     {
-        if (empty($content)) {
+        if ('' === $content) {
             throw new \RuntimeException('Content cannot be empty');
         }
 

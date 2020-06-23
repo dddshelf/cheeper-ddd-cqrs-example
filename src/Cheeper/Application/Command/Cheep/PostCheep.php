@@ -14,12 +14,13 @@ final class PostCheep
     private string $authorId;
     private string $message;
 
+    /** @param array{author_id: string, cheep_id: string, message: string} $array */
     public static function fromArray(array $array): self
     {
         return new static(
-            (string) $array['author_id'],
-            (string) $array['cheep_id'],
-            (string) $array['message'],
+            $array['author_id'],
+            $array['cheep_id'],
+            $array['message'],
         );
     }
 

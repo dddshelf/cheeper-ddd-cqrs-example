@@ -17,6 +17,7 @@ final class UuidResolver implements ArgumentValueResolverInterface
         return UuidInterface::class === $argument->getType();
     }
 
+    /** @return iterable<UuidInterface> */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         yield Uuid::fromString(

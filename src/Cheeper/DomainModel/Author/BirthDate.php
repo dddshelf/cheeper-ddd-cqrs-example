@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
-use Assert\Assertion;
 use Cheeper\DomainModel\Common\ValueObject;
-use DateTimeImmutable;
+use DateTimeInterface;
+use Safe\DateTimeImmutable;
+use Safe\Exceptions\DatetimeException;
 
 final class BirthDate extends ValueObject
 {
-    private DateTimeImmutable $date;
+    private DateTimeInterface $date;
 
     public function __construct(string $date)
     {
@@ -24,12 +25,10 @@ final class BirthDate extends ValueObject
 
     private function setDate(string $date): void
     {
-        $date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
-
-        if (!$date) {
-            throw new \InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).");
+        try {
+            $this->date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        } catch (DatetimeException $exception) {
+            throw new \InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).", 0, $exception);
         }
-
-        $this->date = $date;
     }
 }

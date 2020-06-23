@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Author;
 
 use Cheeper\DomainModel\Common\ValueObject;
+use function Safe\sprintf;
 
 final class EmailAddress extends ValueObject
 {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
-use Assert\Assertion;
 use function Functional\filter;
 
 class Author
@@ -65,7 +64,7 @@ class Author
 
     private function setName(?string $name): void
     {
-        if ($name !== null && empty($name)) {
+        if (null !== $name && '' === $name) {
             throw new \InvalidArgumentException('Name cannot be empty');
         }
 
@@ -74,7 +73,7 @@ class Author
 
     private function setBiography(?string $biography): void
     {
-        if ($biography !== null && empty($biography)) {
+        if ($biography !== null && '' === $biography) {
             throw new \InvalidArgumentException('Biography cannot be empty');
         }
 
@@ -83,7 +82,7 @@ class Author
 
     private function setLocation(?string $location): void
     {
-        if ($location !== null && empty($location)) {
+        if ($location !== null && '' === $location) {
             throw new \InvalidArgumentException('Location cannot be empty');
         }
 
@@ -146,6 +145,7 @@ class Author
         $this->following[] = $followed;
     }
 
+    /** @return AuthorId[] */
     public function following(): array
     {
         return $this->following;

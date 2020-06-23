@@ -38,10 +38,6 @@ final class SignupCommand extends Command
         $website = $input->getArgument('website');
         $birthdate = $input->getArgument('birthdate');
 
-        if (!is_string($username) || !is_string($email) || !is_string($name) || !is_string($biography) || !is_string($location) || !is_string($website) || !is_string($birthdate)) {
-            return 2;
-        }
-
         $command = new SignUp(
             Uuid::uuid4()->toString(),
             $username,

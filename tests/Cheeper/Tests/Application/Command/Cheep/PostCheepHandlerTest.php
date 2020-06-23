@@ -24,27 +24,27 @@ final class PostCheepHandlerTest extends TestCase
     }
 
     /** @test */
-    public function throwsExceptionWhenAuthorIdIsNotString(): void
+    public function throwsExceptionWhenAuthorIdIsNotUuid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->postNewCheep(1, Uuid::uuid4()->toString(), 'test');
+        $this->postNewCheep("1", Uuid::uuid4()->toString(), 'test');
     }
 
     /** @test */
-    public function throwsExceptionWhenCheepIdIsNotString(): void
+    public function throwsExceptionWhenCheepIdIsNotUuid(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->postNewCheep(Uuid::uuid4()->toString(), 1, 'test');
+        $this->postNewCheep(Uuid::uuid4()->toString(), "1", 'test');
     }
 
     /** @test */
-    public function throwsExceptionWhenCheepMessageIsNotString(): void
+    public function throwsExceptionWhenCheepMessageIsEmpty(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $this->postNewCheep(Uuid::uuid4()->toString(), Uuid::uuid4()->toString(), 0);
+        $this->postNewCheep(Uuid::uuid4()->toString(), Uuid::uuid4()->toString(), "");
     }
 
     /** @test */

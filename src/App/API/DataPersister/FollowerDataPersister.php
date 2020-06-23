@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\API\DataPersister;
 
-use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\API\Resources\Follower;
 use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Author\Follow;
-use Ramsey\Uuid\Uuid;
 
-/** @template-implements ContextAwareDataPersisterInterface<Follower> */
-final class FollowerDataPersister implements ContextAwareDataPersisterInterface
+final class FollowerDataPersister implements DataPersisterInterface
 {
     private CommandBus $commandBus;
 
@@ -21,13 +19,13 @@ final class FollowerDataPersister implements ContextAwareDataPersisterInterface
     }
 
     /** @param mixed $data */
-    public function supports($data, array $context = []): bool
+    public function supports($data): bool
     {
         return $data instanceof Follower;
     }
 
-    /** @param Follower $data */
-    public function persist($data, array $context = []): Follower
+    /** @param mixed|Follower $data */
+    public function persist($data): Follower
     {
         $this->commandBus->execute(
             Follow::anAuthor(
@@ -39,8 +37,8 @@ final class FollowerDataPersister implements ContextAwareDataPersisterInterface
         return $data;
     }
 
-    /** @param Follower $data */
-    public function remove($data, array $context = []): void
+    /** @param mixed|Follower $data */
+    public function remove($data): void
     {
         // TODO: Implement remove() method.
     }

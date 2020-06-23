@@ -17,12 +17,8 @@ final class CommandBus
         $this->messageBus = $commandBus;
     }
 
-    /**
-     * @template T
-     * @param AsyncCommand|SyncCommand|object $command
-     * @return T|Envelope The handler returned value
-     */
-    public function execute($command)
+    /** @param AsyncCommand|SyncCommand|object $command */
+    public function execute($command): Envelope
     {
         if ($command instanceof SyncCommand) {
             return $this->handle($command);

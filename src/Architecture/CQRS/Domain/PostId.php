@@ -15,7 +15,7 @@ class PostId
 
     public static function create(): PostId
     {
-        return new static(Uuid::uuid4()->toString());
+        return new self(Uuid::uuid4()->toString());
     }
 
     public function id(): string

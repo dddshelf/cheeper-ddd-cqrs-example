@@ -260,6 +260,27 @@
     "phpspec/prophecy": {
         "version": "v1.10.2"
     },
+    "phpstan/extension-installer": {
+        "version": "1.0.4"
+    },
+    "phpstan/phpstan": {
+        "version": "0.12.30"
+    },
+    "phpstan/phpstan-beberlei-assert": {
+        "version": "0.12.2"
+    },
+    "phpstan/phpstan-deprecation-rules": {
+        "version": "0.12.4"
+    },
+    "phpstan/phpstan-doctrine": {
+        "version": "0.12.16"
+    },
+    "phpstan/phpstan-strict-rules": {
+        "version": "0.12.2"
+    },
+    "phpstan/phpstan-symfony": {
+        "version": "0.12.6"
+    },
     "phpunit/php-code-coverage": {
         "version": "8.0.1"
     },
@@ -712,6 +733,9 @@
     },
     "symfony/yaml": {
         "version": "v5.0.4"
+    },
+    "thecodingmachine/phpstan-safe-rule": {
+        "version": "v1.0.0"
     },
     "thecodingmachine/safe": {
         "version": "v1.1"

@@ -7,6 +7,7 @@ use Architecture\CQRS\Domain\PostWasCreated;
 use Architecture\CQRS\Domain\Projection;
 use Elasticsearch\Client;
 
+/** @implements Projection<PostWasCreated> */
 //snippet elasticsearch-projection
 class PostWasCreatedProjection implements Projection
 {
@@ -22,9 +23,9 @@ class PostWasCreatedProjection implements Projection
         return PostWasCreated::class;
     }
 
+    /** @param PostWasCreated $event */
     public function project(DomainEvent $event): void
     {
-        /** @var PostWasCreated $event */
         $id = $event->postId()->id();
 
         $this->client->index([
