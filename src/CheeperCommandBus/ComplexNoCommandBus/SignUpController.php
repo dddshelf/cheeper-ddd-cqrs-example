@@ -49,13 +49,13 @@ final class SignUpController extends AbstractController
         //end-ignore
 
         try {
-            $this->logger->info(sprintf('Executing command: %s', get_class($command)));
+            $this->logger->info('Executing SignUp command');
             $this->entityManager->transactional(function() use($command): void {
                 ($this->postCheepHandler)($command);
-                $this->logger->info(sprintf('Command %s executed successfully', get_class($command)));
+                $this->logger->info('SignUp command executed successfully');
             });
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
-            $this->logger->error(sprintf('Command %s failed', get_class($command)));
+            $this->logger->error('SignUp command failed');
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
 
