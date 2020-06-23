@@ -23,13 +23,13 @@ final class SignUpController extends AbstractController
     {
         $command = new SignUp(
             Uuid::uuid4()->toString(),
-            (string)$request->request->get('username'),
-            (string)$request->request->get('email'),
-            (string)$request->request->get('name'),
-            (string)$request->request->get('biography'),
-            (string)$request->request->get('location'),
-            (string)$request->request->get('website'),
-            (string)$request->request->get('birthdate'),
+            (string) $request->request->get('username'),
+            (string) $request->request->get('email'),
+            (string) $request->request->get('name'),
+            (string) $request->request->get('biography'),
+            (string) $request->request->get('location'),
+            (string) $request->request->get('website'),
+            (string) $request->request->get('birthdate'),
         );
 
         $errors = $validator->validate($command);
