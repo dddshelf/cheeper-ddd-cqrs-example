@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Symfony\Component\Validator;
+
+/**
+ * @template T
+ * @extends iterable<T>
+ */
+interface ConstraintViolationListInterface extends \Traversable, \Countable, \ArrayAccess
+{
+}
+
+interface ValidatorInterface
+{
+    /**
+     * @return ConstraintViolationListInterface<ConstraintViolationInterface>
+     */
+    public function validate($value, $constraints = null, $groups = null);
+}

@@ -30,7 +30,7 @@ final class AuthorDataPersister implements DataPersisterInterface
     {
         $authorId = Uuid::uuid4();
 
-        $this->commandBus->execute(
+        $this->commandBus->handle(
             new SignUp(
                 $authorId->toString(),
                 $data->userName,

@@ -2,30 +2,23 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommandBus\SimplestNoCommandBus;
+namespace CheeperCommandBus\FinalSymfonyMessenger;
 
+use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Cheep\PostCheep;
-use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 
-//snippet simple-command-handler-execution
-final class SignUpController extends AbstractController
+//snippet final-post-cheep-controller
+final class PostCheepController extends AbstractController
 {
-    private PostCheepHandler $postCheepHandler;
-
-    //ignore
-    public function __construct(PostCheepHandler $postCheepHandler)
-    {
-        $this->postCheepHandler = $postCheepHandler;
-    }
-    //end-ignore
-
-    public function __invoke(Request $request): Response
+    /** @Route("/cheeps", name="post_cheep") */
+    public function __invoke(Request $request, CommandBus $bus): Response
     {
         $authorId = $request->request->get('author_id');
         $cheepId = $request->request->get('cheep_id');
@@ -42,7 +35,7 @@ final class SignUpController extends AbstractController
         ]);
 
         try {
-            ($this->postCheepHandler)($command);
+            $bus->handle($command);
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }

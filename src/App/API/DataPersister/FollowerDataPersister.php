@@ -27,7 +27,7 @@ final class FollowerDataPersister implements DataPersisterInterface
     /** @param mixed|Follower $data */
     public function persist($data): Follower
     {
-        $this->commandBus->execute(
+        $this->commandBus->handle(
             Follow::anAuthor(
                 $data->to,
                 $data->from

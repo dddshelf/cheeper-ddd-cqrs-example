@@ -8,22 +8,19 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 
+// snippet command-bus
 final class CommandBus
 {
-    use HandleTrait;
+    private MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {
-        $this->messageBus = $commandBus;
+        $this->commandBus = $commandBus;
     }
 
-    /** @param AsyncCommand|SyncCommand|object $command */
-    public function execute($command): Envelope
+    public function handle(object $command): Envelope
     {
-        if ($command instanceof SyncCommand) {
-            return $this->handle($command);
-        }
-
-        return $this->messageBus->dispatch($command);
+        return $this->commandBus->dispatch($command);
     }
 }
+//end-snippet

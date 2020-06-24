@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    strictBinaryOperands="true"
+    allowPhpStormGenerics="true"
+    findUnusedVariablesAndParams="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <directory name="src/CheeperSpaghetti/"/>
+            <directory name="src/CheeperLayered/"/>
+            <file name="src/App/Kernel.php"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <!-- Due to a bug in PSALM. See https://github.com/vimeo/psalm/issues/2319 -->
+                <file name="src/Architecture/CQRS/Infrastructure/Persistence/Doctrine/DoctrineFollowersRepository.php" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+    </issueHandlers>
+
+    <stubs>
+        <file name=".psalm-stubs/lstrojny-functional-php.php"/>
+        <file name=".psalm-stubs/doctrine-orm.php"/>
+        <file name=".psalm-stubs/symfony-messenger.php"/>
+        <file name=".psalm-stubs/api-platform.php"/>
+        <file name=".psalm-stubs/symfony-validator.phpstub"/>
+    </stubs>
+
+    <plugins>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+    </plugins>
+</psalm>
