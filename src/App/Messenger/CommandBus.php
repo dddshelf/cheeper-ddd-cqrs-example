@@ -13,9 +13,9 @@ final class CommandBus
 {
     private MessageBusInterface $commandBus;
 
-    public function __construct(MessageBusInterface $bus)
+    public function __construct(MessageBusInterface $commandBus)
     {
-        $this->commandBus = $bus;
+        $this->commandBus = $commandBus;
     }
 
     public function handle(object $command): Envelope

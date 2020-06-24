@@ -13,7 +13,7 @@ services:
         bind:
             Cheeper\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps'
             Cheeper\DomainModel\Author\Authors $authors: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
-            Symfony\Component\Messenger\MessageBusInterface $bus: "@command.bus"
+            Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
