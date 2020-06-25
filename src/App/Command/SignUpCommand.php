@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 //snippet signup-command
-final class SignUpCommand2 extends Command
+final class SignUpCommand extends Command
 {
     protected static $defaultName = 'app:sign-up';
 
