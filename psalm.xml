@@ -23,20 +23,23 @@
         <PropertyNotSetInConstructor>
             <errorLevel type="suppress">
                 <!-- Due to a bug in PSALM. See https://github.com/vimeo/psalm/issues/2319 -->
-                <file name="src/Architecture/CQRS/Infrastructure/Persistence/Doctrine/DoctrineFollowersRepository.php" />
+                <file name="src/Architecture/CQRS/Infrastructure/Persistence/Doctrine/DoctrineFollowersRepository.php"/>
+                <referencedProperty name="Symfony\Bundle\FrameworkBundle\Controller\AbstractController::$container" />
             </errorLevel>
         </PropertyNotSetInConstructor>
     </issueHandlers>
 
     <stubs>
-        <file name=".psalm-stubs/lstrojny-functional-php.php"/>
-        <file name=".psalm-stubs/doctrine-orm.php"/>
-        <file name=".psalm-stubs/symfony-messenger.php"/>
-        <file name=".psalm-stubs/api-platform.php"/>
+        <file name=".psalm-stubs/lstrojny-functional-php.phpstub"/>
+        <file name=".psalm-stubs/doctrine-orm.phpstub"/>
+        <file name=".psalm-stubs/symfony-messenger.phpstub"/>
+        <file name=".psalm-stubs/api-platform.phpstub"/>
         <file name=".psalm-stubs/symfony-validator.phpstub"/>
+        <file name=".psalm-stubs/predis.phpstub"/>
     </stubs>
 
     <plugins>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
     </plugins>
 </psalm>

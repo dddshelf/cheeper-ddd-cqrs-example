@@ -71,7 +71,7 @@ class EventStore
 
             $eventData = (string) $event['data'];
 
-            /** @var DomainEvent */
+            /** @var T */
             $events[] = $this->serializer->unserialize($eventData);
         }
 

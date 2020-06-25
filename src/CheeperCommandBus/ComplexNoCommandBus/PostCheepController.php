@@ -25,9 +25,11 @@ final class PostCheepController extends AbstractController
     private PostCheepHandler $postCheepHandler;
 
     //ignore
-    public function __construct(PostCheepHandler $postCheepHandler)
+    public function __construct(PostCheepHandler $postCheepHandler, EntityManagerInterface $entityManager, LoggerInterface $logger)
     {
         $this->postCheepHandler = $postCheepHandler;
+        $this->entityManager = $entityManager;
+        $this->logger = $logger;
     }
     //end-ignore
 

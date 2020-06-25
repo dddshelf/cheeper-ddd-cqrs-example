@@ -71,6 +71,16 @@ namespace Doctrine\ORM
          */
         public function createQueryBuilder($alias, $indexBy = null) { }
     }
+
+    interface EntityManagerInterface
+    {
+        /**
+         * @template T
+         * @param \Closure(EntityManagerInterface): T|true $func
+         * @return T
+         */
+        public function transactional($func);
+    }
 }
 
 namespace Doctrine\ORM\Internal\Hydration

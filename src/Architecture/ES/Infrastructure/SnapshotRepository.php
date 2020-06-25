@@ -24,7 +24,7 @@ class SnapshotRepository
         $this->serializer = $serializer;
     }
 
-    /** @phpstan-return Snapshot<T>|null */
+    /** @return Snapshot<T>|null */
     public function byId(string $id): ?Snapshot
     {
         $key = 'snapshots:' . $id;
@@ -40,6 +40,7 @@ class SnapshotRepository
 
         $snapshot = (array) $metadata['snapshot'];
 
+        /** @var T $aggregate */
         $aggregate = $this->serializer->unserialize(
             (string) $snapshot['data']
         );

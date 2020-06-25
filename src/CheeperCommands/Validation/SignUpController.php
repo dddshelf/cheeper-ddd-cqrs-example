@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CheeperCommands\Validation;
 
 use Cheeper\Application\Command\Author\SignUp;
+use JsonException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,12 +51,10 @@ final class SignUpController extends AbstractController
         //end-ignore
     }
 
-    /** @param ConstraintViolationListInterface<ConstraintViolationInterface> $errors */
     private function toJson(ConstraintViolationListInterface $errors): string
     {
         $json = [];
 
-        /** @var ConstraintViolationInterface $error */
         foreach ($errors as $error) {
             $json[$error->getPropertyPath()] = $error->getMessage();
         }

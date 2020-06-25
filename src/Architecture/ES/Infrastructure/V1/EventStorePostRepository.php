@@ -11,6 +11,9 @@ use Architecture\ES\Infrastructure\EventStore;
 use Architecture\ES\Infrastructure\Snapshot;
 use Architecture\ES\Infrastructure\SnapshotRepository;
 
+/**
+ * @psalm-import-type PostEvents from Post
+ */
 class EventStorePostRepository implements PostRepository
 {
     /** @var Projector<PostEvents> */
@@ -47,7 +50,6 @@ class EventStorePostRepository implements PostRepository
             );
         }
 
-        /** @var Post */
         $post = $snapshot->aggregate();
 
         $post->replay(

@@ -9,6 +9,9 @@ use Architecture\ES\Domain\Post;
 use Architecture\ES\Domain\PostRepository;
 use Architecture\ES\Infrastructure\EventStore;
 
+/**
+ * @psalm-import-type PostEvents from Post
+ */
 //snippet event-store-post-repository
 class EventStorePostRepository implements PostRepository
 {

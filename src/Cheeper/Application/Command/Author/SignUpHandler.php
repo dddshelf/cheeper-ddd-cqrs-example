@@ -26,7 +26,6 @@ final class SignUpHandler
     public function __invoke(SignUp $command): void
     {
         $userName = UserName::pick($command->userName());
-
         $author = $this->authors->ofUserName($userName);
 
         if (null !== $author) {
@@ -35,8 +34,12 @@ final class SignUpHandler
 
         $authorId   = AuthorId::fromString($command->authorId());
         $email      = new EmailAddress($command->email());
-        $website    = null !== $command->website() ? new Website($command->website()) : null;
-        $birthDate  = null !== $command->birthDate() ? new BirthDate($command->birthDate()) : null;
+
+        $inputWebsite = $command->website();
+        $website    = null !== $inputWebsite ? new Website($inputWebsite) : null;
+
+        $inputBirthDate = $command->birthDate();
+        $birthDate  = null !== $inputBirthDate ? new BirthDate($inputBirthDate) : null;
 
         $this->authors->save(
             Author::signUp(

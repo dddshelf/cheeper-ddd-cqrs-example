@@ -2,7 +2,10 @@
 
 namespace Architecture\CQRS\Domain;
 
-/** @extends AggregateRoot<PostEvents> */
+/**
+ * @psalm-type PostEvents = \Architecture\CQRS\Domain\PostWasCreated|\Architecture\CQRS\Domain\PostWasPublished|\Architecture\CQRS\Domain\PostWasCategorized|\Architecture\CQRS\Domain\PostContentWasChanged|\Architecture\CQRS\Domain\PostTitleWasChanged
+ * @extends AggregateRoot<PostEvents>
+ */
 //snippet post
 class Post extends AggregateRoot
 {

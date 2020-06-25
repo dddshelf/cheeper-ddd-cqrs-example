@@ -8,19 +8,19 @@ namespace ApiPlatform\Core\DataPersister
     interface DataPersisterInterface
     {
         /**
-         * @psalm-var mixed $data
+         * @param mixed $data
          */
         public function supports($data): bool;
 
         /**
-         * @psalm-var T $data
-         * @psalm-return T|void
+         * @param T $data
+         * @return T|void
          */
         public function persist($data);
 
         /**
-         * @psalm-var T $data
-         * @psalm-return void
+         * @param T $data
+         * @return void
          */
         public function remove($data);
     }

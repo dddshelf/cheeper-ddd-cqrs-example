@@ -2,7 +2,7 @@
 
 namespace Architecture\CQRS\Domain;
 
-/** @template T of DomainEvent */
+/** @template T of \Architecture\CQRS\Domain\DomainEvent */
 //snippet aggregate-root
 class AggregateRoot
 {
@@ -23,6 +23,7 @@ class AggregateRoot
         $this->recordedEvents[] = $event;
     }
 
+    /** @param T $event */
     protected function applyThat(DomainEvent $event): void
     {
         $className = (new \ReflectionClass($event))->getShortName();

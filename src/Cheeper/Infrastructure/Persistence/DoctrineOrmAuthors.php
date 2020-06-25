@@ -68,7 +68,6 @@ final class DoctrineOrmAuthors implements Authors
 
         $uuid = Uuid::fromString($author->userId()->id());
 
-        /** @var AuthorId $userId */
         foreach ($author->following() as $userId) {
             try {
                 $connection->insert(

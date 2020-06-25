@@ -5,21 +5,22 @@ namespace Architecture\ES\Domain;
 use Architecture\CQRS\Domain\AggregateRoot;
 use Architecture\CQRS\Domain\DomainEvent;
 
-/**
- * @template T of DomainEvent
- * @extends AggregateRoot<T>
- */
 //snippet event-sourced-aggregate-root
+/**
+ * @template T as DomainEvent
+ * @template-extends AggregateRoot<T>
+ */
 abstract class EventSourcedAggregateRoot extends AggregateRoot
 {
     /**
      * @param EventStream<T> $events
-     * @return EventSourcedAggregateRoot<T>
+     * @return static<T>
      */
-    abstract public static function reconstitute(EventStream $events):
-        EventSourcedAggregateRoot;
+    abstract public static function reconstitute(EventStream $events): self;
 
-    /** @param EventStream<T> $history */
+    /**
+     * @param EventStream<T> $history
+     */
     public function replay(EventStream $history): void
     {
         foreach ($history as $event) {

@@ -9,6 +9,7 @@ use App\API\Resources\Follower;
 use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Author\Follow;
 
+/** @implements DataPersisterInterface<Follower> */
 final class FollowerDataPersister implements DataPersisterInterface
 {
     private CommandBus $commandBus;
@@ -18,14 +19,12 @@ final class FollowerDataPersister implements DataPersisterInterface
         $this->commandBus = $commandBus;
     }
 
-    /** @param mixed $data */
     public function supports($data): bool
     {
         return $data instanceof Follower;
     }
 
-    /** @param mixed|Follower $data */
-    public function persist($data): Follower
+    public function persist($data)
     {
         $this->commandBus->handle(
             Follow::anAuthor(
@@ -37,7 +36,6 @@ final class FollowerDataPersister implements DataPersisterInterface
         return $data;
     }
 
-    /** @param mixed|Follower $data */
     public function remove($data): void
     {
         // TODO: Implement remove() method.

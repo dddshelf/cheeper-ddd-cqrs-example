@@ -2,10 +2,8 @@
 
 namespace Architecture\ES\Domain;
 
-use Architecture\CQRS\Domain\DomainEvent;
-
 /**
- * @template T of DomainEvent
+ * @template T as \Architecture\CQRS\Domain\DomainEvent
  * @implements \Iterator<T>
  */
 class EventStream implements \Iterator

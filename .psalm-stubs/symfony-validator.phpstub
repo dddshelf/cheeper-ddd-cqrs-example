@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Symfony\Component\Validator;
-
-/**
- * @template T
- * @extends iterable<T>
- */
-interface ConstraintViolationListInterface extends \Traversable, \Countable, \ArrayAccess
+namespace Symfony\Component\Validator
 {
-}
+    class GroupSequence
+    {
+    }
 
-interface ValidatorInterface
-{
+    interface ConstraintViolationInterface
+    {
+    }
+
     /**
-     * @return ConstraintViolationListInterface<ConstraintViolationInterface>
+     * @extends \Traversable<int, ConstraintViolationInterface>
+     * @extends \ArrayAccess<int, ConstraintViolationInterface>
      */
-    public function validate($value, $constraints = null, $groups = null);
+    interface ConstraintViolationListInterface extends \Traversable, \Countable, \ArrayAccess
+    {
+    }
 }

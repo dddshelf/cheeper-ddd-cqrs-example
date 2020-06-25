@@ -3,7 +3,6 @@
 namespace Architecture\ES\Domain;
 
 use Architecture\CQRS\Domain\CategoryId;
-use Architecture\CQRS\Domain\DomainEvent;
 use Architecture\CQRS\Domain\PostContentWasChanged;
 use Architecture\CQRS\Domain\PostId;
 use Architecture\CQRS\Domain\PostTitleWasChanged;
@@ -11,7 +10,10 @@ use Architecture\CQRS\Domain\PostWasCategorized;
 use Architecture\CQRS\Domain\PostWasCreated;
 use Architecture\CQRS\Domain\PostWasPublished;
 
-/** @extends EventSourcedAggregateRoot<PostEvents> */
+/**
+ * @psalm-type PostEvents = \Architecture\CQRS\Domain\PostWasCreated|\Architecture\CQRS\Domain\PostWasPublished|\Architecture\CQRS\Domain\PostWasCategorized|\Architecture\CQRS\Domain\PostContentWasChanged|\Architecture\CQRS\Domain\PostTitleWasChanged
+ * @extends EventSourcedAggregateRoot<PostEvents>
+ */
 //snippet post
 class Post extends EventSourcedAggregateRoot
 {
@@ -124,8 +126,7 @@ class Post extends EventSourcedAggregateRoot
     //end-ignore
 
     /** @return self */
-    public static function reconstitute(EventStream $history):
-        EventSourcedAggregateRoot
+    public static function reconstitute(EventStream $history): self
     {
         $post = new self(new PostId($history->getAggregateId()));
 

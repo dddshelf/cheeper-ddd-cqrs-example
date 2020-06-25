@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f40392689f639eeeed4fd44d5bb777a1",
+    "content-hash": "135ccd57fd175026267c98a9ecf530e3",
     "packages": [
         {
             "name": "api-platform/core",
@@ -10234,6 +10234,60 @@
             "time": "2016-06-16T16:22:20+00:00"
         },
         {
+            "name": "psalm/plugin-symfony",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psalm/psalm-plugin-symfony.git",
+                "reference": "76ff9a0f8eee871f813f29a996c317f568cdb085"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-symfony/zipball/76ff9a0f8eee871f813f29a996c317f568cdb085",
+                "reference": "76ff9a0f8eee871f813f29a996c317f568cdb085",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "php": "^7.1",
+                "symfony/framework-bundle": "^3.0 || ^4.0 || ^5.0",
+                "vimeo/psalm": "^3.11"
+            },
+            "require-dev": {
+                "codeception/base": "^2.5",
+                "doctrine/orm": "^2.7",
+                "phpunit/phpunit": "~7.5",
+                "symfony/console": "*",
+                "weirdan/codeception-psalm-module": "^0.7.3"
+            },
+            "suggest": {
+                "weirdan/doctrine-psalm-plugin": "If Doctrine is used, it is recommended install this plugin"
+            },
+            "type": "psalm-plugin",
+            "extra": {
+                "psalm": {
+                    "pluginClass": "Psalm\\SymfonyPsalmPlugin\\Plugin"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psalm\\SymfonyPsalmPlugin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farhad Safarov",
+                    "email": "farhad.safarov@gmail.com"
+                }
+            ],
+            "description": "Psalm Plugin for Symfony",
+            "time": "2020-06-19T13:18:31+00:00"
+        },
+        {
             "name": "psy/psysh",
             "version": "v0.10.4",
             "source": {
@@ -12021,22 +12075,22 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "3.11.5",
+            "version": "3.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "3c60609c218d4d4b3b257728b8089094e5c6c6c2"
+                "reference": "9b860214d58c48b5cbe99bdb17914d0eb723c9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/3c60609c218d4d4b3b257728b8089094e5c6c6c2",
-                "reference": "3c60609c218d4d4b3b257728b8089094e5c6c6c2",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/9b860214d58c48b5cbe99bdb17914d0eb723c9cd",
+                "reference": "9b860214d58c48b5cbe99bdb17914d0eb723c9cd",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2.1",
                 "amphp/byte-stream": "^1.5",
-                "composer/semver": "^1.4",
+                "composer/semver": "^1.4 || ^2.0 || ^3.0",
                 "composer/xdebug-handler": "^1.1",
                 "ext-dom": "*",
                 "ext-json": "*",
@@ -12114,7 +12168,7 @@
                 "inspection",
                 "php"
             ],
-            "time": "2020-05-27T15:12:09+00:00"
+            "time": "2020-06-23T00:24:34+00:00"
         },
         {
             "name": "webmozart/assert",

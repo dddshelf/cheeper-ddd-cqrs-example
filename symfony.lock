@@ -316,6 +316,9 @@
     "predis/predis": {
         "version": "v1.1.1"
     },
+    "psalm/plugin-symfony": {
+        "version": "v1.3.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },

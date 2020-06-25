@@ -10,6 +10,7 @@ use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;
 
+/** @implements DataPersisterInterface<Author> */
 final class AuthorDataPersister implements DataPersisterInterface
 {
     private CommandBus $commandBus;
@@ -19,13 +20,11 @@ final class AuthorDataPersister implements DataPersisterInterface
         $this->commandBus = $commandBus;
     }
 
-    /** @param mixed $data */
     public function supports($data): bool
     {
         return $data instanceof Author && null === $data->id;
     }
 
-    /** @param mixed|Author $data */
     public function persist($data): Author
     {
         $authorId = Uuid::uuid4();
@@ -48,7 +47,6 @@ final class AuthorDataPersister implements DataPersisterInterface
         return $data;
     }
 
-    /** @param mixed|Author $data */
     public function remove($data): void
     {
         // TODO: Implement remove() method.

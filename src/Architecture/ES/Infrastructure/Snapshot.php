@@ -7,11 +7,11 @@ use Architecture\CQRS\Domain\AggregateRoot;
 /** @template T of AggregateRoot */
 class Snapshot
 {
-    /** @phpstan-var T */
+    /** @var T */
     private AggregateRoot $aggregate;
     private int $version;
 
-    /** @phpstan-param T $aggregate */
+    /** @param T $aggregate */
     public function __construct(AggregateRoot $aggregate, int $version)
     {
         $this->aggregate = $aggregate;
