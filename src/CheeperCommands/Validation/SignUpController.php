@@ -20,7 +20,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class SignUpController extends AbstractController
 {
     /** @Route("/signup", methods={"POST"}) */
-    public function __invoke(Request $request, ValidatorInterface $validator): Response
+    public function __invoke(
+        Request $request,
+        ValidatorInterface $validator
+    ): Response
     {
         $command = new SignUp(
             Uuid::uuid4()->toString(),

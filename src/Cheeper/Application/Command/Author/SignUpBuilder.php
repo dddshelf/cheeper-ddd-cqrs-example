@@ -16,14 +16,22 @@ final class SignUpBuilder
     private ?string $website = null;
     private ?string $birthDate = null;
 
-    private function __construct(string $authorId, string $userName, string $email)
+    private function __construct(
+        string $authorId,
+        string $userName,
+        string $email
+    )
     {
         $this->authorId = $authorId;
         $this->userName = $userName;
         $this->email    = $email;
     }
 
-    public static function create(string $authorId, string $userName, string $email): self
+    public static function create(
+        string $authorId,
+        string $userName,
+        string $email
+    ): self
     {
         return new self($authorId, $userName, $email);
     }
