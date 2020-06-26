@@ -36,6 +36,7 @@ final class SignUp
         $this->birthDate = $birthDate;
     }
 
+    //ignore
     public function authorId(): string
     {
         return $this->authorId;
