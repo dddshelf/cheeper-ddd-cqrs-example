@@ -18,7 +18,7 @@ MAKEFLAGS += --no-builtin-rules
 COMPOSE = docker-compose
 
 # Shortcut for docker run on the app container with all dependencies already up
-RUN_APP = $(COMPOSE) run --rm app -d memory_limit=-1
+RUN_APP = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 --rm app -d memory_limit=-1
 
 INFECTION_VERSION=0.16.3
 
