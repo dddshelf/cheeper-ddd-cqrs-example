@@ -12,6 +12,7 @@ use Cheeper\DomainModel\Cheep\Cheeps;
 use function Functional\filter;
 use function Functional\select;
 
+//snippet inmemory-cheeps
 final class InMemoryCheeps implements Cheeps
 {
     /** @var Cheep[] */
@@ -40,3 +41,4 @@ final class InMemoryCheeps implements Cheeps
         return $this->items[$cheepId->toString()] ?? null;
     }
 }
+//end-snippet

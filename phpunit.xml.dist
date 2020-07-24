@@ -15,8 +15,12 @@
     </php>
 
     <testsuites>
-        <testsuite name="Test Suite">
+        <testsuite name="Full Test Suite">
             <directory>tests/</directory>
+        </testsuite>
+        <testsuite name="cheeper-unit-tests">
+            <directory>tests/Cheeper</directory>
+            <exclude>tests/Cheeper/Tests/Infrastructure</exclude>
         </testsuite>
     </testsuites>
 

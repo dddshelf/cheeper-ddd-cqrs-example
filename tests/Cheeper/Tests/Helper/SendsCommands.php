@@ -30,11 +30,13 @@ trait SendsCommands
         $this->authors = new InMemoryAuthors();
     }
 
+    //snippet setup-cheeps-repository
     /** @before */
     protected function makeCheepsRepository(): void
     {
         $this->cheeps = new InMemoryCheeps();
     }
+    //end-snippet
 
     private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {

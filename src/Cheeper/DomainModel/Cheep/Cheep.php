@@ -53,4 +53,9 @@ class Cheep
     {
         return $this->cheepDate;
     }
+
+    public function recomposeWith(CheepMessage $cheepMessage): void
+    {
+        $this->cheepMessage = $cheepMessage;
+    }
 }
