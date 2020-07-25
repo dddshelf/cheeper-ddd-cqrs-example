@@ -13,12 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 //snippet final-post-cheep-controller
 final class PostCheepController extends AbstractController
 {
     /** @Route("/cheeps", name="post_cheep") */
-    public function __invoke(Request $request, CommandBus $bus): Response
+    public function __invoke(Request $request, CommandBus $bus, ValidatorInterface $validator): Response
     {
         $authorId = $request->request->get('author_id');
         $cheepId = $request->request->get('cheep_id');
@@ -34,6 +36,17 @@ final class PostCheepController extends AbstractController
             'message' => $message,
         ]);
 
+        $errors = $validator->validate($command);
+
+        if (count($errors) > 0) {
+            throw new BadRequestHttpException(
+                $this->toJson($errors),
+                null,
+                0,
+                ['Content-Type' => 'application/json']
+            );
+        }
+
         try {
             $bus->handle($command);
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
@@ -42,5 +55,18 @@ final class PostCheepController extends AbstractController
 
         return new Response('', Response::HTTP_CREATED);
     }
+
+    //ignore
+    private function toJson(ConstraintViolationListInterface $errors): string
+    {
+        $json = [];
+
+        foreach ($errors as $error) {
+            $json[$error->getPropertyPath()] = $error->getMessage();
+        }
+
+        return json_encode($json, JSON_THROW_ON_ERROR);
+    }
+    //end-ignore
 }
 //end-snippet

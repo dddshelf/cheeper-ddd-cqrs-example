@@ -7,8 +7,15 @@ namespace CheeperCommandBus\ComplexNoCommandBus;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,25 +24,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use function Safe\sprintf;
 
-//snippet complex-command-handler-execution
 final class PostCheepController extends AbstractController
 {
-    private EntityManagerInterface $entityManager;
-    private LoggerInterface $logger;
-    private PostCheepHandler $postCheepHandler;
-
-    //ignore
-    public function __construct(PostCheepHandler $postCheepHandler, EntityManagerInterface $entityManager, LoggerInterface $logger)
-    {
-        $this->postCheepHandler = $postCheepHandler;
-        $this->entityManager = $entityManager;
-        $this->logger = $logger;
-    }
-    //end-ignore
-
-    /** @Route("/cheeps", name="post_cheep") */
     public function __invoke(Request $request): Response
     {
+        //snippet complex-command-handler-execution
         //ignore
         $authorId = $request->request->get('author_id');
         $cheepId = $request->request->get('cheep_id');
@@ -52,18 +45,34 @@ final class PostCheepController extends AbstractController
         ]);
         //end-ignore
 
+        $connection = \Doctrine\DBAL\DriverManager::getConnection([/** ... */]);
+        $entityManager = \Doctrine\ORM\EntityManager::create(
+            $connection,
+            new \Doctrine\ORM\Configuration()
+        );
+
+        $postCheepHandler = new PostCheepHandler(
+            new DoctrineOrmAuthors($entityManager),
+            new DoctrineOrmCheeps($entityManager)
+        );
+
+        $logger = new \Monolog\Logger(
+            'dispatched-commands',
+            [new StreamHandler('/var/logs/app/commands.log')]
+        );
+
         try {
-            $this->logger->info('Executing SignUp command');
-            $this->entityManager->transactional(function() use($command): void {
-                ($this->postCheepHandler)($command);
-                $this->logger->info('SignUp command executed successfully');
+            $logger->info('Executing SignUp command');
+            $entityManager->transactional(function() use($command, $postCheepHandler, $logger): void {
+                ($postCheepHandler)($command);
+                $logger->info('SignUp command executed successfully');
             });
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
-            $this->logger->error('SignUp command failed');
+            $logger->error('SignUp command failed');
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
+        //end-snippet
 
         return new Response('', Response::HTTP_CREATED);
     }
 }
-//end-snippet

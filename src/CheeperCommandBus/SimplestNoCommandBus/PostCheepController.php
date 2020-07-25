@@ -7,6 +7,9 @@ namespace CheeperCommandBus\SimplestNoCommandBus;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
+use Doctrine\ORM\EntityManager;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,21 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-//snippet simple-command-handler-execution
 final class PostCheepController extends AbstractController
 {
-    private PostCheepHandler $postCheepHandler;
-
-    //ignore
-    public function __construct(PostCheepHandler $postCheepHandler)
-    {
-        $this->postCheepHandler = $postCheepHandler;
-    }
-    //end-ignore
-
     /** @Route("/cheeps", name="post_cheep") */
     public function __invoke(Request $request): Response
     {
+        //snippet simple-command-handler-execution
         $authorId = $request->request->get('author_id');
         $cheepId = $request->request->get('cheep_id');
         $message = $request->request->get('message');
@@ -43,13 +37,24 @@ final class PostCheepController extends AbstractController
             'message' => $message,
         ]);
 
+        $connection = \Doctrine\DBAL\DriverManager::getConnection([/** ... */]);
+        $entityManager = \Doctrine\ORM\EntityManager::create(
+            $connection,
+            new \Doctrine\ORM\Configuration()
+        );
+
+        $postCheepHandler = new PostCheepHandler(
+            new DoctrineOrmAuthors($entityManager),
+            new DoctrineOrmCheeps($entityManager)
+        );
+
         try {
-            ($this->postCheepHandler)($command);
+            ($postCheepHandler)($command);
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
+        //end-snippet
 
         return new Response('', Response::HTTP_CREATED);
     }
 }
-//end-snippet

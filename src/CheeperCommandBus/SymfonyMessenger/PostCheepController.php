@@ -14,13 +14,11 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-// snippet symfony-controller-command-bus
 final class PostCheepController extends AbstractController
 {
     /** @Route("/cheeps", name="post_cheep") */
     public function __invoke(Request $request, MessageBusInterface $bus): Response
     {
-        //ignore
         $authorId = $request->request->get('author_id');
         $cheepId = $request->request->get('cheep_id');
         $message = $request->request->get('message');
@@ -34,15 +32,15 @@ final class PostCheepController extends AbstractController
             'cheep_id' => $cheepId,
             'message' => $message,
         ]);
-        //end-ignore
 
+        // snippet symfony-controller-command-bus
         try {
             $bus->dispatch($command);
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
+        //end-snippet
 
         return new Response('', Response::HTTP_CREATED);
     }
 }
-//end-snippet
