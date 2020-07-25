@@ -63,7 +63,8 @@ trait SendsCommands
         );
     }
 
-    private function postNewCheep($authorId, $cheepId, $message): void
+    //snippet post-new-cheep-tests
+    private function postNewCheep(string $authorId, string $cheepId, string $message): void
     {
         (new PostCheepHandler($this->authors, $this->cheeps))(
             PostCheep::fromArray([
@@ -73,4 +74,5 @@ trait SendsCommands
             ])
         );
     }
+    //end-snippet
 }
