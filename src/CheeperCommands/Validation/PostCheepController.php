@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CheeperCommands\Validation;
 
 use Cheeper\Application\Command\Author\SignUp;
+use Cheeper\Application\Command\Cheep\PostCheep;
 use JsonException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,24 +18,19 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 //snippet validated-signup-controller
-final class SignUpController extends AbstractController
+final class PostCheepController extends AbstractController
 {
-    /** @Route("/signup", methods={"POST"}) */
+    /** @Route("/cheep", methods={"POST"}) */
     public function __invoke(
         Request $request,
         ValidatorInterface $validator
     ): Response
     {
-        $command = new SignUp(
-            Uuid::uuid4()->toString(),
-            (string) $request->request->get('username'),
-            (string) $request->request->get('email'),
-            (string) $request->request->get('name'),
-            (string) $request->request->get('biography'),
-            (string) $request->request->get('location'),
-            (string) $request->request->get('website'),
-            (string) $request->request->get('birthdate'),
-        );
+        $command = PostCheep::fromArray([
+            'author_id' => $request->request->getAlpha('authorId'),
+            'cheep_id' => Uuid::uuid4()->toString(),
+            'message' => $request->request->getAlpha('message'),
+        ]);
 
         $errors = $validator->validate($command);
 

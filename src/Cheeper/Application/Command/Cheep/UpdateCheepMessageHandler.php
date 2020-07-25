@@ -10,7 +10,7 @@ use Cheeper\DomainModel\Cheep\CheepMessage;
 use Cheeper\DomainModel\Cheep\Cheeps;
 
 //snippet recompose-cheep-handler
-final class RecomposeCheepHandler
+final class UpdateCheepMessageHandler
 {
     private Cheeps $cheeps;
 
@@ -19,7 +19,7 @@ final class RecomposeCheepHandler
         $this->cheeps = $cheeps;
     }
 
-    public function __invoke(RecomposeCheep $message): void
+    public function __invoke(UpdateCheepMessage $message): void
     {
         $cheepId = CheepId::fromString($message->cheepId());
         $cheepMessage = CheepMessage::write($message->message());

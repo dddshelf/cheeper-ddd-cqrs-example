@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Cheep;
 
-final class RecomposeCheep
+final class UpdateCheepMessage
 {
     private string $cheepId;
     private string $message;

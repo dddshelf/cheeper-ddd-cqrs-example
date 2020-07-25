@@ -9,6 +9,7 @@ final class Timeline
 {
     private string $authorId;
 
+    /** @param array{author_id: string|mixed} $array */
     public static function fromArray(array $array): self
     {
         return new static(

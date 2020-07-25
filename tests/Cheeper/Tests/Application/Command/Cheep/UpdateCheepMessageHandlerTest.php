@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application\Command\Cheep;
 
-use Cheeper\Application\Command\Cheep\RecomposeCheep;
-use Cheeper\Application\Command\Cheep\RecomposeCheepHandler;
+use Cheeper\Application\Command\Cheep\UpdateCheepMessage;
+use Cheeper\Application\Command\Cheep\UpdateCheepMessageHandler;
 use Cheeper\DomainModel\Cheep\CheepDoesNotExist;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\Tests\Helper\SendsCommands;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 //snippet recompose-cheep-handler-test
-final class RecomposeCheepHandlerTest extends TestCase
+final class UpdateCheepMessageHandlerTest extends TestCase
 {
     use SendsCommands;
 
@@ -24,7 +24,7 @@ final class RecomposeCheepHandlerTest extends TestCase
         $this->expectException(CheepDoesNotExist::class);
         $this->expectExceptionMessage(sprintf("Cheep with ID %s does not exist", $cheepId));
 
-        $this->recomposeCheep($cheepId, "new cheep message");
+        $this->updateCheepMessage($cheepId, "new cheep message");
     }
 
     /** @test */
@@ -46,18 +46,18 @@ final class RecomposeCheepHandlerTest extends TestCase
 
         $this->postNewCheep($authorId, $cheepId, 'Cheep message');
 
-        $this->recomposeCheep($cheepId, "new cheep message");
+        $this->updateCheepMessage($cheepId, "new cheep message");
 
         $cheep = $this->cheeps->ofId(CheepId::fromString($cheepId));
         $this->assertSame("new cheep message", $cheep->cheepMessage()->message());
     }
 
-    private function recomposeCheep(string $cheepId, string $message): void
+    private function updateCheepMessage(string $cheepId, string $message): void
     {
-        $recomposeCheepHandler = new RecomposeCheepHandler($this->cheeps);
+        $updateCheepMessageHandler = new UpdateCheepMessageHandler($this->cheeps);
 
-        $recomposeCheepHandler(
-            new RecomposeCheep(
+        $updateCheepMessageHandler(
+            new UpdateCheepMessage(
                 $cheepId,
                 $message
             )

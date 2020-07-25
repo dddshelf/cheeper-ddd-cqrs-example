@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Safe\DateTimeImmutable;
 
+//snippet post-cheep-handler-test
 final class PostCheepHandlerTest extends TestCase
 {
     use SendsCommands;
@@ -71,3 +72,4 @@ final class PostCheepHandlerTest extends TestCase
         $this->assertNotNull($cheep);
     }
 }
+//end-snippet
