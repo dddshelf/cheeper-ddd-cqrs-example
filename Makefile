@@ -1,4 +1,4 @@
-# Default shell to use
+# Default shell to use
 SHELL := bash
 
 # Reuse the same shell instance within a target
@@ -10,7 +10,7 @@ SHELL := bash
 # Delete any generated target on failure
 .DELETE_ON_ERROR:
 
-# Make flags
+# Make flags
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
@@ -59,11 +59,31 @@ database:
 services: build
 	$(COMPOSE) up -d --remove-orphans
 
-# Stop any running development environment
-.PHONY: stop
-stop:
-	$(COMPOSE) stop
-
 .PHONY: attach
 attach: build
 	$(COMPOSE) run --rm app sh
+
+.PHONY: run
+run:
+	$(COMPOSE) -f docker-compose.yaml -f docker-compose.local.yaml.dist up -d --remove-orphans
+
+.PHONY: stop
+stop:
+	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist stop
+
+.PHONY: ps
+ps:
+	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist ps
+
+.PHONY: run-locally
+run-locally: services
+	symfony serve -d --allow-http --port=8080 --no-tls
+
+.PHONY: stop-locally
+stop-locally:
+	$(COMPOSE) stop
+	symfony server:stop
+
+.PHONY: ps-locally
+ps-locally:
+	$(COMPOSE) ps
