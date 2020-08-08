@@ -10,6 +10,7 @@ use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 use function Safe\sprintf;
 
+//snippet logger-middleware
 final class LoggerMiddleware implements MiddlewareInterface
 {
     private LoggerInterface $logger;
@@ -35,3 +36,4 @@ final class LoggerMiddleware implements MiddlewareInterface
         }
     }
 }
+//end-snippet

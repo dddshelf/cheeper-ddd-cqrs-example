@@ -9,6 +9,7 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
 
+//snippet doctrine-transactional-middleware
 final class DoctrineTransactionalMiddleware implements MiddlewareInterface
 {
     private EntityManagerInterface $em;
@@ -25,3 +26,4 @@ final class DoctrineTransactionalMiddleware implements MiddlewareInterface
         });
     }
 }
+//end-snippet
