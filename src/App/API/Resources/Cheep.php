@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
+//snippet cheep-input-resource
 /**
  * @psalm-suppress MissingConstructor
  *
@@ -26,20 +27,9 @@ final class Cheep
     public ?UuidInterface $id = null;
 
     /** @var string  */
-    public string $userName;
+    public string $authorId;
 
-    /** @var string  */
-    public string $name;
-
-    /** @var string  */
-    public string $biography;
-
-    /** @var string  */
-    public string $location;
-
-    /** @var string  */
-    public string $website;
-
-    /** @var DateTimeImmutable */
-    public DateTimeImmutable $birthDate;
+    /** @var string */
+    public string $message;
 }
+//end-snippet
