@@ -13,6 +13,7 @@ final class BirthDateTest extends TestCase
     public function throwsAnExceptionIfInvalidDateIsGiven(): void
     {
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionCode(0);
 
         new BirthDate('test');
     }
