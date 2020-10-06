@@ -63,7 +63,7 @@ final class PostCheepController extends AbstractController
 
         try {
             $logger->info('Executing SignUp command');
-            $entityManager->transactional(function() use($command, $postCheepHandler, $logger): void {
+            $entityManager->transactional(function() use($command, $postCheepHandler, $logger) {
                 ($postCheepHandler)($command);
                 $logger->info('SignUp command executed successfully');
             });

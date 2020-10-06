@@ -10,8 +10,10 @@ use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Ramsey\Uuid\Uuid;
 
-/** @implements ContextAwareDataPersisterInterface<Cheep> */
 //snippet cheeper-data-persister
+/**
+ * @implements ContextAwareDataPersisterInterface<Cheep>
+ */
 final class CheepDataPersister implements ContextAwareDataPersisterInterface
 {
     private CommandBus $commandBus;
@@ -26,7 +28,6 @@ final class CheepDataPersister implements ContextAwareDataPersisterInterface
         return $data instanceof Cheep;
     }
 
-    /** @param Cheep $data */
     public function persist($data, array $context = [])
     {
         $id = Uuid::uuid4();

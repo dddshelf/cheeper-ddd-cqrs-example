@@ -24,6 +24,10 @@ final class UpdateCheepMessageController extends AbstractController
     public function __invoke(Request $request): Response
     {
         // Decode the request
+
+        /**
+         * @var array{cheeper_id: string, message: string}
+         */
         $data = json_decode(
             $request->getContent(),
             true,

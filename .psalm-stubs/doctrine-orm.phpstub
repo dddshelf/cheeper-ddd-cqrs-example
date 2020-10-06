@@ -76,8 +76,8 @@ namespace Doctrine\ORM
     {
         /**
          * @template T
-         * @param \Closure(EntityManagerInterface): T|true $func
-         * @return T
+         * @param callable(EntityManagerInterface=): T|void $func
+         * @return T|true
          */
         public function transactional($func);
     }
