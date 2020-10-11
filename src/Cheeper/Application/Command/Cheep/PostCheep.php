@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Cheep;
 
-use Cheeper\Application\Command\SyncCommand;
-use Symfony\Component\HttpFoundation\Request;
-
 //snippet post-cheep
 final class PostCheep
 {
