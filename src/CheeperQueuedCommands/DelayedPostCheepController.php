@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace CheeperQueuedCommands;
 
-use App\Message\PostCheepMessage;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,10 +12,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use function Safe\sprintf;
 
-//snippet create-cheep-controller
-final class CreateCheepController extends AbstractController
+final class DelayedPostCheepController extends AbstractController
 {
-    /** @Route("/create-cheep", methods={"POST"}) */
+    //snippet delayed-post-cheep-controller
+    /** @Route("/cheeps", methods={"POST"}) */
     public function __invoke(Request $request, MessageBusInterface $bus): Response
     {
         $authorId = $request->request->get('authorId');
@@ -36,15 +35,17 @@ final class CreateCheepController extends AbstractController
 
         $cheepId = Uuid::uuid4()->toString();
 
-        $bus->dispatch(
-            new PostCheepMessage(
-                $cheepId,
-                $authorId,
-                $message
-            )
-        );
+        $command = PostCheep::fromArray([
+            'author_id' => $authorId,
+            'cheep_id' => $cheepId,
+            'message' => $message
+        ]);
+
+        $queuedCommand = new QueuedCommand($command);
+
+        $bus->dispatch($queuedCommand);
 
         return new Response('', Response::HTTP_ACCEPTED);
     }
+    //end-snippet
 }
-//end-snippet

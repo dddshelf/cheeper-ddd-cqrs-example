@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Author;
 
-use Cheeper\Application\Command\SyncCommand;
-
 //snippet follow-command
 final class Follow
 {
