@@ -16,12 +16,9 @@ use Ramsey\Uuid\Uuid;
 final class DoctrineOrmCheeps implements Cheeps
 {
     //ignore
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct(
+        private EntityManagerInterface $em
+    ) { }
 
     public function add(Cheep $cheep): void
     {

@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class DefaultController extends AbstractController
 {
-    /** @Route("/") */
+    #[Route("/")]
     public function __invoke(): Response
     {
         return $this->render('spa.html.twig', [

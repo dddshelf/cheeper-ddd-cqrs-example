@@ -3,18 +3,20 @@
 namespace CheeperLayered;
 
 //snippet authors
+use PDO;
+
 class Authors
 {
-    private \PDO $db;
+    private PDO $db;
 
     public function __construct()
     {
-        $this->db = new \PDO(
+        $this->db = new PDO(
             'mysql:host=127.0.0.1;dbname=db',
             'user',
             'pass',
             [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]
         );
     }
@@ -43,7 +45,7 @@ class Authors
         $stmt = $this->db->prepare($sql);
         $stmt->execute($params);
 
-        if ($result = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        if ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
             /** @var Author */
             $author = \mimic\hydrate(Author::class, $result);
             return $author;

@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class PostCheepController extends AbstractController
 {
-    /** @Route("/cheeps", name="post_cheep") */
+    #[Route("/cheeps", name: "post_cheep")]
     public function __invoke(Request $request): Response
     {
         //snippet simple-command-handler-execution

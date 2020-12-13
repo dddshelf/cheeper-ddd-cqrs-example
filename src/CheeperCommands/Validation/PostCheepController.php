@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 //snippet validated-signup-controller
 final class PostCheepController extends AbstractController
 {
-    /** @Route("/cheep", methods={"POST"}) */
+    #[Route("/cheep", methods: ["POST"])]
     public function __invoke(
         Request $request,
         ValidatorInterface $validator

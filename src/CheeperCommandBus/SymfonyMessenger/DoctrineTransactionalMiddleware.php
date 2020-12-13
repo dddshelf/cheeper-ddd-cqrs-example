@@ -12,12 +12,9 @@ use Symfony\Component\Messenger\Middleware\StackInterface;
 //snippet doctrine-transactional-middleware
 final class DoctrineTransactionalMiddleware implements MiddlewareInterface
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct(
+        private EntityManagerInterface $em
+    ) { }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

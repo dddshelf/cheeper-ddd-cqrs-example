@@ -11,17 +11,11 @@ use Ramsey\Uuid\UuidInterface;
 
 /**
  * @psalm-suppress MissingConstructor
- *
- * @ApiResource(
- *    collectionOperations={"post"},
- *    itemOperations={"get"}
- * )
  */
+#[ApiResource(collectionOperations: ['post'], itemOperations: ['get'])]
 final class Author
 {
-    /**
-     * @ApiProperty(identifier=true)
-     */
+    #[ApiProperty(identifier: true)]
     public ?UuidInterface $id = null;
 
     public string $userName;

@@ -7,34 +7,16 @@ namespace Cheeper\Application\Command\Author;
 //snippet sign-up
 final class SignUp
 {
-    private string $authorId;
-    private string $userName;
-    private string $email;
-    private ?string $name;
-    private ?string $biography;
-    private ?string $location;
-    private ?string $website;
-    private ?string $birthDate;
-
     public function __construct(
-        string $authorId,
-        string $userName,
-        string $email,
-        ?string $name,
-        ?string $biography,
-        ?string $location,
-        ?string $website,
-        ?string $birthDate
-    ) {
-        $this->authorId = $authorId;
-        $this->userName = $userName;
-        $this->email = $email;
-        $this->name = $name;
-        $this->biography = $biography;
-        $this->location = $location;
-        $this->website = $website;
-        $this->birthDate = $birthDate;
-    }
+        private string $authorId,
+        private string $userName,
+        private string $email,
+        private ?string $name,
+        private ?string $biography,
+        private ?string $location,
+        private ?string $website,
+        private ?string $birthDate,
+    ) { }
 
     //ignore
     public function authorId(): string

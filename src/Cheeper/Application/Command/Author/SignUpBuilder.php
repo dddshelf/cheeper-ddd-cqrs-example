@@ -5,27 +5,20 @@ declare(strict_types=1);
 namespace Cheeper\Application\Command\Author;
 
 //snippet sign-up-builder
+use JetBrains\PhpStorm\Pure;
+
 final class SignUpBuilder
 {
-    private string $authorId;
-    private string $userName;
-    private string $email;
-    private ?string $name = null;
-    private ?string $biography = null;
-    private ?string $location = null;
-    private ?string $website = null;
-    private ?string $birthDate = null;
-
     private function __construct(
-        string $authorId,
-        string $userName,
-        string $email
-    )
-    {
-        $this->authorId = $authorId;
-        $this->userName = $userName;
-        $this->email    = $email;
-    }
+        private string $authorId,
+        private string $userName,
+        private string $email,
+        private ?string $name = null,
+        private ?string $biography = null,
+        private ?string $location = null,
+        private ?string $website = null,
+        private ?string $birthDate = null,
+    ) { }
 
     public static function create(
         string $authorId,
@@ -85,7 +78,7 @@ final class SignUpBuilder
         return $this;
     }
 
-    public function build(): SignUp
+    #[Pure] public function build(): SignUp
     {
         return new SignUp(
             $this->authorId,

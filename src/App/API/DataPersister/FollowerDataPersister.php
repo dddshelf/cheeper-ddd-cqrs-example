@@ -12,19 +12,16 @@ use Cheeper\Application\Command\Author\Follow;
 /** @implements DataPersisterInterface<Follower> */
 final class FollowerDataPersister implements DataPersisterInterface
 {
-    private CommandBus $commandBus;
+    public function __construct(
+        private CommandBus $commandBus
+    ) { }
 
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    public function supports($data): bool
+    public function supports(mixed $data): bool
     {
         return $data instanceof Follower;
     }
 
-    public function persist($data)
+    public function persist(mixed $data)
     {
         $this->commandBus->handle(
             Follow::anAuthor(
@@ -36,7 +33,7 @@ final class FollowerDataPersister implements DataPersisterInterface
         return $data;
     }
 
-    public function remove($data): void
+    public function remove(mixed $data): void
     {
         // TODO: Implement remove() method.
     }

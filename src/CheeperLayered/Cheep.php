@@ -6,7 +6,6 @@ namespace CheeperLayered;
 class Cheep
 {
     private ?int $id = null;
-    private int $authorId;
     private string $message;
     private \DateTimeInterface $date;
 
@@ -15,9 +14,8 @@ class Cheep
         return new static($authorId, $message);
     }
 
-    private function __construct(int $authorId, string $message)
+    private function __construct(private int $authorId, string $message)
     {
-        $this->authorId = $authorId;
         $this->date = new \DateTimeImmutable();
         $this->setMessage($message);
     }

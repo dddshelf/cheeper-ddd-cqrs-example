@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CheeperQueuedCommands;
 
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,20 +16,20 @@ use function Safe\sprintf;
 final class DelayedPostCheepController extends AbstractController
 {
     //snippet delayed-post-cheep-controller
-    /** @Route("/cheeps", methods={"POST"}) */
+    #[Route("/cheeps", methods: ["POST"])]
     public function __invoke(Request $request, MessageBusInterface $bus): Response
     {
         $authorId = $request->request->get('authorId');
         $message = $request->request->get('message');
 
         if (!$authorId) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf("Author ID should be provided")
             );
         }
 
         if (!$message) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf("Message should be provided")
             );
         }

@@ -10,14 +10,10 @@ use function Safe\sprintf;
 //snippet cheep-service
 class CheepService
 {
-    private Authors $authors;
-    private Cheeps $cheeps;
-
-    public function __construct(Authors $authors, Cheeps $cheeps)
-    {
-        $this->authors = $authors;
-        $this->cheeps = $cheeps;
-    }
+    public function __construct(
+        private Authors $authors,
+        private Cheeps $cheeps,
+    ) { }
 
     public function postCheep(string $username, string $message): Cheep
     {

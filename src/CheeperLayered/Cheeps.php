@@ -3,19 +3,21 @@
 namespace CheeperLayered;
 
 //snippet cheeps
+use PDO;
+
 class Cheeps
 {
     //ignore
-    private \PDO $db;
+    private PDO $db;
 
     public function __construct()
     {
-        $this->db = new \PDO(
+        $this->db = new PDO(
             'mysql:host=127.0.0.1;dbname=db',
             'user',
             'pass',
             [
-                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]
         );
     }
@@ -64,7 +66,7 @@ class Cheeps
         $stmt->execute(['author_id' => $authorId]);
 
         $cheeps = [];
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             /** @var Cheep */
             $cheeps[] = \mimic\hydrate(Cheep::class, [
                 'username' => $row['username'],

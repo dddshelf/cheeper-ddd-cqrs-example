@@ -16,12 +16,9 @@ use Cheeper\DomainModel\Author\Website;
 //snippet sign-up-handler
 final class SignUpHandler
 {
-    private Authors $authors;
-
-    public function __construct(Authors $authors)
-    {
-        $this->authors = $authors;
-    }
+    public function __construct(
+        private Authors $authors
+    ) { }
 
     public function __invoke(SignUp $command): void
     {

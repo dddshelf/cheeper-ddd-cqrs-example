@@ -9,12 +9,9 @@ use function Safe\sprintf;
 //snippet author-service
 class AuthorService
 {
-    private Authors $authors;
-
-    public function __construct(Authors $authors)
-    {
-        $this->authors = $authors;
-    }
+    public function __construct(
+        private Authors $authors
+    ) { }
 
     public function update(
         int $id,

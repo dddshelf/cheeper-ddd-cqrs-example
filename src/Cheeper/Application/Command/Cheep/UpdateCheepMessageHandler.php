@@ -12,12 +12,9 @@ use Cheeper\DomainModel\Cheep\Cheeps;
 //snippet recompose-cheep-handler
 final class UpdateCheepMessageHandler
 {
-    private Cheeps $cheeps;
-
-    public function __construct(Cheeps $cheeps)
-    {
-        $this->cheeps = $cheeps;
-    }
+    public function __construct(
+        private Cheeps $cheeps
+    ) { }
 
     public function __invoke(UpdateCheepMessage $message): void
     {

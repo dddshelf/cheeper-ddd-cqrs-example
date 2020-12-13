@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Common;
 
+use JetBrains\PhpStorm\Pure;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 abstract class UuidBasedIdentity extends ValueObject
 {
-    protected string $id;
     protected string $idAsString;
 
-    final private function __construct(string $id)
+    final private function __construct(
+        protected string $id
+    )
     {
-        $this->id = $this->idAsString = $id;
+        $this->idAsString = $id;
     }
 
-    /** @return static */
-    public static function fromString(string $uuid): self
+    public static function fromString(string $uuid): static
     {
         if (!Uuid::isValid($uuid)) {
             throw new \InvalidArgumentException('The value does not represent a valid identifier based in Uuid');
@@ -27,28 +28,27 @@ abstract class UuidBasedIdentity extends ValueObject
         return new static($uuid);
     }
 
-    /** @return static */
-    public static function fromUuid(UuidInterface $uuid): self
+    public static function fromUuid(UuidInterface $uuid): static
     {
         return new static($uuid->toString());
     }
 
-    public function equals(self $other): bool
+    final public function equals(self $other): bool
     {
         return $this->id === $other->id;
     }
 
-    public function toString(): string
+    #[Pure] final public function toString(): string
     {
-        return (string) $this;
+        return (string)$this->__toString();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->id;
     }
 
-    public function id(): string
+    final public function id(): string
     {
         return $this->id;
     }

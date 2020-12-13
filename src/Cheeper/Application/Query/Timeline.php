@@ -7,8 +7,6 @@ namespace Cheeper\Application\Query;
 //snippet timeline-query
 final class Timeline
 {
-    private string $authorId;
-
     /** @param array{author_id: string|mixed} $array */
     public static function fromArray(array $array): self
     {
@@ -17,10 +15,9 @@ final class Timeline
         );
     }
 
-    private function __construct(string $authorId)
-    {
-        $this->authorId = $authorId;
-    }
+    private function __construct(
+        private string $authorId
+    ) { }
 
     public function authorId(): string
     {

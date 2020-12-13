@@ -10,12 +10,9 @@ use Cheeper\DomainModel\Author\UserName;
 
 final class FollowHandler
 {
-    private Authors $authors;
-
-    public function __construct(Authors $authors)
-    {
-        $this->authors = $authors;
-    }
+    public function __construct(
+        private Authors $authors
+    ) { }
 
     public function __invoke(Follow $command): void
     {

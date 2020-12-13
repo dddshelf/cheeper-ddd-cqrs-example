@@ -2,8 +2,11 @@
 
 namespace CheeperLayered;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+
 //snippet cheep-controller
-class CheepController
+class CheepController extends AbstractController
 {
     public function postAction(Request $request): string
     {

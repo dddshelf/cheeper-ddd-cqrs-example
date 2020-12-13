@@ -9,12 +9,9 @@ use App\Messenger\CommandBus;
 //snippet queued-command-handler
 final class QueuedCommandHandler
 {
-    private CommandBus $commandBus;
-
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
+    public function __construct(
+        private CommandBus $commandBus
+    ) { }
 
     public function __invoke(QueuedCommand $message): void
     {

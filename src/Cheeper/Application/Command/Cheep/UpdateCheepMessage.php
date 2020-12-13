@@ -6,14 +6,10 @@ namespace Cheeper\Application\Command\Cheep;
 
 final class UpdateCheepMessage
 {
-    private string $cheepId;
-    private string $message;
-
-    public function __construct(string $cheepId, string $message)
-    {
-        $this->cheepId = $cheepId;
-        $this->message = $message;
-    }
+    public function __construct(
+        private string $cheepId,
+        private string $message,
+    ) { }
 
     public function cheepId(): string
     {

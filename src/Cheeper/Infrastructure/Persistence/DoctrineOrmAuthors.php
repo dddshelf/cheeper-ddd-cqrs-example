@@ -17,12 +17,9 @@ use function Functional\map;
 //snippet doctrine-orm-authors
 final class DoctrineOrmAuthors implements Authors
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    public function __construct(
+        private EntityManagerInterface $em
+    ) { }
 
     public function ofId(AuthorId $authorId): ?Author
     {

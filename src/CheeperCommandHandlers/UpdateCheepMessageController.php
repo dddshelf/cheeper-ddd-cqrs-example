@@ -20,7 +20,7 @@ use function Safe\json_decode;
 
 final class UpdateCheepMessageController extends AbstractController
 {
-    /** @Route("/api/cheep", methods={"PUT"}) */
+    #[Route("/api/cheep", methods: ["PUT"])]
     public function __invoke(Request $request): Response
     {
         // Decode the request

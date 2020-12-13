@@ -13,19 +13,16 @@ use Ramsey\Uuid\Uuid;
 /** @implements DataPersisterInterface<Author> */
 final class AuthorDataPersister implements DataPersisterInterface
 {
-    private CommandBus $commandBus;
+    public function __construct(
+        private CommandBus $commandBus
+    ) { }
 
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    public function supports($data): bool
+    public function supports(mixed $data): bool
     {
         return $data instanceof Author && null === $data->id;
     }
 
-    public function persist($data): Author
+    public function persist(mixed $data): Author
     {
         $authorId = Uuid::uuid4();
 
@@ -47,7 +44,7 @@ final class AuthorDataPersister implements DataPersisterInterface
         return $data;
     }
 
-    public function remove($data): void
+    public function remove(mixed $data): void
     {
         // TODO: Implement remove() method.
     }

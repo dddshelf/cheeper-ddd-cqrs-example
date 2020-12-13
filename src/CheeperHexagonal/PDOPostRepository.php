@@ -3,14 +3,13 @@
 namespace CheeperHexagonal;
 
 //snippet pdo-post-repository
+use PDO;
+
 class PDOPostRepository implements PostRepository
 {
-    private \PDO $db;
-
-    public function __construct(\PDO $db)
-    {
-        $this->db = $db;
-    }
+    public function __construct(
+        private PDO $db
+    ) { }
 
     public function byId(PostId $id): Post
     {

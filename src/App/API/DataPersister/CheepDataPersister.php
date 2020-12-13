@@ -16,19 +16,16 @@ use Ramsey\Uuid\Uuid;
  */
 final class CheepDataPersister implements ContextAwareDataPersisterInterface
 {
-    private CommandBus $commandBus;
+    public function __construct(
+        private CommandBus $commandBus
+    ) { }
 
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    public function supports($data, array $context = []): bool
+    public function supports(mixed $data, array $context = []): bool
     {
         return $data instanceof Cheep;
     }
 
-    public function persist($data, array $context = [])
+    public function persist(mixed $data, array $context = [])
     {
         $id = Uuid::uuid4();
 
@@ -45,7 +42,7 @@ final class CheepDataPersister implements ContextAwareDataPersisterInterface
         return $data;
     }
 
-    public function remove($data, array $context = [])
+    public function remove(mixed $data, array $context = [])
     {
         // TODO: Implement remove() method.
     }

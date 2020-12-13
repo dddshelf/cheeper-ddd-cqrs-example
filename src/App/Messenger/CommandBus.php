@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Messenger;
 
 use Cheeper\Application\Command\AsyncCommand;
@@ -11,12 +13,9 @@ use Symfony\Component\Messenger\MessageBusInterface;
 // snippet command-bus
 final class CommandBus
 {
-    private MessageBusInterface $commandBus;
-
-    public function __construct(MessageBusInterface $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
+    public function __construct(
+        private MessageBusInterface $commandBus
+    ) { }
 
     public function handle(object $command): Envelope
     {

@@ -10,16 +10,11 @@ use Doctrine\Persistence\ManagerRegistry;
 
 final class ServiceLocatorForTests
 {
-    private DoctrineOrmAuthors $authors;
-    private DoctrineOrmCheeps $cheeps;
-    private ManagerRegistry $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine, DoctrineOrmAuthors $authors, DoctrineOrmCheeps $cheeps)
-    {
-        $this->authors = $authors;
-        $this->cheeps = $cheeps;
-        $this->doctrine = $doctrine;
-    }
+    public function __construct(
+        private ManagerRegistry $doctrine,
+        private DoctrineOrmAuthors $authors,
+        private DoctrineOrmCheeps $cheeps
+    ) { }
 
     public function authors(): DoctrineOrmAuthors
     {

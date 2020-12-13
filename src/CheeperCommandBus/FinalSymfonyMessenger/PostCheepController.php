@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 //snippet final-post-cheep-controller
 final class PostCheepController extends AbstractController
 {
-    /** @Route("/cheeps", methods={"POST"}) */
+    #[Route("/cheeps", methods: ["POST"])]
     public function __invoke(Request $request, CommandBus $bus, ValidatorInterface $validator): Response
     {
         $authorId = $request->request->get('author_id');

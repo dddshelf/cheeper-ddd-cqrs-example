@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 //snippet signup-controller
 final class PostCheepController extends AbstractController
 {
-    /** @Route("/cheep", methods={"POST"}) */
+    #[Route("/cheep", methods: ["POST"])]
     public function __invoke(Request $request): Response
     {
         $command = PostCheep::fromArray([

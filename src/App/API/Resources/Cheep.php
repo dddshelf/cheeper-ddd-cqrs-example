@@ -12,18 +12,11 @@ use Ramsey\Uuid\UuidInterface;
 //snippet cheep-input-resource
 /**
  * @psalm-suppress MissingConstructor
- *
- * @ApiResource(
- *    collectionOperations={"post"},
- *    itemOperations={"get"}
- * )
  */
+#[ApiResource(collectionOperations: ['post'], itemOperations: ['get'])]
 final class Cheep
 {
-    /**
-     * @var UuidInterface|null
-     * @ApiProperty(identifier=true)
-     */
+    #[ApiProperty(identifier: true)]
     public ?UuidInterface $id = null;
 
     /** @var string  */

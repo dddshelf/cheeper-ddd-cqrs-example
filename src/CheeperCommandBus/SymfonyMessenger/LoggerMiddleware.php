@@ -13,12 +13,9 @@ use function Safe\sprintf;
 //snippet logger-middleware
 final class LoggerMiddleware implements MiddlewareInterface
 {
-    private LoggerInterface $logger;
-
-    public function __construct(LoggerInterface $logger)
-    {
-        $this->logger = $logger;
-    }
+    public function __construct(
+        private LoggerInterface $logger
+    ) { }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

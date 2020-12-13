@@ -8,35 +8,22 @@ use function Functional\filter;
 
 class Author
 {
-    private AuthorId $authorId;
-    private UserName $userName;
-    private EmailAddress $email;
-    private ?string $name;
-    private ?string $biography;
-    private ?string $location;
-    private ?Website $website;
-    private ?BirthDate $birthDate;
     /** @var AuthorId[]  */
     private array $following = [];
 
     private function __construct(
-        AuthorId $authorId,
-        UserName $userName,
-        EmailAddress $email,
-        ?string $name,
-        ?string $biography,
-        ?string $location,
-        ?Website $website,
-        ?BirthDate $birthDate
+        private AuthorId $authorId,
+        private UserName $userName,
+        private EmailAddress $email,
+        private ?string $name,
+        private ?string $biography,
+        private ?string $location,
+        private ?Website $website,
+        private ?BirthDate $birthDate,
     ) {
-        $this->authorId = $authorId;
-        $this->userName = $userName;
-        $this->email = $email;
         $this->setName($name);
         $this->setBiography($biography);
         $this->setLocation($location);
-        $this->website = $website;
-        $this->birthDate = $birthDate;
     }
 
     public static function signUp(
@@ -89,47 +76,47 @@ class Author
         $this->location = $location;
     }
 
-    public function userId(): AuthorId
+    final public function userId(): AuthorId
     {
         return $this->authorId;
     }
 
-    public function userName(): UserName
+    final public function userName(): UserName
     {
         return $this->userName;
     }
 
-    public function email(): EmailAddress
+    final public function email(): EmailAddress
     {
         return $this->email;
     }
 
-    public function name(): ?string
+    final public function name(): ?string
     {
         return $this->name;
     }
 
-    public function biography(): ?string
+    final public function biography(): ?string
     {
         return $this->biography;
     }
 
-    public function location(): ?string
+    final public function location(): ?string
     {
         return $this->location;
     }
 
-    public function website(): ?Website
+    final public function website(): ?Website
     {
         return $this->website;
     }
 
-    public function birthDate(): ?BirthDate
+    final public function birthDate(): ?BirthDate
     {
         return $this->birthDate;
     }
 
-    public function follow(AuthorId $followed): void
+    final public function follow(AuthorId $followed): void
     {
         $alreadyFollowsUser = count(
             filter(
@@ -146,7 +133,7 @@ class Author
     }
 
     /** @return AuthorId[] */
-    public function following(): array
+    final public function following(): array
     {
         return $this->following;
     }

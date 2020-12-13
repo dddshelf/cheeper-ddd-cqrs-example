@@ -16,14 +16,10 @@ use Cheeper\DomainModel\Cheep\Cheeps;
 //snippet post-cheep-handler
 final class PostCheepHandler
 {
-    private Authors $authors;
-    private Cheeps $cheeps;
-
-    public function __construct(Authors $authors, Cheeps $cheeps)
-    {
-        $this->authors = $authors;
-        $this->cheeps = $cheeps;
-    }
+    public function __construct(
+        private Authors $authors,
+        private Cheeps $cheeps,
+    ) { }
 
     public function __invoke(PostCheep $command): void
     {
