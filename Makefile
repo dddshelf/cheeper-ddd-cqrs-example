@@ -33,7 +33,7 @@ build:
 
 .PHONY: install-deps
 install-deps: build
-	$(RUN_APP) /usr/local/bin/composer install
+	$(RUN_APP) /usr/local/bin/composer install --ignore-platform-req=php
 
 .PHONY: ci-infection
 ci-infection: install-deps
