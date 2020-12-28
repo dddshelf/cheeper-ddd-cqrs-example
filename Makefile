@@ -65,7 +65,7 @@ attach: build
 
 .PHONY: run
 run:
-	$(COMPOSE) -f docker-compose.yaml -f docker-compose.local.yaml.dist up -d --remove-orphans
+	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist up -d --remove-orphans
 
 .PHONY: stop
 stop:

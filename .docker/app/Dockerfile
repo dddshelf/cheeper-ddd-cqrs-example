@@ -1,4 +1,4 @@
-FROM php:7.4.1-alpine
+FROM php:8.0-alpine
 
 RUN apk add --no-cache --update git
 
