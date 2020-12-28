@@ -1,8 +1,8 @@
 FROM php:8.0-alpine
 
-RUN apk add --no-cache --update git
-
-RUN docker-php-ext-install bcmath pdo_mysql pcntl posix mysqli intl
+RUN apk update && \
+    apk add git icu-dev && \
+    docker-php-ext-install bcmath pdo_mysql pcntl posix mysqli intl
 
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
