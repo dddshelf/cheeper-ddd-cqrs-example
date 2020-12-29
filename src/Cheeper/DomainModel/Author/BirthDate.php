@@ -26,7 +26,7 @@ final class BirthDate extends ValueObject
     private function setDate(string $date): void
     {
         try {
-            $this->date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
+           $this->date = \DateTimeImmutable::createFromFormat('Y-m-d', $date);
         } catch (DatetimeException $exception) {
             throw new \InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).", 0, $exception);
         }
