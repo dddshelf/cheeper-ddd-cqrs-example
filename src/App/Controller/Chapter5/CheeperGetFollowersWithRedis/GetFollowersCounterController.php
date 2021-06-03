@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Chapter5\CheeperGetFollowersWithRepositories;
+namespace App\Controller\Chapter5\CheeperGetFollowersWithRedis;
 
 use Cheeper\Chapter5\DomainModel\Follow\FollowersCounterResource;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
@@ -22,7 +22,7 @@ final class GetFollowersCounterController extends AbstractController
     {
     }
 
-    #[Route("/chapter-5/api/followers-counter/using-repositories/{userId}", methods: ["GET"])]
+    #[Route("/chapter-5/api/followers-counter/using-redis/{userId}", methods: ["GET"])]
     public function __invoke(string $userId): JsonResponse
     {
         $authorId = AuthorId::fromString($userId);

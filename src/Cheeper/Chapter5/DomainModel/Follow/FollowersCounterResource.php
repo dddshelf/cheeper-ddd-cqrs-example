@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chapter5;
+namespace Cheeper\Chapter5\DomainModel\Follow;
 
 final class FollowersCounterResource
 {
