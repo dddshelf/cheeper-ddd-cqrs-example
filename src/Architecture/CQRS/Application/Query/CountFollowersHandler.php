@@ -5,21 +5,39 @@ declare(strict_types=1);
 namespace Architecture\CQRS\Application\Query;
 
 use Architecture\CQRS\App\Entity\Followers;
-use Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository;
+use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\DomainModel\Author\Authors;
 
 //snippet count-followers-handler
 final class CountFollowersHandler
 {
-    private DoctrineFollowersRepository $followersRepository;
+    private Followers $followersRepository;
+    private Authors $authorsRepository;
 
-    public function __construct(DoctrineFollowersRepository $followersRepository)
+    public function __construct(
+        Followers $followersRepository,
+        Authors $authorsRepository
+    )
     {
         $this->followersRepository = $followersRepository;
+        $this->authorsRepository = $authorsRepository;
     }
 
-    public function __invoke(CountFollowers $query): ?Followers
+    public function __invoke(CountFollowers $query): CountFollowersResponse
     {
-        return $this->followersRepository->ofAuthorId($query->authorId());
+        $authorId = AuthorId::fromUuid($query->authorId());
+
+        $author = $this->authorsRepository->ofId($authorId);
+        $followersCount = count($this->followersRepository->ofAuthorId($authorId));
+
+        // Other option would be with a counter method in the Repository
+        // $followersCount = $this->followersRepository->countOfAuthorId($authorId));
+
+        return new CountFollowersResponse(
+            authorId: $authorId->toString(),
+            authorUsername: $author->userName()->userName(),
+            numberOfFollowers: $followersCount
+        );
     }
 }
 //end-snippet
