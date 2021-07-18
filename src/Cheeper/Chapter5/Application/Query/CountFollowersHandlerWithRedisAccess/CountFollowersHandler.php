@@ -22,7 +22,9 @@ final class CountFollowersHandler
     public function __invoke(CountFollowers $query): CountFollowersResponse
     {
         $authorId = AuthorId::fromUuid($query->authorId());
-        $result = $this->redis->get('author_followers_counter_projection:'.$authorId->toString());
+        $result = $this->redis->get(
+            'author_followers_counter_projection:'.$authorId->toString()
+        );
 
         return new CountFollowersResponse(
             authorId: $result['id'],
