@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Architecture\CQRS\Application\Query;
+namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
 
 use Architecture\CQRS\App\Entity\Followers;
+use Architecture\CQRS\Application\Query\CountFollowersResponse;
+use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;
 
