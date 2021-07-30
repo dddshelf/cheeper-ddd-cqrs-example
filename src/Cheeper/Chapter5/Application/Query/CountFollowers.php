@@ -7,7 +7,7 @@ namespace Cheeper\Chapter5\Application\Query;
 use Ramsey\Uuid\UuidInterface;
 
 //snippet count-followers
-final class CountFollowers
+final class CountFollowers implements Query
 {
     private UuidInterface $authorId;
 

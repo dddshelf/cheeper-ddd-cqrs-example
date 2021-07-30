@@ -1,0 +1,35 @@
+# snippet messenger-config-with-query-and-command-buses
+# file: config/packages/messenger.yaml
+framework:
+    messenger:
+        default_bus: none.bus
+        buses:
+            none.bus:
+                default_middleware: allow_no_handlers
+            command.bus:
+                middleware:
+                    - validation
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction
+            query.bus:
+                middleware:
+                    - validation
+
+        #ignore
+        transports:
+            # https://symfony.com/doc/current/messenger.html#transport-configuration
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+            # failed: 'doctrine://default?queue_name=failed'
+            sync: 'sync://'
+        routing:
+            # Route your messages to the transports
+            # One way to route the messages is using Interfaces or Parent Classes
+            # that helps on not having to maintaining this routing 1 to 1 approach
+            'Cheeper\DomainModel\DomainEvent': async
+            'Cheeper\Application\Command\AsyncCommand': async
+            'Cheeper\Application\Command\SyncCommand': sync
+        #end-ignore
+# end-snippet
