@@ -18,7 +18,7 @@ final class GetFollowersCounterController extends AbstractController
     ) {
     }
 
-    #[Route("/chapter-5/api/get-followers-counter/using-query-bus/{authorId}", methods: ["GET"])]
+    #[Route("/chapter-5/api/get-followers-counter/{authorId}", methods: ["GET"])]
     public function __invoke(string $authorId): JsonResponse
     {
         return
