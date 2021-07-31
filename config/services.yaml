@@ -15,6 +15,7 @@ services:
             Cheeper\DomainModel\Author\Authors $authors: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
             Cheeper\DomainModel\Follow\Follows $follows: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
+            Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -40,6 +41,10 @@ services:
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: command.bus }
+
+    Cheeper\Chapter5\Application\Query\QueryBus:
+        class: 'Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
+
     ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer:
         tags:
             - { name: api_platform.identifier.denormalizer }
