@@ -12,16 +12,14 @@ use Predis\Client as Redis;
 //snippet count-followers-handler
 final class CountFollowersHandler
 {
-    private Redis $redis;
-
-    public function __construct(Redis $redis)
-    {
-        $this->redis = $redis;
+    public function __construct(
+        private Redis $redis
+    ) {
     }
 
     public function __invoke(CountFollowers $query): CountFollowersResponse
     {
-        $authorId = AuthorId::fromUuid($query->authorId());
+        $authorId = AuthorId::fromString($query->authorId());
         $result = $this->redis->get(
             'author_followers_counter_projection:'.$authorId->toString()
         );

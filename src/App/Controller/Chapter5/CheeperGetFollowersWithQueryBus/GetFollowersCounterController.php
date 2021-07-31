@@ -13,8 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 // snippet get-followers-counter-controller
 final class GetFollowersCounterController extends AbstractController
 {
-    public function __construct(private QueryBus $queryBus)
-    {
+    public function __construct(
+        private QueryBus $queryBus
+    ) {
     }
 
     #[Route("/chapter-5/api/get-followers-counter/using-query-bus/{authorId}", methods: ["GET"])]

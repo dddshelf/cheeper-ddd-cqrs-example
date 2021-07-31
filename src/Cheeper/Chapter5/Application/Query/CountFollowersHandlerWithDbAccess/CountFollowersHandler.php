@@ -12,19 +12,17 @@ use Doctrine\DBAL\Portability\Connection as Dbal;
 //snippet count-followers-handler
 final class CountFollowersHandler
 {
-    private Dbal $dbalConnection;
-
-    public function __construct(Dbal $dbalConnection)
-    {
-        $this->dbalConnection = $dbalConnection;
+    public function __construct(
+        private Dbal $dbalConnection
+    ) {
     }
 
     public function __invoke(CountFollowers $query): CountFollowersResponse
     {
-        $authorId = AuthorId::fromUuid($query->authorId());
+        $authorId = AuthorId::fromString($query->authorId());
 
         $stmt = $this->dbalConnection->prepare(
-        "SELECT a.id as id, a.username as username, COUNT(*) as followers ".
+            "SELECT a.id as id, a.username as username, COUNT(*) as followers ".
             "FROM authors a, follow_relationships fr ".
             "WHERE a.id = fr.followed_id ".
             "AND a.id = :authorId ".
