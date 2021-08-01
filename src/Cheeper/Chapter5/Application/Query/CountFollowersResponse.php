@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Architecture\CQRS\Application\Query;
+namespace Cheeper\Chapter5\Application\Query;
 
 //snippet count-followers-response
 final class CountFollowersResponse

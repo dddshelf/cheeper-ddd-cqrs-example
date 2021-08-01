@@ -45,6 +45,14 @@ services:
     Cheeper\Chapter5\Application\Query\QueryBus:
         class: 'Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
 
+    Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess\CountFollowersHandler:
+        tags: [messenger.message_handler]
+        arguments:
+            - '@Predis\ClientInterface'
+
+    Predis\ClientInterface:
+        class: 'Predis\Client'
+
     ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer:
         tags:
             - { name: api_platform.identifier.denormalizer }

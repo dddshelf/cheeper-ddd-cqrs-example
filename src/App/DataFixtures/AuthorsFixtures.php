@@ -33,8 +33,8 @@ class AuthorsFixtures extends Fixture
             name: 'Christian Soronellas',
             biography: 'CQRS by Example co-author',
             location: 'Barcelona',
-            website: null,
-            birthDate: null
+            website: new Website('https://theunic.com'),
+            birthDate: new BirthDate('1983-01-05')
         );
 
         $keyvan = Author::signUp(
@@ -54,9 +54,9 @@ class AuthorsFixtures extends Fixture
             email: new EmailAddress('info@kalele.io'),
             name: 'Vaughn Vernon',
             biography: 'Implementing Domain-Driven Design author',
-            location: null,
+            location: 'Texas',
             website: new Website('https://vaughnvernon.com'),
-            birthDate: null
+            birthDate: new BirthDate('1987-04-13')
         );
 
         $beck = Author::signUp(
@@ -65,32 +65,36 @@ class AuthorsFixtures extends Fixture
             email: new EmailAddress('kentlbeck@gmail.com'),
             name: 'Kent Beck',
             biography: 'Programmer, coach coach, singer/guitarist, peripatetic',
-            location: null,
-            website: new Website('www.kentbeck.com'),
-            birthDate: null
+            location: 'Silicon Valley',
+            website: new Website('https://www.kentbeck.com'),
+            birthDate: new BirthDate('1987-04-13')
         );
 
-        $carlos->follow($chris->userId());
-        $carlos->follow($keyvan->userId());
-        $carlos->follow($vaughn->userId());
-        $carlos->follow($beck->userId());
+        $follows = [];
 
-        $chris->follow($carlos->userId());
-        $chris->follow($keyvan->userId());
-        $chris->follow($beck->userId());
+        $follows[] = $carlos->followAuthorId($chris->userId());
+        $follows[] = $carlos->followAuthorId($keyvan->userId());
+        $follows[] = $carlos->followAuthorId($vaughn->userId());
+        $follows[] = $carlos->followAuthorId($beck->userId());
 
-        $keyvan->follow($carlos->userId());
-        $keyvan->follow($chris->userId());
-        $keyvan->follow($beck->userId());
+        $follows[] = $chris->followAuthorId($carlos->userId());
+        $follows[] = $chris->followAuthorId($keyvan->userId());
+        $follows[] = $chris->followAuthorId($beck->userId());
 
-        $vaughn->follow($carlos->userId());
+        $follows[] = $keyvan->followAuthorId($carlos->userId());
+        $follows[] = $keyvan->followAuthorId($chris->userId());
+        $follows[] = $keyvan->followAuthorId($beck->userId());
+
+        $follows[] = $vaughn->followAuthorId($carlos->userId());
+
+        \Functional\each($follows, fn($follow) => $manager->persist($follow));
 
         $manager->persist($carlos);
         $manager->persist($chris);
         $manager->persist($keyvan);
         $manager->persist($vaughn);
         $manager->persist($beck);
-        
+
         $manager->flush();
     }
 }

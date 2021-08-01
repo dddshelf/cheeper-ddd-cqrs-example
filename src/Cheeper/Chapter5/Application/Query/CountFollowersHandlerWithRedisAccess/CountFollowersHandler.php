@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess;
 
-use Architecture\CQRS\Application\Query\CountFollowersResponse;
+use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
+use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
-use Predis\Client as Redis;
+use Predis\ClientInterface as Redis;
 
 //snippet count-followers-handler
 final class CountFollowersHandler
@@ -23,6 +24,10 @@ final class CountFollowersHandler
         $result = $this->redis->get(
             'author_followers_counter_projection:'.$authorId->toString()
         );
+
+        if (null === $result) {
+            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
+        }
 
         return new CountFollowersResponse(
             authorId: $result['id'],

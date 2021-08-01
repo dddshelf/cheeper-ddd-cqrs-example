@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
 
 use Architecture\CQRS\App\Entity\Followers;
-use Architecture\CQRS\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
+use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;

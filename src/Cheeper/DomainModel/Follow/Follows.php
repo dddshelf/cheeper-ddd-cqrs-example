@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Follow;
 
-//snippet follows
 use Cheeper\DomainModel\Author\AuthorId;
 
+//snippet follows
 interface Follows
 {
     public function numberOfFollowersFor(AuthorId $authorId): int;

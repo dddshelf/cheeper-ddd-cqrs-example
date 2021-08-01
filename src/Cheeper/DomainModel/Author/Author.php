@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
+use Cheeper\DomainModel\Follow\Follow;
+use Cheeper\DomainModel\Follow\FollowId;
 use function Functional\filter;
 
 class Author
@@ -130,6 +132,15 @@ class Author
         }
 
         $this->following[] = $followed;
+    }
+
+    final public function followAuthorId(AuthorId $toFollow): Follow
+    {
+        return new Follow(
+            FollowId::nextIdentity(),
+            $this->authorId,
+            $toFollow
+        );
     }
 
     /** @return AuthorId[] */

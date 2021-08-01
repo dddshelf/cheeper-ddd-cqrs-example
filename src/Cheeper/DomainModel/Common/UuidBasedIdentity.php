@@ -28,6 +28,11 @@ abstract class UuidBasedIdentity extends ValueObject
         return new static($uuid);
     }
 
+    public static function nextIdentity(): static
+    {
+        return new static(Uuid::uuid4()->toString());
+    }
+
     public static function fromUuid(UuidInterface $uuid): static
     {
         return new static($uuid->toString());
