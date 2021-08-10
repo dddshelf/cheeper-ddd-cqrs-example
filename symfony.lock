@@ -76,6 +76,9 @@
     "doctrine/dbal": {
         "version": "v2.10.1"
     },
+    "doctrine/deprecations": {
+        "version": "v0.5.3"
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.0",
         "recipe": {
@@ -149,6 +152,9 @@
     "ezimuel/ringphp": {
         "version": "1.1.2"
     },
+    "fakerphp/faker": {
+        "version": "v1.15.0"
+    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.1.1"
     },
@@ -157,6 +163,9 @@
     },
     "fig/link-util": {
         "version": "1.1.0"
+    },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.5"
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
@@ -603,6 +612,9 @@
     "symfony/polyfill-php80": {
         "version": "v1.17.0"
     },
+    "symfony/polyfill-php81": {
+        "version": "v1.23.0"
+    },
     "symfony/process": {
         "version": "v5.0.5"
     },
@@ -614,6 +626,9 @@
     },
     "symfony/property-info": {
         "version": "v5.0.5"
+    },
+    "symfony/proxy-manager-bridge": {
+        "version": "v5.2.12"
     },
     "symfony/redis-messenger": {
         "version": "v5.1.0"

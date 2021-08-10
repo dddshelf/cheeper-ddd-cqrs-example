@@ -32,11 +32,11 @@
         "webonyx/graphql-php": "^14.4"
     },
     "require-dev": {
-        "bunny/bunny": "^0.4",
+        "bunny/bunny": "^0.5",
         "dama/doctrine-test-bundle": "^6.3",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
-        "elasticsearch/elasticsearch": "^7.0",
-        "fzaninotto/faker": "^1.9",
+        "elasticsearch/elasticsearch": "^7.14",
+        "fakerphp/faker": "^1.15",
         "infection/infection": "^0.20",
         "keyvanakbary/mimic": "^1.0",
         "mockery/mockery": "^1.3",
