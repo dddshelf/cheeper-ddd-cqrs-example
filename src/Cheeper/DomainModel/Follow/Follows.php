@@ -10,5 +10,6 @@ use Cheeper\DomainModel\Author\AuthorId;
 interface Follows
 {
     public function numberOfFollowersFor(AuthorId $authorId): int;
+    public function save(Follow $follow): void;
 }
 //end-snippet

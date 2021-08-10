@@ -9,6 +9,7 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\Cheeps;
+use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\Follows;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
@@ -62,6 +63,16 @@ final class DoctrineOrmFollows implements Follows
     public function numberOfFollowersFor(AuthorId $authorId): int
     {
         return 13;
+    }
+
+//    public function add(Cheep $cheep): void
+//    {
+//        $this->em->persist($cheep);
+//    }
+
+    public function save(Follow $follow): void
+    {
+        $this->em->persist($follow);
     }
 }
 //end-snippet

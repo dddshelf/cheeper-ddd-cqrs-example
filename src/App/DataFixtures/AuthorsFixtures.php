@@ -89,6 +89,9 @@ class AuthorsFixtures extends Fixture
 
         \Functional\each($follows, fn($follow) => $manager->persist($follow));
 
+        // Antes no se guardaba porque hay que usar
+        // el repo de Authors y llamar al save
+
         $manager->persist($carlos);
         $manager->persist($chris);
         $manager->persist($keyvan);

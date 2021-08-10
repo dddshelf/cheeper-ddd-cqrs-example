@@ -78,6 +78,11 @@ class Author
         $this->location = $location;
     }
 
+    final public function authorId(): AuthorId
+    {
+        return $this->authorId;
+    }
+
     final public function userId(): AuthorId
     {
         return $this->authorId;
