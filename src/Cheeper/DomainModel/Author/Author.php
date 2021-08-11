@@ -32,11 +32,11 @@ class Author
         AuthorId $authorId,
         UserName $userName,
         EmailAddress $email,
-        ?string $name,
-        ?string $biography,
-        ?string $location,
-        ?Website $website,
-        ?BirthDate $birthDate
+        ?string $name = null,
+        ?string $biography = null,
+        ?string $location = null,
+        ?Website $website = null,
+        ?BirthDate $birthDate = null
     ): self
     {
         return new self(

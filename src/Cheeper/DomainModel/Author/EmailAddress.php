@@ -16,6 +16,11 @@ final class EmailAddress extends ValueObject
         $this->setEmail($value);
     }
 
+    public static function from(string $value): EmailAddress
+    {
+        return new EmailAddress($value);
+    }
+
     public function value(): string
     {
         return $this->value;
