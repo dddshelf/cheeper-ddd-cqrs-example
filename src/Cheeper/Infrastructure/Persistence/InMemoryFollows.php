@@ -14,7 +14,7 @@ use function Functional\select;
 final class InMemoryFollows implements Follows
 {
     /** @var array<string, Follow> */
-    private array $collection = [];
+    public array $collection = [];
 
     public function ofId(FollowId $followId): ?Follow
     {

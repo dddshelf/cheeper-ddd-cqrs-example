@@ -26,7 +26,7 @@ final class FollowHandler
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
         $follow = $this->followsRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
-        if (null === $follow) {
+        if (null !== $follow) {
             return;
         }
 
