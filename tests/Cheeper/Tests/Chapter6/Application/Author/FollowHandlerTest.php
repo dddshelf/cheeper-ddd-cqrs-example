@@ -119,7 +119,6 @@ final class FollowHandlerTest extends TestCase
     {
         $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
         $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
-        $followId = '51d8ffff-123f-78e1-48fc-f8b513391a0e';
 
         $fromAuthor = Author::signUp(
             AuthorId::fromString($fromAuthorId),
