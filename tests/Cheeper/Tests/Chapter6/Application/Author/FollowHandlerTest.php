@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Cheeper6\Application\Author;
+namespace Cheeper\Tests\Chapter6\Application\Author;
 
 use Cheeper\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
