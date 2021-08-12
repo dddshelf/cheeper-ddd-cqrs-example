@@ -7,13 +7,13 @@ namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithDbAccess;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\DomainModel\Author\AuthorId;
-use Doctrine\DBAL\Portability\Connection as Dbal;
+use Doctrine\DBAL\Driver\Connection as Database;
 
 //snippet count-followers-handler
 final class CountFollowersHandler
 {
     public function __construct(
-        private Dbal $dbalConnection
+        private Database $database
     ) {
     }
 
@@ -21,7 +21,7 @@ final class CountFollowersHandler
     {
         $authorId = AuthorId::fromString($query->authorId());
 
-        $stmt = $this->dbalConnection->prepare(
+        $stmt = $this->database->prepare(
             "SELECT a.id as id, a.username as username, COUNT(*) as followers ".
             "FROM authors a, follow_relationships fr ".
             "WHERE a.id = fr.followed_id ".
