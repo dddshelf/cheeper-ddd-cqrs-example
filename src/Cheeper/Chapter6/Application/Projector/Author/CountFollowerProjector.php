@@ -8,6 +8,7 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Doctrine\DBAL\Driver\Connection as Database;
 use Predis\ClientInterface as Redis;
 
+//snippet projector-count-followers
 final class CountFollowerProjector
 {
     public function __construct(
@@ -39,3 +40,4 @@ final class CountFollowerProjector
         );
     }
 }
+//end-snippet
