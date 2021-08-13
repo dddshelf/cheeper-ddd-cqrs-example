@@ -74,5 +74,13 @@ final class DoctrineOrmFollows implements Follows
     {
         $this->em->persist($follow);
     }
+
+    public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
+    {
+        return $this->findOneBy([
+            'fromAuthorId' => $fromAuthorId->toString(),
+            'toAuthorId' => $toAuthorId->toString()
+        ]);
+    }
 }
 //end-snippet
