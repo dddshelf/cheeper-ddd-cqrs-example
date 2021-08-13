@@ -10,6 +10,7 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Follow\Follows;
 
+//snippet follow-handler-without-event
 final class FollowHandler
 {
     public function __construct(
@@ -30,9 +31,8 @@ final class FollowHandler
             return;
         }
 
-        $this->followsRepository->save(
-            $fromAuthor->followAuthorId($toAuthor->authorId())
-        );
+        $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
+        $this->followsRepository->save($follow);
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
@@ -45,3 +45,4 @@ final class FollowHandler
         return $author;
     }
 }
+// end-snippet
