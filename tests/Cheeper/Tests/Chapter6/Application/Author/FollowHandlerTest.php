@@ -19,17 +19,29 @@ use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase
 {
+    private const AUTHOR_ID_FROM = '400ea77d-0c8c-44f2-abe8-db05d0852966';
+    private const AUTHOR_ID_TO = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
+
+    const USERNAME_KEYVAN = 'keyvanakbary';
+    const USERNAME_CARLOS = 'carlosbuenosvinos';
+    const EMAIL_KEYVAN = 'keyvan.akbary@gmail.com';
+    const EMAIL_CARLOS = 'carlos.buenosvinos@gmail.com';
+
+    private InMemoryAuthors $authorsRepository;
+    private InMemoryFollows $followsRepository;
+
+    protected function setUp(): void
+    {
+        $this->authorsRepository = new InMemoryAuthors();
+        $this->followsRepository = new InMemoryFollows();
+    }
+
     /** @test */
     public function givenTwoNonExistingAuthorsWhenFollowingOneToAnotherOneNonExistingAuthorExceptionShouldBeThrown(): void
     {
-        $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
-        $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
-
         $this->expectException(AuthorDoesNotExist::class);
 
-        $authorsRepository = new InMemoryAuthors();
-        $followsRepository = new InMemoryFollows();
-        $this->runHandler($authorsRepository, $followsRepository, $fromAuthorId, $toAuthorId);
+        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
     }
 
     /** @test */
@@ -37,20 +49,13 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
-        $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
+        $this->authorsRepository->save($this->buildAuthor(
+            self::AUTHOR_ID_TO,
+            self::USERNAME_CARLOS,
+            self::EMAIL_CARLOS
+        ));
 
-        $toAuthor = Author::signUp(
-            AuthorId::fromString($toAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
-        );
-
-        $authorsRepository = new InMemoryAuthors();
-        $followsRepository = new InMemoryFollows();
-        $authorsRepository->save($toAuthor);
-
-        $this->runHandler($authorsRepository, $followsRepository, $fromAuthorId, $toAuthorId);
+        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
     }
 
     /** @test */
@@ -58,47 +63,39 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
-        $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
-
-        $fromAuthor = Author::signUp(
-            AuthorId::fromString($fromAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
+        $this->authorsRepository->save(
+            $this->buildAuthor(
+                self::AUTHOR_ID_FROM,
+                self::USERNAME_CARLOS,
+                self::EMAIL_CARLOS
+            )
         );
 
-        $authorsRepository = new InMemoryAuthors();
-        $followsRepository = new InMemoryFollows();
-        $authorsRepository->save($fromAuthor);
-
-        $this->runHandler($authorsRepository, $followsRepository, $fromAuthorId, $toAuthorId);
+        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
     }
 
     /** @test */
     public function givenTwoAuthorsFollowingOneToAnotherAlreadyWhenTryingToFollowAgainNothingShouldBeHappening(): void
     {
-        $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
-        $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
+        $fromAuthorId = self::AUTHOR_ID_FROM;
+        $toAuthorId = self::AUTHOR_ID_TO;
         $followId = '51d8ffff-123f-78e1-48fc-f8b513391a0e';
 
         $fromAuthor = Author::signUp(
             AuthorId::fromString($fromAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
+            UserName::pick(self::USERNAME_CARLOS),
+            EmailAddress::from(self::EMAIL_CARLOS)
         );
 
         $toAuthor = Author::signUp(
             AuthorId::fromString($toAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
+            UserName::pick(self::USERNAME_KEYVAN),
+            EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $authorsRepository = new InMemoryAuthors();
-        $followsRepository = new InMemoryFollows();
-
-        $authorsRepository->save($fromAuthor);
-        $authorsRepository->save($toAuthor);
-        $followsRepository->save(
+        $this->authorsRepository->save($fromAuthor);
+        $this->authorsRepository->save($toAuthor);
+        $this->followsRepository->save(
             new FollowRelation(
                 FollowId::fromString($followId),
                 $fromAuthor->authorId(),
@@ -106,56 +103,62 @@ final class FollowHandlerTest extends TestCase
             )
         );
 
-        $this->runHandler($authorsRepository, $followsRepository, $fromAuthorId, $toAuthorId);
+        $this->runHandler($fromAuthorId, $toAuthorId);
 
         $this->assertCount(
             1,
-            $followsRepository->collection
+            $this->followsRepository->collection
         );
     }
 
     /** @test */
     public function givenTwoAuthorsNotFollowingOneToAnotherWhenFollowingThenTheFollowShouldHappen(): void
     {
-        $fromAuthorId = '400ea77d-0c8c-44f2-abe8-db05d0852966';
-        $toAuthorId = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
+        $fromAuthorId = self::AUTHOR_ID_FROM;
+        $toAuthorId = self::AUTHOR_ID_TO;
 
         $fromAuthor = Author::signUp(
             AuthorId::fromString($fromAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
+            UserName::pick(self::USERNAME_CARLOS),
+            EmailAddress::from(self::EMAIL_CARLOS)
         );
 
         $toAuthor = Author::signUp(
             AuthorId::fromString($toAuthorId),
-            UserName::pick('carlosbuenosvinos'),
-            EmailAddress::from('carlos.buenosvinos@gmail.com')
+            UserName::pick(self::USERNAME_KEYVAN),
+            EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $authorsRepository = new InMemoryAuthors();
-        $followsRepository = new InMemoryFollows();
+        $this->authorsRepository->save($fromAuthor);
+        $this->authorsRepository->save($toAuthor);
 
-        $authorsRepository->save($fromAuthor);
-        $authorsRepository->save($toAuthor);
-
-        $this->runHandler($authorsRepository, $followsRepository, $fromAuthorId, $toAuthorId);
+        $this->runHandler($fromAuthorId, $toAuthorId);
 
         $this->assertCount(
             1,
-            $followsRepository->collection
+            $this->followsRepository->collection
         );
     }
 
-    private function runHandler(InMemoryAuthors $authorsRepository, InMemoryFollows $followsRepository, string $fromAuthorId, string $toAuthorId): void
+    private function runHandler(string $fromAuthorId, string $toAuthorId): void
     {
         (new FollowHandler(
-            $authorsRepository,
-            $followsRepository
+            $this->authorsRepository,
+            $this->followsRepository
         ))(
             Follow::fromAuthorIdToAuthorId(
                 $fromAuthorId,
                 $toAuthorId
             )
+        );
+    }
+
+    private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
+    {
+        return Author::signUp(
+            AuthorId::fromString($toAuthorId),
+            UserName::pick($userName),
+            EmailAddress::from($email)
         );
     }
 }
