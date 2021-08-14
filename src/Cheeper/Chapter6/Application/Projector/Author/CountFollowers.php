@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Projector\Author;
 
-//snippet projector-count-followers
+//snippet count-followers
 final class CountFollowers
 {
     private string $authorId;

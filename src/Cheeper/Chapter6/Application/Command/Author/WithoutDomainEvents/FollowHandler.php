@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Command\Author;
+namespace Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents;
 
+use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;

@@ -16,6 +16,7 @@ services:
             Cheeper\DomainModel\Follow\Follows $follows: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
+            Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -44,6 +45,9 @@ services:
 
     Cheeper\Chapter5\Application\Query\QueryBus:
         class: 'Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
+
+    Cheeper\Chapter6\Application\Command\EventBus:
+        class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
 
     Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess\CountFollowersHandler:
         tags: [messenger.message_handler]

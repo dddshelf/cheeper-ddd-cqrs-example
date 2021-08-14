@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Chapter6\Application\Author;
+namespace Cheeper\Tests\Chapter6\Application\Command\WithoutDomainEvents\Author;
 
+use Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents\FollowHandler;
 use Cheeper\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\Chapter6\Application\Command\Author\FollowHandler;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
@@ -140,6 +140,15 @@ final class FollowHandlerTest extends TestCase
         );
     }
 
+    private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
+    {
+        return Author::signUp(
+            AuthorId::fromString($toAuthorId),
+            UserName::pick($userName),
+            EmailAddress::from($email)
+        );
+    }
+
     private function runHandler(string $fromAuthorId, string $toAuthorId): void
     {
         (new FollowHandler(
@@ -150,15 +159,6 @@ final class FollowHandlerTest extends TestCase
                 $fromAuthorId,
                 $toAuthorId
             )
-        );
-    }
-
-    private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
-    {
-        return Author::signUp(
-            AuthorId::fromString($toAuthorId),
-            UserName::pick($userName),
-            EmailAddress::from($email)
         );
     }
 }
