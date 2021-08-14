@@ -37,7 +37,7 @@ final class FollowHandler
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
         $this->followsRepository->save($follow);
 
-        $this->eventBus->notify($follow->domainEvents());
+        $this->eventBus->notifyAll($follow->domainEvents());
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author

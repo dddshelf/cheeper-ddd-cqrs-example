@@ -19,9 +19,14 @@ final class SymfonyEventBus implements EventBus
         $this->messageBus = $eventBus;
     }
 
-    public function notify(DomainEvent $event)
+    public function notify(DomainEvent $event): void
     {
-        return $this->handle($event);
+        $this->handle($event);
+    }
+
+    public function notifyAll(array $domainEvents): void
+    {
+        \Functional\each($domainEvents, fn($de) => $this->notify($de));
     }
 }
 //end-snippet

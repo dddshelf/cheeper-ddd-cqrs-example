@@ -9,6 +9,7 @@ use Cheeper\DomainModel\DomainEvent;
 //snippet event-bus
 interface EventBus
 {
-    public function notify(DomainEvent $event);
+    public function notify(DomainEvent $event): void;
+    public function notifyAll(array $domainEvents): void;
 }
 //end-snippet
