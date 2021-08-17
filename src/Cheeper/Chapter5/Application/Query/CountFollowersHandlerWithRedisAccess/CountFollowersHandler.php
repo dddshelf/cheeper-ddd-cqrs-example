@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess;
 
-use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
+use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Predis\ClientInterface as Redis;

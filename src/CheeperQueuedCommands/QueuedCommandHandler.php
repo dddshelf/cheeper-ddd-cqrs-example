@@ -11,7 +11,8 @@ final class QueuedCommandHandler
 {
     public function __construct(
         private CommandBus $commandBus
-    ) { }
+    ) {
+    }
 
     public function __invoke(QueuedCommand $message): void
     {

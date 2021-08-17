@@ -14,7 +14,8 @@ final class FollowerDataPersister implements DataPersisterInterface
 {
     public function __construct(
         private CommandBus $commandBus
-    ) { }
+    ) {
+    }
 
     public function supports(mixed $data): bool
     {

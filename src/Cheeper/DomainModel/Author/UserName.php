@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
-use Assert\Assertion;
 use Cheeper\DomainModel\Common\ValueObject;
 
 final class UserName extends ValueObject

@@ -6,12 +6,12 @@ namespace CheeperQueuedCommands;
 
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
+use function Safe\sprintf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use function Safe\sprintf;
 
 final class DelayedPostCheepController extends AbstractController
 {

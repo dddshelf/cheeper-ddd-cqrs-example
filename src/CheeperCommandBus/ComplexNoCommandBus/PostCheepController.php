@@ -9,20 +9,12 @@ use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Routing\Annotation\Route;
-use function Safe\sprintf;
 
 final class PostCheepController extends AbstractController
 {
@@ -63,7 +55,7 @@ final class PostCheepController extends AbstractController
 
         try {
             $logger->info('Executing SignUp command');
-            $entityManager->transactional(function() use($command, $postCheepHandler, $logger) {
+            $entityManager->transactional(function () use ($command, $postCheepHandler, $logger) {
                 ($postCheepHandler)($command);
                 $logger->info('SignUp command executed successfully');
             });

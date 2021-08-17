@@ -10,16 +10,17 @@ use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Author\UserName;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
+use function Functional\map;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use function Functional\map;
 
 //snippet doctrine-orm-authors
 final class DoctrineOrmAuthors implements Authors
 {
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function ofId(AuthorId $authorId): ?Author
     {
@@ -68,13 +69,13 @@ final class DoctrineOrmAuthors implements Authors
         foreach ($author->following() as $userId) {
             try {
                 $connection->insert(
-                    'user_followers', [
+                    'user_followers',
+                    [
                         'user_id' => $uuid->getBytes(),
                         'followed_id' => Uuid::fromString($userId->id())->getBytes(),
                     ]
                 );
             } catch (UniqueConstraintViolationException $_) {
-
             }
         }
     }
@@ -98,12 +99,12 @@ final class DoctrineOrmAuthors implements Authors
 
         $uuids = map(
             $followers,
-            fn(array $follower) => Uuid::fromBytes((string)$follower['followed_id'])
+            fn (array $follower) => Uuid::fromBytes((string)$follower['followed_id'])
         );
 
         return map(
             $uuids,
-            fn(UuidInterface $followedId) => AuthorId::fromUuid($followedId)
+            fn (UuidInterface $followedId) => AuthorId::fromUuid($followedId)
         );
     }
 }

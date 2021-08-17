@@ -7,7 +7,6 @@ use Architecture\CQRS\Domain\PostId;
 use Architecture\CQRS\Domain\PostRepository;
 use Architecture\CQRS\Infrastructure\Projection\Projector;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
@@ -29,7 +28,7 @@ class DoctrinePostRepository implements PostRepository
 
     public function save(Post $post): void
     {
-        $this->em->transactional(static function(EntityManagerInterface $em) use ($post): void {
+        $this->em->transactional(static function (EntityManagerInterface $em) use ($post): void {
             $em->persist($post);
 
             foreach ($post->recordedEvents() as $event) {

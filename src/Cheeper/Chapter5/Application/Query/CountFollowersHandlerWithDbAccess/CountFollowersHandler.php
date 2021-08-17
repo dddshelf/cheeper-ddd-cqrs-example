@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithDbAccess;
 
-use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
+use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\DomainModel\Author\AuthorId;
 use Doctrine\DBAL\Driver\Connection as Database;
 

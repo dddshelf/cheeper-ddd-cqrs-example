@@ -18,7 +18,8 @@ final class SignUpHandler
 {
     public function __construct(
         private Authors $authors
-    ) { }
+    ) {
+    }
 
     public function __invoke(SignUp $command): void
     {

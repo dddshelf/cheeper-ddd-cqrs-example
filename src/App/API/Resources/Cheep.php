@@ -6,7 +6,6 @@ namespace App\API\Resources;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
 //snippet cheep-input-resource

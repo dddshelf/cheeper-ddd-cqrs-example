@@ -6,17 +6,14 @@ namespace CheeperCommandHandlers;
 
 use Cheeper\Application\Command\Cheep\UpdateCheepMessage;
 use Cheeper\Application\Command\Cheep\UpdateCheepMessageHandler;
-use Cheeper\DomainModel\Cheep\Cheeps;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
+use function Safe\json_decode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use function Safe\json_decode;
 
 final class UpdateCheepMessageController extends AbstractController
 {

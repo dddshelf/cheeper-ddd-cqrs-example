@@ -64,8 +64,16 @@ services:
         class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
 
     Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector: ~
+#
+#    Cheeper\Application\Command\:
+#        resource: '../src/Cheeper/Application/Command/**/*Handler.php'
+#        autoconfigure: false
+#        tags:
+#            - { name: messenger.message_handler, bus: command.bus }
+
     Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler:
-        autowire: true
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
         class: 'Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler'
 
     Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyCountFollowerProjector:

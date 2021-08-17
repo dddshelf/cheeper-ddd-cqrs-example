@@ -14,7 +14,8 @@ final class CountFollowerProjector
     public function __construct(
         private Redis $redis,
         private Database $database
-    ) { }
+    ) {
+    }
 
     public function __invoke(CountFollowers $query): void
     {

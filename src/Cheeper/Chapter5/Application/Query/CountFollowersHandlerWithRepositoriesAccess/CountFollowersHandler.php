@@ -17,8 +17,7 @@ final class CountFollowersHandler
     public function __construct(
         private Followers $followersRepository,
         private Authors $authorsRepository
-    )
-    {
+    ) {
     }
 
     public function __invoke(CountFollowers $query): CountFollowersResponse

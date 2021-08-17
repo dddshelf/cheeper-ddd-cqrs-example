@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Cheeper\Infrastructure\Persistence;
 
-use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Cheep\Cheep;
-use Cheeper\DomainModel\Cheep\CheepId;
-use Cheeper\DomainModel\Cheep\Cheeps;
 use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\Follows;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
-use Ramsey\Uuid\Uuid;
 
 //snippet doctrine-orm-follows
 final class DoctrineOrmFollows implements Follows
@@ -34,6 +29,7 @@ final class DoctrineOrmFollows implements Follows
     public function save(Follow $follow): void
     {
         $this->em->persist($follow);
+        $this->em->flush();
     }
 
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow

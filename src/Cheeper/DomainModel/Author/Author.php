@@ -37,8 +37,7 @@ class Author
         ?string $location = null,
         ?Website $website = null,
         ?BirthDate $birthDate = null
-    ): self
-    {
+    ): self {
         return new self(
             $authorId,
             $userName,

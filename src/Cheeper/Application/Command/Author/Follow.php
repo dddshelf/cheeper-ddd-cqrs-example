@@ -12,7 +12,8 @@ final class Follow
     public function __construct(
         private string $followeeUsername,
         private string $followedUsername
-    ) { }
+    ) {
+    }
 
     //ignore
     public function followeeUsername(): string

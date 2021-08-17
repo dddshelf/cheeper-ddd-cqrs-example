@@ -87,7 +87,7 @@ class AuthorsFixtures extends Fixture
 
         $follows[] = $vaughn->followAuthorId($carlos->userId());
 
-        \Functional\each($follows, fn($follow) => $manager->persist($follow));
+        \Functional\each($follows, fn ($follow) => $manager->persist($follow));
 
         // Antes no se guardaba porque hay que usar
         // el repo de Authors y llamar al save

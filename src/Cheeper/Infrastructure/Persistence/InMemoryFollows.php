@@ -19,7 +19,7 @@ final class InMemoryFollows implements Follows
     public function ofId(FollowId $followId): ?Follow
     {
         $candidate = head(
-            select($this->collection, fn(Follow $u): bool => $u->followId()->equals($followId))
+            select($this->collection, fn (Follow $u): bool => $u->followId()->equals($followId))
         );
 
         if (null === $candidate) {
@@ -49,7 +49,7 @@ final class InMemoryFollows implements Follows
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
     {
         $candidate = head(
-            select($this->collection, fn(Follow $u): bool => $u->fromAuthorId()->equals($fromAuthorId) && $u->toAuthorId()->equals($toAuthorId))
+            select($this->collection, fn (Follow $u): bool => $u->fromAuthorId()->equals($fromAuthorId) && $u->toAuthorId()->equals($toAuthorId))
         );
 
         if (null === $candidate) {

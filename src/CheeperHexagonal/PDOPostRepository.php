@@ -9,7 +9,8 @@ class PDOPostRepository implements PostRepository
 {
     public function __construct(
         private PDO $db
-    ) { }
+    ) {
+    }
 
     public function byId(PostId $id): Post
     {

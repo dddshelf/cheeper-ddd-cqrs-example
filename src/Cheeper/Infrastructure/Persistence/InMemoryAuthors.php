@@ -19,7 +19,7 @@ final class InMemoryAuthors implements Authors
     public function ofId(AuthorId $authorId): ?Author
     {
         $candidate = head(
-            select($this->authors, fn(Author $u): bool => $u->userId()->equals($authorId))
+            select($this->authors, fn (Author $u): bool => $u->userId()->equals($authorId))
         );
 
         if (null === $candidate) {
@@ -32,7 +32,7 @@ final class InMemoryAuthors implements Authors
     public function ofUserName(UserName $userName): ?Author
     {
         $candidate = head(
-            select($this->authors, fn(Author $u): bool => $u->userName()->equalsTo($userName))
+            select($this->authors, fn (Author $u): bool => $u->userName()->equalsTo($userName))
         );
 
         if (null === $candidate) {

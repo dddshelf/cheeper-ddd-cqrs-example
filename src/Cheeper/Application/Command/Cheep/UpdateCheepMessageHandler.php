@@ -14,7 +14,8 @@ final class UpdateCheepMessageHandler
 {
     public function __construct(
         private Cheeps $cheeps
-    ) { }
+    ) {
+    }
 
     public function __invoke(UpdateCheepMessage $message): void
     {

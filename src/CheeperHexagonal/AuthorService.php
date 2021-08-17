@@ -2,8 +2,8 @@
 
 namespace CheeperHexagonal;
 
-use CheeperLayered\Authors;
 use CheeperLayered\Author;
+use CheeperLayered\Authors;
 use function Safe\sprintf;
 
 //snippet author-service
@@ -11,15 +11,15 @@ class AuthorService
 {
     public function __construct(
         private Authors $authors
-    ) { }
+    ) {
+    }
 
     public function update(
         int $id,
         string $username,
         ?string $website,
         ?string $bio
-    ): Author
-    {
+    ): Author {
         $author = $this->authors->byId($id);
 
         if (null === $author) {

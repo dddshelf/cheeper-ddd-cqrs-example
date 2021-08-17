@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Cheep;
 
 use RuntimeException;
-use Throwable;
 use function Safe\sprintf;
 
 final class CheepDoesNotExist extends RuntimeException

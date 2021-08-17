@@ -6,7 +6,6 @@ namespace App\API\Resources;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Ramsey\Uuid\UuidInterface;
 
 /**
  * Properties in DTOs always need to be annotated with the "@var" annotation in order to work properly. This is so

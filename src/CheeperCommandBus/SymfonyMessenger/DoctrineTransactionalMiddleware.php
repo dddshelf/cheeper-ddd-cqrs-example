@@ -14,7 +14,8 @@ final class DoctrineTransactionalMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

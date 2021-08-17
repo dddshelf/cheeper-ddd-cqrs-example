@@ -19,7 +19,8 @@ final class FollowHandler
         private Authors $authorsRepository,
         private Follows $followsRepository,
         private EventBus $eventBus
-    ) { }
+    ) {
+    }
 
     public function __invoke(Follow $command): void
     {

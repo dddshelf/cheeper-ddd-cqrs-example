@@ -11,7 +11,8 @@ final class QueuedCommand
 {
     public function __construct(
         private AsyncCommand $command
-    ) { }
+    ) {
+    }
 
     public function command(): AsyncCommand
     {

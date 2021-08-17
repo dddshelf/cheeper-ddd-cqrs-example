@@ -6,8 +6,8 @@ use Architecture\CQRS\Domain\DomainEvent;
 
 use Architecture\ES\Domain\EventStream;
 use Predis\Client;
-use Zumba\JsonSerializer\JsonSerializer;
 use Safe\DateTimeImmutable;
+use Zumba\JsonSerializer\JsonSerializer;
 
 /**
  * @template T of DomainEvent

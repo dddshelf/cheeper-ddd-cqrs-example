@@ -10,7 +10,8 @@ final class Follow
     private function __construct(
         private string $fromAuthorId,
         private string $toAuthorId
-    ) { }
+    ) {
+    }
 
     //ignore
     public function fromAuthorId(): string

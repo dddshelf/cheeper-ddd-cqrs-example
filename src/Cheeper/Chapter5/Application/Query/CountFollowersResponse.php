@@ -15,8 +15,7 @@ final class CountFollowersResponse
         string $authorId,
         string $authorUsername,
         int $numberOfFollowers
-    )
-    {
+    ) {
         $this->authorId = $authorId;
         $this->authorUsername = $authorUsername;
         $this->numberOfFollowers = $numberOfFollowers;

@@ -12,7 +12,8 @@ final class FollowHandler
 {
     public function __construct(
         private Authors $authors
-    ) { }
+    ) {
+    }
 
     public function __invoke(Follow $command): void
     {

@@ -3,8 +3,8 @@
 namespace CheeperHexagonal;
 
 use CheeperLayered\Authors;
-use CheeperLayered\Cheeps;
 use CheeperLayered\Cheep;
+use CheeperLayered\Cheeps;
 use function Safe\sprintf;
 
 //snippet cheep-service
@@ -13,7 +13,8 @@ class CheepService
     public function __construct(
         private Authors $authors,
         private Cheeps $cheeps,
-    ) { }
+    ) {
+    }
 
     public function postCheep(string $username, string $message): Cheep
     {

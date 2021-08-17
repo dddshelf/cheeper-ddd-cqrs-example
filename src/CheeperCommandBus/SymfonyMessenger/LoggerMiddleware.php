@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace CheeperCommandBus\SymfonyMessenger;
 
 use Psr\Log\LoggerInterface;
+use function Safe\sprintf;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
-use function Safe\sprintf;
 
 //snippet logger-middleware
 final class LoggerMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private LoggerInterface $logger
-    ) { }
+    ) {
+    }
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {

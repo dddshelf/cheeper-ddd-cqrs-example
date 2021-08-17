@@ -19,7 +19,8 @@ final class PostCheepHandler
     public function __construct(
         private Authors $authors,
         private Cheeps $cheeps,
-    ) { }
+    ) {
+    }
 
     public function __invoke(PostCheep $command): void
     {

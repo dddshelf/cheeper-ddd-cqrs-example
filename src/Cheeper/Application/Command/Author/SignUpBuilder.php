@@ -18,14 +18,14 @@ final class SignUpBuilder
         private ?string $location = null,
         private ?string $website = null,
         private ?string $birthDate = null,
-    ) { }
+    ) {
+    }
 
     public static function create(
         string $authorId,
         string $userName,
         string $email
-    ): self
-    {
+    ): self {
         return new self($authorId, $userName, $email);
     }
 

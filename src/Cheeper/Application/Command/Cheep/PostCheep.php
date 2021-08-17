@@ -13,7 +13,8 @@ final class PostCheep
         private string $cheepId,
         private string $authorId,
         private string $message,
-    ) { }
+    ) {
+    }
 
     /** @param array{author_id: string, cheep_id: string, message: string} $array */
     #[Pure] public static function fromArray(array $array): self

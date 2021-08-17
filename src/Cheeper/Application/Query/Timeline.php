@@ -17,7 +17,8 @@ final class Timeline
 
     private function __construct(
         private string $authorId
-    ) { }
+    ) {
+    }
 
     public function authorId(): string
     {

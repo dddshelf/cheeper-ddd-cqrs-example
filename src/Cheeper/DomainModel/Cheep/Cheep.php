@@ -14,7 +14,8 @@ class Cheep
         private CheepId $cheepId,
         private CheepMessage $cheepMessage,
         private CheepDate $cheepDate,
-    ) { }
+    ) {
+    }
 
     public static function compose(AuthorId $authorId, CheepId $cheepId, CheepMessage $cheepMessage): self
     {

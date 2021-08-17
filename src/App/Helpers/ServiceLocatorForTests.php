@@ -14,7 +14,8 @@ final class ServiceLocatorForTests
         private ManagerRegistry $doctrine,
         private DoctrineOrmAuthors $authors,
         private DoctrineOrmCheeps $cheeps
-    ) { }
+    ) {
+    }
 
     public function authors(): DoctrineOrmAuthors
     {

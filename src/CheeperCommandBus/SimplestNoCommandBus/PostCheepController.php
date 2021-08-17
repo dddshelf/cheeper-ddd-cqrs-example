@@ -9,7 +9,6 @@ use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
-use Doctrine\ORM\EntityManager;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

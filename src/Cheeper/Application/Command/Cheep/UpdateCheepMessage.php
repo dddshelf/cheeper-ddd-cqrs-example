@@ -9,7 +9,8 @@ final class UpdateCheepMessage
     public function __construct(
         private string $cheepId,
         private string $message,
-    ) { }
+    ) {
+    }
 
     public function cheepId(): string
     {

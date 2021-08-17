@@ -18,7 +18,8 @@ final class DoctrineOrmCheeps implements Cheeps
     //ignore
     public function __construct(
         private EntityManagerInterface $em
-    ) { }
+    ) {
+    }
 
     public function add(Cheep $cheep): void
     {
@@ -35,16 +36,15 @@ final class DoctrineOrmCheeps implements Cheeps
 
         \Functional\each(
             $author->following(),
-            static function (AuthorId $authorId, int $index)
-                use ($orExpression, $expr, $queryBuilder): void {
-                    $orExpression->add(
-                        $expr->eq('c.authorId.id', '?' . ((string)($index + 1)))
-                    );
-                    $queryBuilder->setParameter(
-                        $index + 1,
-                        Uuid::fromString($authorId->id())->getBytes()
-                    );
-                }
+            static function (AuthorId $authorId, int $index) use ($orExpression, $expr, $queryBuilder): void {
+                $orExpression->add(
+                    $expr->eq('c.authorId.id', '?' . ((string)($index + 1)))
+                );
+                $queryBuilder->setParameter(
+                    $index + 1,
+                    Uuid::fromString($authorId->id())->getBytes()
+                );
+            }
         );
 
         $queryBuilder->where($orExpression);

@@ -17,8 +17,7 @@ class FollowCommand extends Command
     public function __construct(
         private FollowHandler $followHandler,
         string $name = null
-    )
-    {
+    ) {
         parent::__construct($name);
     }
 

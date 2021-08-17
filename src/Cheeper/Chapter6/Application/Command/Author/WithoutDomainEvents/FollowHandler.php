@@ -17,7 +17,8 @@ final class FollowHandler
     public function __construct(
         private Authors $authorsRepository,
         private Follows $followsRepository
-    ) { }
+    ) {
+    }
 
     public function __invoke(Follow $command): void
     {

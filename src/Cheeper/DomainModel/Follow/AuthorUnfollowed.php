@@ -6,8 +6,8 @@ namespace Cheeper\DomainModel\Follow;
 
 use Cheeper\DomainModel\DomainEvent;
 
-// snippet author-followed-domain-event
-final class AuthorFollowed implements DomainEvent
+// snippet author-unfollowed-domain-event
+final class AuthorUnfollowed implements DomainEvent
 {
     private function __construct(
         private string $followId,

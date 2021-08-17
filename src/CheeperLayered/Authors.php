@@ -78,7 +78,7 @@ class Authors
 
             if (!$author->id()) {
                 $author->setId((int) $this->db->lastInsertId());
-            }      
+            }
 
             $this->db->commit();
         } catch (\Exception $e) {

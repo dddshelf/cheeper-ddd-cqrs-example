@@ -6,14 +6,12 @@ namespace CheeperCommands\Validation;
 
 use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Application\Command\Cheep\PostCheep;
-use JsonException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -24,8 +22,7 @@ final class PostCheepController extends AbstractController
     public function __invoke(
         Request $request,
         ValidatorInterface $validator
-    ): Response
-    {
+    ): Response {
         $command = PostCheep::fromArray([
             'author_id' => $request->request->getAlpha('authorId'),
             'cheep_id' => Uuid::uuid4()->toString(),

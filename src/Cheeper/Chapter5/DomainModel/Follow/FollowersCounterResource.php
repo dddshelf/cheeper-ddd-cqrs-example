@@ -10,6 +10,6 @@ final class FollowersCounterResource
         public string $userId,
         public string $userName,
         public int $counter,
-    )
-    { }
+    ) {
+    }
 }

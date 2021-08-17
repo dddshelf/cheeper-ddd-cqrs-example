@@ -16,7 +16,8 @@ final class SignUp
         private ?string $location,
         private ?string $website,
         private ?string $birthDate,
-    ) { }
+    ) {
+    }
 
     //ignore
     public function authorId(): string

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Architecture\CQRS\App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository;
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
 /**
