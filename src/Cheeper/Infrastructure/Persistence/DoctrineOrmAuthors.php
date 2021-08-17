@@ -33,9 +33,9 @@ final class DoctrineOrmAuthors implements Authors
             return null;
         }
 
-        foreach ($this->followersOf($author) as $followedId) {
-            $author->follow($followedId);
-        }
+//        foreach ($this->followersOf($author) as $followedId) {
+//            $author->follow($followedId);
+//        }
 
         return $author;
     }

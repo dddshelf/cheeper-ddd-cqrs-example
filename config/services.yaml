@@ -35,8 +35,10 @@ services:
     App\ArgumentResolver\UuidResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 200 }
+
     Cheeper\Infrastructure\:
         resource: '../src/Cheeper/Infrastructure/**/*.php'
+
     Cheeper\Application\Command\:
         resource: '../src/Cheeper/Application/Command/**/*Handler.php'
         autoconfigure: false
@@ -53,6 +55,23 @@ services:
         tags: [messenger.message_handler]
         arguments:
             - '@Predis\ClientInterface'
+
+    # CHAPTER 6
+    Cheeper\DomainModel\Follow\Follows:
+        class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
+
+    Cheeper\DomainModel\Author\Authors:
+        class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
+
+    Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector: ~
+    Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler:
+        autowire: true
+        class: 'Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler'
+
+    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyCountFollowerProjector:
+        tags: [messenger.message_handler]
+        arguments:
+            - '@Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector'
 
     Predis\ClientInterface:
         class: 'Predis\Client'
