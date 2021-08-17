@@ -21,7 +21,7 @@ final class SymfonyEventBus implements EventBus
 
     public function notify(DomainEvent $event): void
     {
-        $this->handle($event);
+        $this->messageBus->dispatch($event);
     }
 
     public function notifyAll(array $domainEvents): void

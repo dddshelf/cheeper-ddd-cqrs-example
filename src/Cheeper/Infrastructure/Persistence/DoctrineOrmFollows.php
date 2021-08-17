@@ -39,8 +39,8 @@ final class DoctrineOrmFollows implements Follows
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
     {
         return $this->repository->findOneBy([
-            'fromAuthorId' => $fromAuthorId,
-            'toAuthorId' => $toAuthorId
+            'fromAuthorId.id' => $fromAuthorId,
+            'toAuthorId.id' => $toAuthorId
         ]);
     }
 }

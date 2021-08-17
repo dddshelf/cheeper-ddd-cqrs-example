@@ -13,12 +13,13 @@ services:
       - 9200:9200
       - 9300:9300
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3-management
     ports:
       - 4369:4369
       - 5671:5671
       - 5672:5672
       - 25672:25672
+      - 15672:15672
   mysql:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password

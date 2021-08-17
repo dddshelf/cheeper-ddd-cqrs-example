@@ -15,22 +15,23 @@ framework:
                 middleware:
                     - validation
             event.bus:
+                default_middleware: allow_no_handlers
                 middleware:
-                    - doctrine_ping_connection
-                    - doctrine_close_connection
-                    - doctrine_transaction
+                    - validation
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
-            events: 'sync://'
+            events:
+                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
             # failed: 'doctrine://default?queue_name=failed'
             sync: 'sync://'
         routing:
             # One way to route the messages is using Interfaces or Parent Classes
             # that helps on not having to maintaining this routing 1 to 1 approach
-            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: async
+            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: sync
+#            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: events
 #            'Cheeper\Chapter5\Application\Query\CountFollowers': sync
-#            'Cheeper\DomainModel\DomainEvent': async
+            Cheeper\DomainModel\DomainEvent: events
 #            'Cheeper\Application\Command\AsyncCommand': async
 #            'Cheeper\Application\Command\SyncCommand': sync
