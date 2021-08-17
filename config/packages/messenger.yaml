@@ -12,6 +12,7 @@ framework:
                     - doctrine_close_connection
                     - doctrine_transaction
             query.bus:
+                default_middleware: allow_no_handlers
                 middleware:
                     - validation
             event.bus:

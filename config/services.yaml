@@ -52,7 +52,8 @@ services:
         class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
 
     Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess\CountFollowersHandler:
-        tags: [messenger.message_handler]
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
         arguments:
             - '@Predis\ClientInterface'
 
