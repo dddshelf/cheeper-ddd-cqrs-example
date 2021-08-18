@@ -18,7 +18,9 @@ final class FollowHandler
     public function __construct(
         private Authors $authorsRepository,
         private Follows $followsRepository,
+        // leanpub-start-insert
         private EventBus $eventBus
+        // leanpub-end-insert
     ) {
     }
 
@@ -38,7 +40,9 @@ final class FollowHandler
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
         $this->followsRepository->save($follow);
 
+        // leanpub-start-insert
         $this->eventBus->notifyAll($follow->domainEvents());
+        // leanpub-end-insert
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author

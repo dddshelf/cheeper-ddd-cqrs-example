@@ -140,10 +140,10 @@ class Author
 
     final public function followAuthorId(AuthorId $toFollow): Follow
     {
-        return new Follow(
-            FollowId::nextIdentity(),
-            $this->authorId,
-            $toFollow
+        return Follow::fromAuthorToAuthor(
+            followId: FollowId::nextIdentity(),
+            fromAuthorId: $this->authorId,
+            toAuthorId: $toFollow
         );
     }
 

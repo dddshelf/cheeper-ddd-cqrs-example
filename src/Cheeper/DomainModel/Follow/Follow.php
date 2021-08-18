@@ -12,13 +12,43 @@ class Follow
 {
     use TriggerEventsTrait;
 
-    public function __construct(
+    private function __construct(
         private FollowId $followId,
         private AuthorId $fromAuthorId,
         private AuthorId $toAuthorId,
     ) {
         $this->notifyDomainEvent(
             AuthorFollowed::fromFollow($this)
+        );
+
+        /**
+         * As an alternative, we can use a Singleton
+         * implementing an Observer pattern with
+         * Subscribers that will publish the triggered
+         * Domain Events into a queue system like
+         * Rabbit. It's useful for Legacy projects
+         * because you can trigger any Domain Event
+         * from any place in your code, not only
+         * Entities.
+         *
+         * DomainEventPublisher::getInstance()
+         *     ->notifyDomainEvent(
+         *         AuthorFollowed::fromFollow($this)
+         *     )
+         * );
+         */
+    }
+
+    public static function fromAuthorToAuthor(
+        FollowId $followId,
+        AuthorId $fromAuthorId,
+        AuthorId $toAuthorId,
+    ): self
+    {
+        return new self(
+            followId: $followId,
+            fromAuthorId: $fromAuthorId,
+            toAuthorId: $toAuthorId
         );
     }
 
