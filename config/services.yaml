@@ -36,6 +36,13 @@ services:
         tags:
             - { name: controller.argument_value_resolver, priority: 200 }
 
+    Predis\ClientInterface:
+        class: 'Predis\Client'
+
+    ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer:
+        tags:
+            - { name: api_platform.identifier.denormalizer }
+
     Cheeper\Infrastructure\:
         resource: '../src/Cheeper/Infrastructure/**/*.php'
 
@@ -55,6 +62,9 @@ services:
             - '@Predis\ClientInterface'
 
     # CHAPTER 6
+#    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
+#        resource: '../src/Cheeper/Infrastructure/**/*.php'
+
     Cheeper\Chapter6\Application\Command\EventBus:
         class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
 
@@ -72,13 +82,13 @@ services:
         class: 'Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler'
 
     Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyCountFollowerProjector:
-        tags: [messenger.message_handler]
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
         arguments:
             - '@Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector'
 
-    Predis\ClientInterface:
-        class: 'Predis\Client'
-
-    ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer:
+    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
         tags:
-            - { name: api_platform.identifier.denormalizer }
+            - { name: messenger.message_handler, bus: event.bus }
+        class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
+

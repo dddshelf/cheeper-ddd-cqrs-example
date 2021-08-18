@@ -6,6 +6,7 @@ namespace Cheeper\DomainModel\Follow;
 
 use Cheeper\DomainModel\DomainEvent;
 use DateTimeImmutable;
+use DateTimeZone;
 
 // snippet author-followed-domain-event
 final class AuthorFollowed implements DomainEvent
@@ -25,7 +26,7 @@ final class AuthorFollowed implements DomainEvent
             $follow->fromAuthorId()->toString(),
             $follow->toAuthorId()->toString(),
             new DateTimeImmutable(
-                timezone: "UTC"
+                timezone: new DateTimeZone("UTC")
             )
         );
     }

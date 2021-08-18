@@ -1,7 +1,7 @@
+# snippet symfony-messenger-configuration
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+        failure_transport: failed_messages
         default_bus: none.bus
         buses:
             none.bus:
@@ -20,26 +20,32 @@ framework:
                 middleware:
                     - validation
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            async:
-                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+            commands:
+                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
+            sync_commands:
+                dsn: 'sync://'
             events:
                 dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
-            # failed: 'doctrine://default?queue_name=failed'
-            sync: 'sync://'
+            query:
+                dsn: 'sync://'
+            failed_messages:
+                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
         routing:
-            # One way to route the messages is using Interfaces or Parent Classes
-            # that helps on not having to maintaining this routing 1 to 1 approach
+            # Consider Following an Author is a sync command.
+            # With a proper UX, almost all the commands should
+            # be run asynchronously.
+            Cheeper\Chapter6\Application\Command\Author\Follow: sync_commands
 
-            # Commands
-            Cheeper\Chapter6\Application\Command\Author\Follow: sync
+            # Domain Events are sent to asynchronous
+            # transport to be processed later.
+            Cheeper\DomainModel\Follow\AuthorFollowed: events
 
-            # Projector Requests
-            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: sync
-#            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: events
-#            'Cheeper\Chapter5\Application\Query\CountFollowers': sync
+            # Projections are like Commands, they need
+            # to be calculated asynchronously.
+            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: commands
 
-            # Events
-            Cheeper\DomainModel\DomainEvent: events
-#            'Cheeper\Application\Command\AsyncCommand': async
-#            'Cheeper\Application\Command\SyncCommand': sync
+            # Queries are executed synchronously
+            # in the same request that data is requested.
+            Cheeper\Chapter5\Application\Query\Query: query
+            Cheeper\Chapter6\Application\Query\Query: query
+# end-snippet

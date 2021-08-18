@@ -17,9 +17,9 @@ final class CountFollowerProjector
     ) {
     }
 
-    public function __invoke(CountFollowers $query): void
+    public function __invoke(CountFollowers $projection): void
     {
-        $authorId = AuthorId::fromString($query->authorId());
+        $authorId = AuthorId::fromString($projection->authorId());
 
         $stmt = $this->database->prepare(
             "SELECT a.author_id_id_as_string as id, a.user_name_user_name as username, COUNT(*) as followers ".
