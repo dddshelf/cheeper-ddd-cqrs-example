@@ -48,9 +48,6 @@ services:
     Cheeper\Chapter5\Application\Query\QueryBus:
         class: 'Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
 
-    Cheeper\Chapter6\Application\Command\EventBus:
-        class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
-
     Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess\CountFollowersHandler:
         tags:
             - { name: messenger.message_handler, bus: query.bus }
@@ -58,6 +55,9 @@ services:
             - '@Predis\ClientInterface'
 
     # CHAPTER 6
+    Cheeper\Chapter6\Application\Command\EventBus:
+        class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
+
     Cheeper\DomainModel\Follow\Follows:
         class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
 
@@ -65,12 +65,6 @@ services:
         class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
 
     Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector: ~
-#
-#    Cheeper\Application\Command\:
-#        resource: '../src/Cheeper/Application/Command/**/*Handler.php'
-#        autoconfigure: false
-#        tags:
-#            - { name: messenger.message_handler, bus: command.bus }
 
     Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler:
         tags:

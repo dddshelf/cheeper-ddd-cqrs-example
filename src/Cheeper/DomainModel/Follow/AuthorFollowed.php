@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Follow;
 
 use Cheeper\DomainModel\DomainEvent;
+use DateTimeImmutable;
 
 // snippet author-followed-domain-event
 final class AuthorFollowed implements DomainEvent
@@ -13,6 +14,7 @@ final class AuthorFollowed implements DomainEvent
         private string $followId,
         private string $fromAuthorId,
         private string $toAuthorId,
+        private DateTimeImmutable $occurredOn
     ) {
     }
 
@@ -22,6 +24,9 @@ final class AuthorFollowed implements DomainEvent
             $follow->followId()->toString(),
             $follow->fromAuthorId()->toString(),
             $follow->toAuthorId()->toString(),
+            new DateTimeImmutable(
+                timezone: "UTC"
+            )
         );
     }
 
@@ -38,6 +43,11 @@ final class AuthorFollowed implements DomainEvent
     public function toAuthorId(): string
     {
         return $this->toAuthorId;
+    }
+
+    public function occurredOn(): DateTimeImmutable
+    {
+        return $this->occurredOn;
     }
 }
 // end-snippet
