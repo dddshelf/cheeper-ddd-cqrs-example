@@ -41,7 +41,8 @@ framework:
             Cheeper\DomainModel\Follow\AuthorFollowed: events
 
             # Projections are like Commands, they need
-            # to be calculated asynchronously.
+            # to be calculated asynchronously for not impacting
+            # the performance
             Cheeper\Chapter6\Application\Projector\Author\CountFollowers: commands
 
             # Queries are executed synchronously
