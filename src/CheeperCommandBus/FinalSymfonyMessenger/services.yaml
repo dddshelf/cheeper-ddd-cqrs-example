@@ -1,4 +1,3 @@
-# snippet inject-command-bus-services
 parameters:
 
 services:
@@ -16,4 +15,3 @@ services:
     resource: '../src/App/Controller'
     tags: ['controller.service_arguments']
   #end-ignore
-# end-snippet

@@ -1,4 +1,3 @@
-# snippet symfony-messenger-configuration
 framework:
     messenger:
         failure_transport: failed_messages
@@ -49,4 +48,3 @@ framework:
             # in the same request that data is requested.
             Cheeper\Chapter5\Application\Query\Query: query
             Cheeper\Chapter6\Application\Query\Query: query
-# end-snippet

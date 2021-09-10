@@ -1,8 +1,7 @@
-# snippet symfony-messenger-config
 # file: config/packages/messenger.yaml
 framework:
     messenger:
-        #ignore
+        # ignore
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         # failure_transport: failed
 
@@ -15,8 +14,7 @@ framework:
         routing:
         # Route your messages to the transports
         # 'App\Message\YourMessage': async
-        #end-ignore
+        # end-ignore
 
         middleware:
             - doctrine_transaction
-# end-snippet

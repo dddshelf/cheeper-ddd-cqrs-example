@@ -1,4 +1,3 @@
-# snippet messenger-config-with-multiple-buses
 # file: config/packages/messenger.yaml
 framework:
     messenger:
@@ -11,7 +10,7 @@ framework:
                     - doctrine_ping_connection
                     - doctrine_close_connection
                     - doctrine_transaction
-        #ignore
+        # ignore
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
             async:
@@ -26,5 +25,4 @@ framework:
             'Cheeper\DomainModel\DomainEvent': async
             'Cheeper\Application\Command\AsyncCommand': async
             'Cheeper\Application\Command\SyncCommand': sync
-        #end-ignore
-# end-snippet
+        # end-ignore
