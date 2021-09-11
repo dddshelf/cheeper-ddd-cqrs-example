@@ -470,9 +470,6 @@
             "config/packages/dev/debug.yaml"
         ]
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.8"
-    },
     "symfony/dependency-injection": {
         "version": "v5.0.4"
     },
@@ -594,9 +591,6 @@
             "config/packages/test/monolog.yaml"
         ]
     },
-    "symfony/orm-pack": {
-        "version": "v1.0.8"
-    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.17.0"
     },
@@ -617,9 +611,6 @@
     },
     "symfony/process": {
         "version": "v5.0.5"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.4"
     },
     "symfony/property-access": {
         "version": "v5.0.5"

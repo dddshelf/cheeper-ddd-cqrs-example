@@ -14,12 +14,17 @@ use function Functional\select;
 final class InMemoryAuthors implements Authors
 {
     /** @var array<string, Author> */
-    private array $authors = [];
+    public array $authors;
+
+    public function __construct()
+    {
+        $this->authors = [];
+    }
 
     public function ofId(AuthorId $authorId): ?Author
     {
         $candidate = head(
-            select($this->authors, fn (Author $u): bool => $u->userId()->equals($authorId))
+            select($this->authors, fn (Author $u): bool => $u->authorId()->equals($authorId))
         );
 
         if (null === $candidate) {
@@ -45,11 +50,11 @@ final class InMemoryAuthors implements Authors
     public function save(Author $author): void
     {
         $candidate = head(
-            select($this->authors, fn (Author $u): bool => $u->userId()->equals($author->userId()))
+            select($this->authors, fn (Author $u): bool => $u->authorId()->equals($author->authorId()))
         );
 
-        if ((null !== $candidate && $candidate != $author) || null === $candidate) {
-            $this->authors[$author->userId()->toString()] = $author;
+        if ((null !== $candidate && $candidate !== $author) || null === $candidate) {
+            $this->authors[$author->authorId()->toString()] = $author;
         }
     }
 }

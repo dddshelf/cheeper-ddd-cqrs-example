@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter6\Application\Command\Author\WithDomainEvents;
 
 use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\Chapter6\Application\Command\EventBus;
+use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;

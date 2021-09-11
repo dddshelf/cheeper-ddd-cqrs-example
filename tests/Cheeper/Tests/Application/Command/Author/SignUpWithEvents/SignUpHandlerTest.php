@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Application\Command\Author;
+namespace Cheeper\Tests\Application\Command\Author\SignUpWithEvents;
 
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\DomainModel\Author\AuthorAlreadyExists;
-use Cheeper\DomainModel\Author\Authors;
+use Cheeper\DomainModel\Author\NewAuthorSigned;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\Application\Command\Author\SignUp;
-use Cheeper\Application\Command\Author\SignUpHandler;
+use Cheeper\Application\Command\Author\SignUpWithEvents\SignUpHandler;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthors;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -22,9 +23,12 @@ final class SignUpHandlerTest extends TestCase
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
         $authors = new InMemoryAuthors();
+        $eventBus = new InMemoryEventBus();
 
-        //snippet sign-up-handler-usage
-        $signUpHandler = new SignUpHandler($authors);
+        $signUpHandler = new SignUpHandler(
+            $authors,
+            $eventBus
+        );
 
         $signUpHandler(
             new SignUp(
@@ -38,7 +42,8 @@ final class SignUpHandlerTest extends TestCase
                 (new \DateTimeImmutable())->format('Y-m-d')
             )
         );
-        //end-snippet
+
+        $eventBus->reset();
 
         $signUpHandler(
             new SignUp(
@@ -55,20 +60,22 @@ final class SignUpHandlerTest extends TestCase
     }
 
     /** @test */
-    public function givenValidUserDataWithOnlyMandatoryFieldsWhenSignUpThenAValidUserShouldBeCreated(): void
+    public function givenValidUserDataWhenSignUpWithOnlyMandatoryFieldsThenAValidUserShouldBeCreated(): void
     {
         $authors = new InMemoryAuthors();
-
-        $signUpHandler = new SignUpHandler($authors);
+        $eventBus = new InMemoryEventBus();
+        $signUpHandler = new SignUpHandler(
+            $authors,
+            $eventBus
+        );
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';
-
         $signUpHandler(
             new SignUp(
                 Uuid::uuid4()->toString(),
                 $userName,
-                $email
+                $email,
             )
         );
 
@@ -81,14 +88,21 @@ final class SignUpHandlerTest extends TestCase
         $this->assertNull($actualAuthor->location());
         $this->assertNull($actualAuthor->website());
         $this->assertNull($actualAuthor->birthDate());
+
+        $events = $eventBus->events();
+        $this->assertCount(1, $events);
+        $this->assertSame(NewAuthorSigned::class, $events[0]::class);
     }
 
     /** @test */
-    public function givenValidUserDataWhenSignUpThenAValidUserShouldBeCreated(): void
+    public function givenValidUserDataWhenSignUpWithAllFieldsThenAValidUserShouldBeCreated(): void
     {
         $authors = new InMemoryAuthors();
-
-        $signUpHandler = new SignUpHandler($authors);
+        $eventBus = new InMemoryEventBus();
+        $signUpHandler = new SignUpHandler(
+            $authors,
+            $eventBus
+        );
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';
@@ -120,5 +134,79 @@ final class SignUpHandlerTest extends TestCase
         $this->assertSame($location, $actualAuthor->location());
         $this->assertSame($website, $actualAuthor->website()->toString());
         $this->assertSame($birthDate, $actualAuthor->birthDate()->date());
+
+        $events = $eventBus->events();
+        $this->assertCount(1, $events);
+        $this->assertSame(NewAuthorSigned::class, $events[0]::class);
+    }
+
+    /** @test */
+    public function givenInvalidEmailUserDataWhenSignUpThenAnExceptionShouldBeThrown(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid email not-a-valid-email');
+
+        $authors = new InMemoryAuthors();
+        $eventBus = new InMemoryEventBus();
+        $signUpHandler = new SignUpHandler(
+            $authors,
+            $eventBus
+        );
+
+        $userName = 'johndoe';
+        $email = 'not-a-valid-email';
+        $name = 'John Doe';
+        $biography = 'The usual profile example';
+        $location = 'Madrid';
+        $website = 'https://example.com/';
+        $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
+
+        $signUpHandler(
+            new SignUp(
+                Uuid::uuid4()->toString(),
+                $userName,
+                $email,
+                $name,
+                $biography,
+                $location,
+                $website,
+                $birthDate
+            )
+        );
+    }
+
+    /** @test */
+    public function givenInvalidWebsiteUserDataWhenSignUpThenAnExceptionShouldBeThrown(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid URL given');
+
+        $authors = new InMemoryAuthors();
+        $eventBus = new InMemoryEventBus();
+        $signUpHandler = new SignUpHandler(
+            $authors,
+            $eventBus
+        );
+
+        $userName = 'johndoe';
+        $email = 'carlos.buenosvinos@gmail.com';
+        $name = 'John Doe';
+        $biography = 'The usual profile example';
+        $location = 'Madrid';
+        $website = 'not-a-valid-website';
+        $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
+
+        $signUpHandler(
+            new SignUp(
+                Uuid::uuid4()->toString(),
+                $userName,
+                $email,
+                $name,
+                $biography,
+                $location,
+                $website,
+                $birthDate
+            )
+        );
     }
 }

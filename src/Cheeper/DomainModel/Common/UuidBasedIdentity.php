@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Common;
 
-use JetBrains\PhpStorm\Pure;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -42,7 +41,7 @@ abstract class UuidBasedIdentity extends ValueObject
         return $this->id === $other->id;
     }
 
-    #[Pure] final public function toString(): string
+    final public function toString(): string
     {
         return (string)$this->__toString();
     }

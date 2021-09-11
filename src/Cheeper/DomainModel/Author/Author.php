@@ -6,26 +6,29 @@ namespace Cheeper\DomainModel\Author;
 
 use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\FollowId;
-use function Functional\filter;
+use Cheeper\DomainModel\TriggerEventsTrait;
 
 class Author
 {
-    /** @var AuthorId[]  */
-    private array $following = [];
+    use TriggerEventsTrait;
 
     private function __construct(
-        private AuthorId $authorId,
-        private UserName $userName,
-        private EmailAddress $email,
-        private ?string $name,
-        private ?string $biography,
-        private ?string $location,
-        private ?Website $website,
-        private ?BirthDate $birthDate,
+        private string $authorId,
+        private string $userName,
+        private string $email,
+        private ?string $name = null,
+        private ?string $biography = null,
+        private ?string $location = null,
+        private ?string $website = null,
+        private ?string $birthDate = null,
     ) {
         $this->setName($name);
         $this->setBiography($biography);
         $this->setLocation($location);
+
+        $this->notifyDomainEvent(
+            NewAuthorSigned::fromAuthor($this)
+        );
     }
 
     public static function signUp(
@@ -39,62 +42,50 @@ class Author
         ?BirthDate $birthDate = null
     ): self {
         return new self(
-            $authorId,
-            $userName,
-            $email,
+            $authorId->toString(),
+            $userName->userName(),
+            $email->value(),
             $name,
             $biography,
             $location,
-            $website,
-            $birthDate
+            $website?->toString(),
+            $birthDate?->date()
         );
     }
 
     private function setName(?string $name): void
     {
-        if (null !== $name && '' === $name) {
-            throw new \InvalidArgumentException('Name cannot be empty');
-        }
-
-        $this->name = $name;
+        $this->name = $this->checkIsNotNull($name, 'Name cannot be empty');
     }
 
     private function setBiography(?string $biography): void
     {
-        if ($biography !== null && '' === $biography) {
-            throw new \InvalidArgumentException('Biography cannot be empty');
-        }
-
-        $this->biography = $biography;
+        $this->biography = $this->checkIsNotNull($biography, 'Biography cannot be empty');
     }
 
     private function setLocation(?string $location): void
     {
-        if ($location !== null && '' === $location) {
-            throw new \InvalidArgumentException('Location cannot be empty');
-        }
-
-        $this->location = $location;
+        $this->location = $this->checkIsNotNull($location, 'Location cannot be empty');
     }
 
     final public function authorId(): AuthorId
     {
-        return $this->authorId;
+        return AuthorId::fromString($this->authorId);
     }
 
     final public function userId(): AuthorId
     {
-        return $this->authorId;
+        return AuthorId::fromString($this->authorId);
     }
 
     final public function userName(): UserName
     {
-        return $this->userName;
+        return UserName::pick($this->userName);
     }
 
     final public function email(): EmailAddress
     {
-        return $this->email;
+        return EmailAddress::from($this->email);
     }
 
     final public function name(): ?string
@@ -114,42 +105,29 @@ class Author
 
     final public function website(): ?Website
     {
-        return $this->website;
+        return $this->website !== null ? Website::fromString($this->website) : null;
     }
 
     final public function birthDate(): ?BirthDate
     {
-        return $this->birthDate;
-    }
-
-    final public function follow(AuthorId $followed): void
-    {
-        $alreadyFollowsUser = count(
-            filter(
-                $this->following,
-                fn (AuthorId $authorId) => $authorId->equals($followed)
-            )
-        ) > 0;
-
-        if ($alreadyFollowsUser) {
-            return;
-        }
-
-        $this->following[] = $followed;
+        return $this->birthDate !== null ? BirthDate::fromString($this->birthDate) : null;
     }
 
     final public function followAuthorId(AuthorId $toFollow): Follow
     {
         return Follow::fromAuthorToAuthor(
             followId: FollowId::nextIdentity(),
-            fromAuthorId: $this->authorId,
+            fromAuthorId: $this->authorId(),
             toAuthorId: $toFollow
         );
     }
 
-    /** @return AuthorId[] */
-    final public function following(): array
+    private function checkIsNotNull(?string $value, string $errorMessage): ?string
     {
-        return $this->following;
+        if (null !== $value && '' === $value) {
+            throw new \InvalidArgumentException($errorMessage);
+        }
+
+        return $value;
     }
 }

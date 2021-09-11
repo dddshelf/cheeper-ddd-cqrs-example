@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithoutDomainEvents;
+namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithDomainEvents;
 
-use Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents\FollowHandler;
+use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
+use Cheeper\DomainModel\Follow\AuthorFollowed;
 use Cheeper\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\DomainModel\Author\Author;
@@ -29,11 +31,13 @@ final class FollowHandlerTest extends TestCase
 
     private InMemoryAuthors $authorsRepository;
     private InMemoryFollows $followsRepository;
+    private InMemoryEventBus $eventBus;
 
     protected function setUp(): void
     {
         $this->authorsRepository = new InMemoryAuthors();
         $this->followsRepository = new InMemoryFollows();
+        $this->eventBus = new InMemoryEventBus();
     }
 
     /** @test */
@@ -109,6 +113,9 @@ final class FollowHandlerTest extends TestCase
             1,
             $this->followsRepository->collection
         );
+
+        $events = $this->eventBus->events();
+        $this->assertCount(0, $events);
     }
 
     /** @test */
@@ -138,6 +145,10 @@ final class FollowHandlerTest extends TestCase
             1,
             $this->followsRepository->collection
         );
+
+        $events = $this->eventBus->events();
+        $this->assertCount(1, $events);
+        $this->assertSame(AuthorFollowed::class, $events[0]::class);
     }
 
     private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
@@ -151,9 +162,12 @@ final class FollowHandlerTest extends TestCase
 
     private function runHandler(string $fromAuthorId, string $toAuthorId): void
     {
+        $this->eventBus->reset();
+
         (new FollowHandler(
             $this->authorsRepository,
-            $this->followsRepository
+            $this->followsRepository,
+            $this->eventBus
         ))(
             Follow::fromAuthorIdToAuthorId(
                 $fromAuthorId,

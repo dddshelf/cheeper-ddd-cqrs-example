@@ -6,29 +6,56 @@ namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author;
 
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
+use Cheeper\DomainModel\Follow\AuthorFollowed;
+use Cheeper\DomainModel\Follow\AuthorUnfollowed;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-projector-count-followers
 final class SymfonyCountFollowerProjector implements MessageSubscriberInterface
 {
     public function __construct(
-        private CountFollowerProjector $appProjector
+        private CountFollowerProjector $projector
     ) {
     }
 
     public static function getHandledMessages(): iterable
     {
-        yield CountFollowers::class => [
-            'bus' => 'command.bus',
-            'method' => 'handle'
+        yield AuthorUnfollowed::class => [
+            'bus' => 'event.bus',
+            'method' => 'handleAuthorUnfollowed'
         ];
+
+        yield AuthorFollowed::class => [
+            'bus' => 'event.bus',
+            'method' => 'handleAuthorFollowed'
+        ];
+
+//        yield CountFollowers::class => [
+//            'bus' => 'projection.bus',
+//            'method' => 'handleProjectionRequest'
+//        ];
     }
 
-    public function handle(CountFollowers $projection): void
+//    public function handleProjectionRequest(CountFollowers $projection): void
+//    {
+//        $this->appProjector->__invoke(
+//            CountFollowers::ofAuthor($projection->authorId())
+//        );
+//    }
+
+    public function handleAuthorFollowed(AuthorFollowed $event): void
     {
-        $this->appProjector->__invoke(
-            CountFollowers::ofAuthor($projection->authorId())
+        $this->projector->__invoke(
+            CountFollowers::ofAuthor($event->toAuthorId())
         );
     }
+
+    public function handleAuthorUnfollowed(AuthorUnfollowed $event): void
+    {
+        $this->projector->__invoke(
+            CountFollowers::ofAuthor($event->toAuthorId())
+        );
+    }
+
 }
 //end-snippet

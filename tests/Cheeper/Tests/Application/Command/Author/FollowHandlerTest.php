@@ -4,16 +4,26 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application\Command\Author;
 
+use Cheeper\Application\Command\Author\Follow;
+use Cheeper\Application\Command\Author\FollowHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\Tests\Helper\SendsCommands;
+use Cheeper\Infrastructure\Persistence\InMemoryAuthors;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class FollowHandlerTest extends TestCase
 {
-    use SendsCommands;
+    private InMemoryAuthors $authorsRepository;
+    private InMemoryEventBus $eventBus;
+
+    protected function setUp(): void
+    {
+        $this->authorsRepository = new InMemoryAuthors();
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     /** @test */
     public function whenFollowerDoesNotExistAnExceptionShouldBeThrown(): void
@@ -22,6 +32,13 @@ final class FollowHandlerTest extends TestCase
         $this->expectExceptionMessage('Author "abcd" does not exist');
 
         $this->followAuthor('abcd', 'dcba');
+    }
+
+    private function followAuthor(string $followee, string $followed): void
+    {
+        (new FollowHandler($this->authorsRepository))(
+            Follow::anAuthor($followed, $followee)
+        );
     }
 
     /** @test */

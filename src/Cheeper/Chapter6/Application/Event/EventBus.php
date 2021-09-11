@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Command;
+namespace Cheeper\Chapter6\Application\Event;
 
 use Cheeper\DomainModel\DomainEvent;
 

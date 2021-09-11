@@ -11,11 +11,11 @@ final class SignUp
         private string $authorId,
         private string $userName,
         private string $email,
-        private ?string $name,
-        private ?string $biography,
-        private ?string $location,
-        private ?string $website,
-        private ?string $birthDate,
+        private ?string $name = null,
+        private ?string $biography = null,
+        private ?string $location = null,
+        private ?string $website = null,
+        private ?string $birthDate = null,
     ) {
     }
 

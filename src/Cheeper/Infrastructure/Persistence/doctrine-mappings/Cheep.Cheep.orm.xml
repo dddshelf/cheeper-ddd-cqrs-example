@@ -4,10 +4,13 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Cheeper\DomainModel\Cheep\Cheep" table="cheeps">
-        <embedded name="cheepId" class="Cheeper\DomainModel\Cheep\CheepId" />
-        <embedded name="authorId" class="Cheeper\DomainModel\Author\AuthorId" />
+        <id name="cheepId" column="cheep_id" type="string" length="36">
+            <generator strategy="NONE"/>
+        </id>
+
         <embedded name="cheepMessage" class="Cheeper\DomainModel\Cheep\CheepMessage" />
         <embedded name="cheepDate" class="Cheeper\DomainModel\Cheep\CheepDate" />
-    </entity>
 
+        <field name="authorId" column="author_id" type="string" length="36" />
+    </entity>
 </doctrine-mapping>

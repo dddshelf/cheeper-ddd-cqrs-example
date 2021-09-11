@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Infrastructure\Application\Command;
+namespace Cheeper\Chapter6\Infrastructure\Application\Event;
 
-use Cheeper\Chapter6\Application\Command\EventBus;
+use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\DomainModel\DomainEvent;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;

@@ -17,11 +17,21 @@ final class Website extends ValueObject
         $this->setUri($uri);
     }
 
+    public static function fromString(string $value): self
+    {
+        return new self($value);
+    }
+
     private function setUri(string $uri): void
     {
         $this->assertValidUrl($uri);
 
         $this->uri = $uri;
+    }
+
+    public function toString(): string
+    {
+        return $this->uri;
     }
 
     private function assertValidUrl(string $uri): void

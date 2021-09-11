@@ -17,6 +17,11 @@ final class BirthDate extends ValueObject
         $this->setDate($date);
     }
 
+    public static function fromString(string $value): self
+    {
+        return new self($value);
+    }
+
     public function date(): string
     {
         return $this->date->format('Y-m-d');

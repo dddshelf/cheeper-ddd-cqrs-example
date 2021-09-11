@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Cheep;
 
+use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
@@ -19,6 +20,7 @@ final class PostCheepHandler
     public function __construct(
         private Authors $authors,
         private Cheeps $cheeps,
+        private EventBus $eventBus
     ) {
     }
 
@@ -31,9 +33,10 @@ final class PostCheepHandler
         $author = $this->authors->ofId($authorId);
         $this->checkAuthorExists($author, $authorId);
 
-        $this->cheeps->add(
-            Cheep::compose($authorId, $cheepId, $message)
-        );
+        $cheep = Cheep::compose($authorId, $cheepId, $message);
+        $this->cheeps->add($cheep);
+
+        $this->eventBus->notifyAll($cheep->domainEvents());
     }
 
     private function checkAuthorExists(?Author $author, AuthorId $authorId): void
