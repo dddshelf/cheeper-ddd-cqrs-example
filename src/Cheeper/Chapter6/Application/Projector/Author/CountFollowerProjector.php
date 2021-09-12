@@ -22,10 +22,10 @@ final class CountFollowerProjector
         $authorId = AuthorId::fromString($projection->authorId());
 
         $stmt = $this->database->prepare(
-            "SELECT a.author_id_id_as_string as id, a.user_name_user_name as username, COUNT(*) as followers ".
+            "SELECT a.author_id as id, a.username as username, COUNT(*) as followers ".
             "FROM authors a, follows f ".
-            "WHERE a.author_id_id_as_string = f.to_author_id_id_as_string ".
-            "AND a.author_id_id_as_string = :authorId ".
+            "WHERE a.author_id = f.to_author_id ".
+            "AND a.author_id = :authorId ".
             "GROUP BY id, username"
         );
 
