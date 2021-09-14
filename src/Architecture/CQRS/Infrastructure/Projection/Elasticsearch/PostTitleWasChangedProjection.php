@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Projection\Elasticsearch;
 
@@ -32,8 +32,8 @@ class PostTitleWasChangedProjection implements Projection
             'type'  => 'post',
             'id'    => $id,
             'body'  => ['doc' => [
-                'title' => $event->title()
-            ]]
+                'title' => $event->title(),
+            ]],
         ]);
     }
 }

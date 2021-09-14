@@ -38,7 +38,7 @@ final class DelayedPostCheepController extends AbstractController
         $command = PostCheep::fromArray([
             'author_id' => $authorId,
             'cheep_id' => $cheepId,
-            'message' => $message
+            'message' => $message,
         ]);
 
         $queuedCommand = new QueuedCommand($command);

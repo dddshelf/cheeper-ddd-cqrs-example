@@ -21,7 +21,7 @@ final class SymfonyAuthorUnfollowedHandler implements MessageSubscriberInterface
     {
         yield AuthorUnfollowed::class => [
             'bus' => 'event.bus',
-            'method' => 'handleAuthorUnfollowed'
+            'method' => 'handleAuthorUnfollowed',
         ];
     }
 

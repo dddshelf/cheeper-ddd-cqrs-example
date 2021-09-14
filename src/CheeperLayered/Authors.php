@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CheeperLayered;
 
@@ -16,7 +16,7 @@ class Authors
             'user',
             'pass',
             [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
         );
     }
@@ -60,14 +60,14 @@ class Authors
 
         try {
             $stmt = $this->db->prepare(<<<SQL
-                INSERT
-                    INTO authors (id, username, website, bio)
-                    VALUES (:id, :username, :website, :bio)
-                ON DUPLICATE KEY UPDATE
-                    username = :username,
-                    website = :website,
-                    bio = :bio
-            SQL);
+                    INSERT
+                        INTO authors (id, username, website, bio)
+                        VALUES (:id, :username, :website, :bio)
+                    ON DUPLICATE KEY UPDATE
+                        username = :username,
+                        website = :website,
+                        bio = :bio
+                SQL);
 
             $stmt->execute([
                 'id' => $author->id(),

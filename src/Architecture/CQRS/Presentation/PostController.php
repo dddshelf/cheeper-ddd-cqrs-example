@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\CQRS\Presentation;
 
@@ -15,13 +15,13 @@ class PostController
             'type'  => 'post',
             'body' => [
                 'sort' => [
-                    'created_at' => ['order' => 'desc']
-                ]
-            ]
+                    'created_at' => ['order' => 'desc'],
+                ],
+            ],
         ]);
 
         return [
-            'posts' => $response
+            'posts' => $response,
         ];
     }
 }

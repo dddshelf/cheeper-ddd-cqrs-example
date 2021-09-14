@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\DataFixtures;
 
@@ -13,7 +13,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class AuthorsFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $carlos = Author::signUp(
             authorId: AuthorId::fromString('69e08972-80d4-4769-b6db-48abfdd857cf'),

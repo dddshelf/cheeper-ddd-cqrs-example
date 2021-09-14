@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * Execute first init.php
@@ -24,14 +24,14 @@ if (!$timeline_username = htmlspecialchars($_GET['username'])) {
 }
 
 $timeline_query = mysqli_query($link, sprintf(<<<SQL
-    SELECT
-        username, message, date
-    FROM cheeps
-        JOIN authors ON cheeps.author_id = authors.id
-        LEFT JOIN follows ON follows.followee_id = authors.id
-    WHERE username = '%s' OR follows.followee_id = authors.id
-    ORDER BY date DESC
-SQL, mysqli_real_escape_string($link, $timeline_username)));
+        SELECT
+            username, message, date
+        FROM cheeps
+            JOIN authors ON cheeps.author_id = authors.id
+            LEFT JOIN follows ON follows.followee_id = authors.id
+        WHERE username = '%s' OR follows.followee_id = authors.id
+        ORDER BY date DESC
+    SQL, mysqli_real_escape_string($link, $timeline_username)));
 
 ?>
 <html>

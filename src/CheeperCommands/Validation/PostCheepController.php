@@ -37,7 +37,7 @@ final class PostCheepController extends AbstractController
                 null,
                 0,
                 [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
                 ]
             );
         }

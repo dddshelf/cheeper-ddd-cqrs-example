@@ -34,7 +34,7 @@ final class CheepDataPersister implements ContextAwareDataPersisterInterface
             PostCheep::fromArray([
                 'author_id' => $data->authorId,
                 'cheep_id'  => $id->toString(),
-                'message' => $data->message
+                'message' => $data->message,
             ])
         );
 
@@ -43,7 +43,7 @@ final class CheepDataPersister implements ContextAwareDataPersisterInterface
         return $data;
     }
 
-    public function remove(mixed $data, array $context = [])
+    public function remove(mixed $data, array $context = []): void
     {
         // TODO: Implement remove() method.
     }

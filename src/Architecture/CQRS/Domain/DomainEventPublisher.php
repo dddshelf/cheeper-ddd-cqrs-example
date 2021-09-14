@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
@@ -28,7 +28,7 @@ class DomainEventPublisher
 
     public function ofId(int $id): ?Subscriber
     {
-        return isset($this->subscribers[$id]) ? $this->subscribers[$id] : null;
+        return $this->subscribers[$id] ?? null;
     }
 
     public function unsubscribe(int $id): void

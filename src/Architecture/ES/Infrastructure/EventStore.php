@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\ES\Infrastructure;
 
@@ -41,8 +41,8 @@ class EventStore
                     $this->serializer->serialize([
                         'type' => get_class($event),
                         'created_on' => $date,
-                        'data' => $data
-                    ])
+                        'data' => $data,
+                    ]),
                 ]
             );
         }

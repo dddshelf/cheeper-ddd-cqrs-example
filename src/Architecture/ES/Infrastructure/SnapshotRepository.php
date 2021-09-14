@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\ES\Infrastructure;
 
@@ -66,8 +66,8 @@ class SnapshotRepository
                         'type' => get_class($aggregate),
                         'data' => $this->serializer->serialize(
                             $aggregate
-                        )
-                    ]
+                        ),
+                    ],
                 ]
             )
         );

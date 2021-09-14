@@ -27,7 +27,7 @@ final class DoctrineOrmAuthors implements Authors
         $author = $this->em
             ->getRepository(Author::class)
             ->findOneBy([
-                'authorId.id' => Uuid::fromString($authorId->id())
+                'authorId.id' => Uuid::fromString($authorId->id()),
             ]);
 
         if (null === $author) {

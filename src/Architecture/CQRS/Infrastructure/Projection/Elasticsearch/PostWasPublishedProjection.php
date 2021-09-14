@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Projection\Elasticsearch;
 
@@ -32,8 +32,8 @@ class PostWasPublishedProjection implements Projection
             'type'  => 'post',
             'id'    => $id,
             'body'  => ['doc' => [
-                'is_published' => true
-            ]]
+                'is_published' => true,
+            ]],
         ]);
     }
 }

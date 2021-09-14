@@ -21,7 +21,7 @@ final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
     {
         yield AuthorFollowed::class => [
             'bus' => 'event.bus',
-            'method' => 'handlerAuthorFollowed'
+            'method' => 'handlerAuthorFollowed',
         ];
     }
 

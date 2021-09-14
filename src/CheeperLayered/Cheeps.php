@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace CheeperLayered;
 
@@ -17,7 +17,7 @@ class Cheeps
             'user',
             'pass',
             [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             ]
         );
     }
@@ -35,7 +35,7 @@ class Cheeps
             $stmt->execute([
                 $cheep->authorId(),
                 $cheep->message(),
-                $cheep->date()->format('Y-m-d H:i:s')
+                $cheep->date()->format('Y-m-d H:i:s'),
             ]);
 
             $cheep->setId((int) $this->db->lastInsertId());
@@ -53,14 +53,14 @@ class Cheeps
     public function timelineOf(int $authorId): array
     {
         $sql = <<<SQL
-            SELECT
-                username, cheeps.id, message, date
-            FROM cheeps
-                JOIN authors ON cheeps.author_id = authors.id
-                LEFT JOIN follows ON follows.followee_id = authors.id
-            WHERE author_id = :author_id OR follows.followee_id = authors.id
-            ORDER BY date DESC
-        SQL;
+                SELECT
+                    username, cheeps.id, message, date
+                FROM cheeps
+                    JOIN authors ON cheeps.author_id = authors.id
+                    LEFT JOIN follows ON follows.followee_id = authors.id
+                WHERE author_id = :author_id OR follows.followee_id = authors.id
+                ORDER BY date DESC
+            SQL;
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['author_id' => $authorId]);
@@ -72,7 +72,7 @@ class Cheeps
                 'username' => $row['username'],
                 'id' => $row['id'],
                 'message' => $row['message'],
-                'date' => self::toDate((string) $row['date'])
+                'date' => self::toDate((string) $row['date']),
             ]);
         }
 

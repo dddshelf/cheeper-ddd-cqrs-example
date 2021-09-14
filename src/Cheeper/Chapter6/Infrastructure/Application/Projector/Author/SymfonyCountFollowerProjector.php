@@ -27,7 +27,7 @@ final class SymfonyCountFollowerProjector implements MessageSubscriberInterface
 
         yield AuthorFollowed::class => [
             'bus' => 'event.bus',
-            'method' => 'handleAuthorFollowed'
+            'method' => 'handleAuthorFollowed',
         ];
 
 //        yield CountFollowers::class => [

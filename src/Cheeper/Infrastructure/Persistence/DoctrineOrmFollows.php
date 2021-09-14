@@ -36,7 +36,7 @@ final class DoctrineOrmFollows implements Follows
     {
         return $this->repository->findOneBy([
             'fromAuthorId.id' => $fromAuthorId,
-            'toAuthorId.id' => $toAuthorId
+            'toAuthorId.id' => $toAuthorId,
         ]);
     }
 }

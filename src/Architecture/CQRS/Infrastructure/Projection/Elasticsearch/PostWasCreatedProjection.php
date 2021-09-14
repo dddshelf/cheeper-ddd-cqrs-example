@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Projection\Elasticsearch;
 
@@ -34,8 +34,8 @@ class PostWasCreatedProjection implements Projection
             'id'    => $id,
             'body'  => [
                 'title' => $event->title(),
-                'content' => $event->content()
-            ]
+                'content' => $event->content(),
+            ],
         ]);
     }
 }
