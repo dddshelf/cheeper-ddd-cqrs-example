@@ -4,7 +4,6 @@ namespace CheeperHexagonal;
 
 use CheeperLayered\Author;
 use CheeperLayered\Authors;
-use function Safe\sprintf;
 
 //snippet author-service
 class AuthorService

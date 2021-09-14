@@ -34,9 +34,9 @@ final class DoctrineOrmAuthors implements Authors
             return null;
         }
 
-//        foreach ($this->followersOf($author) as $followedId) {
-//            $author->follow($followedId);
-//        }
+        foreach ($this->followersOf($author) as $followedId) {
+            $author->follow($followedId);
+        }
 
         return $author;
     }
@@ -75,7 +75,7 @@ final class DoctrineOrmAuthors implements Authors
                         'followed_id' => Uuid::fromString($userId->id())->getBytes(),
                     ]
                 );
-            } catch (UniqueConstraintViolationException $_) {
+            } catch (UniqueConstraintViolationException) {
             }
         }
     }
@@ -92,10 +92,10 @@ final class DoctrineOrmAuthors implements Authors
         );
 
         $stmt->bindValue("user_id", Uuid::fromString($author->userId()->id())->getBytes());
-        $stmt->execute();
+        $stmt->executeStatement();
 
         /** @var array{followed_id: string}[] $followers */
-        $followers = $stmt->fetchAll();
+        $followers = $stmt->fetchAllAssociative();
 
         $uuids = map(
             $followers,

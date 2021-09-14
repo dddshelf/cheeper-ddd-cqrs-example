@@ -28,7 +28,7 @@ final class InMemoryAuthors implements Authors
         );
 
         if (null === $candidate) {
-            return null;
+            return $candidate;
         }
 
         return clone $candidate;

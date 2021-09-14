@@ -43,7 +43,7 @@ abstract class UuidBasedIdentity extends ValueObject
 
     final public function toString(): string
     {
-        return (string)$this->__toString();
+        return $this->__toString();
     }
 
     public function __toString(): string

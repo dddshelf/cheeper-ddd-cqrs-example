@@ -85,7 +85,10 @@ final class PostCheepHandlerTest extends TestCase
         );
     }
 
-    /** @test */
+    /**
+     * @test
+     * @group failing
+     */
     public function cheepIsPersistedSuccessfully(): void
     {
         $author = AuthorTestDataBuilder::anAuthor()->build();

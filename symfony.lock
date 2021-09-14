@@ -231,7 +231,7 @@
         "version": "v4.3.0"
     },
     "ocramius/package-versions": {
-        "version": "1.5.1"
+        "version": "2.3.0"
     },
     "ocramius/proxy-manager": {
         "version": "2.7.0"
@@ -369,6 +369,9 @@
     },
     "react/promise": {
         "version": "v2.7.1"
+    },
+    "sanmai/later": {
+        "version": "0.1.2"
     },
     "sanmai/pipeline": {
         "version": "v3.1.2"
@@ -591,6 +594,9 @@
             "config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/password-hasher": {
+        "version": "v5.3.7"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.17.0"
     },
@@ -637,6 +643,9 @@
             "config/packages/routing.yaml",
             "config/routes.yaml"
         ]
+    },
+    "symfony/runtime": {
+        "version": "v5.3.4"
     },
     "symfony/security-bundle": {
         "version": "4.4",
@@ -751,9 +760,6 @@
     },
     "symfony/yaml": {
         "version": "v5.0.4"
-    },
-    "thecodingmachine/phpstan-safe-rule": {
-        "version": "v1.0.0"
     },
     "thecodingmachine/safe": {
         "version": "v1.1"

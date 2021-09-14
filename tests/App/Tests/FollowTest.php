@@ -32,7 +32,8 @@ final class FollowTest extends ApiTestCase
                 'biography' => $faker->paragraph,
                 'location' => $faker->word,
                 'website' => $faker->url,
-                'birthDate' => $faker->date()
+                'birthDate' => $faker->date(),
+                'email' => $faker->email(),
             ]
         ]);
 

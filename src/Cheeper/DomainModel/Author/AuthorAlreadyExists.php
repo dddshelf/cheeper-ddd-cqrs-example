@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Author;
 
 use RuntimeException;
-use function Safe\sprintf;
 
 final class AuthorAlreadyExists extends RuntimeException
 {

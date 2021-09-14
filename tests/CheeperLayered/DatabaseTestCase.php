@@ -60,6 +60,10 @@ class DatabaseTestCase extends TestCase
 
     public function tearDown(): void
     {
+        if (!$this->db->inTransaction()) {
+            return;
+        }
+
         $this->db->rollBack();
     }
 }

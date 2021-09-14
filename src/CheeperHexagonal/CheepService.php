@@ -5,7 +5,6 @@ namespace CheeperHexagonal;
 use CheeperLayered\Authors;
 use CheeperLayered\Cheep;
 use CheeperLayered\Cheeps;
-use function Safe\sprintf;
 
 //snippet cheep-service
 class CheepService

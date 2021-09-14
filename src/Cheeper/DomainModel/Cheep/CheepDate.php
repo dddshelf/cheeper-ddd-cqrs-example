@@ -6,10 +6,11 @@ namespace Cheeper\DomainModel\Cheep;
 
 use Cheeper\DomainModel\Common\ValueObject;
 use InvalidArgumentException;
+use DateTimeImmutable;
 
 final class CheepDate extends ValueObject
 {
-    private \DateTimeImmutable $date;
+    private DateTimeImmutable $date;
 
     public function __construct(string $date)
     {
@@ -23,7 +24,7 @@ final class CheepDate extends ValueObject
 
     private function setDate(string $date): void
     {
-        $this->date = \DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        $this->date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
 
         if (!($this->date !== null)) {
             throw new InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).");

@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class FollowCommand extends Command
+final class FollowCommand extends Command
 {
     protected static $defaultName = 'app:follow';
 
@@ -36,7 +36,7 @@ class FollowCommand extends Command
         $from = $input->getArgument('from');
         $to = $input->getArgument('to');
 
-        $io->info(\Safe\sprintf('Making %s follow %s', $from, $to));
+        $io->info(sprintf('Making %s follow %s', $from, $to));
 
         $this->followHandler->__invoke(
             Follow::fromAuthorIdToAuthorId(

@@ -6,7 +6,6 @@ namespace CheeperQueuedCommands;
 
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
-use function Safe\sprintf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

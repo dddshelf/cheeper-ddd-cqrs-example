@@ -8,7 +8,6 @@ use Cheeper\Application\Command\Cheep\UpdateCheepMessage;
 use Cheeper\Application\Command\Cheep\UpdateCheepMessageHandler;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
 use Doctrine\ORM\EntityManager;
-use function Safe\json_decode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

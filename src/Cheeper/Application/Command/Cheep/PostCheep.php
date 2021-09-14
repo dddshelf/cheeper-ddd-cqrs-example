@@ -19,7 +19,7 @@ final class PostCheep
     /** @param array{author_id: string, cheep_id: string, message: string} $array */
     public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             $array['cheep_id'],
             $array['author_id'],
             $array['message'],

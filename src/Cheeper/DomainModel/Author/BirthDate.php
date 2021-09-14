@@ -6,7 +6,6 @@ namespace Cheeper\DomainModel\Author;
 
 use Cheeper\DomainModel\Common\ValueObject;
 use DateTimeInterface;
-use Safe\Exceptions\DatetimeException;
 
 final class BirthDate extends ValueObject
 {

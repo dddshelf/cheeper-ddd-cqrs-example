@@ -30,7 +30,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
     public function followersAreSavedInASeparateTable(): void
     {
         $connection = $this->entityManager->getConnection();
-        $count = (int)$connection->fetchColumn('SELECT COUNT(*) FROM user_followers');
+        $count = (int)$connection->fetchOne('SELECT COUNT(*) FROM user_followers');
 
         $this->assertSame(2, $count);
     }
@@ -46,7 +46,7 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
 
         try {
             $this->authorsRepositories->save($authorWithFollowers);
-        } catch (\Exception $_) {
+        } catch (\Exception) {
             $this->fail('An exception has been thrown when saving aggregate twice');
         }
     }
@@ -70,14 +70,15 @@ final class DoctrineOrmAuthorsTest extends KernelTestCase
     }
 
     /** @before */
-    protected function prepareUsers()
+    protected function prepareUsers(): void
     {
         $kernel = self::bootKernel();
 
-        /** @var ServiceLocatorForTests $serviceLocator */
         $serviceLocator = $kernel
             ->getContainer()
             ->get(ServiceLocatorForTests::class);
+
+        assert($serviceLocator instanceof ServiceLocatorForTests);
 
         $doctrine = $serviceLocator->doctrine();
         $this->authorsRepositories = $serviceLocator->authors();

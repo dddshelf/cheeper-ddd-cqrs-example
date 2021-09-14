@@ -13,7 +13,7 @@ use Cheeper\DomainModel\Author\BirthDate;
 
 use Ramsey\Uuid\Uuid;
 
-class AuthorTestDataBuilder
+final class AuthorTestDataBuilder
 {
     private AuthorId $authorId;
     private UserName $userName;

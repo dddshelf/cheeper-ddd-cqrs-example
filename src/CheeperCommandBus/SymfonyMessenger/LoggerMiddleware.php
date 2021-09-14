@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace CheeperCommandBus\SymfonyMessenger;
 
 use Psr\Log\LoggerInterface;
-use function Safe\sprintf;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Middleware\MiddlewareInterface;
 use Symfony\Component\Messenger\Middleware\StackInterface;
