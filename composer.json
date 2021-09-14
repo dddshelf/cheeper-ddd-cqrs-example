@@ -104,7 +104,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "fix-cs": "php bin/php-cs-fixer --verbose --config=.php_cs.dist --using-cache=no --path-mode=intersection fix",
+        "fix-cs": "php php-cs-fixer.phar --verbose --config=.php_cs.dist --using-cache=no --path-mode=intersection fix",
         "unit-tests": "php vendor/bin/phpunit",
         "psalm": "php vendor/bin/psalm --config=psalm.xml --show-info=true --no-cache",
         "phpstan": "php vendor/bin/phpstan analyse",
