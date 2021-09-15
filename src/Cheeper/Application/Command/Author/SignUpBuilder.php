@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\Application\Command\Author;
 
 //snippet sign-up-builder
-use Psalm\Pure;
-
 final class SignUpBuilder
 {
     private function __construct(
@@ -78,7 +76,7 @@ final class SignUpBuilder
         return $this;
     }
 
-    #[Pure] public function build(): SignUp
+    public function build(): SignUp
     {
         return new SignUp(
             $this->authorId,
