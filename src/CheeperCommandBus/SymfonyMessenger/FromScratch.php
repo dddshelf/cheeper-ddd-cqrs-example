@@ -6,6 +6,7 @@ declare(strict_types=1);
 //ignore
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
 use Doctrine\DBAL\DriverManager;
@@ -21,10 +22,12 @@ $connection = DriverManager::getConnection([/** ... */]);
 $entityManager = EntityManager::create($connection, new Configuration());
 $authorsRepository = new DoctrineOrmAuthors($entityManager);
 $cheepsRepository = new DoctrineOrmCheeps($entityManager);
+$eventBus = new InMemoryEventBus();
 
 $postCheepHandler = new PostCheepHandler(
     $authorsRepository,
-    $cheepsRepository
+    $cheepsRepository,
+    $eventBus,
 );
 
 $bus = new MessageBus([
