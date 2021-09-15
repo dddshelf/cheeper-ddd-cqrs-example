@@ -42,7 +42,7 @@ class CheepServiceTest extends TestCase
         $this->authors->shouldReceive('byUsername')->andReturns(self::anAuthor(1));
         $this->cheeps->shouldReceive('add')->once();
 
-        $cheep =$this->cheepService->postCheep('irrelevant', 'message');
+        $cheep = $this->cheepService->postCheep('irrelevant', 'message');
 
         $this->assertNotNull($cheep);
         $this->assertEquals(1, $cheep->authorId());
