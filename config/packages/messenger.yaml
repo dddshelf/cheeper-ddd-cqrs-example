@@ -47,4 +47,3 @@ framework:
             # Queries are executed synchronously
             # in the same request that data is requested.
             Cheeper\Chapter5\Application\Query\Query: query
-            Cheeper\Chapter6\Application\Query\Query: query
