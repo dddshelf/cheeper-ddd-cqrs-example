@@ -8,11 +8,8 @@ use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Author\UserName;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
-use function Functional\map;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 //snippet doctrine-orm-authors
 final class DoctrineOrmAuthors implements Authors
