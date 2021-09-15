@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
 
-use Architecture\CQRS\App\Entity\Followers;
+use Architecture\CQRS\App\Repository\FollowersRepository;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
@@ -15,7 +15,7 @@ use Cheeper\DomainModel\Author\Authors;
 final class CountFollowersHandler
 {
     public function __construct(
-        private Followers $followersRepository,
+        private FollowersRepository $followersRepository,
         private Authors $authorsRepository
     ) {
     }
@@ -29,7 +29,7 @@ final class CountFollowersHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        $followersCount = count($this->followersRepository->ofAuthorId($authorId));
+        $followersCount = $this->followersRepository->ofAuthorId($authorId)->followers();
 
         // Other option would be with a counter method in the Repository
         // $followersCount = $this->followersRepository->countOfAuthorId($authorId));

@@ -13,7 +13,7 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/App/Entity'
                 prefix: 'App\Entity'
                 alias: App
@@ -25,7 +25,7 @@ doctrine:
                 alias: CheeperDomainModel
             Architecture:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Architecture'
                 prefix: 'Architecture'
                 alias: 'Architecture'

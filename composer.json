@@ -59,8 +59,6 @@
         "symfony/debug-bundle": "^5.3",
         "symfony/maker-bundle": "^1.14",
         "symfony/monolog-bundle": "^3.0",
-        "symfony/stopwatch": "^5.2",
-        "symfony/web-profiler-bundle": "^5.2",
         "symfony/stopwatch": "^5.3",
         "symfony/web-profiler-bundle": "^5.3",
         "theofidry/psysh-bundle": "^4.3",

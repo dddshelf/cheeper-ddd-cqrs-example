@@ -8,29 +8,19 @@ use Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepos
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @ORM\Entity(
- *     repositoryClass=DoctrineFollowersRepository::class
- * )
- *
- * @ORM\Table(name="architecture_followers")
- */
+#[ORM\Entity(repositoryClass: DoctrineFollowersRepository::class)]
+#[ORM\Table(name: "architecture_followers")]
 class Followers
 {
-    /**
-     * @ORM\Column(type="uuid_binary")
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\Id()
-     */
-    private UuidInterface $userId;
+    public function __construct(
+        #[ORM\Column(type: "uuid_binary")]
+        #[ORM\GeneratedValue(strategy: "NONE")]
+        #[ORM\Id]
+        private UuidInterface $userId,
 
-    /** @ORM\Column(type="integer") */
-    private int $followers;
-
-    public function __construct(UuidInterface $userId, int $followers)
-    {
-        $this->userId = $userId;
-        $this->followers = $followers;
+        #[ORM\Column(type: "integer")]
+        private int $followers
+    ) {
     }
 
     public function userId(): UuidInterface

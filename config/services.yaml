@@ -13,10 +13,14 @@ services:
         bind:
             Cheeper\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps'
             Cheeper\DomainModel\Author\Authors $authors: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\DomainModel\Author\Authors $authorsRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
             Cheeper\DomainModel\Follow\Follows $follows: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
+            Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
+            Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
+            Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -52,27 +56,22 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
-    Cheeper\Chapter5\Application\Query\QueryBus:
-        class: 'Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
-
-    Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAccess\CountFollowersHandler:
+    Cheeper\Chapter5\Application\Query\:
+        resource: '../src/Cheeper/Chapter5/Application/Query/**/*Handler.php'
+        autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: query.bus }
-        arguments:
-            - '@Predis\ClientInterface'
 
-    # CHAPTER 6
+    Cheeper\Chapter6\Infrastructure\:
+        resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
+
+# CHAPTER 5
+    Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus: ~
+    Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
+
+# CHAPTER 6
 #    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
 #        resource: '../src/Cheeper/Infrastructure/**/*.php'
-
-    Cheeper\Chapter6\Application\Command\EventBus:
-        class: 'Cheeper\Chapter6\Infrastructure\Application\Command\SymfonyEventBus'
-
-    Cheeper\DomainModel\Follow\Follows:
-        class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
-
-    Cheeper\DomainModel\Author\Authors:
-        class: 'Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
 
     Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector: ~
 
