@@ -19,7 +19,7 @@ framework:
                 middleware:
                     - validation
         transports:
-            commands:
+            async_commands:
                 dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
             sync_commands:
                 dsn: 'sync://'
@@ -30,19 +30,16 @@ framework:
             failed_messages:
                 dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
         routing:
-            # Consider Following an Author is a sync command.
+            # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
             # be run asynchronously.
-            Cheeper\Chapter6\Application\Command\Author\Follow: sync_commands
+            Cheeper\Application\Command\Author\SignUp: sync_commands
+            Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.
             Cheeper\DomainModel\Follow\AuthorFollowed: events
-
-            # Projections are like Commands, they need
-            # to be calculated asynchronously for not impacting
-            # the performance
-            Cheeper\Chapter6\Application\Projector\Author\CountFollowers: commands
+            Cheeper\DomainModel\Follow\AuthorUnfollowed: events
 
             # Queries are executed synchronously
             # in the same request that data is requested.
