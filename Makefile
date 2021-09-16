@@ -30,7 +30,7 @@ default: ci-tests
 # Main docker image build
 .PHONY: build
 build:
-	@$(COMPOSE) build --parallel
+	$(COMPOSE) build --parallel
 	$(COMPOSE) up --no-start --remove-orphans
 
 .PHONY: install-deps
