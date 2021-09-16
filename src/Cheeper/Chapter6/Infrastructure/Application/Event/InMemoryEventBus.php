@@ -33,7 +33,7 @@ final class InMemoryEventBus implements EventBus
 
     public function notifyAll(array $domainEvents): void
     {
-        \Functional\each($domainEvents, fn ($de) => $this->notify($de));
+        \Functional\each($domainEvents, fn (DomainEvent $de) => $this->notify($de));
     }
 }
 //end-snippet

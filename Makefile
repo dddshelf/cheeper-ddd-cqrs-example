@@ -15,7 +15,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 # Shortcut for docker-compose command
-COMPOSE = docker-compose
+COMPOSE = /usr/local/bin/docker compose -f docker-compose.yaml -f docker-compose.override.yaml.dist
 
 # Shortcut for docker run on the app container with all dependencies already up
 RUN_APP = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 --rm app -d memory_limit=-1

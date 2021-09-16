@@ -22,23 +22,19 @@ final class DelayedPostCheepController extends AbstractController
         $message = $request->request->get('message');
 
         if (!$authorId) {
-            throw new InvalidArgumentException(
-                sprintf("Author ID should be provided")
-            );
+            throw new InvalidArgumentException("Author ID should be provided");
         }
 
         if (!$message) {
-            throw new InvalidArgumentException(
-                sprintf("Message should be provided")
-            );
+            throw new InvalidArgumentException("Message should be provided");
         }
 
         $cheepId = Uuid::uuid4()->toString();
 
         $command = PostCheep::fromArray([
-            'author_id' => $authorId,
+            'author_id' => (string)$authorId,
             'cheep_id' => $cheepId,
-            'message' => $message,
+            'message' => (string)$message,
         ]);
 
         $queuedCommand = new QueuedCommand($command);

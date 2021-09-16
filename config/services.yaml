@@ -21,6 +21,7 @@ services:
             Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
+            Redis: '@snc_redis.default'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -39,9 +40,6 @@ services:
     App\ArgumentResolver\UuidResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 200 }
-
-    Predis\ClientInterface:
-        class: 'Predis\Client'
 
     ApiPlatform\Core\Bridge\RamseyUuid\Identifier\Normalizer\UuidNormalizer:
         tags:

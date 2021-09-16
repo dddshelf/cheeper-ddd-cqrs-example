@@ -29,7 +29,7 @@ final class CountFollowersHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        $followersCount = $this->followersRepository->ofAuthorId($authorId)->followers();
+        $followersCount = $this->followersRepository->ofAuthorId($authorId)?->followers() ?? 0;
 
         // Other option would be with a counter method in the Repository
         // $followersCount = $this->followersRepository->countOfAuthorId($authorId));

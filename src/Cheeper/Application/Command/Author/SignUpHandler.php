@@ -39,7 +39,8 @@ final class SignUpHandler
         $inputBirthDate = $command->birthDate();
         $birthDate  = null !== $inputBirthDate ? new BirthDate($inputBirthDate) : null;
 
-        $this->authors->save(Author::signUp(
+        $this->authors->add(
+            Author::signUp(
                 $authorId,
                 $userName,
                 $email,

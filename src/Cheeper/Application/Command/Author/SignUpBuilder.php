@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Application\Command\Author;
 
 //snippet sign-up-builder
-use JetBrains\PhpStorm\Pure;
+use Psalm\Pure;
 
 final class SignUpBuilder
 {

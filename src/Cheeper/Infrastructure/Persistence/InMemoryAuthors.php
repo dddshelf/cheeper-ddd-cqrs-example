@@ -47,7 +47,7 @@ final class InMemoryAuthors implements Authors
         return clone $candidate;
     }
 
-    public function save(Author $author): void
+    public function add(Author $author): void
     {
         $candidate = head(
             select($this->authors, fn (Author $u): bool => $u->authorId()->equals($author->authorId()))

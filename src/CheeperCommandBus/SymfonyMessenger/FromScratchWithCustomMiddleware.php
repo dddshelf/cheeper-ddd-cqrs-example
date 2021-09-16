@@ -28,7 +28,8 @@ $logger = new Logger('logger');
 
 $postCheepHandler = new PostCheepHandler(
     $authorsRepository,
-    $cheepsRepository
+    $cheepsRepository,
+
 );
 
 $bus = new MessageBus([

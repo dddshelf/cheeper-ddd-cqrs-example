@@ -49,7 +49,7 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->authorsRepository->save($this->buildAuthor(
+        $this->authorsRepository->add($this->buildAuthor(
             self::AUTHOR_ID_TO,
             self::USERNAME_CARLOS,
             self::EMAIL_CARLOS
@@ -63,7 +63,7 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->authorsRepository->save(
+        $this->authorsRepository->add(
             $this->buildAuthor(
                 self::AUTHOR_ID_FROM,
                 self::USERNAME_CARLOS,
@@ -93,8 +93,8 @@ final class FollowHandlerTest extends TestCase
             EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $this->authorsRepository->save($fromAuthor);
-        $this->authorsRepository->save($toAuthor);
+        $this->authorsRepository->add($fromAuthor);
+        $this->authorsRepository->add($toAuthor);
         $this->followsRepository->save(
             FollowRelation::fromAuthorToAuthor(
                 FollowId::fromString($followId),
@@ -129,8 +129,8 @@ final class FollowHandlerTest extends TestCase
             EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $this->authorsRepository->save($fromAuthor);
-        $this->authorsRepository->save($toAuthor);
+        $this->authorsRepository->add($fromAuthor);
+        $this->authorsRepository->add($toAuthor);
 
         $this->runHandler($fromAuthorId, $toAuthorId);
 

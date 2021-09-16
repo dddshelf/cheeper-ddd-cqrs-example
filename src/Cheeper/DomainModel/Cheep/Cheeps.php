@@ -10,10 +10,6 @@ use Cheeper\DomainModel\Author\Author;
 interface Cheeps
 {
     public function add(Cheep $cheep): void;
-
     public function ofId(CheepId $cheepId): ?Cheep;
-
-    /** @return Cheep[] */
-    public function ofFollowersOfAuthor(Author $author): array;
 }
 //end-snippet

@@ -7,6 +7,6 @@ namespace Cheeper\Chapter5\Application\Query;
 //snippet query-bus
 interface QueryBus
 {
-    public function query(Query $query);
+    public function query(Query $query): mixed;
 }
 //end-snippet

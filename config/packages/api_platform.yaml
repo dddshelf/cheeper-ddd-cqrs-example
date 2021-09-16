@@ -3,6 +3,7 @@ api_platform:
     show_webby: false
     mapping:
         paths:
+            - '%kernel.project_dir%/src/App/Entity'
             - '%kernel.project_dir%/src/App/API/Resources'
     patch_formats:
         json: ['application/merge-patch+json']

@@ -92,7 +92,7 @@ final class PostCheepHandlerTest extends TestCase
     public function cheepIsPersistedSuccessfully(): void
     {
         $author = AuthorTestDataBuilder::anAuthor()->build();
-        $this->authorsRepository->save($author);
+        $this->authorsRepository->add($author);
 
         $cheepId = Uuid::uuid4()->toString();
 

@@ -8,6 +8,7 @@ use Cheeper\DomainModel\Author\BirthDate;
 use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
+use Cheeper\DomainModel\Follow\Follow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -87,7 +88,7 @@ class AuthorsFixtures extends Fixture
 
         $follows[] = $vaughn->followAuthorId($carlos->userId());
 
-        \Functional\each($follows, fn ($follow) => $manager->persist($follow));
+        \Functional\each($follows, fn (Follow $follow) => $manager->persist($follow));
 
         // Antes no se guardaba porque hay que usar
         // el repo de Authors y llamar al save

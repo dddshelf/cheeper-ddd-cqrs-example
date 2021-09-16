@@ -124,7 +124,7 @@ class Author
 
     private function checkIsNotNull(?string $value, string $errorMessage): ?string
     {
-        if (null !== $value && '' === $value) {
+        if ('' === $value) {
             throw new \InvalidArgumentException($errorMessage);
         }
 

@@ -31,3 +31,13 @@ function head($collection, callable $callback = null) {}
  * @psalm-return list<D>
  */
 function map($collection, callable $callback) {}
+
+/**
+ * @template E
+ *
+ * @psalm-param \Traversable<E>|list<C> $collection
+ * @psalm-param callable(E, array-key=, E[]=): void $callback
+ * @psalm-return null
+ * @no-named-arguments
+ */
+function each($collection, callable $callback) {}

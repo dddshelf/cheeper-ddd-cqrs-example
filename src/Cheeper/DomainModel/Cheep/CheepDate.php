@@ -24,10 +24,12 @@ final class CheepDate extends ValueObject
 
     private function setDate(string $date): void
     {
-        $this->date = DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        $dateInstance = DateTimeImmutable::createFromFormat('Y-m-d', $date);
 
-        if (!($this->date !== null)) {
+        if ($dateInstance === false) {
             throw new InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).");
         }
+
+        $this->date = $dateInstance;
     }
 }

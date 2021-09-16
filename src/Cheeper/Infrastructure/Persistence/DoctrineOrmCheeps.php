@@ -27,32 +27,6 @@ final class DoctrineOrmCheeps implements Cheeps
     }
     //end-ignore
 
-    public function ofFollowersOfAuthor(Author $author): array
-    {
-        $entityRepository = $this->em->getRepository(Cheep::class);
-        $queryBuilder = $entityRepository->createQueryBuilder('c');
-        $expr = $queryBuilder->expr();
-        $orExpression = $expr->orX();
-
-        \Functional\each(
-            $author->following(),
-            static function (AuthorId $authorId, int $index) use ($orExpression, $expr, $queryBuilder): void {
-                $orExpression->add(
-                    $expr->eq('c.authorId.id', '?' . ((string)($index + 1)))
-                );
-                $queryBuilder->setParameter(
-                    $index + 1,
-                    Uuid::fromString($authorId->id())->getBytes()
-                );
-            }
-        );
-
-        $queryBuilder->where($orExpression);
-        $query = $queryBuilder->getQuery();
-
-        return $query->getResult();
-    }
-
     public function ofId(CheepId $cheepId): ?Cheep
     {
         return $this->em->find(Cheep::class, Uuid::fromString($cheepId->id()));

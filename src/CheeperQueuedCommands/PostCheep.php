@@ -15,13 +15,13 @@ final class PostCheep implements AsyncCommand
     ) {
     }
 
-    /** @param array{author_id: string, cheep_id: string, message: string} $array */
-    public static function fromArray(array $array): self
+    /** @param array{author_id: string, cheep_id: string, message: string} $data */
+    public static function fromArray(array $data): self
     {
-        return new static(
-            $array['author_id'],
-            $array['cheep_id'],
-            $array['message'],
+        return new self(
+            $data['author_id'],
+            $data['cheep_id'],
+            $data['message'],
         );
     }
 

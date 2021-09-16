@@ -53,7 +53,7 @@ final class SignUpHandler
             $birthDate
         );
 
-        $this->authors->save($author);
+        $this->authors->add($author);
         $this->eventBus->notifyAll($author->domainEvents());
     }
 }

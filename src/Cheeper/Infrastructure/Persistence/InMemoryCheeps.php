@@ -23,19 +23,6 @@ final class InMemoryCheeps implements Cheeps
         $this->items[$cheep->cheepId()->toString()] = $cheep;
     }
 
-    public function ofFollowersOfAuthor(Author $author): array
-    {
-        return select(
-            $this->items,
-            fn (Cheep $cheep) => count(
-                filter(
-                    $author->following(),
-                    fn (AuthorId $aid) => $aid->equals($cheep->authorId())
-                )
-            ) > 0
-        );
-    }
-
     public function ofId(CheepId $cheepId): ?Cheep
     {
         return $this->items[$cheepId->toString()] ?? null;

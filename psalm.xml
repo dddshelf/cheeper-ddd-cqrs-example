@@ -16,6 +16,7 @@
             <directory name="src/Architecture/"/>
             <directory name="src/CheeperSpaghetti/"/>
             <directory name="src/CheeperLayered/"/>
+            <directory name="src/CheeperCommandBus/"/>
             <file name="src/App/Kernel.php"/>
         </ignoreFiles>
     </projectFiles>
@@ -32,7 +33,6 @@
 
     <stubs>
         <file name=".psalm-stubs/lstrojny-functional-php.phpstub"/>
-        <file name=".psalm-stubs/doctrine-orm.phpstub"/>
         <file name=".psalm-stubs/symfony-messenger.phpstub"/>
         <file name=".psalm-stubs/api-platform.phpstub"/>
         <file name=".psalm-stubs/symfony-validator.phpstub"/>

@@ -32,13 +32,11 @@ services:
       MYSQL_DATABASE: db
     volumes:
       - ./.docker/mysql:/docker-entrypoint-initdb.d
-#  app:
-#    build: .docker/app
-#    network_mode: host
-#    depends_on:
-#      - mysql
-#      - rabbitmq
-#      - elasticsearch
-#      - redis
-#    volumes:
-#      - ./:/app:cached
+  wait:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - redis
+      - elasticsearch
+      - rabbitmq
+      - mysql
+    command: redis:6379 elasticsearch:9200 rabbitmq:4369 mysql:3306

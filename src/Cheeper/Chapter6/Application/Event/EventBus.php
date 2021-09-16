@@ -10,6 +10,7 @@ use Cheeper\DomainModel\DomainEvent;
 interface EventBus
 {
     public function notify(DomainEvent $event): void;
+    /** @param DomainEvent[] $domainEvents */
     public function notifyAll(array $domainEvents): void;
 }
 //end-snippet

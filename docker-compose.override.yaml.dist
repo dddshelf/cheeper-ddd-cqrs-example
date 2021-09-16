@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build: .docker/app
+    network_mode: host
+    depends_on:
+      - mysql
+      - rabbitmq
+      - elasticsearch
+      - redis
+    volumes:
+      - ./:/app:cached
+
