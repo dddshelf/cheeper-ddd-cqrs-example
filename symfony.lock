@@ -173,21 +173,6 @@
     "hamcrest/hamcrest-php": {
         "version": "v2.0.0"
     },
-    "infection/abstract-testframework-adapter": {
-        "version": "0.3.0"
-    },
-    "infection/extension-installer": {
-        "version": "0.1.0"
-    },
-    "infection/include-interceptor": {
-        "version": "0.2.3"
-    },
-    "infection/infection": {
-        "version": "0.16.1"
-    },
-    "justinrainbow/json-schema": {
-        "version": "5.2.9"
-    },
     "keyvanakbary/mimic": {
         "version": "v1.0.0"
     },
@@ -235,9 +220,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.7.0"
-    },
-    "ondram/ci-detector": {
-        "version": "3.3.0"
     },
     "openlss/lib-array2xml": {
         "version": "1.0.0"
@@ -370,12 +352,6 @@
     "react/promise": {
         "version": "v2.7.1"
     },
-    "sanmai/later": {
-        "version": "0.1.2"
-    },
-    "sanmai/pipeline": {
-        "version": "v3.1.2"
-    },
     "sebastian/cli-parser": {
         "version": "1.0.1"
     },
@@ -423,9 +399,6 @@
     },
     "sebastian/version": {
         "version": "3.0.0"
-    },
-    "seld/jsonlint": {
-        "version": "1.7.2"
     },
     "snc/redis-bundle": {
         "version": "2.0",
@@ -772,9 +745,6 @@
     },
     "symfony/yaml": {
         "version": "v5.0.4"
-    },
-    "thecodingmachine/safe": {
-        "version": "v1.1"
     },
     "theofidry/psysh-bundle": {
         "version": "4.3.0"

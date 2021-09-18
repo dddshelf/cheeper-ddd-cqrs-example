@@ -9,6 +9,7 @@ use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\FollowId;
 use Cheeper\DomainModel\Follow\Follows;
 use function Functional\head;
+use function Functional\reduce_left;
 use function Functional\select;
 
 final class InMemoryFollows implements Follows
@@ -26,10 +27,10 @@ final class InMemoryFollows implements Follows
             return null;
         }
 
-        return clone $candidate;
+        return $candidate;
     }
 
-    public function save(Follow $follow): void
+    public function add(Follow $follow): void
     {
         $candidate = head(
             select($this->collection, fn (Follow $u): bool => $u->fromAuthorId()->equals($follow->fromAuthorId()) && $u->toAuthorId()->equals($follow->toAuthorId()))
@@ -42,8 +43,13 @@ final class InMemoryFollows implements Follows
 
     public function numberOfFollowersFor(AuthorId $authorId): int
     {
-        // TODO: Implement numberOfFollowersFor() method.
-        return 0;
+        return reduce_left(
+            $this->collection,
+            function(Follow $f, string $key, array $collection, int $initial) use($authorId): int {
+                return $initial + ($f->fromAuthorId()->equals($authorId) ? 1 : 0);
+            },
+            0
+        );
     }
 
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
@@ -56,6 +62,6 @@ final class InMemoryFollows implements Follows
             return null;
         }
 
-        return clone $candidate;
+        return $candidate;
     }
 }

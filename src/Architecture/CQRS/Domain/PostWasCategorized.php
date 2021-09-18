@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
-class PostWasCategorized extends DomainEvent
+final class PostWasCategorized extends DomainEvent
 {
     private PostId $postId;
     private CategoryId $categoryId;

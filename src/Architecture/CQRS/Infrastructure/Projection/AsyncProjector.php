@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Projection;
 
@@ -7,17 +9,12 @@ use Bunny\Channel;
 use Zumba\JsonSerializer\JsonSerializer;
 
 //snippet async-projector
-class AsyncProjector
+final class AsyncProjector
 {
-    private Channel $channel;
-    private JsonSerializer $serializer;
-
     public function __construct(
-        Channel $channel,
-        JsonSerializer $serializer
+        private Channel $channel,
+        private JsonSerializer $serializer
     ) {
-        $this->channel = $channel;
-        $this->serializer = $serializer;
     }
 
     /** @param DomainEvent[] $events */

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperLayered;
 
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-class TemplateTest extends TestCase
+final class TemplateTest extends TestCase
 {
     private static string $TEMPLATES_PATH = __DIR__ . '/../../src/CheeperLayered/templates';
 
@@ -18,9 +20,7 @@ class TemplateTest extends TestCase
         $this->twig = new Environment($loader);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldRenderTemplate(): void
     {
         $c = Cheep::compose(1, 'A message');

@@ -1,20 +1,20 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\ES\Domain;
 
-/**
- * @template T as \Architecture\CQRS\Domain\DomainEvent
- * @implements \Iterator<T>
- */
-class EventStream implements \Iterator
+use Architecture\CQRS\Domain\DomainEvent;
+
+final class EventStream implements \Iterator
 {
     private string $aggregateId;
-    /** @var T[] */
+    /** @var DomainEvent[] */
     private array $events;
 
     /**
      * @param string $aggregateId
-     * @param T[] $events
+     * @param DomainEvent[] $events
      */
     public function __construct(string $aggregateId, array $events)
     {
@@ -32,13 +32,12 @@ class EventStream implements \Iterator
         reset($this->events);
     }
 
-    /** @return T */
     public function current()
     {
         return current($this->events);
     }
 
-    public function key()
+    public function key(): string|int|null
     {
         return key($this->events);
     }

@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace CheeperHexagonal;
 
-class PostId
+final class PostId
 {
     public function __construct(
         private int $id

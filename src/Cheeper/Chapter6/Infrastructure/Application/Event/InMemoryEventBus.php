@@ -11,6 +11,7 @@ use Cheeper\DomainModel\DomainEvent;
 final class InMemoryEventBus implements EventBus
 {
     public function __construct(
+        /** @param DomainEvent[] $events */
         private array $events = []
     )
     {

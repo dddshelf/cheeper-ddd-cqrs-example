@@ -47,9 +47,7 @@ class Cheeps
         }
     }
 
-    /**
-     * @return Cheep[]
-     */
+    /** @return Cheep[] */
     public function timelineOf(int $authorId): array
     {
         $sql = <<<SQL

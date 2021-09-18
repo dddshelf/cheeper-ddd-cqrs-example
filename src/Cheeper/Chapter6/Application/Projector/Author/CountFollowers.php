@@ -7,16 +7,15 @@ namespace Cheeper\Chapter6\Application\Projector\Author;
 //snippet count-followers
 final class CountFollowers
 {
-    private string $authorId;
 
     public static function ofAuthor(string $authorId): self
     {
         return new self($authorId);
     }
 
-    private function __construct(string $authorId)
-    {
-        $this->authorId = $authorId;
+    private function __construct(
+        private string $authorId
+    ) {
     }
 
     public function authorId(): string

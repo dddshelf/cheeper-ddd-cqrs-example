@@ -4,27 +4,25 @@ namespace App\Command;
 
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(name: "app:follow", description: "Make an author follow another author")]
 final class FollowCommand extends Command
 {
-    protected static $defaultName = 'app:follow';
-
     public function __construct(
-        private FollowHandler $followHandler,
-        string $name = null
+        private FollowHandler $followHandler
     ) {
-        parent::__construct($name);
+        parent::__construct();
     }
 
     protected function configure(): void
     {
         $this
-            ->setDescription('Make an author follow another author')
             ->addArgument('from', InputArgument::REQUIRED, 'From Author Id')
             ->addArgument('to', InputArgument::REQUIRED, 'To Author Id')
         ;

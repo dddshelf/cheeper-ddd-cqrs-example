@@ -7,10 +7,9 @@ namespace Cheeper\Application\Query;
 //snippet timeline-query
 final class Timeline
 {
-    /** @param array{author_id: string|mixed} $array */
     public static function fromArray(array $array): self
     {
-        return new static(
+        return new self(
             (string) $array['author_id'],
         );
     }

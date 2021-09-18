@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperLayered;
 
-class CheepsTest extends DatabaseTestCase
+final class CheepsTest extends DatabaseTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldPublishCheep(): void
     {
         $this->exec(<<<SQL
@@ -20,9 +20,7 @@ class CheepsTest extends DatabaseTestCase
         $this->assertNotNull($c->id());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldFetchAuthorTimeline(): void
     {
         $this->exec(<<<SQL

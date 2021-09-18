@@ -3,7 +3,7 @@
 namespace CheeperLayered;
 
 //snippet cheep
-class Cheep
+final class Cheep
 {
     private ?int $id = null;
     private string $message;
@@ -11,7 +11,7 @@ class Cheep
 
     public static function compose(int $authorId, string $message): self
     {
-        return new static($authorId, $message);
+        return new self($authorId, $message);
     }
 
     private function __construct(private int $authorId, string $message)

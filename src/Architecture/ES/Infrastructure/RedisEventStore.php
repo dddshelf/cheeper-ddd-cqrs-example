@@ -1,35 +1,25 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\ES\Infrastructure;
 
-use Architecture\CQRS\Domain\DomainEvent;
-
+use Architecture\ES\Domain\EventStore;
 use Architecture\ES\Domain\EventStream;
-use Predis\Client;
 use DateTimeImmutable;
 use Zumba\JsonSerializer\JsonSerializer;
 
-/**
- * @template T of DomainEvent
- */
 //snippet event-store
-class EventStore
+final class RedisEventStore implements EventStore
 {
-    /** @var Client<?string> */
-    private Client $redis;
-    private JsonSerializer $serializer;
-
-    /** @param Client<?string> $redis */
-    public function __construct(Client $redis, JsonSerializer $serializer)
-    {
-        $this->redis = $redis;
-        $this->serializer = $serializer;
+    public function __construct(
+        private \Redis $redis,
+        private JsonSerializer $serializer
+    ) {
     }
 
-    /** @param EventStream<T> $eventstream */
     public function append(EventStream $eventstream): void
     {
-        /** @var DomainEvent $event */
         foreach ($eventstream as $event) {
             $data = $this->serializer->serialize($event);
 
@@ -48,13 +38,11 @@ class EventStore
         }
     }
 
-    /** @return EventStream<T> */
     public function getEventsFor(string $id): EventStream
     {
         return $this->fromVersion($id, 0);
     }
 
-    /** @return EventStream<T> */
     public function fromVersion(string $id, int $version): EventStream
     {
         $serializedEvents = $this->redis->lrange(

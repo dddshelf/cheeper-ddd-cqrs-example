@@ -7,20 +7,21 @@ namespace Cheeper\DomainModel\Author;
 use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\FollowId;
 use Cheeper\DomainModel\TriggerEventsTrait;
+use DateTimeImmutable;
 
 class Author
 {
     use TriggerEventsTrait;
 
     private function __construct(
-        private string $authorId,
-        private string $userName,
-        private string $email,
-        private ?string $name = null,
-        private ?string $biography = null,
-        private ?string $location = null,
-        private ?string $website = null,
-        private ?string $birthDate = null,
+        private string             $authorId,
+        private string             $userName,
+        private string             $email,
+        private ?string            $name = null,
+        private ?string            $biography = null,
+        private ?string            $location = null,
+        private ?string            $website = null,
+        private ?DateTimeImmutable $birthDate = null,
     ) {
         $this->setName($name);
         $this->setBiography($biography);
@@ -110,7 +111,7 @@ class Author
 
     final public function birthDate(): ?BirthDate
     {
-        return $this->birthDate !== null ? BirthDate::fromString($this->birthDate) : null;
+        return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
     }
 
     final public function followAuthorId(AuthorId $toFollow): Follow

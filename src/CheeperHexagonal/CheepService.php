@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace CheeperHexagonal;
 
@@ -7,7 +9,7 @@ use CheeperLayered\Cheep;
 use CheeperLayered\Cheeps;
 
 //snippet cheep-service
-class CheepService
+final class CheepService
 {
     public function __construct(
         private Authors $authors,

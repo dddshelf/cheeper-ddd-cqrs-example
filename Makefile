@@ -21,8 +21,7 @@ COMPOSE = $(DOCKER) compose -f docker-compose.yaml -f docker-compose.override.ya
 
 # Shortcut for docker run on the app container with all dependencies already up
 RUN_APP = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 --rm app -d memory_limit=-1
-
-INFECTION_VERSION=0.16.3
+RUN_APP_INFECTION = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 -e BOX_REQUIREMENT_CHECKER=0 -e XDEBUG_MODE=coverage --rm app -d memory_limit=-1
 
 # Default target when run with just 'make'
 default: ci-tests
@@ -35,27 +34,24 @@ build:
 
 .PHONY: install-deps
 install-deps: build
-	$(RUN_APP) /usr/local/bin/composer install --ignore-platform-req=php
+	$(RUN_APP) composer.phar install
 
 .PHONY: ci-infection
 ci-infection: install-deps
-	wget https://github.com/infection/infection/releases/download/$(INFECTION_VERSION)/infection.phar
-	sudo chown -R `whoami`: var/cache
-	php infection.phar --min-msi=80 --min-covered-msi=70 --threads=4 --show-mutations --only-covered
-	rm -rf infection.phar
+	$(RUN_APP_INFECTION) infection.phar --min-msi=80 --min-covered-msi=70 --threads=4 --show-mutations --only-covered
 
 .PHONY: ci-analysis
 ci-analysis: install-deps
-	$(RUN_APP) /usr/local/bin/composer psalm
+	$(RUN_APP) composer.phar psalm
 
 .PHONY: ci-tests
 ci-tests: install-deps
-	$(RUN_APP) /usr/local/bin/composer unit-tests
+	$(RUN_APP) composer.phar unit-tests
 
 .PHONY: database
 database:
 	$(COMPOSE) run --rm wait
-	$(RUN_APP) /usr/local/bin/composer clear-db
+	$(RUN_APP) composer.phar clear-db
 
 .PHONY: services
 services: build

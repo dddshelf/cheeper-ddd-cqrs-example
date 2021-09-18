@@ -9,15 +9,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @psalm-suppress MissingConstructor
- */
 #[ApiResource(collectionOperations: ['post'], itemOperations: ['get'])]
 final class Author
 {
     #[ApiProperty(identifier: true)]
     public ?UuidInterface $id = null;
 
+    public string $authorId;
     public string $userName;
     public string $email;
     public string $name;

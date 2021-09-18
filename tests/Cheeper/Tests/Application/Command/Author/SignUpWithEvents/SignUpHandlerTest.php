@@ -133,7 +133,7 @@ final class SignUpHandlerTest extends TestCase
         $this->assertSame($biography, $actualAuthor->biography());
         $this->assertSame($location, $actualAuthor->location());
         $this->assertSame($website, $actualAuthor->website()->toString());
-        $this->assertSame($birthDate, $actualAuthor->birthDate()->date());
+        $this->assertSame($birthDate, $actualAuthor->birthDate()->date()->format('Y-m-d'));
 
         $events = $eventBus->events();
         $this->assertCount(1, $events);

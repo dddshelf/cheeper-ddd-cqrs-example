@@ -4,20 +4,19 @@ namespace App\Command;
 
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 //snippet signup-command
+#[AsCommand(name: "app:sign-up", description: "Signs up an author")]
 final class SignUpCommand extends Command
 {
-    protected static $defaultName = 'app:sign-up';
-
     protected function configure(): void
     {
         $this
-            ->setDescription('Signs up an author')
             ->addArgument('username', InputArgument::REQUIRED, 'Author\'s username')
             ->addArgument('email', InputArgument::REQUIRED, 'Author\'s email')
             ->addArgument('name', InputArgument::REQUIRED, 'Author\'s name')
@@ -53,7 +52,7 @@ final class SignUpCommand extends Command
         dump($command);
         //end-ignore
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
 //end-snippet

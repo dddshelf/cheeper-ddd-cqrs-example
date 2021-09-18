@@ -10,9 +10,6 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet count-followers-handler
-/**
- * @psalm-import-type CountFollowersQueryResult from \Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector
- */
 final class CountFollowersHandler
 {
     public function __construct(
@@ -26,7 +23,6 @@ final class CountFollowersHandler
 
         $authorId = AuthorId::fromString($query->authorId());
 
-        /** @psalm-var CountFollowersQueryResult $arrayResult */
         $arrayResult = $connection->fetchAssociative(
             "SELECT a.id as id, a.username as username, COUNT(*) as followers ".
             "FROM authors a, follow_relationships fr ".

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Infrastructure\Persistence\Doctrine;
 
 use Architecture\CQRS\Domain\Post;
@@ -17,7 +19,7 @@ use Doctrine\ORM\Tools\Setup;
 
 use PHPUnit\Framework\TestCase;
 
-class DoctrinePostRepositoryTest extends TestCase
+final class DoctrinePostRepositoryTest extends TestCase
 {
     private Projector $projector;
     private DoctrinePostRepository $postRepository;
@@ -32,11 +34,12 @@ class DoctrinePostRepositoryTest extends TestCase
             ['url' => 'sqlite:///:memory:'],
             Setup::createXMLMetadataConfiguration(
                 [__DIR__.'/../../../../../../src/Architecture/CQRS/Infrastructure/Persistence/Doctrine/Mapping/'],
-                $isDevMode = true
+                true
             )
         );
 
         $tool = new SchemaTool($em);
+
         $tool->createSchema([
             $em->getClassMetadata(Post::class),
             $em->getClassMetadata(PostWasCreated::class)
@@ -46,9 +49,7 @@ class DoctrinePostRepositoryTest extends TestCase
         $this->postRepository = new DoctrinePostRepository($em, $this->projector);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldPersistPost(): void
     {
         $p = Post::writeNewFrom('A title', 'Some content');
@@ -65,9 +66,7 @@ class DoctrinePostRepositoryTest extends TestCase
         $this->assertEquals($content, $found->content());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldProjectToElastic(): void
     {
         $client = \Elasticsearch\ClientBuilder::create()->build();

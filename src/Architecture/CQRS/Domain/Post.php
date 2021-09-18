@@ -1,25 +1,22 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
-/**
- * @psalm-type PostEvents = \Architecture\CQRS\Domain\PostWasCreated|\Architecture\CQRS\Domain\PostWasPublished|\Architecture\CQRS\Domain\PostWasCategorized|\Architecture\CQRS\Domain\PostContentWasChanged|\Architecture\CQRS\Domain\PostTitleWasChanged
- * @extends AggregateRoot<PostEvents>
- */
 //snippet post
 class Post extends AggregateRoot
 {
     //ignore
-    private PostId $id;
     private ?string $title = null;
     private ?string $content = null;
     private bool $published = false;
     /** @var CategoryId[] */
     private array $categories = [];
 
-    protected function __construct(PostId $id)
-    {
-        $this->id = $id;
+    protected function __construct(
+        private PostId $id
+    ) {
     }
 
     public function id(): PostId

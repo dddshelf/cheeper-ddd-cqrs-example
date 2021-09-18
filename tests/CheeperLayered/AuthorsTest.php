@@ -1,12 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperLayered;
 
-class AuthorsTest extends DatabaseTestCase
+final class AuthorsTest extends DatabaseTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldPersistAuthor(): void
     {
         $author = Author::create('johndoe');
@@ -18,14 +18,12 @@ class AuthorsTest extends DatabaseTestCase
 
         $a = $authors->byId($author->id());
         $this->assertNotNull($a);
-        $this->assertEquals($author->username(), 'johndoe');
-        $this->assertEquals($author->website(), 'https://example.com');
-        $this->assertEquals($author->bio(), 'Awesome bio');
+        $this->assertEquals('johndoe', $author->username());
+        $this->assertEquals('https://example.com', $author->website());
+        $this->assertEquals('Awesome bio', $author->bio());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldFindByUsername(): void
     {
         $this->exec(<<<SQL

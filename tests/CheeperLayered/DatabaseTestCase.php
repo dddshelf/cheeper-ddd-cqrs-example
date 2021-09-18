@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperLayered;
 
 use PHPUnit\Framework\TestCase;
@@ -8,7 +10,7 @@ class DatabaseTestCase extends TestCase
 {
     private \PDO $db;
 
-    public function setUp(): void
+    final public function setUp(): void
     {
         $this->db = new \PDO(
             'mysql:host=127.0.0.1;dbname=db',
@@ -53,12 +55,12 @@ class DatabaseTestCase extends TestCase
         SQL);
     }
 
-    protected function exec(string $sql): void
+    final protected function exec(string $sql): void
     {
         $this->db->exec($sql);
     }
 
-    public function tearDown(): void
+    final public function tearDown(): void
     {
         if (!$this->db->inTransaction()) {
             return;

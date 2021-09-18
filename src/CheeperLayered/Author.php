@@ -3,7 +3,7 @@
 namespace CheeperLayered;
 
 //snippet author
-class Author
+final class Author
 {
     private ?int $id = null;
     private ?string $website = null;
@@ -12,7 +12,7 @@ class Author
 
     public static function create(string $username): self
     {
-        return new static($username);
+        return new self($username);
     }
 
     private function __construct(string $username)

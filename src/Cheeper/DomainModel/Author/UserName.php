@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Author;
 
 use Cheeper\DomainModel\Common\ValueObject;
+use Stringable;
 
-final class UserName extends ValueObject
+final class UserName extends ValueObject implements Stringable
 {
-    private string $userName;
-
-    private function __construct(string $userName)
-    {
+    private function __construct(
+        private string $userName
+    ) {
         $this->setUserName($userName);
     }
 
@@ -42,5 +42,10 @@ final class UserName extends ValueObject
         if ('' === $userName) {
             throw new \InvalidArgumentException("Username cannot be empty");
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->userName;
     }
 }

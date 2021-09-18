@@ -1,11 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Presentation;
 
 //snippet post-controller
-class PostController
+final class PostController
 {
-    /** @return array{posts: array} */
     public function listAction(): array
     {
         $client = \Elasticsearch\ClientBuilder::create()->build();

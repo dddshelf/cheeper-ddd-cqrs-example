@@ -34,7 +34,7 @@ final class FollowHandler
         }
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-        $this->followsRepository->save($follow);
+        $this->followsRepository->add($follow);
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Infrastructure\Projection;
 
 class PostId

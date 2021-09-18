@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Infrastructure\Projection;
 
-class CategoryId
+final class CategoryId
 {
     public static function create(): \Architecture\CQRS\Domain\CategoryId
     {

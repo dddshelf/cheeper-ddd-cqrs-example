@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Presentation;
 
 use Elasticsearch\Client;
@@ -7,7 +9,7 @@ use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use PHPUnit\Framework\TestCase;
 
-class PostControllerTest extends TestCase
+final class PostControllerTest extends TestCase
 {
     private PostController $postController;
     private Client $elasticClient;
@@ -29,12 +31,11 @@ class PostControllerTest extends TestCase
                 ]
             ]
         ]);
+
         $this->postController = new PostController();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldListPosts(): void
     {
         $response = $this->postController->listAction();

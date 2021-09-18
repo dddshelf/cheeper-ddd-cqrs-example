@@ -21,14 +21,10 @@ final class UpdateCheepMessageController extends AbstractController
     {
         // Decode the request
 
-        /**
-         * @var array{cheeper_id: string, message: string}
-         */
         $data = json_decode(
             $request->getContent(),
-            true,
-            512,
-            JSON_THROW_ON_ERROR
+            associative: true,
+            flags: JSON_THROW_ON_ERROR
         );
 
         //snippet recompose-cheep-controller

@@ -13,7 +13,6 @@ use function Functional\select;
 
 final class InMemoryAuthors implements Authors
 {
-    /** @var array<string, Author> */
     public array $authors;
 
     public function __construct()
@@ -31,7 +30,7 @@ final class InMemoryAuthors implements Authors
             return $candidate;
         }
 
-        return clone $candidate;
+        return $candidate;
     }
 
     public function ofUserName(UserName $userName): ?Author
@@ -44,7 +43,7 @@ final class InMemoryAuthors implements Authors
             return null;
         }
 
-        return clone $candidate;
+        return $candidate;
     }
 
     public function add(Author $author): void

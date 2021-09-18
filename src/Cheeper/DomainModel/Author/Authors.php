@@ -8,9 +8,7 @@ namespace Cheeper\DomainModel\Author;
 interface Authors
 {
     public function ofId(AuthorId $authorId): ?Author;
-
     public function ofUserName(UserName $userName): ?Author;
-
     public function add(Author $author): void;
 }
 //end-snippet

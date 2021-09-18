@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Infrastructure\Projection;
 
 use Architecture\CQRS\Domain\CategoryId;
@@ -19,12 +21,10 @@ use Architecture\CQRS\Infrastructure\Projection\Elasticsearch\PostWasCreatedProj
 use Architecture\CQRS\Infrastructure\Projection\Elasticsearch\PostWasPublishedProjection;
 use PHPUnit\Framework\TestCase;
 
-class ProjectorTest extends TestCase
+final class ProjectorTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function itShouldProjectIntoElasticsearch()
+    /** @test */
+    public function itShouldProjectIntoElasticsearch(): void
     {
         //snippet projector-usage
         $client = \Elasticsearch\ClientBuilder::create()->build();

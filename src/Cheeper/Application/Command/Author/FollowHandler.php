@@ -7,11 +7,15 @@ namespace Cheeper\Application\Command\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Author\UserName;
+use Cheeper\DomainModel\Follow\FollowId;
+use Cheeper\DomainModel\Follow\Follows;
+use Cheeper\DomainModel\Follow\Follow as FollowAggregate;
 
 final class FollowHandler
 {
     public function __construct(
-        private Authors $authors
+        private Authors $authors,
+        private Follows $follows,
     ) {
     }
 
@@ -32,8 +36,12 @@ final class FollowHandler
             throw AuthorDoesNotExist::withUserNameOf($followedUserName);
         }
 
-        $author->follow($followed->userId());
+        $follow = FollowAggregate::fromAuthorToAuthor(
+            FollowId::nextIdentity(),
+            $author->authorId(),
+            $followed->authorId()
+        );
 
-        $this->authors->save($author);
+        $this->follows->add($follow);
     }
 }

@@ -8,9 +8,6 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @psalm-suppress MissingConstructor
- */
 #[ApiResource(collectionOperations: ['get'], itemOperations: ['get'])]
 final class FollowersCounter
 {

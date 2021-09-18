@@ -19,10 +19,9 @@ final class DoctrineTransactionalMiddleware implements MiddlewareInterface
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        /** @var Envelope $result */
-        $result = $this->em->transactional(static fn (): Envelope => $stack->next()->handle($envelope, $stack));
-
-        return $result;
+        return $this->em->transactional(
+            static fn (): Envelope => $stack->next()->handle($envelope, $stack)
+        );
     }
 }
 //end-snippet

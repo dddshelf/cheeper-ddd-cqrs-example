@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\ES\Domain;
 
 use Cheeper\DomainModel\DomainEvent;
 use PHPUnit\Framework\TestCase;
 
-class EventStreamTest extends TestCase
+final class EventStreamTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldBuildAnEventStream(): void
     {
         $domainEvents = [

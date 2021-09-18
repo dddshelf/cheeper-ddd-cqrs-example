@@ -11,9 +11,6 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Redis;
 
 //snippet count-followers-handler
-/**
- * @psalm-import-type CountFollowersQueryResult from \Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector
- */
 final class CountFollowersHandler
 {
     public function __construct(
@@ -33,7 +30,6 @@ final class CountFollowersHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        /** @psalm-var CountFollowersQueryResult $result */
         $result = json_decode($data, true, flags: JSON_THROW_ON_ERROR);
 
         return new CountFollowersResponse(

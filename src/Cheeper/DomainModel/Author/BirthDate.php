@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Author;
 
 use Cheeper\DomainModel\Common\ValueObject;
-use DateTimeInterface;
+use DateTimeImmutable;
 
 final class BirthDate extends ValueObject
 {
-    private DateTimeInterface $date;
+    private DateTimeImmutable $date;
 
     public function __construct(string $date)
     {
@@ -21,14 +21,14 @@ final class BirthDate extends ValueObject
         return new self($value);
     }
 
-    public function date(): string
+    public function date(): DateTimeImmutable
     {
-        return $this->date->format('Y-m-d');
+        return $this->date;
     }
 
     private function setDate(string $date): void
     {
-        $dateInstance = \DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        $dateInstance = DateTimeImmutable::createFromFormat('Y-m-d', $date);
 
         if (false === $dateInstance) {
             throw new \InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).");

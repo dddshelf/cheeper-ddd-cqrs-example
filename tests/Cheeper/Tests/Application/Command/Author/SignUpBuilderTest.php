@@ -24,9 +24,7 @@ final class SignUp {
 
 final class SignUpBuilderTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itBuildsRequiredFields(): void
     {
         //snippet basic-builder-usage
@@ -37,9 +35,7 @@ final class SignUpBuilderTest extends TestCase
         $this->assertInstanceOf(SignUpCommand::class, $command);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itBuildsOptionalFields(): void
     {
         //snippet sophisticated-builder-usage

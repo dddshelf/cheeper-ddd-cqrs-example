@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperHexagonal;
 
 use PHPUnit\Framework\TestCase;
 
-class PDOPostRepositoryTest extends TestCase
+final class PDOPostRepositoryTest extends TestCase
 {
     private PDOPostRepository $postRepository;
 
@@ -27,9 +29,7 @@ SQL
         $this->postRepository = new PDOPostRepository($pdo);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddPost(): void
     {
         $p = Post::writeNewFrom('A title', 'Some content');
@@ -38,7 +38,7 @@ SQL
 
         $found = $this->postRepository->byId($p->id());
         $this->assertNotNull($found);
-        $this->assertEquals($found->title(), 'A title');
-        $this->assertEquals($found->content(), 'Some content');
+        $this->assertEquals('A title', $found->title());
+        $this->assertEquals('Some content', $found->content());
     }
 }

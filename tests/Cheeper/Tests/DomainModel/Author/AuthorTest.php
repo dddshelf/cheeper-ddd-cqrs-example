@@ -12,7 +12,7 @@ use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Safe\DateTimeImmutable;
+use DateTimeImmutable;
 
 final class AuthorTest extends TestCase
 {

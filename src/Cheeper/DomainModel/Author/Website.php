@@ -7,13 +7,13 @@ namespace Cheeper\DomainModel\Author;
 use Assert\Assertion;
 use Assert\AssertionFailedException;
 use Cheeper\DomainModel\Common\ValueObject;
+use Stringable;
 
-final class Website extends ValueObject
+final class Website extends ValueObject implements Stringable
 {
-    private string $uri;
-
-    public function __construct(string $uri)
-    {
+    public function __construct(
+        private string $uri
+    ) {
         $this->setUri($uri);
     }
 
@@ -41,5 +41,10 @@ final class Website extends ValueObject
         } catch (AssertionFailedException $assertionFailedException) {
             throw new \InvalidArgumentException("Invalid URL given");
         }
+    }
+
+    public function __toString(): string
+    {
+        return $this->uri;
     }
 }

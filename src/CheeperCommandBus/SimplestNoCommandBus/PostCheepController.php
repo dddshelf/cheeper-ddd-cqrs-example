@@ -6,6 +6,7 @@ namespace CheeperCommandBus\SimplestNoCommandBus;
 
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
@@ -14,12 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class PostCheepController extends AbstractController
 {
     #[Route("/cheeps", name: "post_cheep")]
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, MessageBusInterface $eventBus): Response
     {
         //snippet simple-command-handler-execution
         $authorId = $request->request->get('author_id');
@@ -44,7 +46,8 @@ final class PostCheepController extends AbstractController
 
         $postCheepHandler = new PostCheepHandler(
             new DoctrineOrmAuthors($entityManager),
-            new DoctrineOrmCheeps($entityManager)
+            new DoctrineOrmCheeps($entityManager),
+            new SymfonyEventBus($eventBus),
         );
 
         try {

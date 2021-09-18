@@ -7,18 +7,12 @@ namespace Cheeper\Chapter5\Application\Query;
 //snippet count-followers-response
 final class CountFollowersResponse
 {
-    private string $authorId;
-    private string $authorUsername;
-    private int $numberOfFollowers;
 
     public function __construct(
-        string $authorId,
-        string $authorUsername,
-        int $numberOfFollowers
+        private string $authorId,
+        private string $authorUsername,
+        private int $numberOfFollowers
     ) {
-        $this->authorId = $authorId;
-        $this->authorUsername = $authorUsername;
-        $this->numberOfFollowers = $numberOfFollowers;
     }
 
     public function authorId(): string

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace CheeperHexagonal;
 
@@ -6,7 +8,7 @@ use CheeperLayered\Author;
 use CheeperLayered\Authors;
 
 //snippet author-service
-class AuthorService
+final class AuthorService
 {
     public function __construct(
         private Authors $authors

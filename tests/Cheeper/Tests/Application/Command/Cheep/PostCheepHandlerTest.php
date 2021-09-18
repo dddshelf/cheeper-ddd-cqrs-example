@@ -15,23 +15,14 @@ use Cheeper\Infrastructure\Persistence\InMemoryCheeps;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
+use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 //snippet post-cheep-handler-test
 final class PostCheepHandlerTest extends TestCase
 {
-    private Authors $authorsRepository;
-    private Cheeps $cheepsRepository;
-    private InMemoryEventBus $eventBus;
-
-    /** @before */
-    protected function setUp(): void
-    {
-        $this->authorsRepository = new InMemoryAuthors();
-        $this->cheepsRepository = new InMemoryCheeps();
-        $this->eventBus = new InMemoryEventBus();
-    }
+    use SendsCommands;
 
     /** @test */
     public function throwsExceptionWhenAuthorDoesNotExist(): void
@@ -85,14 +76,11 @@ final class PostCheepHandlerTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     * @group failing
-     */
+    /** @test */
     public function cheepIsPersistedSuccessfully(): void
     {
         $author = AuthorTestDataBuilder::anAuthor()->build();
-        $this->authorsRepository->add($author);
+        $this->authors->add($author);
 
         $cheepId = Uuid::uuid4()->toString();
 
@@ -102,7 +90,7 @@ final class PostCheepHandlerTest extends TestCase
             'A message'
         );
 
-        $cheep = $this->cheepsRepository->ofId(CheepId::fromString($cheepId));
+        $cheep = $this->cheeps->ofId(CheepId::fromString($cheepId));
         $this->assertNotNull($cheep);
 
         $events = $this->eventBus->events();
@@ -116,8 +104,8 @@ final class PostCheepHandlerTest extends TestCase
         string $message
     ): void {
         (new PostCheepHandler(
-            $this->authorsRepository,
-            $this->cheepsRepository,
+            $this->authors,
+            $this->cheeps,
             $this->eventBus
         ))(
             PostCheep::fromArray([

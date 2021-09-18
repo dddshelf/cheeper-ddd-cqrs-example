@@ -9,9 +9,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Ramsey\Uuid\UuidInterface;
 
 //snippet cheep-input-resource
-/**
- * @psalm-suppress MissingConstructor
- */
 #[ApiResource(collectionOperations: ['post'], itemOperations: ['get'])]
 final class Cheep
 {

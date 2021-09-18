@@ -8,7 +8,7 @@
             <generator strategy="NONE"/>
         </id>
 
-        <field name="fromAuthorId" column="from_author_id"  type="string" length="36" />
-        <field name="toAuthorId" column="to_author_id" type="string" length="36" />
+        <field name="fromAuthorId" column="from_author_id" length="36" />
+        <field name="toAuthorId" column="to_author_id" length="36" />
     </entity>
 </doctrine-mapping>

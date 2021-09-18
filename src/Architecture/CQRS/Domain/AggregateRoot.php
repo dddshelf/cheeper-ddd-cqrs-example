@@ -1,15 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
-/** @template T of \Architecture\CQRS\Domain\DomainEvent */
 //snippet aggregate-root
 class AggregateRoot
 {
-    /** @var T[] */
+    /** @var DomainEvent[] */
     private array $recordedEvents = [];
 
-    /** @param T $event */
     protected function recordApplyAndPublishThat(DomainEvent $event): void
     {
         $this->recordThat($event);
@@ -17,20 +17,17 @@ class AggregateRoot
         $this->publishThat($event);
     }
 
-    /** @param T $event */
     protected function recordThat(DomainEvent $event): void
     {
         $this->recordedEvents[] = $event;
     }
 
-    /** @param T $event */
     protected function applyThat(DomainEvent $event): void
     {
         $className = (new \ReflectionClass($event))->getShortName();
 
         $modifier = 'apply' . $className;
 
-        /** @phpstan-ignore-next-line */
         $this->$modifier($event);
     }
 
@@ -39,7 +36,7 @@ class AggregateRoot
         DomainEventPublisher::instance()->publish($event);
     }
 
-    /** @return T[] */
+    /** @return DomainEvent[] */
     public function recordedEvents(): array
     {
         return $this->recordedEvents;

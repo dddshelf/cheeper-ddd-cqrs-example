@@ -38,7 +38,7 @@ final class FollowHandler
         }
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-        $this->follows->save($follow);
+        $this->follows->add($follow);
 
         // leanpub-start-insert
         $this->eventBus->notifyAll($follow->domainEvents());

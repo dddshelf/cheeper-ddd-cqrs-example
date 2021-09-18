@@ -10,7 +10,6 @@ use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Author\SignUp;
 use Ramsey\Uuid\Uuid;
 
-/** @implements DataPersisterInterface<Author> */
 final class AuthorDataPersister implements DataPersisterInterface
 {
     public function __construct(

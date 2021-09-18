@@ -1,11 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace CheeperHexagonal;
 
 //snippet pdo-post-repository
 use PDO;
 
-class PDOPostRepository implements PostRepository
+final class PDOPostRepository implements PostRepository
 {
     public function __construct(
         private PDO $db

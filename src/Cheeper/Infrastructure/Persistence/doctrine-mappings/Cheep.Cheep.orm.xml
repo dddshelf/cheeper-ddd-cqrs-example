@@ -11,6 +11,6 @@
         <embedded name="cheepMessage" class="Cheeper\DomainModel\Cheep\CheepMessage" />
         <embedded name="cheepDate" class="Cheeper\DomainModel\Cheep\CheepDate" />
 
-        <field name="authorId" column="author_id" type="string" length="36" />
+        <field name="authorId" column="author_id" length="36" />
     </entity>
 </doctrine-mapping>

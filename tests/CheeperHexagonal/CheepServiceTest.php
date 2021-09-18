@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperHexagonal;
 
 use PHPUnit\Framework\TestCase;
@@ -9,7 +11,7 @@ use CheeperLayered\Authors;
 use CheeperLayered\Cheeps;
 
 //snippet cheep-service-test
-class CheepServiceTest extends TestCase
+final class CheepServiceTest extends TestCase
 {
     private Cheeps $cheeps;
     private Authors $authors;
@@ -22,25 +24,21 @@ class CheepServiceTest extends TestCase
         $this->cheepService = new CheepService($this->authors, $this->cheeps);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itRaisesExceptionWhenAuthorNotFound(): void
     {
         $this->expectException(\RuntimeException::class);
 
-        $this->authors->shouldReceive('byUsername')->andReturns(null);
+        $this->authors->allows('byUsername')->andReturns(null);
 
         $this->cheepService->postCheep('irrelevant', 'irrelevant');
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldAddCheep(): void
     {
-        $this->authors->shouldReceive('byUsername')->andReturns(self::anAuthor(1));
-        $this->cheeps->shouldReceive('add')->once();
+        $this->authors->allows('byUsername')->andReturns(self::anAuthor());
+        $this->cheeps->expects('add');
 
         $cheep = $this->cheepService->postCheep('irrelevant', 'message');
 
@@ -49,10 +47,10 @@ class CheepServiceTest extends TestCase
         $this->assertEquals('message', $cheep->message());
     }
 
-    private static function anAuthor(int $id): Author
+    private static function anAuthor(): Author
     {
         $author = Author::create('irrelevant');
-        $author->setId($id);
+        $author->setId(1);
 
         return $author;
     }

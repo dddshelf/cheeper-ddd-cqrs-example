@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Persistence\Doctrine;
 
@@ -9,21 +11,13 @@ use Architecture\CQRS\Infrastructure\Projection\Projector;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @psalm-import-type PostEvents from Post
- */
 //snippet doctrine-post-repository
-class DoctrinePostRepository implements PostRepository
+final class DoctrinePostRepository implements PostRepository
 {
-    private EntityManagerInterface $em;
-    /** @var Projector<PostEvents>  */
-    private Projector $projector;
-
-    /** @param Projector<PostEvents> $projector */
-    public function __construct(EntityManagerInterface $em, Projector $projector)
-    {
-        $this->em = $em;
-        $this->projector = $projector;
+    public function __construct(
+        private EntityManagerInterface $em,
+        private Projector $projector
+    ) {
     }
 
     public function save(Post $post): void

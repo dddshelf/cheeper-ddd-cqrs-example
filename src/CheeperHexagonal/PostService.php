@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace CheeperHexagonal;
 
 //snippet post-service
-class PostService
+final class PostService
 {
     public function __construct(
         private PostRepository $postRepository

@@ -6,6 +6,7 @@ namespace CheeperCommandBus\ComplexNoCommandBus;
 
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
@@ -15,10 +16,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class PostCheepController extends AbstractController
 {
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, MessageBusInterface $eventBus): Response
     {
         //snippet complex-command-handler-execution
         //ignore
@@ -45,7 +47,8 @@ final class PostCheepController extends AbstractController
 
         $postCheepHandler = new PostCheepHandler(
             new DoctrineOrmAuthors($entityManager),
-            new DoctrineOrmCheeps($entityManager)
+            new DoctrineOrmCheeps($entityManager),
+            new SymfonyEventBus($eventBus),
         );
 
         $logger = new \Monolog\Logger(

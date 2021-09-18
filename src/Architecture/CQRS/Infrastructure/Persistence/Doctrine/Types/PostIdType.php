@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Persistence\Doctrine\Types;
 
@@ -6,33 +8,29 @@ use Architecture\CQRS\Domain\PostId;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
-class PostIdType extends Type
+final class PostIdType extends Type
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        return $platform->getGuidTypeDeclarationSQL($fieldDeclaration);
+        return $platform->getGuidTypeDeclarationSQL($column);
     }
 
-    /**
-     * @param mixed $value
-     * @return PostId
-     */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): PostId
     {
         return new PostId((string) $value);
     }
 
     /**
-     * @param mixed $value
+     * @param PostId $value
+     * @param AbstractPlatform $platform
      * @return string
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): string
     {
-        /** @var PostId $value */
         return $value->id();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return 'post_id';
     }

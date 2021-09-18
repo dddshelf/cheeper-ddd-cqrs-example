@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
-class DomainEventPublisher
+final class DomainEventPublisher
 {
     /** @var Subscriber[] */
     private array $subscribers = [];
@@ -11,10 +13,11 @@ class DomainEventPublisher
 
     public static function instance(): self
     {
-        if (null === static::$instance) {
-            static::$instance = new self();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
-        return static::$instance;
+
+        return self::$instance;
     }
 
     public function subscribe(Subscriber $aDomainEventSubscriber): int

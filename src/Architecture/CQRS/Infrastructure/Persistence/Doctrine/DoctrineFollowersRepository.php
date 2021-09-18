@@ -11,9 +11,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @extends ServiceEntityRepository<Followers>
- */
 final class DoctrineFollowersRepository extends ServiceEntityRepository implements FollowersRepository
 {
     public function __construct(ManagerRegistry $registry)

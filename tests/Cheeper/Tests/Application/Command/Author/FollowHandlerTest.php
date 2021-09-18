@@ -10,20 +10,15 @@ use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\Infrastructure\Persistence\InMemoryFollows;
+use Cheeper\Tests\Helper\SendsCommands;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class FollowHandlerTest extends TestCase
 {
-    private InMemoryAuthors $authorsRepository;
-    private InMemoryEventBus $eventBus;
-
-    protected function setUp(): void
-    {
-        $this->authorsRepository = new InMemoryAuthors();
-        $this->eventBus = new InMemoryEventBus();
-    }
+    use SendsCommands;
 
     /** @test */
     public function whenFollowerDoesNotExistAnExceptionShouldBeThrown(): void
@@ -32,13 +27,6 @@ final class FollowHandlerTest extends TestCase
         $this->expectExceptionMessage('Author "abcd" does not exist');
 
         $this->followAuthor('abcd', 'dcba');
-    }
-
-    private function followAuthor(string $followee, string $followed): void
-    {
-        (new FollowHandler($this->authorsRepository))(
-            Follow::anAuthor($followed, $followee)
-        );
     }
 
     /** @test */
@@ -73,7 +61,7 @@ final class FollowHandlerTest extends TestCase
             'test',
             'test',
             'test',
-            'http://google.com/',
+            'https://google.com/',
             (new DateTimeImmutable())->format('Y-m-d')
         );
 
@@ -86,13 +74,13 @@ final class FollowHandlerTest extends TestCase
             'test2',
             'test2',
             'test2',
-            'http://bing.com/',
+            'https://bing.com/',
             (new DateTimeImmutable())->format('Y-m-d')
         );
 
         $this->followAuthor('test', 'test2');
 
-        $author = $this->authors->ofId(AuthorId::fromUuid($authorId));
-        $this->assertCount(1, $author->following());
+        $followers = $this->follows->numberOfFollowersFor(AuthorId::fromUuid($authorId));
+        $this->assertSame(1, $followers);
     }
 }

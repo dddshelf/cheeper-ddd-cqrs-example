@@ -8,12 +8,12 @@
             <generator strategy="NONE"/>
         </id>
 
-        <field name="userName" column="user_name" type="string" length="255" />
-        <field name="email" column="email" type="string" length="255" />
-        <field name="name" column="name" type="string" length="100" nullable="true" />
+        <field name="userName" column="user_name" length="255" />
+        <field name="email" column="email" length="255" />
+        <field name="name" column="name" length="100" nullable="true" />
         <field name="biography" column="biography" type="text" nullable="true" />
-        <field name="location" column="location" type="string" length="100" nullable="true" />
-        <field name="website" column="website" type="string" length="100" nullable="true" />
+        <field name="location" column="location" length="100" nullable="true" />
+        <field name="website" column="website" length="100" nullable="true" />
         <field name="birthDate" column="birth_date" type="date_immutable" nullable="true" />
     </entity>
 </doctrine-mapping>

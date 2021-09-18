@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Architecture\CQRS\Infrastructure\Projection;
 
 use Architecture\CQRS\Domain\PostContentWasChanged;
@@ -18,11 +20,9 @@ use Architecture\CQRS\Infrastructure\Projection\Elasticsearch\PostWasPublishedPr
 use PHPUnit\Framework\TestCase;
 use Spatie\Async\Pool;
 
-class AsyncProjectorTest extends TestCase
+final class AsyncProjectorTest extends TestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldProjectIntoElasticsearch(): void
     {
         $this->markTestSkipped('It\'s not stable. Sometimes fails and sometimes don\'t.');
@@ -30,7 +30,7 @@ class AsyncProjectorTest extends TestCase
         //Wait to kill the event receiver
         $pool = Pool::create()->timeout(3);
 
-        $pool[] = async(function () {
+        $pool[] = async(static function () {
             sleep(2);//wait for the connection to be ready
 
             //snippet event-receiver
@@ -67,7 +67,7 @@ class AsyncProjectorTest extends TestCase
             //end-snippet
         });
 
-        $pool[] = async(function () {
+        $pool[] = async(static function () {
             sleep(2);//wait for the receiver to be launched
 
             //snippet event-emitter

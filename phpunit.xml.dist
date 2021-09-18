@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true" bootstrap="tests/bootstrap.php" executionOrder="random" resolveDependencies="true">
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src/Cheeper</directory>
-    </include>
-    <exclude>
-      <file>src/Cheeper/Infrastructure/Persistence/InMemoryCheeps.php</file>
-      <directory>src/Cheeper/Infrastructure</directory>
-      <directory>src/Cheeper/Chapter5/Infrastructure</directory>
-      <directory>src/Cheeper/Chapter6/Infrastructure</directory>
-    </exclude>
-  </coverage>
-  <php>
-    <ini name="error_reporting" value="-1"/>
-    <server name="APP_ENV" value="test" force="true"/>
-    <server name="SHELL_VERBOSITY" value="-1"/>
-  </php>
-  <testsuites>
-<!--    <testsuite name="full">-->
-<!--      <directory>tests/</directory>-->
-<!--    </testsuite>-->
-<!--    <testsuite name="cheeper-unit-tests">-->
-<!--      <directory>tests/Cheeper</directory>-->
-<!--      <exclude>tests/Cheeper/Tests/Infrastructure</exclude>-->
-<!--    </testsuite>-->
-    <testsuite name="valid">
-      <directory>tests/Cheeper/Tests/Chapter6</directory>
-      <file>tests/Cheeper/Tests/Application/Command/Author/SignUpHandlerTest.php</file>
-      <file>tests/Cheeper/Tests/Application/Command/Author/SignUpWithEvents/SignUpHandlerTest.php</file>
-      <file>tests/Cheeper/Tests/Application/Command/Cheep/PostCheepHandlerTest.php</file>
-    </testsuite>
-  </testsuites>
-  <extensions>
-    <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
-  </extensions>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true"
+         bootstrap="tests/bootstrap.php" executionOrder="random">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src/Cheeper</directory>
+        </include>
+        <exclude>
+            <file>src/Cheeper/Infrastructure/Persistence/InMemoryCheeps.php</file>
+            <directory>src/Cheeper/Infrastructure</directory>
+            <directory>src/Cheeper/Chapter5/Infrastructure</directory>
+            <directory>src/Cheeper/Chapter6/Infrastructure</directory>
+        </exclude>
+    </coverage>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+    </php>
+    <testsuites>
+        <testsuite name="full">
+            <directory>tests/</directory>
+        </testsuite>
+        <testsuite name="cheeper-unit-tests">
+            <directory>tests/Cheeper</directory>
+            <exclude>tests/Cheeper/Tests/Infrastructure</exclude>
+        </testsuite>
+        <testsuite name="valid">
+            <directory>tests/Cheeper/Tests/Chapter6</directory>
+            <file>tests/Cheeper/Tests/Application/Command/Author/SignUpHandlerTest.php</file>
+            <file>tests/Cheeper/Tests/Application/Command/Author/SignUpWithEvents/SignUpHandlerTest.php</file>
+            <file>tests/Cheeper/Tests/Application/Command/Cheep/PostCheepHandlerTest.php</file>
+        </testsuite>
+    </testsuites>
+    <extensions>
+        <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
+    </extensions>
 </phpunit>

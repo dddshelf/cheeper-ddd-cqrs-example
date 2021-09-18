@@ -1,41 +1,25 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\ES\Infrastructure\V1;
 
 use Architecture\CQRS\Domain\PostId;
 use Architecture\CQRS\Infrastructure\Projection\Projector;
+use Architecture\ES\Domain\EventStore;
 use Architecture\ES\Domain\EventStream;
 use Architecture\ES\Domain\Post;
 use Architecture\ES\Domain\PostRepository;
-use Architecture\ES\Infrastructure\EventStore;
 use Architecture\ES\Infrastructure\Snapshot;
 use Architecture\ES\Infrastructure\SnapshotRepository;
 
-/**
- * @psalm-import-type PostEvents from Post
- */
-class EventStorePostRepository implements PostRepository
+final class EventStorePostRepository implements PostRepository
 {
-    /** @var Projector<PostEvents> */
-    private Projector $projector;
-    /** @var EventStore<PostEvents> */
-    private EventStore $eventStore;
-    /** @var SnapshotRepository<Post> */
-    private SnapshotRepository $snapshotRepository;
-
-    /**
-     * @param SnapshotRepository<Post> $snapshotRepository
-     * @param EventStore<PostEvents> $eventStore
-     * @param Projector<PostEvents> $projector
-     */
     public function __construct(
-        SnapshotRepository $snapshotRepository,
-        EventStore $eventStore,
-        Projector $projector
+        private SnapshotRepository $snapshotRepository,
+        private EventStore $eventStore,
+        private Projector $projector,
     ) {
-        $this->snapshotRepository = $snapshotRepository;
-        $this->eventStore = $eventStore;
-        $this->projector = $projector;
     }
 
     //snippet event-store-post-repository-by-id
@@ -44,7 +28,6 @@ class EventStorePostRepository implements PostRepository
         $snapshot = $this->snapshotRepository->byId($id->id());
 
         if (null === $snapshot) {
-            /** @var Post */
             return Post::reconstitute(
                 $this->eventStore->getEventsFor($id->id())
             );

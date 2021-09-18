@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CheeperHexagonal;
 
 use CheeperLayered\Authors;
 use CheeperLayered\DatabaseTestCase;
 
-class AuthorServiceTest extends DatabaseTestCase
+final class AuthorServiceTest extends DatabaseTestCase
 {
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldUpdateAuthor(): void
     {
         $this->exec(<<<SQL
@@ -17,7 +17,7 @@ class AuthorServiceTest extends DatabaseTestCase
         SQL);
 
         $c = (new AuthorService(new Authors()))
-            ->update(1, 'doejohn', 'http://example.com', 'Some bio');
+            ->update(1, 'doejohn', 'https://example.com', 'Some bio');
 
         $this->assertNotNull($c);
     }

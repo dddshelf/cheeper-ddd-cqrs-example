@@ -1,16 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Domain;
 
-class PostContentWasChanged extends DomainEvent
+final class PostContentWasChanged extends DomainEvent
 {
-    private PostId $postId;
-    private string $content;
-
-    public function __construct(PostId $postId, string $content)
-    {
-        $this->postId = $postId;
-        $this->content = $content;
+    public function __construct(
+        private PostId $postId,
+        private string $content
+    ) {
     }
 
     public function postId(): PostId

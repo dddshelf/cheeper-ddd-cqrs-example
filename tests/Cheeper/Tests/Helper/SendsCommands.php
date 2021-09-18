@@ -11,10 +11,15 @@ use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Application\Command\Author\SignUpHandler;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
+use Cheeper\Chapter6\Application\Event\EventBus;
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Cheep\Cheeps;
+use Cheeper\DomainModel\DomainEvent;
+use Cheeper\DomainModel\Follow\Follows;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthors;
 use Cheeper\Infrastructure\Persistence\InMemoryCheeps;
+use Cheeper\Infrastructure\Persistence\InMemoryFollows;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -23,20 +28,34 @@ trait SendsCommands
 {
     private Authors $authors;
     private Cheeps $cheeps;
+    private InMemoryFollows $follows;
+    private InMemoryEventBus $eventBus;
 
     /** @before */
-    protected function makeUserRepository(): void
+    final protected function makeUserRepository(): void
     {
         $this->authors = new InMemoryAuthors();
     }
 
     //snippet setup-cheeps-repository
     /** @before */
-    protected function makeCheepsRepository(): void
+    final protected function makeCheepsRepository(): void
     {
         $this->cheeps = new InMemoryCheeps();
     }
     //end-snippet
+
+    /** @before  */
+    final protected function makeFollowsRepository(): void
+    {
+        $this->follows = new InMemoryFollows();
+    }
+
+    /** @before */
+    final protected function makeEventBus(): void
+    {
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
@@ -58,7 +77,7 @@ trait SendsCommands
 
     private function followAuthor(string $followee, string $followed): void
     {
-        (new FollowHandler($this->authors))(
+        (new FollowHandler($this->authors, $this->follows))(
             Follow::anAuthor($followed, $followee)
         );
     }
@@ -66,7 +85,7 @@ trait SendsCommands
     //snippet post-new-cheep-tests
     private function postNewCheep(string $authorId, string $cheepId, string $message): void
     {
-        (new PostCheepHandler($this->authors, $this->cheeps))(
+        (new PostCheepHandler($this->authors, $this->cheeps, $this->eventBus))(
             PostCheep::fromArray([
                 'author_id' => $authorId,
                 'cheep_id' => $cheepId,

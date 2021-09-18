@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Command\Cheep;
 
-use JetBrains\PhpStorm\Pure;
-
 //snippet post-cheep
 final class PostCheep
 {
@@ -16,7 +14,6 @@ final class PostCheep
     ) {
     }
 
-    /** @param array{author_id: string, cheep_id: string, message: string} $array */
     public static function fromArray(array $array): self
     {
         return new self(

@@ -24,10 +24,9 @@ final class DoctrineOrmFollows implements Follows
         return 13;
     }
 
-    public function save(Follow $follow): void
+    public function add(Follow $follow): void
     {
         $this->em->persist($follow);
-        $this->em->flush();
     }
 
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
@@ -35,8 +34,8 @@ final class DoctrineOrmFollows implements Follows
         $repository = $this->em->getRepository(Follow::class);
 
         return $repository->findOneBy([
-            'fromAuthorId.id' => $fromAuthorId,
-            'toAuthorId.id' => $toAuthorId,
+            'fromAuthorId' => $fromAuthorId,
+            'toAuthorId' => $toAuthorId,
         ]);
     }
 }

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\ES\Domain;
 
@@ -10,24 +12,18 @@ use Architecture\CQRS\Domain\PostWasCategorized;
 use Architecture\CQRS\Domain\PostWasCreated;
 use Architecture\CQRS\Domain\PostWasPublished;
 
-/**
- * @psalm-type PostEvents = \Architecture\CQRS\Domain\PostWasCreated|\Architecture\CQRS\Domain\PostWasPublished|\Architecture\CQRS\Domain\PostWasCategorized|\Architecture\CQRS\Domain\PostContentWasChanged|\Architecture\CQRS\Domain\PostTitleWasChanged
- * @extends EventSourcedAggregateRoot<PostEvents>
- */
 //snippet post
-class Post extends EventSourcedAggregateRoot
+final class Post extends EventSourcedAggregateRoot
 {
     //ignore
-    private PostId $id;
     private ?string $title = null;
     private ?string $content = null;
     private bool $published = false;
     /** @var CategoryId[] */
     private array $categories = [];
 
-    protected function __construct(PostId $id)
+    protected function __construct(private PostId $id)
     {
-        $this->id = $id;
     }
 
     public static function writeNewFrom(string $title, string $content): self
@@ -125,7 +121,6 @@ class Post extends EventSourcedAggregateRoot
     }
     //end-ignore
 
-    /** @return self */
     public static function reconstitute(EventStream $history): self
     {
         $post = new self(new PostId($history->getAggregateId()));

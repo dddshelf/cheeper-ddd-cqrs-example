@@ -6,15 +6,13 @@ namespace Cheeper\DomainModel\Common;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Stringable;
 
-abstract class UuidBasedIdentity extends ValueObject
+abstract class UuidBasedIdentity extends ValueObject implements Stringable
 {
-    protected string $idAsString;
-
     final private function __construct(
         protected string $id
     ) {
-        $this->idAsString = $id;
     }
 
     public static function fromString(string $uuid): static

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Architecture\CQRS\Infrastructure\Projection\Elasticsearch;
 
@@ -7,14 +9,11 @@ use Architecture\CQRS\Domain\PostWasPublished;
 use Architecture\CQRS\Domain\Projection;
 use Elasticsearch\Client;
 
-/** @implements Projection<PostWasPublished> */
-class PostWasPublishedProjection implements Projection
+final class PostWasPublishedProjection implements Projection
 {
-    private Client $client;
-
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
+    public function __construct(
+        private Client $client
+    ) {
     }
 
     public function listensTo(): string

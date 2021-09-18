@@ -7,9 +7,6 @@ namespace Cheeper\Chapter6\Application\Projector\Author;
 use Cheeper\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
-/**
- * @psalm-type CountFollowersQueryResult = array{id: string, username: string, followers: string}
- */
 //snippet projector-count-followers
 final class CountFollowerProjector
 {
@@ -25,7 +22,6 @@ final class CountFollowerProjector
 
         $authorId = AuthorId::fromString($projection->authorId());
 
-        /** @psalm-var CountFollowersQueryResult $result */
         $result = $connection->fetchAssociative(
             "SELECT a.author_id as id, a.username as username, COUNT(*) as followers ".
             "FROM authors a, follows f ".

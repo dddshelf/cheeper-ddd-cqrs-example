@@ -4,15 +4,16 @@ namespace CheeperLayered;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 //snippet cheep-controller
-class CheepController extends AbstractController
+final class CheepController extends AbstractController
 {
-    public function postAction(Request $request): string
+    public function postAction(Request $request): Response
     {
         if (
             $request->request->has('submit') &&
-            Validator::validate($request->request->post)
+            Validator::validate($request->request->all())
         ) {
             $cheepService = new CheepService();
 
@@ -26,7 +27,7 @@ class CheepController extends AbstractController
                     'notice',
                     'Cheep has been published successfully!'
                 );
-            } catch (\Exception $e) {
+            } catch (\Exception) {
                 $this->addFlash(
                     'error',
                     'Unable to publish cheep!'

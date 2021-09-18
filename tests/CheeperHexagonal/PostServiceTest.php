@@ -17,13 +17,11 @@ class PostServiceTest extends TestCase
         $this->postService = new PostService($this->postRepository);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itShouldCreatePost(): void
     {
-        $this->postRepository->shouldReceive('add')->once();
+        $this->postRepository->expects('add');
 
-        $p = $this->postService->createPost('A title', 'Some content');
+        $this->postService->createPost('A title', 'Some content');
     }
 }

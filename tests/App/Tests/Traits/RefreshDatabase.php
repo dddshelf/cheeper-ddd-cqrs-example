@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 trait RefreshDatabase
 {
     /** @before */
-    protected function refreshDatabase(): void
+    final protected function refreshDatabase(): void
     {
         if (! method_exists(__CLASS__, 'createKernel')) {
             return;
