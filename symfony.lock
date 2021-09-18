@@ -1,10 +1,4 @@
 {
-    "amphp/amp": {
-        "version": "v2.4.1"
-    },
-    "amphp/byte-stream": {
-        "version": "v1.7.2"
-    },
     "api-platform/core": {
         "version": "2.5",
         "recipe": {
@@ -28,12 +22,6 @@
     "bunny/bunny": {
         "version": "v0.2.4"
     },
-    "composer/semver": {
-        "version": "1.5.1"
-    },
-    "composer/xdebug-handler": {
-        "version": "1.4.1"
-    },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
         "recipe": {
@@ -45,9 +33,6 @@
         "files": [
             "config/packages/test/dama_doctrine_test_bundle.yaml"
         ]
-    },
-    "dnoegel/php-xdg-base-dir": {
-        "version": "v0.1.1"
     },
     "doctrine/annotations": {
         "version": "1.0",
@@ -155,12 +140,6 @@
     "fakerphp/faker": {
         "version": "v1.15.0"
     },
-    "felixfbecker/advanced-json-rpc": {
-        "version": "v3.1.1"
-    },
-    "felixfbecker/language-server-protocol": {
-        "version": "v1.4.0"
-    },
     "fig/link-util": {
         "version": "1.1.0"
     },
@@ -209,9 +188,6 @@
             "config/packages/nelmio_cors.yaml"
         ]
     },
-    "netresearch/jsonmapper": {
-        "version": "v1.6.0"
-    },
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
@@ -220,9 +196,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.7.0"
-    },
-    "openlss/lib-array2xml": {
-        "version": "1.0.0"
     },
     "opis/closure": {
         "version": "3.5.1"
@@ -247,27 +220,6 @@
     },
     "phpspec/prophecy": {
         "version": "v1.10.2"
-    },
-    "phpstan/extension-installer": {
-        "version": "1.0.4"
-    },
-    "phpstan/phpstan": {
-        "version": "0.12.30"
-    },
-    "phpstan/phpstan-beberlei-assert": {
-        "version": "0.12.2"
-    },
-    "phpstan/phpstan-deprecation-rules": {
-        "version": "0.12.4"
-    },
-    "phpstan/phpstan-doctrine": {
-        "version": "0.12.16"
-    },
-    "phpstan/phpstan-strict-rules": {
-        "version": "0.12.2"
-    },
-    "phpstan/phpstan-symfony": {
-        "version": "0.12.6"
     },
     "phpunit/php-code-coverage": {
         "version": "8.0.1"
@@ -303,12 +255,6 @@
     },
     "predis/predis": {
         "version": "v1.1.1"
-    },
-    "psalm/attributes": {
-        "version": "0.1.0"
-    },
-    "psalm/plugin-symfony": {
-        "version": "v1.3.0"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -755,23 +701,14 @@
     "twig/twig": {
         "version": "v3.0.3"
     },
-    "vimeo/psalm": {
-        "version": "3.9.5"
-    },
     "webimpress/safe-writer": {
         "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.7.0"
     },
-    "webmozart/path-util": {
-        "version": "2.3.0"
-    },
     "webonyx/graphql-php": {
         "version": "v0.13.8"
-    },
-    "weirdan/doctrine-psalm-plugin": {
-        "version": "0.10.0"
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
