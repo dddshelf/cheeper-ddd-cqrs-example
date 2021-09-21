@@ -2,10 +2,11 @@
 
 namespace CheeperLayered;
 
+use function mimic\hydrate;
 //snippet authors
 use PDO;
 
-class Authors
+final class Authors
 {
     private PDO $db;
 
@@ -47,8 +48,7 @@ class Authors
 
         if ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
             /** @var Author */
-            $author = \mimic\hydrate(Author::class, $result);
-            return $author;
+            return hydrate(Author::class, $result);
         }
 
         return null;

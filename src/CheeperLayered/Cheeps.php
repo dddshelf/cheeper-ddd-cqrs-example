@@ -2,10 +2,11 @@
 
 namespace CheeperLayered;
 
+use function mimic\hydrate;
 //snippet cheeps
 use PDO;
 
-class Cheeps
+final class Cheeps
 {
     //ignore
     private PDO $db;
@@ -66,7 +67,7 @@ class Cheeps
         $cheeps = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             /** @var Cheep */
-            $cheeps[] = \mimic\hydrate(Cheep::class, [
+            $cheeps[] = hydrate(Cheep::class, [
                 'username' => $row['username'],
                 'id' => $row['id'],
                 'message' => $row['message'],
