@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
 
-use Architecture\CQRS\App\Repository\FollowersRepository;
+use Architecture\CQRS\App\Repository\FollowersRepository as Followers;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
@@ -15,7 +15,7 @@ use Cheeper\DomainModel\Author\Authors;
 final class CountFollowersHandler
 {
     public function __construct(
-        private FollowersRepository $followersRepository,
+        private Followers $followersRepository,
         private Authors $authorsRepository
     ) {
     }
