@@ -89,3 +89,8 @@ services:
             - { name: messenger.message_handler, bus: event.bus }
         class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
 
+    App\EventListener\UserCreatedListener:
+        tags:
+            - name: "doctrine.orm.entity_listener"
+              event: "postPersist"
+              entity: 'App\Entity\User'

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="app-root" data-api-doc-uri="{{ url('api_doc', { _format: "json" }) }}"{% for attribute, value in attributes|default([]) %} data-{{ attribute }}="{{ value }}"{% endfor %}></div>
+<div data-controller="app" data-app-apidocuri-value="{{ url('api_doc', { _format: "json", spec_version: "3" }) }}"{% for attribute, value in attributes|default([]) %} data-app-{{ attribute }}-value="{{ value }}"{% endfor %}></div>
 {% endblock %}
 
 {% block javascripts %}

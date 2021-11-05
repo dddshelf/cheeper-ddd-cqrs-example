@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author\Saga;
+namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SagaStyle;
 
 use App\Messenger\CommandBus;
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;

@@ -13,27 +13,13 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "sourceMap": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": [
-                "assets/js/*"
-            ]
-        },
+        "jsx": "react",
+        "allowJs": true,
         "lib": [
             "esnext",
             "dom",
             "dom.iterable",
             "scripthost"
         ]
-    },
-    "include": [
-        "assets/js/**/*.ts",
-        "assets/js/**/*.tsx",
-        "assets/js/**/*.vue"
-//        "tests/**/*.ts",
-//        "tests/**/*.tsx"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "54b1cea1472b4b3f694611131c5eb968",
+    "content-hash": "17dc82270cb045d352296de4474042aa",
     "packages": [
         {
             "name": "api-platform/core",
@@ -1796,6 +1796,87 @@
             "time": "2021-05-22T16:11:15+00:00"
         },
         {
+            "name": "gesdinet/jwt-refresh-token-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/markitosgv/JWTRefreshTokenBundle.git",
+                "reference": "458518cd6bbf2ecfa1729fded538a78a89a16cfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/markitosgv/JWTRefreshTokenBundle/zipball/458518cd6bbf2ecfa1729fded538a78a89a16cfa",
+                "reference": "458518cd6bbf2ecfa1729fded538a78a89a16cfa",
+                "shasum": ""
+            },
+            "require": {
+                "lexik/jwt-authentication-bundle": "^2.0",
+                "php": ">=7.4",
+                "symfony/config": "^3.4|^4.4|^5.2",
+                "symfony/console": "^3.4|^4.4|^5.2",
+                "symfony/dependency-injection": "^3.4|^4.4|^5.2",
+                "symfony/deprecation-contracts": "^2.1",
+                "symfony/event-dispatcher": "^3.4|^4.4|^5.2",
+                "symfony/http-foundation": "^3.4|^4.4|^5.2",
+                "symfony/http-kernel": "^3.4|^4.4|^5.2",
+                "symfony/polyfill-php80": "^1.15",
+                "symfony/property-access": "^3.4|^4.4|^5.2",
+                "symfony/security-bundle": "^3.4|^4.0|^5.2",
+                "symfony/security-core": "^3.4|^4.4|^5.2",
+                "symfony/security-guard": "^3.4|^4.4|^5.2",
+                "symfony/security-http": "^3.4|^4.4|^5.2"
+            },
+            "conflict": {
+                "doctrine/persistence": "<1.3.3"
+            },
+            "require-dev": {
+                "akeneo/phpspec-skip-example-extension": "^4.0|^5.0",
+                "doctrine/cache": "^1.11|^2.0",
+                "doctrine/doctrine-bundle": "^1.12|^2.0",
+                "doctrine/mongodb-odm-bundle": "^3.4|^4.0",
+                "doctrine/orm": "^2.7",
+                "doctrine/persistence": "^1.3.3|^2.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.0",
+                "phpspec/phpspec": "^7.0",
+                "phpunit/phpunit": "^8.5|^9.5",
+                "symfony/cache": "^3.4|^4.4|^5.2"
+            },
+            "default-branch": true,
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gesdinet\\JWTRefreshTokenBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcos Gómez Vilches",
+                    "email": "marcos@gesdinet.com"
+                }
+            ],
+            "description": "Implements a refresh token system over Json Web Tokens in Symfony",
+            "keywords": [
+                "jwt refresh token bundle symfony json web"
+            ],
+            "support": {
+                "issues": "https://github.com/markitosgv/JWTRefreshTokenBundle/issues",
+                "source": "https://github.com/markitosgv/JWTRefreshTokenBundle/tree/master"
+            },
+            "time": "2021-08-12T11:55:47+00:00"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "4.4.2",
             "source": {
@@ -1861,6 +1942,252 @@
                 }
             ],
             "time": "2021-07-09T11:58:40+00:00"
+        },
+        {
+            "name": "lcobucci/clock",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/clock.git",
+                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/clock/zipball/353d83fe2e6ae95745b16b3d911813df6a05bfb3",
+                "reference": "353d83fe2e6ae95745b16b3d911813df6a05bfb3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.17",
+                "lcobucci/coding-standard": "^6.0",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/php-code-coverage": "9.1.4",
+                "phpunit/phpunit": "9.3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\Clock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com"
+                }
+            ],
+            "description": "Yet another clock abstraction",
+            "support": {
+                "issues": "https://github.com/lcobucci/clock/issues",
+                "source": "https://github.com/lcobucci/clock/tree/2.0.x"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-08-27T18:56:02+00:00"
+        },
+        {
+            "name": "lcobucci/jwt",
+            "version": "4.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lcobucci/jwt.git",
+                "reference": "71cf170102c8371ccd933fa4df6252086d144de6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lcobucci/jwt/zipball/71cf170102c8371ccd933fa4df6252086d144de6",
+                "reference": "71cf170102c8371ccd933fa4df6252086d144de6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "ext-sodium": "*",
+                "lcobucci/clock": "^2.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.21",
+                "lcobucci/coding-standard": "^6.0",
+                "mikey179/vfsstream": "^1.6.7",
+                "phpbench/phpbench": "^1.0@alpha",
+                "phpstan/extension-installer": "^1.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/php-invoker": "^3.1",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lcobucci\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Luís Cobucci",
+                    "email": "lcobucci@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+            "keywords": [
+                "JWS",
+                "jwt"
+            ],
+            "support": {
+                "issues": "https://github.com/lcobucci/jwt/issues",
+                "source": "https://github.com/lcobucci/jwt/tree/4.1.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lcobucci",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/lcobucci",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-03-23T23:53:08+00:00"
+        },
+        {
+            "name": "lexik/jwt-authentication-bundle",
+            "version": "v2.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
+                "reference": "d3dbf97f9a2f7cead53767111234bb16b8726681"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/d3dbf97f9a2f7cead53767111234bb16b8726681",
+                "reference": "d3dbf97f9a2f7cead53767111234bb16b8726681",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "lcobucci/jwt": "^3.4|^4.0",
+                "namshi/jose": "^7.2",
+                "php": ">=7.1",
+                "symfony/deprecation-contracts": "^2.4",
+                "symfony/framework-bundle": "^4.4|^5.1",
+                "symfony/security-bundle": "^4.4|^5.1"
+            },
+            "require-dev": {
+                "symfony/browser-kit": "^4.4|^5.1",
+                "symfony/console": "^4.4|^5.1",
+                "symfony/dom-crawler": "^4.4|^5.1",
+                "symfony/phpunit-bridge": "^4.4|^5.1",
+                "symfony/var-dumper": "^4.4|^5.1",
+                "symfony/yaml": "^4.4|^5.1"
+            },
+            "suggest": {
+                "gesdinet/jwt-refresh-token-bundle": "Implements a refresh token system over Json Web Tokens in Symfony",
+                "spomky-labs/lexik-jose-bridge": "Provides a JWT Token encoder with encryption support"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lexik\\Bundle\\JWTAuthenticationBundle\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Barthe",
+                    "email": "j.barthe@lexik.fr",
+                    "homepage": "https://github.com/jeremyb"
+                },
+                {
+                    "name": "Nicolas Cabot",
+                    "email": "n.cabot@lexik.fr",
+                    "homepage": "https://github.com/slashfan"
+                },
+                {
+                    "name": "Cedric Girard",
+                    "email": "c.girard@lexik.fr",
+                    "homepage": "https://github.com/cedric-g"
+                },
+                {
+                    "name": "Dev Lexik",
+                    "email": "dev@lexik.fr",
+                    "homepage": "https://github.com/lexik"
+                },
+                {
+                    "name": "Robin Chalas",
+                    "email": "robin.chalas@gmail.com",
+                    "homepage": "https://github.com/chalasr"
+                },
+                {
+                    "name": "Lexik Community",
+                    "homepage": "https://github.com/lexik/LexikJWTAuthenticationBundle/graphs/contributors"
+                }
+            ],
+            "description": "This bundle provides JWT authentication for your Symfony REST API",
+            "homepage": "https://github.com/lexik/LexikJWTAuthenticationBundle",
+            "keywords": [
+                "Authentication",
+                "JWS",
+                "api",
+                "bundle",
+                "jwt",
+                "rest",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/lexik/LexikJWTAuthenticationBundle/issues",
+                "source": "https://github.com/lexik/LexikJWTAuthenticationBundle/tree/v2.13.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/chalasr",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/lexik/jwt-authentication-bundle",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-09-15T16:40:37+00:00"
         },
         {
             "name": "lstrojny/functional-php",
@@ -2015,6 +2342,73 @@
                 }
             ],
             "time": "2021-03-07T00:25:34+00:00"
+        },
+        {
+            "name": "namshi/jose",
+            "version": "7.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/namshi/jose.git",
+                "reference": "89a24d7eb3040e285dd5925fcad992378b82bcff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/namshi/jose/zipball/89a24d7eb3040e285dd5925fcad992378b82bcff",
+                "reference": "89a24d7eb3040e285dd5925fcad992378b82bcff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-date": "*",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "ext-pcre": "*",
+                "ext-spl": "*",
+                "php": ">=5.5",
+                "symfony/polyfill-php56": "^1.0"
+            },
+            "require-dev": {
+                "phpseclib/phpseclib": "^2.0",
+                "phpunit/phpunit": "^4.5|^5.0",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "suggest": {
+                "ext-openssl": "Allows to use OpenSSL as crypto engine.",
+                "phpseclib/phpseclib": "Allows to use Phpseclib as crypto engine, use version ^2.0."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Namshi\\JOSE\\": "src/Namshi/JOSE/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alessandro Nadalin",
+                    "email": "alessandro.nadalin@gmail.com"
+                },
+                {
+                    "name": "Alessandro Cinelli (cirpo)",
+                    "email": "alessandro.cinelli@gmail.com"
+                }
+            ],
+            "description": "JSON Object Signing and Encryption library for PHP.",
+            "keywords": [
+                "JSON Web Signature",
+                "JSON Web Token",
+                "JWS",
+                "json",
+                "jwt",
+                "token"
+            ],
+            "support": {
+                "issues": "https://github.com/namshi/jose/issues",
+                "source": "https://github.com/namshi/jose/tree/master"
+            },
+            "time": "2016-12-05T07:27:31+00:00"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -11360,7 +11754,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "gesdinet/jwt-refresh-token-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -12,7 +12,7 @@ use Cheeper\DomainModel\Follow\Follow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AuthorsFixtures extends Fixture
+final class AuthorsFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
