@@ -26,7 +26,7 @@ class Cheep
     public static function compose(AuthorId $authorId, CheepId $cheepId, CheepMessage $cheepMessage): self
     {
         $cheepDate = new CheepDate(
-            (new \DateTimeImmutable(timezone: new \DateTimeZone('UTC')))->format('Y-m-d')
+            (new \DateTimeImmutable(timezone: new \DateTimeZone('UTC')))->format('Y-m-d H:i:s')
         );
 
         return new self(

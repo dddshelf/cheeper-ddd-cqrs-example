@@ -19,12 +19,12 @@ final class CheepDate extends ValueObject
 
     public function date(): string
     {
-        return $this->date->format('Y-m-d');
+        return $this->date->format('Y-m-d H:i:s');
     }
 
     private function setDate(string $date): void
     {
-        $dateInstance = DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        $dateInstance = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $date);
 
         if ($dateInstance === false) {
             throw new InvalidArgumentException("'$date' is not a valid datetime (Y-m-d formatted).");

@@ -38,5 +38,12 @@ final class DoctrineOrmFollows implements Follows
             'toAuthorId' => $toAuthorId,
         ]);
     }
+
+    public function toAuthorId(AuthorId $authorId): array
+    {
+        $repository = $this->em->getRepository(Follow::class);
+
+        return $repository->findBy(['toAuthorId' => $authorId]);
+    }
 }
 //end-snippet

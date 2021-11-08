@@ -58,10 +58,11 @@ final class InMemoryFollows implements Follows
             select($this->collection, fn (Follow $u): bool => $u->fromAuthorId()->equals($fromAuthorId) && $u->toAuthorId()->equals($toAuthorId))
         );
 
-        if (null === $candidate) {
-            return null;
-        }
+        return $candidate ?? null;
+    }
 
-        return $candidate;
+    public function toAuthorId(AuthorId $authorId): array
+    {
+        return select($this->collection, fn (Follow $f): bool => $f->toAuthorId()->equals($authorId));
     }
 }

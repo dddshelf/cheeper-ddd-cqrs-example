@@ -19,16 +19,12 @@ framework:
                 middleware:
                     - validation
         transports:
-            async_commands:
-                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
-            sync_commands:
-                dsn: 'sync://'
-            events:
-                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
-            query:
-                dsn: 'sync://'
-            failed_messages:
-                dsn: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
+            async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
+            sync_commands: 'sync://'
+            events: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
+            query: 'sync://'
+            failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
+            projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/projections'
         routing:
             # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
@@ -38,8 +34,7 @@ framework:
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.
-            Cheeper\DomainModel\Follow\AuthorFollowed: events
-            Cheeper\DomainModel\Follow\AuthorUnfollowed: events
+            Cheeper\DomainModel\DomainEvent: [events, projections]
 
             # Queries are executed synchronously
             # in the same request that data is requested.
