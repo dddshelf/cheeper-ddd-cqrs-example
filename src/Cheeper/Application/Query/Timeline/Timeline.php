@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Application\Query;
+namespace Cheeper\Application\Query\Timeline;
+
+use Cheeper\Chapter6\Application\Query\Query;
 
 //snippet timeline-query
-final class Timeline
+final class Timeline implements Query
 {
     public static function fromArray(array $array): self
     {
