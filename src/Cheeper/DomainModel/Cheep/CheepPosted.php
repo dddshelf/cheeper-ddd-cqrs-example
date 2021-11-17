@@ -13,6 +13,9 @@ final class CheepPosted implements DomainEvent
 {
     private function __construct(
         private string $cheepId,
+        private string $authorId,
+        private string $cheepMessage,
+        private string $cheepDate,
         private DateTimeImmutable $occurredOn
     ) {
     }
@@ -21,6 +24,9 @@ final class CheepPosted implements DomainEvent
     {
         return new self(
             $cheep->cheepId()->toString(),
+            $cheep->authorId()->toString(),
+            $cheep->cheepMessage()->message(),
+            $cheep->cheepDate()->date(),
             new DateTimeImmutable(
                 timezone: new DateTimeZone("UTC")
             )
@@ -30,6 +36,21 @@ final class CheepPosted implements DomainEvent
     public function cheepId(): string
     {
         return $this->cheepId;
+    }
+
+    public function authorId(): string
+    {
+        return $this->authorId;
+    }
+
+    public function cheepMessage(): string
+    {
+        return $this->cheepMessage;
+    }
+
+    public function cheepDate(): string
+    {
+        return $this->cheepDate;
     }
 
     public function occurredOn(): DateTimeImmutable

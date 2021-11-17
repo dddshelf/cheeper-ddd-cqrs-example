@@ -14,7 +14,7 @@ final class TimelineHandler
     public function __invoke(Timeline $query): TimelineResponse
     {
         return new TimelineResponse(
-            $this->timelineReadLayer->byAuthorId($query->authorId())
+            $this->timelineReadLayer->byAuthorId($query->authorId(), $query->offset(), $query->size())
         );
     }
 }

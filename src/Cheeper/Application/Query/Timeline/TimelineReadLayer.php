@@ -6,5 +6,5 @@ namespace Cheeper\Application\Query\Timeline;
 
 interface TimelineReadLayer
 {
-    public function byAuthorId(string $authorId): array;
+    public function byAuthorId(string $authorId, int $offset, int $size): array;
 }

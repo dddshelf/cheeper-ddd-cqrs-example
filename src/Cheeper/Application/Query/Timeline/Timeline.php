@@ -13,17 +13,31 @@ final class Timeline implements Query
     {
         return new self(
             (string) $array['author_id'],
+            (int) $array['offset'],
+            (int) $array['size'],
         );
     }
 
     private function __construct(
-        private string $authorId
+        private string $authorId,
+        private int $offset,
+        private int $size,
     ) {
     }
 
     public function authorId(): string
     {
         return $this->authorId;
+    }
+
+    public function offset(): int
+    {
+        return $this->offset;
+    }
+
+    public function size(): int
+    {
+        return $this->size;
     }
 }
 //end-snippet
