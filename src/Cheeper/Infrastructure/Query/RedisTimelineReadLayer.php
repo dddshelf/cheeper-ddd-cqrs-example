@@ -19,7 +19,7 @@ final class RedisTimelineReadLayer implements TimelineReadLayer
         $serializedCheeps = $this->redis->lRange(
             'timelines_' . $authorId,
             $offset,
-            $size
+            ($offset + $size) - 1
         );
 
         return array_map(
