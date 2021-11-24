@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
+//snippet timeline-controller
 final class GetTimelineController extends AbstractController
 {
     private const DEFAULT_TIMELINE_CHUNK_SIZE = 10;
@@ -37,3 +38,4 @@ final class GetTimelineController extends AbstractController
         );
     }
 }
+//end-snippet
