@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace Cheeper\Infrastructure\Projection;
 
-use App\Elasticsearch\Config;
+use App\Message\PutCheepOnRedisTimeline;
 use Cheeper\Application\Projection\CheepProjection;
 use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\Authors;
-use Cheeper\DomainModel\Cheep\CheepDoesNotExist;
-use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\CheepPosted;
-use Cheeper\DomainModel\Cheep\Cheeps;
 use Cheeper\DomainModel\Follow\Follows;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Elasticsearch\Client as Elasticsearch;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 
+//snippet cheep-projection-to-redis
 final class SymfonyMessengerCheepProjectionToRedis implements CheepProjection, MessageSubscriberInterface
 {
     public function __construct(
-        private \Redis $redis,
         private Follows $follows,
+        private MessageBusInterface $appBus,
     ) {
     }
 
@@ -33,13 +30,13 @@ final class SymfonyMessengerCheepProjectionToRedis implements CheepProjection, M
         );
 
         foreach ($follows as $follow) {
-            $this->redis->lPush(
-                sprintf("timelines_%s", $follow->fromAuthorId()->toString()),
-                serialize([
-                    'cheep_id' => $event->cheepId(),
-                    'cheep_message' => $event->cheepMessage(),
-                    'cheep_date' => DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $event->cheepDate())->setTimezone(new \DateTimeZone('UTC'))->format(DateTimeInterface::ATOM)
-                ])
+            $this->appBus->dispatch(
+                new PutCheepOnRedisTimeline(
+                    authorId:       $follow->fromAuthorId()->toString(),
+                    cheepId:        $event->cheepId(),
+                    cheepMessage:   $event->cheepMessage(),
+                    cheepDate:      DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $event->cheepDate())->setTimezone(new \DateTimeZone('UTC'))->format(DateTimeInterface::ATOM),
+                )
             );
         }
     }
@@ -52,3 +49,4 @@ final class SymfonyMessengerCheepProjectionToRedis implements CheepProjection, M
         ];
     }
 }
+//end-snippet

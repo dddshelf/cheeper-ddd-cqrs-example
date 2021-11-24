@@ -18,6 +18,10 @@ framework:
                 default_middleware: allow_no_handlers
                 middleware:
                     - validation
+            app.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - validation
         transports:
             async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
             sync_commands: 'sync://'
@@ -31,6 +35,7 @@ framework:
             # be run asynchronously.
             Cheeper\Application\Command\Author\SignUp: sync_commands
             Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
+            App\Message\AsyncMessage: async_commands
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.

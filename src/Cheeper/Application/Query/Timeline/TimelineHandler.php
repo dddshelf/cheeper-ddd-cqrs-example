@@ -4,17 +4,28 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Query\Timeline;
 
+//snippet timeline-handler
 final class TimelineHandler
 {
     public function __construct(
-        private TimelineReadLayer $timelineReadLayer
+        private \Redis $redis,
     ) {
     }
 
     public function __invoke(Timeline $query): TimelineResponse
     {
+        $serializedCheeps = $this->redis->lRange(
+            sprintf('timelines_%s', $query->authorId()),
+            $query->offset(),
+            ($query->offset() + $query->size()) - 1
+        );
+
         return new TimelineResponse(
-            $this->timelineReadLayer->byAuthorId($query->authorId(), $query->offset(), $query->size())
+            array_map(
+                static fn(string $cheep): array => json_decode($cheep, true, flags: JSON_THROW_ON_ERROR),
+                $serializedCheeps
+            )
         );
     }
 }
+//end-snippet

@@ -17,7 +17,7 @@ final class GetTimelineController extends AbstractController
 {
     private const DEFAULT_TIMELINE_CHUNK_SIZE = 10;
 
-    #[Route(path: "/api/timelines/{id}", methods: ["GET"])]
+    #[Route(path: "/api/timelines/{authorId}", methods: ["GET"])]
     public function __invoke(string $id, QueryBus $queryBus, SerializerInterface $serializer, Request $request): Response
     {
         $offset = $request->query->getInt('offset');
