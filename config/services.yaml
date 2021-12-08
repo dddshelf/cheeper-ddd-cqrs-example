@@ -23,6 +23,7 @@ services:
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
+            Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -60,6 +61,9 @@ services:
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: query.bus }
+
+    Cheeper\Chapter5\Infrastructure\:
+        resource: '../src/Cheeper/Chapter5/Infrastructure/**/*.php'
 
     Cheeper\Chapter6\Infrastructure\:
         resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
