@@ -10,8 +10,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@2.16.0
         with:
-          - php-version: 8.1
-            extensions: xdebug
+          php-version: 8.1
+          extensions: xdebug
       - name: Run tests
         run: php composer.phar unit-tests
       - name: Run Infection
