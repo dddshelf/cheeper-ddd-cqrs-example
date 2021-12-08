@@ -23,9 +23,3 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Cheeper/Infrastructure/Persistence/doctrine-mappings'
                 prefix: 'Cheeper\DomainModel'
                 alias: CheeperDomainModel
-            Architecture:
-                is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Architecture'
-                prefix: 'Architecture'
-                alias: 'Architecture'
