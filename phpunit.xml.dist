@@ -23,16 +23,6 @@
         <testsuite name="full">
             <directory>tests/</directory>
         </testsuite>
-        <testsuite name="cheeper-unit-tests">
-            <directory>tests/Cheeper</directory>
-            <exclude>tests/Cheeper/Tests/Infrastructure</exclude>
-        </testsuite>
-        <testsuite name="valid">
-            <directory>tests/Cheeper/Tests/Chapter6</directory>
-            <file>tests/Cheeper/Tests/Application/Command/Author/SignUpHandlerTest.php</file>
-            <file>tests/Cheeper/Tests/Application/Command/Author/SignUpWithEvents/SignUpHandlerTest.php</file>
-            <file>tests/Cheeper/Tests/Application/Command/Cheep/PostCheepHandlerTest.php</file>
-        </testsuite>
     </testsuites>
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
