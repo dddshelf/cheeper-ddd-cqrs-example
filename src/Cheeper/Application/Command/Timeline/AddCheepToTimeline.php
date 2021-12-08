@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Message;
+namespace Cheeper\Application\Command\Timeline;
+
+use Cheeper\Application\Command\AsyncCommand;
 
 //snippet put-cheep-on-redis-timeline
-final class PutCheepOnRedisTimeline implements AsyncMessage
+final class AddCheepToTimeline implements AsyncCommand
 {
     public function __construct(
         public string $authorId,

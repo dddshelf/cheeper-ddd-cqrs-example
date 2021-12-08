@@ -15,8 +15,8 @@ use Cheeper\DomainModel\Follow\Follows;
 final class FollowHandler
 {
     public function __construct(
-        private Authors $authorsRepository,
-        private Follows $followsRepository
+        private Authors $authors,
+        private Follows $follows
     ) {
     }
 
@@ -28,18 +28,18 @@ final class FollowHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
-        $follow = $this->followsRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+        $follow = $this->follows->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
         if (null !== $follow) {
             return;
         }
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-        $this->followsRepository->add($follow);
+        $this->follows->add($follow);
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
     {
-        $author = $this->authorsRepository->ofId($authorId);
+        $author = $this->authors->ofId($authorId);
         if (null === $author) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }

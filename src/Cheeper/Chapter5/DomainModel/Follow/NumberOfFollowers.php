@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Architecture\CQRS\App\Entity;
+namespace Cheeper\Chapter5\DomainModel\Follow;
 
-use Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
-#[ORM\Entity(repositoryClass: DoctrineFollowersRepository::class)]
-#[ORM\Table(name: "architecture_followers")]
-class Followers
+#[ORM\Table(name: "chapter5_followers")]
+class NumberOfFollowers
 {
     public function __construct(
         #[ORM\Column(type: "uuid_binary")]
