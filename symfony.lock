@@ -19,9 +19,6 @@
     "brick/math": {
         "version": "0.8.15"
     },
-    "bunny/bunny": {
-        "version": "v0.2.4"
-    },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
         "recipe": {
@@ -152,9 +149,6 @@
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.12.0"
     },
-    "hamcrest/hamcrest-php": {
-        "version": "v2.0.0"
-    },
     "keyvanakbary/mimic": {
         "version": "v1.0.0"
     },
@@ -188,9 +182,6 @@
     "lstrojny/functional-php": {
         "version": "1.11.0"
     },
-    "mockery/mockery": {
-        "version": "1.3.1"
-    },
     "monolog/monolog": {
         "version": "2.0.2"
     },
@@ -220,9 +211,6 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.7.0"
-    },
-    "opis/closure": {
-        "version": "3.5.1"
     },
     "phar-io/manifest": {
         "version": "1.0.3"
@@ -277,9 +265,6 @@
             "tests/bootstrap.php"
         ]
     },
-    "predis/predis": {
-        "version": "v1.1.1"
-    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -315,9 +300,6 @@
         "files": [
             "config/packages/ramsey_uuid_doctrine.yaml"
         ]
-    },
-    "react/event-loop": {
-        "version": "v0.5.3"
     },
     "react/promise": {
         "version": "v2.7.1"
@@ -381,9 +363,6 @@
         "files": [
             "config/packages/snc_redis.yaml"
         ]
-    },
-    "spatie/async": {
-        "version": "1.3.0"
     },
     "symfony/amqp-messenger": {
         "version": "v5.1.0"
@@ -739,8 +718,5 @@
     },
     "willdurand/negotiation": {
         "version": "v2.3.1"
-    },
-    "zumba/json-serializer": {
-        "version": "2.2.0"
     }
 }

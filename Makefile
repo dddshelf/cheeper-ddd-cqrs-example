@@ -17,71 +17,12 @@ MAKEFLAGS += --no-builtin-rules
 DOCKER = $(shell which docker)
 
 # Shortcut for docker-compose command
-COMPOSE = $(DOCKER) compose -f docker-compose.yaml -f docker-compose.override.yaml.dist
-
-# Shortcut for docker run on the app container with all dependencies already up
-RUN_APP = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 --rm app -d memory_limit=-1
-RUN_APP_INFECTION = $(COMPOSE) run -e COMPOSER_MEMORY_LIMIT=-1 -e BOX_REQUIREMENT_CHECKER=0 -e XDEBUG_MODE=coverage --rm app -d memory_limit=-1
+DOCKER_COMPOSE = $(DOCKER) compose -f docker-compose.yaml -f docker-compose.override.yaml.dist
 
 # Default target when run with just 'make'
-default: ci-tests
+default: up
 
-# Main docker image build
-.PHONY: build
-build:
-	$(COMPOSE) build --parallel
-	$(COMPOSE) up --no-start --remove-orphans
-
-.PHONY: install-deps
-install-deps: build
-	$(RUN_APP) composer.phar install
-
-.PHONY: ci-infection
-ci-infection: install-deps
-	$(RUN_APP_INFECTION) infection.phar --min-msi=80 --min-covered-msi=70 --threads=4 --show-mutations --only-covered
-
-.PHONY: ci-analysis
-ci-analysis: install-deps
-	$(RUN_APP) composer.phar psalm
-
-.PHONY: ci-tests
-ci-tests: install-deps
-	$(RUN_APP) composer.phar unit-tests
-
-.PHONY: database
-database:
-	$(COMPOSE) run --rm wait
-	$(RUN_APP) composer.phar clear-db
-
-.PHONY: services
-services: build
-	$(COMPOSE) up -d --remove-orphans
-
-.PHONY: attach
-attach: build
-	$(COMPOSE) run --rm app sh
-
-.PHONY: run
-run:
-	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist up -d --remove-orphans
-
-.PHONY: stop
-stop:
-	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist stop
-
-.PHONY: ps
-ps:
-	$(COMPOSE) -f docker-compose.yaml -f docker-compose.full-docker.yaml.dist ps
-
-.PHONY: run-locally
-run-locally: services
-	symfony serve -d --allow-http --port=8080 --no-tls
-
-.PHONY: stop-locally
-stop-locally:
-	$(COMPOSE) stop
-	symfony server:stop
-
-.PHONY: ps-locally
-ps-locally:
-	$(COMPOSE) ps
+.PHONY: up
+up:
+	$(DOCKER_COMPOSE) up -d --remove-orphans
+	symfony serve -d

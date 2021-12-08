@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17dc82270cb045d352296de4474042aa",
+    "content-hash": "5422a5c8acc1bd1c998ae222be3cc687",
     "packages": [
         {
             "name": "api-platform/core",
@@ -7955,66 +7955,6 @@
     ],
     "packages-dev": [
         {
-            "name": "bunny/bunny",
-            "version": "v0.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jakubkulhan/bunny.git",
-                "reference": "9d6be4aba9172c69925dc9d137e12dc88f6861ee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jakubkulhan/bunny/zipball/9d6be4aba9172c69925dc9d137e12dc88f6861ee",
-                "reference": "9d6be4aba9172c69925dc9d137e12dc88f6861ee",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/log": "~1.0",
-                "react/event-loop": "^1.0 || ^0.5 || ^0.4",
-                "react/promise": "~2.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Bunny\\": "src/Bunny/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jakub Kulhan",
-                    "email": "jakub.kulhan@gmail.com"
-                }
-            ],
-            "description": "Performant pure-PHP AMQP (RabbitMQ) sync/async (ReactPHP) library",
-            "keywords": [
-                "AMQP",
-                "bunny",
-                "exchange",
-                "message",
-                "messaging",
-                "queue",
-                "queueing",
-                "rabbit",
-                "rabbitmq",
-                "react",
-                "react-php",
-                "reactphp"
-            ],
-            "support": {
-                "issues": "https://github.com/jakubkulhan/bunny/issues",
-                "source": "https://github.com/jakubkulhan/bunny/tree/v0.5.0"
-            },
-            "time": "2020-12-10T23:46:29+00:00"
-        },
-        {
             "name": "dama/doctrine-test-bundle",
             "version": "v6.7.1",
             "source": {
@@ -8482,57 +8422,6 @@
             "time": "2021-09-06T14:53:37+00:00"
         },
         {
-            "name": "hamcrest/hamcrest-php",
-            "version": "v2.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hamcrest/hamcrest-php.git",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
-                "reference": "8c3d0a3f6af734494ad8f6fbbee0ba92422859f3",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3|^7.0|^8.0"
-            },
-            "replace": {
-                "cordoval/hamcrest-php": "*",
-                "davedevelopment/hamcrest-php": "*",
-                "kodova/hamcrest-php": "*"
-            },
-            "require-dev": {
-                "phpunit/php-file-iterator": "^1.4 || ^2.0",
-                "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "hamcrest"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "This is the PHP port of Hamcrest Matchers",
-            "keywords": [
-                "test"
-            ],
-            "support": {
-                "issues": "https://github.com/hamcrest/hamcrest-php/issues",
-                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
-            },
-            "time": "2020-07-09T08:09:16+00:00"
-        },
-        {
             "name": "keyvanakbary/mimic",
             "version": "v1.0.0",
             "source": {
@@ -8584,78 +8473,6 @@
                 "source": "https://github.com/keyvanakbary/mimic/tree/master"
             },
             "time": "2015-08-09T13:45:33+00:00"
-        },
-        {
-            "name": "mockery/mockery",
-            "version": "1.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mockery/mockery.git",
-                "reference": "e01123a0e847d52d186c5eb4b9bf58b0c6d00346"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/e01123a0e847d52d186c5eb4b9bf58b0c6d00346",
-                "reference": "e01123a0e847d52d186c5eb4b9bf58b0c6d00346",
-                "shasum": ""
-            },
-            "require": {
-                "hamcrest/hamcrest-php": "^2.0.1",
-                "lib-pcre": ">=7.0",
-                "php": "^7.3 || ^8.0"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Mockery": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Pádraic Brady",
-                    "email": "padraic.brady@gmail.com",
-                    "homepage": "http://blog.astrumfutura.com"
-                },
-                {
-                    "name": "Dave Marshall",
-                    "email": "dave.marshall@atstsolutions.co.uk",
-                    "homepage": "http://davedevelopment.co.uk"
-                }
-            ],
-            "description": "Mockery is a simple yet flexible PHP mock object framework",
-            "homepage": "https://github.com/mockery/mockery",
-            "keywords": [
-                "BDD",
-                "TDD",
-                "library",
-                "mock",
-                "mock objects",
-                "mockery",
-                "stub",
-                "test",
-                "test double",
-                "testing"
-            ],
-            "support": {
-                "issues": "https://github.com/mockery/mockery/issues",
-                "source": "https://github.com/mockery/mockery/tree/1.4.4"
-            },
-            "time": "2021-09-13T15:28:59+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8869,71 +8686,6 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.1"
             },
             "time": "2021-11-03T20:52:16+00:00"
-        },
-        {
-            "name": "opis/closure",
-            "version": "3.6.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/opis/closure.git",
-                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/opis/closure/zipball/06e2ebd25f2869e54a306dda991f7db58066f7f6",
-                "reference": "06e2ebd25f2869e54a306dda991f7db58066f7f6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.4 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "jeremeamia/superclosure": "^2.0",
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Opis\\Closure\\": "src/"
-                },
-                "files": [
-                    "functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marius Sarca",
-                    "email": "marius.sarca@gmail.com"
-                },
-                {
-                    "name": "Sorin Sarca",
-                    "email": "sarca_sorin@hotmail.com"
-                }
-            ],
-            "description": "A library that can be used to serialize closures (anonymous functions) and arbitrary objects.",
-            "homepage": "https://opis.io/closure",
-            "keywords": [
-                "anonymous functions",
-                "closure",
-                "function",
-                "serializable",
-                "serialization",
-                "serialize"
-            ],
-            "support": {
-                "issues": "https://github.com/opis/closure/issues",
-                "source": "https://github.com/opis/closure/tree/3.6.2"
-            },
-            "time": "2021-04-09T13:42:10+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -9695,72 +9447,6 @@
             "time": "2021-09-25T07:38:51+00:00"
         },
         {
-            "name": "predis/predis",
-            "version": "v1.1.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/predis/predis.git",
-                "reference": "c50c3393bb9f47fa012d0cdfb727a266b0818259"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/predis/predis/zipball/c50c3393bb9f47fa012d0cdfb727a266b0818259",
-                "reference": "c50c3393bb9f47fa012d0cdfb727a266b0818259",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
-            },
-            "suggest": {
-                "ext-curl": "Allows access to Webdis when paired with phpiredis",
-                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Predis\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Daniele Alessandri",
-                    "email": "suppakilla@gmail.com",
-                    "homepage": "http://clorophilla.net",
-                    "role": "Creator & Maintainer"
-                },
-                {
-                    "name": "Till Krüss",
-                    "homepage": "https://till.im",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
-            "homepage": "http://github.com/predis/predis",
-            "keywords": [
-                "nosql",
-                "predis",
-                "redis"
-            ],
-            "support": {
-                "issues": "https://github.com/predis/predis/issues",
-                "source": "https://github.com/predis/predis/tree/v1.1.9"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/tillkruss",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-10-05T19:02:38+00:00"
-        },
-        {
             "name": "psy/psysh",
             "version": "v0.10.9",
             "source": {
@@ -9834,84 +9520,6 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.10.9"
             },
             "time": "2021-10-10T13:37:39+00:00"
-        },
-        {
-            "name": "react/event-loop",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "be6dee480fc4692cec0504e65eb486e3be1aa6f2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/be6dee480fc4692cec0504e65eb486e3be1aa6f2",
-                "reference": "be6dee480fc4692cec0504e65eb486e3be1aa6f2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.3 || ^5.7 || ^4.8.35"
-            },
-            "suggest": {
-                "ext-event": "~1.0 for ExtEventLoop",
-                "ext-pcntl": "For signal handling support when using the StreamSelectLoop",
-                "ext-uv": "* for ExtUvLoop"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "React\\EventLoop\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christian Lück",
-                    "email": "christian@clue.engineering",
-                    "homepage": "https://clue.engineering/"
-                },
-                {
-                    "name": "Cees-Jan Kiewiet",
-                    "email": "reactphp@ceesjankiewiet.nl",
-                    "homepage": "https://wyrihaximus.net/"
-                },
-                {
-                    "name": "Jan Sorgalla",
-                    "email": "jsorgalla@gmail.com",
-                    "homepage": "https://sorgalla.com/"
-                },
-                {
-                    "name": "Chris Boden",
-                    "email": "cboden@gmail.com",
-                    "homepage": "https://cboden.dev/"
-                }
-            ],
-            "description": "ReactPHP's core reactor event loop that libraries can use for evented I/O.",
-            "keywords": [
-                "asynchronous",
-                "event-loop"
-            ],
-            "support": {
-                "issues": "https://github.com/reactphp/event-loop/issues",
-                "source": "https://github.com/reactphp/event-loop/tree/v1.2.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/WyriHaximus",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/clue",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-07-11T12:31:24+00:00"
         },
         {
             "name": "react/promise",
@@ -10928,73 +10536,6 @@
             "time": "2020-09-28T06:39:44+00:00"
         },
         {
-            "name": "spatie/async",
-            "version": "1.5.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/async.git",
-                "reference": "d371b76ff876530c4906596490fd977720477e48"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/async/zipball/d371b76ff876530c4906596490fd977720477e48",
-                "reference": "d371b76ff876530c4906596490fd977720477e48",
-                "shasum": ""
-            },
-            "require": {
-                "opis/closure": "^3.4.2",
-                "php": "^7.1 || ^8.0",
-                "symfony/process": "^3.3 || ^4.0 || ^5.0"
-            },
-            "require-dev": {
-                "larapack/dd": "^1.1",
-                "phpunit/phpunit": "^7.5 || ^8.0 || ^9.0",
-                "symfony/stopwatch": "^4.0 || ^5.0"
-            },
-            "suggest": {
-                "ext-pcntl": "Required to use async processes",
-                "ext-posix": "Required to use async processes"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Spatie\\Async\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Brent Roose",
-                    "email": "brent@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Asynchronous and parallel PHP with the PCNTL extension",
-            "homepage": "https://github.com/spatie/async",
-            "keywords": [
-                "async",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/async/issues",
-                "source": "https://github.com/spatie/async/tree/1.5.3"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-12-29T22:19:12+00:00"
-        },
-        {
             "name": "symfony/browser-kit",
             "version": "v5.3.4",
             "source": {
@@ -11729,64 +11270,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.10.0"
             },
             "time": "2021-03-09T10:59:23+00:00"
-        },
-        {
-            "name": "zumba/json-serializer",
-            "version": "3.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zumba/json-serializer.git",
-                "reference": "d91d5a22bbbacbb1d6ad23302137a90e9a7dafd5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zumba/json-serializer/zipball/d91d5a22bbbacbb1d6ad23302137a90e9a7dafd5",
-                "reference": "d91d5a22bbbacbb1d6ad23302137a90e9a7dafd5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=6.0 <10.0"
-            },
-            "suggest": {
-                "jeremeamia/superclosure": "Allow to serialize PHP closures"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Zumba\\": "src/",
-                    "Zumba\\JsonSerializer\\Test\\": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Zumba Fitness, LLC",
-                    "email": "engineering@zumba.com"
-                },
-                {
-                    "name": "Juan Basso",
-                    "email": "juan.basso@zumba.com"
-                }
-            ],
-            "description": "Serialize PHP variables, including objects, in JSON format. Support to unserialize it too.",
-            "homepage": "http://tech.zumba.com",
-            "keywords": [
-                "json",
-                "serialize",
-                "serializer"
-            ],
-            "support": {
-                "issues": "https://github.com/zumba/json-serializer/issues",
-                "source": "https://github.com/zumba/json-serializer/tree/3.0.1"
-            },
-            "time": "2021-06-09T04:01:26+00:00"
         }
     ],
     "aliases": [],

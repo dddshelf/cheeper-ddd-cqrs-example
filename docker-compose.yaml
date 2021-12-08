@@ -12,18 +12,13 @@ services:
       discovery.type: "single-node"
     ports:
       - "9200:9200"
-      - "9300:9300"
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:management
     ports:
-      - "4369:4369"
-      - "5671:5671"
       - "5672:5672"
-      - "25672:25672"
       - "15672:15672"
   mysql:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
     environment:
@@ -31,13 +26,3 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
       MYSQL_DATABASE: db
-    volumes:
-      - ./.docker/mysql:/docker-entrypoint-initdb.d
-  wait:
-    image: dadarek/wait-for-dependencies
-    depends_on:
-      - redis
-      - elasticsearch
-      - rabbitmq
-      - mysql
-    command: redis:6379 elasticsearch:9200 rabbitmq:4369 mysql:3306
