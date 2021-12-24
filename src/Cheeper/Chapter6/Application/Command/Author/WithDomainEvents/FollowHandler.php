@@ -24,6 +24,7 @@ final class FollowHandler
     ) {
     }
 
+    //snippet idempotency-example
     public function __invoke(Follow $command): void
     {
         $fromAuthorId = AuthorId::fromString($command->fromAuthorId());
@@ -44,6 +45,7 @@ final class FollowHandler
         $this->eventBus->notifyAll($follow->domainEvents());
         // leanpub-end-insert
     }
+    //end-snippet
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
     {

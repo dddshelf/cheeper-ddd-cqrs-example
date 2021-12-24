@@ -97,7 +97,7 @@
         ],
         "fix-cs": "php php-cs-fixer.phar --verbose --config=.php_cs.dist --using-cache=no --path-mode=intersection fix",
         "unit-tests": "php vendor/bin/phpunit",
-        "psalm": "php vendor/bin/psalm --config=psalm.xml --show-info=true --no-cache",
+        "psalm": "php vendor/bin/psalm --show-info=true --no-cache",
         "phpstan": "php vendor/bin/phpstan analyse",
         "clear-db": [
             "php bin/console doctrine:database:drop --force",
