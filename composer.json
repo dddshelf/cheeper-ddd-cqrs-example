@@ -51,13 +51,19 @@
         "symfony/monolog-bundle": "^3.0",
         "symfony/stopwatch": "^5.3",
         "symfony/web-profiler-bundle": "^5.3",
-        "theofidry/psysh-bundle": "^4.3"
+        "theofidry/psysh-bundle": "^4.3",
+        "vimeo/psalm": "^4.15"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
     },
     "autoload": {
         "psr-4": {
