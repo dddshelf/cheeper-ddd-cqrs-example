@@ -60,27 +60,6 @@ namespace Doctrine\ORM
         /** @psalm-return \Doctrine\ORM\Query<T> */
         public function getQuery() { }
     }
-
-    /** @template T */
-    class EntityRepository
-    {
-        /**
-         * @psalm-param string $alias
-         * @psalm-param string $indexBy
-         * @psalm-return \Doctrine\ORM\QueryBuilder<T>
-         */
-        public function createQueryBuilder($alias, $indexBy = null) { }
-    }
-
-    interface EntityManagerInterface
-    {
-        /**
-         * @template T
-         * @param callable(EntityManagerInterface=): T|void $func
-         * @return T|true
-         */
-        public function transactional($func);
-    }
 }
 
 namespace Doctrine\ORM\Internal\Hydration

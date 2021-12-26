@@ -728,6 +728,9 @@
     "symfony/yaml": {
         "version": "v5.0.4"
     },
+    "thecodingmachine/safe": {
+        "version": "v1.3.3"
+    },
     "theofidry/psysh-bundle": {
         "version": "4.3.0"
     },

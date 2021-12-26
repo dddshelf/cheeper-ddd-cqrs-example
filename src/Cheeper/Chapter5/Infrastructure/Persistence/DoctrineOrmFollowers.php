@@ -18,6 +18,6 @@ final class DoctrineOrmFollowers implements Followers
 
     public function ofAuthorId(AuthorId $authorId): ?NumberOfFollowers
     {
-        // TODO: Implement ofAuthorId() method.
+        return null;
     }
 }
