@@ -48,7 +48,7 @@ final class FollowHandler
          *    current command
          * 2. Get all the events in the Handler
          *    and set cause and correlation id
-         *    before notifiying to the EventBus
+         *    before notifying to the EventBus
          */
         $followEvent = $follow->domainEvents()[0];
         $followEvent->stampAsResponseTo($command);

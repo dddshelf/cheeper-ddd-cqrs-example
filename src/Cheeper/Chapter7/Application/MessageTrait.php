@@ -21,7 +21,7 @@ trait MessageTrait
         ?MessageId $messageId = null,
         ?MessageId $replyToId = null,
         ?MessageId $correlationId = null
-    ): self {
+    ): static {
         $this->messageId = $messageId;
         $this->replyToId = $replyToId;
         $this->correlationId = $correlationId;
@@ -29,7 +29,7 @@ trait MessageTrait
         return $this;
     }
 
-    public function stampAsNewMessage(): self
+    public function stampAsNewMessage(): static
     {
         $messageId = MessageId::nextId();
 
@@ -43,7 +43,7 @@ trait MessageTrait
     public function stampAsResponse(
         ?MessageId $replyTo,
         ?MessageId $correlationId
-    ): self {
+    ): static {
         return $this->stampIds(
             MessageId::nextId(),
             $replyTo,
@@ -55,7 +55,7 @@ trait MessageTrait
      * @param MessageTrait $message
      * @return static
      */
-    public function stampAsResponseTo($message): self
+    public function stampAsResponseTo($message): static
     {
         return $this->stampIds(
             MessageId::nextId(),
