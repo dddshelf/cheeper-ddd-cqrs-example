@@ -20,5 +20,10 @@ trait TriggerEventsTrait
     {
         $this->domainEvents[] = $domainEvent;
     }
+
+    public function resetDomainEvent(): void
+    {
+        $this->domainEvents = [];
+    }
 }
 // end-snippet

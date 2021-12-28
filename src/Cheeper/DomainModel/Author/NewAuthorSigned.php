@@ -9,7 +9,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 
 // snippet new-author-signed-domain-event
-final class NewAuthorSigned implements DomainEvent
+class NewAuthorSigned implements DomainEvent
 {
     private function __construct(
         private string $authorId,

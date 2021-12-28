@@ -52,7 +52,7 @@ trait MessageTrait
     }
 
     /**
-     * @param $message
+     * @param MessageTrait $message
      * @return static
      */
     public function stampAsResponseTo($message): self

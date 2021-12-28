@@ -12,10 +12,10 @@ class Follow
 {
     use TriggerEventsTrait;
 
-    private function __construct(
-        private FollowId $followId,
-        private AuthorId $fromAuthorId,
-        private AuthorId $toAuthorId,
+    protected function __construct(
+        protected FollowId $followId,
+        protected AuthorId $fromAuthorId,
+        protected AuthorId $toAuthorId,
     ) {
         $this->notifyDomainEvent(
             AuthorFollowed::fromFollow($this)
@@ -43,9 +43,9 @@ class Follow
         FollowId $followId,
         AuthorId $fromAuthorId,
         AuthorId $toAuthorId,
-    ): self
+    ): static
     {
-        return new self(
+        return new static(
             followId: $followId,
             fromAuthorId: $fromAuthorId,
             toAuthorId: $toAuthorId

@@ -13,15 +13,15 @@ class Author
 {
     use TriggerEventsTrait;
 
-    private function __construct(
-        private string             $authorId,
-        private string             $userName,
-        private string             $email,
-        private ?string            $name = null,
-        private ?string            $biography = null,
-        private ?string            $location = null,
-        private ?string            $website = null,
-        private ?DateTimeImmutable $birthDate = null,
+    protected function __construct(
+        protected string             $authorId,
+        protected string             $userName,
+        protected string             $email,
+        protected ?string            $name = null,
+        protected ?string            $biography = null,
+        protected ?string            $location = null,
+        protected ?string            $website = null,
+        protected ?DateTimeImmutable $birthDate = null,
     ) {
         $this->setName($name);
         $this->setBiography($biography);
@@ -41,8 +41,8 @@ class Author
         ?string $location = null,
         ?Website $website = null,
         ?BirthDate $birthDate = null
-    ): self {
-        return new self(
+    ): static {
+        return new static(
             $authorId->toString(),
             $userName->userName(),
             $email->value(),
@@ -54,67 +54,67 @@ class Author
         );
     }
 
-    private function setName(?string $name): void
+    protected function setName(?string $name): void
     {
         $this->name = $this->checkIsNotNull($name, 'Name cannot be empty');
     }
 
-    private function setBiography(?string $biography): void
+    protected function setBiography(?string $biography): void
     {
         $this->biography = $this->checkIsNotNull($biography, 'Biography cannot be empty');
     }
 
-    private function setLocation(?string $location): void
+    protected function setLocation(?string $location): void
     {
         $this->location = $this->checkIsNotNull($location, 'Location cannot be empty');
     }
 
-    final public function authorId(): AuthorId
+    public function authorId(): AuthorId
     {
         return AuthorId::fromString($this->authorId);
     }
 
-    final public function userId(): AuthorId
+    public function userId(): AuthorId
     {
         return AuthorId::fromString($this->authorId);
     }
 
-    final public function userName(): UserName
+    public function userName(): UserName
     {
         return UserName::pick($this->userName);
     }
 
-    final public function email(): EmailAddress
+    public function email(): EmailAddress
     {
         return EmailAddress::from($this->email);
     }
 
-    final public function name(): ?string
+    public function name(): ?string
     {
         return $this->name;
     }
 
-    final public function biography(): ?string
+    public function biography(): ?string
     {
         return $this->biography;
     }
 
-    final public function location(): ?string
+    public function location(): ?string
     {
         return $this->location;
     }
 
-    final public function website(): ?Website
+    public function website(): ?Website
     {
         return $this->website !== null ? Website::fromString($this->website) : null;
     }
 
-    final public function birthDate(): ?BirthDate
+    public function birthDate(): ?BirthDate
     {
         return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
     }
 
-    final public function followAuthorId(AuthorId $toFollow): Follow
+    public function followAuthorId(AuthorId $toFollow): Follow
     {
         return Follow::fromAuthorToAuthor(
             followId: FollowId::nextIdentity(),
