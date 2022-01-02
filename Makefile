@@ -26,3 +26,7 @@ default: up
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 	symfony serve -d
+
+database:
+	php bin/console doc:sch:drop --force
+	php bin/console doc:sch:create

@@ -36,20 +36,6 @@ final class FollowHandler
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
         $this->follows->add($follow);
 
-        /**
-         * By @carlos to @christian
-         * TODO: To add the correlation id
-         * and the cause id of the events
-         * triggered by Aggregates is complicated
-         * inside the Aggregates itself.
-         * So, I believe there are some options:
-         *
-         * 1. Static registry/singleton with the
-         *    current command
-         * 2. Get all the events in the Handler
-         *    and set cause and correlation id
-         *    before notifying to the EventBus
-         */
         $followEvent = $follow->domainEvents()[0];
         $followEvent->stampAsResponseTo($command);
 

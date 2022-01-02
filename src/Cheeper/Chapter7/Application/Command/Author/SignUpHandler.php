@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Application\Command\Author\SignUpWithEvents;
+namespace Cheeper\Chapter7\Application\Command\Author;
 
-use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorAlreadyExists;
@@ -54,7 +53,14 @@ final class SignUpHandler
         );
 
         $this->authors->add($author);
-        $this->eventBus->notifyAll($author->domainEvents());
+
+        $domainEvents = $author->domainEvents();
+        foreach ($domainEvents as $k => $domainEvent)
+        {
+            $domainEvents[$k]->stampAsResponseTo($command);
+        }
+
+        $this->eventBus->notifyAll($domainEvents);
     }
 
     private function checkAuthorDoesNotAlreadyExistByUsername(?Author $author, UserName $userName): void

@@ -25,14 +25,21 @@ framework:
             query: 'sync://'
             failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
             projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/projections'
+
+            chapter7_sync_commands: 'sync://'
+            chapter7_async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
         routing:
             # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
             # be run asynchronously.
-            Cheeper\Application\Command\Author\SignUp: sync_commands
+            Cheeper\Application\Command\Author\SignUp: async_commands
             Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
             Cheeper\Application\Command\AsyncCommand: async_commands
             Cheeper\Application\Command\SyncCommand: sync_commands
+
+            # Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_sync_commands
+            Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_async_commands
+            Cheeper\Chapter7\Application\Command\Author\Follow: chapter7_async_commands
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Application\Command\Author;
+namespace Cheeper\Chapter7\Application\Command\Author;
 
 use Cheeper\Chapter7\Application\MessageTrait;
 
@@ -68,11 +68,11 @@ final class SignUp
 
     public static function fromArray(array $array): self
     {
-        return new self(
+        return (new self(
             $array['author_id'] ?? '',
             $array['username'] ?? '',
             $array['email'] ?? '',
-        );
+        ))->stampAsNewMessage();
     }
     //end-ignore
 }

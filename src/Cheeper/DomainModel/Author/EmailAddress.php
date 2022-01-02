@@ -15,9 +15,9 @@ final class EmailAddress extends ValueObject implements Stringable
         $this->assertEmailIsValid($value);
     }
 
-    public static function from(string $value): EmailAddress
+    public static function from(string $value): self
     {
-        return new EmailAddress($value);
+        return new self($value);
     }
 
     public function value(): string

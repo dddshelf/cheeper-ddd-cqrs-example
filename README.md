@@ -39,3 +39,4 @@ And to stop all services just run
 ### Local Symfony Webserver + Docker for external services
 
 This code can also be run using Symfony Local Webserver.
+
