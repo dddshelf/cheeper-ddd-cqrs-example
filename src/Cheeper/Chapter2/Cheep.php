@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace CheeperLayered;
+declare(strict_types=1);
+
+namespace Cheeper\Chapter2;
 
 //snippet cheep
 final class Cheep

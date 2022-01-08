@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter2;
 
-use CheeperLayered\Author;
-use CheeperLayered\Authors;
-
 //snippet author-service
+use Cheeper\Chapter2\Layered\Authors;
+
 final class AuthorService
 {
     public function __construct(

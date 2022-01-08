@@ -1,11 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace CheeperLayered;
+declare(strict_types=1);
 
-use function mimic\hydrate;
-//snippet authors
+namespace Cheeper\Chapter2\Layered;
+
+use Cheeper\Chapter2\Author;
 use PDO;
+use function mimic\hydrate;
 
+//snippet authors
 class Authors
 {
     private PDO $db;

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter2;
 
-use CheeperLayered\Authors;
-use CheeperLayered\Cheep;
-use CheeperLayered\Cheeps;
+use Cheeper\Chapter2\Layered\Authors;
+use Cheeper\Chapter2\Layered\Cheeps;
 
 //snippet cheep-service
 final class CheepService

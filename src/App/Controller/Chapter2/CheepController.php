@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace CheeperLayered;
+namespace App\Controller\Chapter2;
 
+use Cheeper\Chapter2\Layered\CheepService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

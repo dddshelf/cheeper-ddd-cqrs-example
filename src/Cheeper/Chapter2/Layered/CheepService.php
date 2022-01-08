@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace CheeperLayered;
+namespace Cheeper\Chapter2\Layered;
 
-final class AuthorNotFound extends \RuntimeException
-{
-}
+use Cheeper\Chapter2\Cheep;
 
 //snippet cheep-service
 final class CheepService

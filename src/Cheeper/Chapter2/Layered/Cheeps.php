@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace CheeperLayered;
+namespace Cheeper\Chapter2\Layered;
 
-use function mimic\hydrate;
-//snippet cheeps
+use Cheeper\Chapter2\Cheep;
 use PDO;
+use function mimic\hydrate;
 
+//snippet cheeps
 class Cheeps
 {
     //ignore

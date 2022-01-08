@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter2;
 
+use Cheeper\Chapter2\Author;
 use Cheeper\Chapter2\CheepService;
-use CheeperLayered\Author;
-use CheeperLayered\Authors;
-use CheeperLayered\Cheeps;
+use Cheeper\Chapter2\Layered\Authors;
+use Cheeper\Chapter2\Layered\Cheeps;
 use PHPUnit\Framework\TestCase;
 
 //snippet cheep-service-test
