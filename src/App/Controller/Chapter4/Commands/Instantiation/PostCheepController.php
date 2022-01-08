@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommands\Instantiation;
+namespace App\Controller\Chapter4\Commands\Instantiation;
 
 use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Application\Command\Cheep\PostCheep;
@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//snippet signup-controller
+//snippet commands-instantiation
 final class PostCheepController extends AbstractController
 {
-    #[Route("/cheep", methods: ["POST"])]
+    #[Route("/chapter4/commands/instantiation/cheeps", methods: ["POST"])]
     public function __invoke(Request $request): Response
     {
         $command = PostCheep::fromArray([

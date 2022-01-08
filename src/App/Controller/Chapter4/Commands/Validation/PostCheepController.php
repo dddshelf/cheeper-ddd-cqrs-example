@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommands\Validation;
+namespace App\Controller\Chapter4\Commands\Validation;
 
-use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +17,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 //snippet validated-signup-controller
 final class PostCheepController extends AbstractController
 {
-    #[Route("/cheep", methods: ["POST"])]
+    #[Route("/chapter4/commands/validation/cheeps", methods: ["POST"])]
     public function __invoke(
         Request $request,
         ValidatorInterface $validator
