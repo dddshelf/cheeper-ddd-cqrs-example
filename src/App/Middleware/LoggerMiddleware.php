@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommandBus\SymfonyMessenger;
+namespace App\Middleware;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Envelope;

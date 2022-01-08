@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommandBus\FinalSymfonyMessenger;
+namespace App\Controller\Chapter4\FinalSymfonyMessenger;
 
 use App\Messenger\CommandBus;
 use Cheeper\Application\Command\Cheep\PostCheep;

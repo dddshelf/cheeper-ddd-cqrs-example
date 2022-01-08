@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Command\Author\WithDomainEvents;
+namespace Cheeper\Chapter6\Application\Command\Author\WithIdempotency;
 
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\Chapter6\Application\Event\EventBus;
@@ -12,7 +12,6 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\Authors;
 use Cheeper\DomainModel\Follow\Follows;
 
-//snippet follow-handler-with-event
 final class FollowHandler
 {
     public function __construct(
@@ -24,6 +23,7 @@ final class FollowHandler
     ) {
     }
 
+    //snippet idempotency-example
     public function __invoke(Follow $command): void
     {
         $fromAuthorId = AuthorId::fromString($command->fromAuthorId());
@@ -44,6 +44,7 @@ final class FollowHandler
         $this->eventBus->notifyAll($follow->domainEvents());
         // leanpub-end-insert
     }
+    //end-snippet
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
     {
@@ -55,4 +56,3 @@ final class FollowHandler
         return $author;
     }
 }
-// end-snippet

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommandBus\SymfonyMessenger;
+namespace App\Middleware;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Envelope;
@@ -19,7 +19,7 @@ final class DoctrineTransactionalMiddleware implements MiddlewareInterface
 
     public function handle(Envelope $envelope, StackInterface $stack): Envelope
     {
-        return $this->em->transactional(
+        return $this->em->wrapInTransaction(
             static fn (): Envelope => $stack->next()->handle($envelope, $stack)
         );
     }

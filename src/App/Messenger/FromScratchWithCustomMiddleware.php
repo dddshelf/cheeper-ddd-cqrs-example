@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Messenger;
+
+use App\Middleware\DoctrineTransactionalMiddleware;
+use App\Middleware\LoggerMiddleware;
+use Cheeper\Application\Command\Cheep\PostCheep;
+use Cheeper\Application\Command\Cheep\PostCheepHandler;
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
+use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\Configuration;
+use Doctrine\ORM\EntityManager;
+use Monolog\Logger;
+use Symfony\Component\Messenger\Handler\HandlersLocator;
+use Symfony\Component\Messenger\MessageBus;
+use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
+
+final class FromScratchWithCustomMiddleware
+{
+    public function __invoke()
+    {
+        //snippet symfony-messenger-from-scratch-with-custom-middleware
+        $connection = \Doctrine\DBAL\DriverManager::getConnection([/** ... */]);
+        $entityManager = \Doctrine\ORM\EntityManager::create($connection, new Configuration());
+        $authorsRepository = new DoctrineOrmAuthors($entityManager);
+        $cheepsRepository = new DoctrineOrmCheeps($entityManager);
+        $eventBus = new InMemoryEventBus();
+        $logger = new \Monolog\Logger('logger');
+
+        $postCheepHandler = new PostCheepHandler(
+            $authorsRepository,
+            $cheepsRepository,
+            $eventBus,
+        );
+
+        $bus = new MessageBus([
+            new LoggerMiddleware($logger),
+            new DoctrineTransactionalMiddleware($entityManager),
+            new HandleMessageMiddleware(new HandlersLocator([
+                PostCheep::class => [$postCheepHandler],
+            ])),
+        ]);
+
+        $bus->dispatch(
+            PostCheep::fromArray([
+                'author_id' => '527cab4c-30a8-4d6a-bf7a-157910d569e5',
+                'cheep_id' => '719ac125-83a9-4d6e-94da-493891b8f8b2',
+                'message' => 'New cheep!',
+            ])
+        );
+        //end-snippet
+    }
+}

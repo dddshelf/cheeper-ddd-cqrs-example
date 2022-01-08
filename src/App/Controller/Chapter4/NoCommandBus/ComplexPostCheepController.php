@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperCommandBus\ComplexNoCommandBus;
+namespace App\Controller\Chapter4\NoCommandBus;
 
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class PostCheepController extends AbstractController
+final class ComplexPostCheepController extends AbstractController
 {
     public function __invoke(Request $request, MessageBusInterface $eventBus): Response
     {
@@ -58,7 +58,7 @@ final class PostCheepController extends AbstractController
 
         try {
             $logger->info('Executing SignUp command');
-            $entityManager->transactional(function () use ($command, $postCheepHandler, $logger): void {
+            $entityManager->wrapInTransaction(function () use ($command, $postCheepHandler, $logger): void {
                 ($postCheepHandler)($command);
                 $logger->info('SignUp command executed successfully');
             });
