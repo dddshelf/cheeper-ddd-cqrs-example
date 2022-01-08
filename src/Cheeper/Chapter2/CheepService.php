@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperHexagonal;
+namespace Cheeper\Chapter2;
 
 use CheeperLayered\Authors;
 use CheeperLayered\Cheep;

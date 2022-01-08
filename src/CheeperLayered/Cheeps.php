@@ -6,7 +6,7 @@ use function mimic\hydrate;
 //snippet cheeps
 use PDO;
 
-final class Cheeps
+class Cheeps
 {
     //ignore
     private PDO $db;

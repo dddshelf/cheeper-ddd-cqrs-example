@@ -173,6 +173,9 @@
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.12.0"
     },
+    "hamcrest/hamcrest-php": {
+        "version": "v2.0.1"
+    },
     "keyvanakbary/mimic": {
         "version": "v1.0.0"
     },
@@ -205,6 +208,9 @@
     },
     "lstrojny/functional-php": {
         "version": "1.11.0"
+    },
+    "mockery/mockery": {
+        "version": "1.4.4"
     },
     "monolog/monolog": {
         "version": "2.0.2"

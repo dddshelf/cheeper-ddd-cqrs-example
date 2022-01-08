@@ -6,7 +6,7 @@ use function mimic\hydrate;
 //snippet authors
 use PDO;
 
-final class Authors
+class Authors
 {
     private PDO $db;
 

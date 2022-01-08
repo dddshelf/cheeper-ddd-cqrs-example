@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperHexagonal;
+namespace Cheeper\Chapter2;
 
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Cheep\Cheep;

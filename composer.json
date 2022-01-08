@@ -46,6 +46,7 @@
         "elasticsearch/elasticsearch": "^7.14",
         "fakerphp/faker": "^1.15",
         "keyvanakbary/mimic": "^1.0",
+        "mockery/mockery": "^1.4",
         "phpunit/phpunit": "^9.0",
         "symfony/browser-kit": "5.3.*",
         "symfony/debug-bundle": "^5.3",

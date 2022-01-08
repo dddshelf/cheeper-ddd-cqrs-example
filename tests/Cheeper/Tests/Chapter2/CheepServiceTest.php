@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace CheeperHexagonal;
+namespace Cheeper\Tests\Chapter2;
 
-use PHPUnit\Framework\TestCase;
-
+use Cheeper\Chapter2\CheepService;
 use CheeperLayered\Author;
 use CheeperLayered\Authors;
 use CheeperLayered\Cheeps;
+use PHPUnit\Framework\TestCase;
 
 //snippet cheep-service-test
 final class CheepServiceTest extends TestCase
