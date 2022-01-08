@@ -17,7 +17,7 @@ MAKEFLAGS += --no-builtin-rules
 DOCKER = $(shell which docker)
 
 # Shortcut for docker-compose command
-DOCKER_COMPOSE = $(DOCKER) compose -f docker-compose.yaml -f docker-compose.override.yaml.dist
+DOCKER_COMPOSE = $(DOCKER) compose
 
 # Default target when run with just 'make'
 default: up
@@ -27,6 +27,12 @@ up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 	symfony serve -d
 
+.PHONY: database
 database:
 	php bin/console doc:sch:drop --force
 	php bin/console doc:sch:create
+
+.PHONY: stop
+stop:
+	$(DOCKER_COMPOSE) stop
+	symfony server:stop

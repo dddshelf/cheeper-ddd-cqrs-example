@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import fetch from "unfetch";
 
 const ApiRoutes: { [key: string]: string } = {
   token: "/api/login/check",
@@ -8,6 +8,13 @@ const ApiRoutes: { [key: string]: string } = {
 
 type RouteName = "token" | "refreshToken" | "postUser";
 
+export interface ApiError {
+  detail: string;
+  title: string;
+  type: string;
+  violations?: Array<{ propertyPath: string; message: string; code: string }>;
+}
+
 const apiUri = (routeName: RouteName): string => {
   if (!ApiRoutes.hasOwnProperty(routeName)) {
     throw new Error(`No API route "${routeName}" exists.`);
@@ -16,12 +23,25 @@ const apiUri = (routeName: RouteName): string => {
   return ApiRoutes[routeName];
 };
 
-const get = async <T>(uri: string): Promise<AxiosResponse<T>> => axios.get(uri);
+const get = async <T>(uri: string): Promise<T> => (await fetch(uri)).json();
 
-const post = async <T>(
-  uri: string,
-  data?: FormData
-): Promise<AxiosResponse<T>> => axios.post(uri, data);
+/** @throws ApiError */
+const post = async <T>(uri: string, data?: any): Promise<T> => {
+  const response = await fetch(uri, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+
+  if (response.ok) {
+    return await response.json();
+  }
+
+  throw await response.json();
+};
 
 export interface SignupData {
   email: string;
@@ -35,8 +55,5 @@ export interface SignupData {
 
 interface SignupResponse {}
 
-export const signupUser = async (data: SignupData): Promise<SignupResponse> => {
-  const d = new FormData();
-  Object.entries(data).forEach(([value, key]) => d.append(key, value));
-  return post<SignupResponse>(apiUri("postUser"), d);
-};
+export const signupUser = async (data: SignupData): Promise<SignupResponse> =>
+  await post<SignupResponse>(apiUri("postUser"), data);
