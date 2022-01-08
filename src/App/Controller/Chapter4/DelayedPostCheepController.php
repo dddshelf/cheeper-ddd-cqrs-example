@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace CheeperQueuedCommands;
+namespace App\Controller\Chapter4;
 
+use Cheeper\Application\Command\QueuedCommand;
+use CheeperQueuedCommands\PostCheep;
 use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

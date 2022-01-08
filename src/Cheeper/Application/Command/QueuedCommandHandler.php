@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CheeperQueuedCommands;
+namespace Cheeper\Application\Command;
 
 use App\Messenger\CommandBus;
 
