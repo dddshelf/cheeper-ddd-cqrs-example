@@ -18,7 +18,6 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Follow\FollowId;
 use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
-use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase
