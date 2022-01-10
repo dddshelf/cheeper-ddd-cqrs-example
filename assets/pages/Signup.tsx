@@ -3,6 +3,7 @@ import * as Api from "../api";
 import { ApiError } from "../api";
 import CheeperLogo from "../components/CheeperLogo";
 import FormError from "../components/FormError";
+import Spinner from "../components/Spinner";
 
 function ucfirst(s: string) {
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -32,6 +33,7 @@ const Signup: React.FC = () => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [biography, setBiography] = useState<string>("");
   const [biographyError, setBiographyError] = useState<string | null>(null);
+  const [sendingData, setSendingData] = useState<boolean>(false);
 
   const errorSetters = {
     setEmailError,
@@ -57,6 +59,7 @@ const Signup: React.FC = () => {
     };
 
     Object.values(errorSetters).forEach((s) => s.call(null, null));
+    setSendingData(true);
 
     try {
       await Api.signupUser(data);
@@ -70,6 +73,8 @@ const Signup: React.FC = () => {
           errorSetters[errorSetter].call(this, v.message);
         });
       }
+    } finally {
+      setSendingData(false);
     }
   };
 
@@ -252,6 +257,7 @@ const Signup: React.FC = () => {
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     onClick={handleSubmit}
                   >
+                    <Spinner show={sendingData} />
                     Save
                   </button>
                 </div>

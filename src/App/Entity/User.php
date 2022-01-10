@@ -53,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?DateTimeImmutable $birthDate = null;
 
     #[ORM\Column]
-    #[Assert\NotCompromisedPassword]
+    #[Assert\NotBlank, Assert\NotCompromisedPassword]
     private ?string $password = null;
 
     public function __construct()
@@ -85,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return $this->getUsername();
     }
 
     /**
@@ -94,6 +94,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return $this->userName ?? "";
+    }
+
+    public function setUserName(?string $userName): self
+    {
+        $this->userName = $userName;
+
+        return $this;
     }
 
     /**

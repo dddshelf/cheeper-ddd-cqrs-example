@@ -5,6 +5,7 @@ module.exports = {
 
         // add browserslist config to package.json (see below)
         tailwindcss: {},
-        autoprefixer: {}
-    }
-}
+        autoprefixer: {},
+        ...(process.env.NODE_ENV === "production" ? { cssnano: {} } : {}),
+    },
+};

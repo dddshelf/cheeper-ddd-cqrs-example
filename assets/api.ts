@@ -6,7 +6,7 @@ const ApiRoutes: { [key: string]: string } = {
   postUser: "/api/users",
 };
 
-type RouteName = "token" | "refreshToken" | "postUser";
+type RouteName = keyof typeof ApiRoutes;
 
 export interface ApiError {
   detail: string;

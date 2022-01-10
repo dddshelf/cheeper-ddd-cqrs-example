@@ -37,7 +37,10 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/App/*'
-        exclude: '../src/App/{DependencyInjection,Entity,Migrations,Tests,Kernel.php,Helpers}'
+        exclude:
+            - '../src/App/{DependencyInjection,Entity,Migrations,Tests,Kernel.php,Helpers}'
+            - '../src/App/Messenger/FromScratch.php'
+            - '../src/App/Messenger/FromScratchWithCustomMiddleware.php'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class

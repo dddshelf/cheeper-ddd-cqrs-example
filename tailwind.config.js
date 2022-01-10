@@ -1,6 +1,5 @@
 module.exports = {
-    purge: [],
-    darkMode: false, // or 'media' or 'class'
+    content: ["./templates/**/*.html.twig", "./assets/**/*.tsx"],
     theme: {
         extend: {
             container: {
@@ -11,9 +10,6 @@ module.exports = {
                 "cheeper-blue": "#AFEAF9",
             },
         },
-    },
-    variants: {
-        extend: {},
     },
     plugins: [require("@tailwindcss/forms")],
 };
