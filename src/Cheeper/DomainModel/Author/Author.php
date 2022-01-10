@@ -8,8 +8,9 @@ use Cheeper\DomainModel\Follow\Follow;
 use Cheeper\DomainModel\Follow\FollowId;
 use Cheeper\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
+use InvalidArgumentException;
 
-class Author
+final class Author
 {
     use TriggerEventsTrait;
 
@@ -28,8 +29,13 @@ class Author
         $this->setLocation($location);
 
         $this->notifyDomainEvent(
-            NewAuthorSigned::fromAuthor($this)
+            $this->buildNewAuthorSignedDomainEvent()
         );
+    }
+
+    protected function buildNewAuthorSignedDomainEvent(): NewAuthorSigned
+    {
+        return NewAuthorSigned::fromAuthor($this);
     }
 
     public static function signUp(
@@ -126,7 +132,7 @@ class Author
     private function checkIsNotNull(?string $value, string $errorMessage): ?string
     {
         if ('' === $value) {
-            throw new \InvalidArgumentException($errorMessage);
+            throw new InvalidArgumentException($errorMessage);
         }
 
         return $value;

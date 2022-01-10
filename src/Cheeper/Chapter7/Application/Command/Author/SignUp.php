@@ -23,6 +23,7 @@ final class SignUp
         private ?string $website = null,
         private ?string $birthDate = null,
     ) {
+        $this->stampAsNewMessage();
     }
 
     //ignore
@@ -68,11 +69,11 @@ final class SignUp
 
     public static function fromArray(array $array): self
     {
-        return (new self(
+        return new self(
             $array['author_id'] ?? '',
             $array['username'] ?? '',
             $array['email'] ?? '',
-        ))->stampAsNewMessage();
+        );
     }
     //end-ignore
 }

@@ -1,0 +1,16 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Cheeper\Chapter7\DomainModel\Cheep\Cheep" table="chapter7_cheeps">
+        <id name="cheepId" column="cheep_id" type="string" length="36">
+            <generator strategy="NONE"/>
+        </id>
+
+        <embedded name="cheepMessage" class="Cheeper\DomainModel\Cheep\CheepMessage" />
+        <embedded name="cheepDate" class="Cheeper\DomainModel\Cheep\CheepDate" />
+
+        <field name="authorId" column="author_id" length="36" />
+    </entity>
+</doctrine-mapping>

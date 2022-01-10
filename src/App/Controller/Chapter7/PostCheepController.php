@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
-use Cheeper\Chapter7\Application\Command\Author\SignUp;
-use Cheeper\DomainModel\Author\AuthorAlreadyExists;
+use Cheeper\Chapter7\Application\Command\Cheep\PostCheep;
+use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,24 +14,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-final class SignUpAuthorController extends AbstractController
+final class PostCheepController extends AbstractController
 {
-    #[Route("/chapter7/author", methods: ["POST"])]
+    #[Route("/chapter7/cheep", methods: ["POST"])]
     public function __invoke(Request $request, CommandBus $commandBus): Response
     {
         $httpCode = Response::HTTP_ACCEPTED;
         try {
-            $command = SignUp::fromArray(
+            $command = PostCheep::fromArray(
                 $this->getRequestContentInJson($request)
             );
 
             $commandBus->handle($command);
             $httpContent = [
                 'message_id' => $command->messageId()?->toString(),
-                'author_id' => $command->authorId(),
+                'cheep_id' => $command->authorId(),
             ];
         } catch (
-            AuthorAlreadyExists
+            AuthorDoesNotExist
             |InvalidArgumentException $exception
         ) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
@@ -57,4 +57,3 @@ final class SignUpAuthorController extends AbstractController
         );
     }
 }
-

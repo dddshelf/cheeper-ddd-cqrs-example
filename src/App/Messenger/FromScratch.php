@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace App\Messenger;
+
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;

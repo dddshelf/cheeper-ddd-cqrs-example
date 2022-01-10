@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter7\Application\Command\Author;
 
+use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\Chapter7\Application\Command\Author\FollowHandler;
 use Cheeper\Chapter7\Application\Command\Author\Follow;
 use Cheeper\Chapter7\DomainModel\Author\Author;
+use Cheeper\Chapter7\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
-use Cheeper\DomainModel\Follow\Follow as FollowRelation;
+use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryFollows;
+
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Follow\FollowId;
@@ -19,8 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase
 {
-    use SendsCommands;
-
+    private const FOLLOW_ID = '337df284-d475-4cbd-89af-12d7451f73f1';
     private const AUTHOR_ID_FROM = '400ea77d-0c8c-44f2-abe8-db05d0852966';
     private const AUTHOR_ID_TO = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
 
@@ -29,12 +32,23 @@ final class FollowHandlerTest extends TestCase
     private const EMAIL_KEYVAN = 'keyvan.akbary@gmail.com';
     private const EMAIL_CARLOS = 'carlos.buenosvinos@gmail.com';
 
+    protected function setUp(): void
+    {
+        $this->authors = new InMemoryAuthors();
+        $this->follows = new InMemoryFollows();
+        $this->eventBus = new InMemoryEventBus();
+    }
+
     /** @test */
     public function givenTwoNonExistingAuthorsWhenFollowingOneToAnotherOneNonExistingAuthorExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
+        $this->runHandler(
+            self::FOLLOW_ID,
+            self::AUTHOR_ID_FROM,
+            self::AUTHOR_ID_TO
+        );
     }
 
     /** @test */
@@ -50,7 +64,11 @@ final class FollowHandlerTest extends TestCase
             )
         );
 
-        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
+        $this->runHandler(
+            self::FOLLOW_ID,
+            self::AUTHOR_ID_FROM,
+            self::AUTHOR_ID_TO
+        );
     }
 
     /** @test */
@@ -66,7 +84,11 @@ final class FollowHandlerTest extends TestCase
             )
         );
 
-        $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
+        $this->runHandler(
+            self::FOLLOW_ID,
+            self::AUTHOR_ID_FROM,
+            self::AUTHOR_ID_TO
+        );
     }
 
     /** @test */
@@ -74,7 +96,6 @@ final class FollowHandlerTest extends TestCase
     {
         $fromAuthorId = self::AUTHOR_ID_FROM;
         $toAuthorId = self::AUTHOR_ID_TO;
-        $followId = '51d8ffff-123f-78e1-48fc-f8b513391a0e';
 
         $fromAuthor = Author::signUp(
             AuthorId::fromString($fromAuthorId),
@@ -90,15 +111,20 @@ final class FollowHandlerTest extends TestCase
 
         $this->authors->add($fromAuthor);
         $this->authors->add($toAuthor);
+
         $this->follows->add(
             FollowRelation::fromAuthorToAuthor(
-                FollowId::fromString($followId),
+                FollowId::fromString(self::FOLLOW_ID),
                 $fromAuthor->authorId(),
                 $toAuthor->authorId(),
             )
         );
 
-        $this->runHandler($fromAuthorId, $toAuthorId);
+        $this->runHandler(
+            self::FOLLOW_ID,
+            self::AUTHOR_ID_FROM,
+            self::AUTHOR_ID_TO
+        );
 
         $this->assertCount(
             1,
@@ -130,7 +156,11 @@ final class FollowHandlerTest extends TestCase
         $this->authors->add($fromAuthor);
         $this->authors->add($toAuthor);
 
-        $command = $this->runHandler($fromAuthorId, $toAuthorId);
+        $command = $this->runHandler(
+            self::FOLLOW_ID,
+            $fromAuthorId,
+            $toAuthorId
+        );
 
         $this->assertCount(
             1,
@@ -155,14 +185,19 @@ final class FollowHandlerTest extends TestCase
         );
     }
 
-    private function runHandler(string $fromAuthorId, string $toAuthorId): Follow
+    private function runHandler(
+        string $followId,
+        string $fromAuthorId,
+        string $toAuthorId
+    ): Follow
     {
         $this->eventBus->reset();
 
-        $command = (Follow::fromAuthorIdToAuthorId(
-            $fromAuthorId,
-            $toAuthorId
-        ))->stampAsNewMessage();
+        $command = Follow::fromArray([
+            'follow_id' => $followId,
+            'from_author_id' => $fromAuthorId,
+            'to_author_id' => $toAuthorId
+        ]);
 
         (new FollowHandler(
             $this->authors,

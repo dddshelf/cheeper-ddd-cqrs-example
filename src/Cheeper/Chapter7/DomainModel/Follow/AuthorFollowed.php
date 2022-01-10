@@ -19,6 +19,7 @@ final class AuthorFollowed implements DomainEvent
         private string $toAuthorId,
         private DateTimeImmutable $occurredOn
     ) {
+        $this->stampAsNewMessage();
     }
 
     public static function fromFollow(Follow $follow): self

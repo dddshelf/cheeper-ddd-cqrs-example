@@ -17,9 +17,9 @@ class NewAuthorSigned implements DomainEvent
     ) {
     }
 
-    public static function fromAuthor(Author $author): self
+    public static function fromAuthor(Author $author): static
     {
-        return new self(
+        return new static(
             $author->authorId()->toString(),
             new DateTimeImmutable(
                 timezone: new DateTimeZone("UTC")

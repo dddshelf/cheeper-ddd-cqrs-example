@@ -17,6 +17,9 @@ services:
             # ignore
             Cheeper\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps'
             Cheeper\DomainModel\Author\Authors $authors: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\Chapter7\DomainModel\Author\Authors $authors: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\Chapter7\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmCheeps'
+            Cheeper\Chapter7\DomainModel\Follow\Follows $follows: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmFollows'
             Cheeper\DomainModel\Author\Authors $authorsRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
             Cheeper\DomainModel\Follow\Follows $follows: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
             #end-ignore
@@ -99,10 +102,24 @@ services:
             - { name: messenger.message_handler, bus: event.bus }
         class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
 
+    # CHAPTER 7
+    Cheeper\Chapter7\Infrastructure\:
+        resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
+
     Cheeper\Chapter7\Application\Command\Author\SignUpHandler:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
         class: 'Cheeper\Chapter7\Application\Command\Author\SignUpHandler'
+
+    Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler:
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+        class: 'Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler'
+
+    Cheeper\Chapter7\Application\Command\Author\FollowHandler:
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+        class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
 
     App\EventListener\UserCreatedListener:
         tags:

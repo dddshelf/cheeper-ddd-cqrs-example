@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\Application\Command\Author;
 
 use Cheeper\Chapter6\Application\Event\EventBus;
-use Cheeper\DomainModel\Author\Author;
+use Cheeper\Chapter7\DomainModel\Author\Author;
+use Cheeper\Chapter7\DomainModel\Author\Authors;
+use Cheeper\Chapter7\DomainModel\Follow\Follows;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\Authors;
-use Cheeper\DomainModel\Follow\Follows;
 
 final class FollowHandler
 {

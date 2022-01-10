@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\Application\Command\Author;
 
 use Cheeper\Chapter7\Application\MessageTrait;
+use Cheeper\DomainModel\Follow\FollowId;
 
 final class Follow
 {
     use MessageTrait;
 
     private function __construct(
+        private string $followId,
         private string $fromAuthorId,
         private string $toAuthorId
     ) {
+        $this->stampAsNewMessage();
     }
 
     public function fromAuthorId(): string
@@ -26,8 +29,22 @@ final class Follow
         return $this->toAuthorId;
     }
 
+    public function followId(): string
+    {
+        return $this->followId;
+    }
+
     public static function fromAuthorIdToAuthorId(string $from, string $to): self
     {
-        return new self($from, $to);
+        return new self($from, $to, FollowId::nextIdentity()->toString());
+    }
+
+    public static function fromArray(array $array): self
+    {
+        return new self(
+            $array['follow_id'] ?? '',
+            $array['from_author_id'] ?? '',
+            $array['to_author_id'] ?? '',
+        );
     }
 }
