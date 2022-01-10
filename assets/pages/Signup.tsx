@@ -5,18 +5,13 @@ import CheeperLogo from "../components/CheeperLogo";
 import FormError from "../components/FormError";
 import Spinner from "../components/Spinner";
 
-function ucfirst(s: string) {
-  return s.charAt(0).toUpperCase() + s.slice(1);
-}
+const ucfirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
-function isApiError(object: unknown): object is ApiError {
-  return (
-    Object.prototype.hasOwnProperty.call(object, "detail") &&
-    Object.prototype.hasOwnProperty.call(object, "title") &&
-    Object.prototype.hasOwnProperty.call(object, "type") &&
-    Object.prototype.hasOwnProperty.call(object, "violations")
-  );
-}
+const isApiError = (object: unknown): object is ApiError =>
+  Object.prototype.hasOwnProperty.call(object, "detail") &&
+  Object.prototype.hasOwnProperty.call(object, "title") &&
+  Object.prototype.hasOwnProperty.call(object, "type") &&
+  Object.prototype.hasOwnProperty.call(object, "violations");
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
