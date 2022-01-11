@@ -109,6 +109,9 @@ services:
     Cheeper\Chapter7\Infrastructure\:
         resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
 
+    Cheeper\Chapter7\Application\Projector\:
+        resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
+
     Cheeper\Chapter7\Application\Command\Author\SignUpHandler:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
@@ -124,11 +127,10 @@ services:
             - { name: messenger.message_handler, bus: command.bus }
         class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
 
-    Cheeper\Chapter7\Infrastructure\Application\Projector\Author\SymfonyNewAuthorSignedHandler:
+    Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
-
+        class: 'Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler'
 
     App\EventListener\UserCreatedListener:
         tags:

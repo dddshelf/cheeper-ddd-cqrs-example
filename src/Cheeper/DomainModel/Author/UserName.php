@@ -44,8 +44,13 @@ final class UserName extends ValueObject implements Stringable
         }
     }
 
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->userName;
+    }
+
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 }

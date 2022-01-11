@@ -16,6 +16,7 @@ class NewAuthorSigned implements DomainEvent
 
     private function __construct(
         private string $authorId,
+        private string $authorUsername,
         private DateTimeImmutable $occurredOn
     ) {
     }
@@ -24,6 +25,7 @@ class NewAuthorSigned implements DomainEvent
     {
         return new static(
             $author->authorId()->toString(),
+            $author->userName()->toString(),
             new DateTimeImmutable(
                 timezone: new DateTimeZone("UTC")
             )
@@ -33,6 +35,11 @@ class NewAuthorSigned implements DomainEvent
     public function authorId(): string
     {
         return $this->authorId;
+    }
+
+    public function authorUsername(): string
+    {
+        return $this->authorUsername;
     }
 
     public function occurredOn(): DateTimeImmutable

@@ -41,6 +41,7 @@ framework:
             Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_sync_commands
             Cheeper\Chapter7\Application\Command\Author\Follow: chapter7_sync_commands
             Cheeper\Chapter7\Application\Command\Cheep\PostCheep: chapter7_sync_commands
+#            Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection: chapter7_sync_commands
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.

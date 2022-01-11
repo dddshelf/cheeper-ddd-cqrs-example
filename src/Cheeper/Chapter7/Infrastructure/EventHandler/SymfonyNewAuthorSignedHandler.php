@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\Application\Projector\Author;
+namespace Cheeper\Chapter7\Infrastructure\EventHandler;
 
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
+use Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection;
+use Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjectionProjector;
 use Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 final class SymfonyNewAuthorSignedHandler implements MessageSubscriberInterface
 {
     public function __construct(
-        private CountFollowerProjector $projector
+        private CreateFollowersCounterProjectionProjector $projector
     ) {
     }
 
@@ -28,7 +28,10 @@ final class SymfonyNewAuthorSignedHandler implements MessageSubscriberInterface
     public function handlerNewAuthorSigned(NewAuthorSigned $event): void
     {
         $this->projector->__invoke(
-            CountFollowers::ofAuthor($event->toAuthorId())
+            CreateFollowersCounterProjection::ofAuthor(
+                $event->authorId(),
+                $event->authorUsername()
+            )
         );
     }
 }
