@@ -43,6 +43,10 @@ This code can also be run using Symfony Local Webserver.
 ### Fixtures 
 
     make database
+    http --verify false --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
+    http --verify false --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
+    http --verify false --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
+    http --verify false --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed-messages/contents
 
 #### Adding Authors
 
@@ -52,9 +56,9 @@ This code can also be run using Symfony Local Webserver.
 
 #### Posting Cheeps
 
-    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="28bc90bd-2dfb-4b71-962f-81f02b0b3149" author_id="a64a52cc-3ee9-4a15-918b-099e18b43119" message="Hello world! This is Bob!"
-    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="04efc3af-59a3-4695-803f-d37166c3af56" author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" message="Hello world! This is Alice!"
-    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="8a5539e6-3be2-4fa7-906e-179efcfca46b" author_id="1da1366f-b066-4514-9b29-7346df41e371" message="Hello world! This is Charlie!"
+    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="28bc90bd-2dfb-4b71-962f-81f02b0b3149" author_id="a64a52cc-3ee9-4a15-918b-099e18b43119" message="Hello world, this is Bob"
+    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="04efc3af-59a3-4695-803f-d37166c3af56" author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" message="Hello world, this is Alice"
+    http --json --verify false POST https://127.0.0.1:8000/chapter7/cheep cheep_id="8a5539e6-3be2-4fa7-906e-179efcfca46b" author_id="1da1366f-b066-4514-9b29-7346df41e371" message="Hello world, this is Charlie"
 
 #### Following other Authors
 
