@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Projector\Author;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -16,26 +17,34 @@ final class CountFollowerProjector
     ) {
     }
 
-    public function __invoke(CountFollowers $projection): void
+    public function __invoke(CountFollowersProjection $projection): void
     {
         $connection = $this->entityManager->getConnection();
 
         $authorId = AuthorId::fromString($projection->authorId());
 
         $result = $connection->fetchAssociative(
-            "SELECT a.author_id as id, a.username as username, COUNT(*) as followers ".
-            "FROM chapter7_authors a, follows f ".
+            "SELECT a.author_id as id, a.user_name as username, COUNT(*) as followers ".
+            "FROM chapter7_authors a, chapter7_follows f ".
             "WHERE a.author_id = f.to_author_id ".
             "AND a.author_id = :authorId ".
             "GROUP BY id, username",
             ['authorId' => $authorId->toString()]
         );
 
-        $result['followers'] = (int) $result['followers'];
+        $projectionResult = [
+            'id' => $authorId->toString(),
+            'username' => $result['username'],
+            'followers' => 0
+        ];
+
+        if (false !== $result) {
+            $projectionResult['followers'] = (int) $result['followers'];
+        }
 
         $this->redis->set(
             'author_followers_counter_projection:'.$authorId->toString(),
-            json_encode($result)
+            json_encode($projectionResult, JSON_THROW_ON_ERROR)
         );
     }
 }

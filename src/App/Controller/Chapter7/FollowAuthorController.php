@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Chapter7\Application\Command\Author\Follow;
-use Cheeper\Chapter7\Application\Command\Cheep\PostCheep;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,8 +31,12 @@ final class FollowAuthorController extends AbstractController
                 'message_id' => $command->messageId()?->toString()
             ];
         } catch (
-            AuthorDoesNotExist
-            |InvalidArgumentException $exception
+            AuthorDoesNotExist $exception
+        ) {
+            $httpCode = Response::HTTP_NOT_FOUND;
+            $httpContent = ['message' => $exception->getMessage()];
+        } catch (
+            InvalidArgumentException $exception
         ) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
             $httpContent = ['message' => $exception->getMessage()];
