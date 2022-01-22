@@ -6,7 +6,7 @@ namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithDbAccess;
 
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet count-followers-handler

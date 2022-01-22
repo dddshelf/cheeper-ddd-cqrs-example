@@ -13,11 +13,11 @@ use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
 use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryAuthors;
 use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryFollows;
 
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Follow\FollowId;
-use Cheeper\DomainModel\Author\EmailAddress;
-use Cheeper\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
 use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase

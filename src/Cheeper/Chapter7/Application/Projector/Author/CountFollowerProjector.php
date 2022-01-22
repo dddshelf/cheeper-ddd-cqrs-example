@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Projector\Author;
 
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet projector-count-followers

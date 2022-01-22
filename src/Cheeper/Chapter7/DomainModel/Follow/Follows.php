@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Follow;
 
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 
 //snippet follows
 interface Follows

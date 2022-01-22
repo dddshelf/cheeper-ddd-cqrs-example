@@ -6,8 +6,8 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
 use function Functional\head;
 use function Functional\select;
 

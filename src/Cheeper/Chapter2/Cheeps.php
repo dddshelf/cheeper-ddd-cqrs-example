@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter2;
 
-use Cheeper\DomainModel\Author\Author;
-use Cheeper\DomainModel\Cheep\Cheep;
-use Cheeper\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use DateTimeInterface;
 
 //snippet cheeps-with-a-lot-of-finders

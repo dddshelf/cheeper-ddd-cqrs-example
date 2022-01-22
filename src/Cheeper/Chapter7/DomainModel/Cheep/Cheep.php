@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Cheep;
 
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Cheep\CheepDate;
-use Cheeper\DomainModel\Cheep\CheepId;
-use Cheeper\DomainModel\Cheep\CheepMessage;
-use Cheeper\DomainModel\TriggerEventsTrait;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
+use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
 
 class Cheep
 {

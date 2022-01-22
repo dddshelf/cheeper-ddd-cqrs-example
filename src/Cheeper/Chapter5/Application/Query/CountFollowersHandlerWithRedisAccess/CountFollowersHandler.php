@@ -6,8 +6,8 @@ namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRedisAcces
 
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Redis;
 
 //snippet count-followers-handler

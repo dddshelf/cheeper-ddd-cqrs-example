@@ -6,11 +6,11 @@ namespace Cheeper\Chapter6\Application\Command\Author\WithIdempotency;
 
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\Chapter6\Application\Event\EventBus;
-use Cheeper\DomainModel\Author\Author;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\Authors;
-use Cheeper\DomainModel\Follow\Follows;
+use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Follow\Follows;
 
 final class FollowHandler
 {

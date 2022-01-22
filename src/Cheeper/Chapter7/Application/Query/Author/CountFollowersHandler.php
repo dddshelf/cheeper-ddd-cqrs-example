@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Query\Author;
 
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Redis;
 
 //snippet count-followers-handler
@@ -18,6 +18,8 @@ final class CountFollowersHandler
 
     public function __invoke(CountFollowers $query): CountFollowersResponse
     {
+        dd($query);
+
         $authorId = AuthorId::fromString($query->authorId());
 
         $data = $this->redis->get(

@@ -6,17 +6,17 @@ namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithDomainEvents;
 
 use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
-use Cheeper\DomainModel\Follow\AuthorFollowed;
-use Cheeper\DomainModel\Follow\Follow as FollowRelation;
+use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
+use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\DomainModel\Author\Author;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Follow\FollowId;
-use Cheeper\DomainModel\Author\EmailAddress;
-use Cheeper\DomainModel\Author\UserName;
-use Cheeper\Infrastructure\Persistence\InMemoryAuthors;
-use Cheeper\Infrastructure\Persistence\InMemoryFollows;
+use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
 use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 

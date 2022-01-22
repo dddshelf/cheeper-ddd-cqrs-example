@@ -8,8 +8,8 @@ use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 
 final class FollowHandler
 {

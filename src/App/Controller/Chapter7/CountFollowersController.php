@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 //snippet follow-counter-controller
 final class CountFollowersController extends AbstractController
@@ -30,6 +31,9 @@ final class CountFollowersController extends AbstractController
         try {
             $query = CountFollowers::ofAuthor($authorId);
             $timeline = $queryBus->query($query);
+
+            dump($timeline);
+            die();
 
             $httpContent['_meta']['message_id'] = $query->messageId()?->toString();
             $httpContent['data'] = $timeline;

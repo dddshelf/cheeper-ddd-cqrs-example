@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Cheep;
 
-use Cheeper\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 
 //snippet cheeps
 interface Cheeps

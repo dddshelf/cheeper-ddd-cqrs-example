@@ -6,7 +6,7 @@ namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SagaStyle
 
 use App\Messenger\CommandBus;
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
-use Cheeper\DomainModel\Follow\AuthorFollowed;
+use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-author-followed-handler-in-saga-style

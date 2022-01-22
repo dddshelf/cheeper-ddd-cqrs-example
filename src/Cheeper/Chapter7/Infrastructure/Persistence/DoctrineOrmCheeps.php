@@ -6,7 +6,7 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
-use Cheeper\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\DomainModel\Author;
 
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\BirthDate;
-use Cheeper\DomainModel\Author\EmailAddress;
-use Cheeper\DomainModel\Author\UserName;
-use Cheeper\DomainModel\Author\Website;
-use Cheeper\DomainModel\Follow\FollowId;
-use Cheeper\DomainModel\TriggerEventsTrait;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\BirthDate;
+use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
 use InvalidArgumentException;
 

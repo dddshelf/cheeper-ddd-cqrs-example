@@ -6,7 +6,7 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
-use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectRepository;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Author;
 
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
 
 //snippet authors
 interface Authors

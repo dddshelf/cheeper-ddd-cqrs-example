@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents;
 
 use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\DomainModel\Author\Author;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\Authors;
-use Cheeper\DomainModel\Follow\Follows;
+use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Follow\Follows;
 
 //snippet follow-handler-without-event
 final class FollowHandler

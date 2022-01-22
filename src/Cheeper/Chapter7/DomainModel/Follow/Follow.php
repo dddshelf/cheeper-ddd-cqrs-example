@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Follow;
 
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Follow\FollowId;
-use Cheeper\DomainModel\TriggerEventsTrait;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
 
 // snippet follow-entity-with-events
 final class Follow

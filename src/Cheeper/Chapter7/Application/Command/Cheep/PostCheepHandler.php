@@ -9,10 +9,10 @@ use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Cheep\CheepId;
-use Cheeper\DomainModel\Cheep\CheepMessage;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 
 //snippet post-cheep-handler
 final class PostCheepHandler

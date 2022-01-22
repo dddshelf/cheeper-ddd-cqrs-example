@@ -6,8 +6,8 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
-use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Follow\FollowId;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
