@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter7;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Chapter5\Application\Query\QueryBus;
 use Cheeper\Chapter7\Application\Query\Author\CountFollowers;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\VarDumper\VarDumper;
 
 //snippet follow-counter-controller
 final class CountFollowersController extends AbstractController
@@ -32,8 +30,8 @@ final class CountFollowersController extends AbstractController
             $query = CountFollowers::ofAuthor($authorId);
             $timeline = $queryBus->query($query);
 
+            dump($query);
             dump($timeline);
-            die();
 
             $httpContent['_meta']['message_id'] = $query->messageId()?->toString();
             $httpContent['data'] = $timeline;

@@ -18,8 +18,6 @@ final class CountFollowersHandler
 
     public function __invoke(CountFollowers $query): CountFollowersResponse
     {
-        dd($query);
-
         $authorId = AuthorId::fromString($query->authorId());
 
         $data = $this->redis->get(
