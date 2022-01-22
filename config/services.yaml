@@ -15,16 +15,17 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
             # ignore
-            Cheeper\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps'
-            Cheeper\DomainModel\Author\Authors $authors: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\AllChapters\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmCheeps'
+            Cheeper\AllChapters\DomainModel\Author\Authors $authors: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\AllChapters\DomainModel\Author\Authors $authorsRepository: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmAuthors'
+            Cheeper\AllChapters\DomainModel\Follow\Follows $follows: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmFollows'
+
             Cheeper\Chapter7\DomainModel\Author\Authors $authors: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmAuthors'
             Cheeper\Chapter7\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmCheeps'
             Cheeper\Chapter7\DomainModel\Follow\Follows $follows: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmFollows'
-            Cheeper\DomainModel\Author\Authors $authorsRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors'
-            Cheeper\DomainModel\Follow\Follows $follows: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollows'
             #end-ignore
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
-# ignore
+            # ignore
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
@@ -58,11 +59,11 @@ services:
         tags:
             - { name: api_platform.identifier.denormalizer }
 
-    Cheeper\Infrastructure\:
-        resource: '../src/Cheeper/Infrastructure/**/*.php'
+    Cheeper\AllChapters\Infrastructure\:
+        resource: '../src/Cheeper/AllChapters/Infrastructure/**/*.php'
 
-    Cheeper\Application\Command\:
-        resource: '../src/Cheeper/Application/Command/**/*Handler.php'
+    Cheeper\AllChapters\Application\Command\:
+        resource: '../src/Cheeper/AllChapters/Application/Command/**/*Handler.php'
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: command.bus }

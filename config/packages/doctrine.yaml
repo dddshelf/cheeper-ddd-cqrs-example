@@ -20,8 +20,8 @@ doctrine:
             CheeperDomainModel:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/src/Cheeper/Infrastructure/Persistence/doctrine-mappings'
-                prefix: 'Cheeper\DomainModel'
+                dir: '%kernel.project_dir%/src/Cheeper/AllChapters/Infrastructure/Persistence/doctrine-mappings'
+                prefix: 'Cheeper\AllChapters\DomainModel'
                 alias: CheeperDomainModel
             CheeperChapter7DomainModel:
                 is_bundle: false
