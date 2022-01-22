@@ -127,6 +127,11 @@ services:
             - { name: messenger.message_handler, bus: command.bus }
         class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
 
+    Cheeper\Chapter7\Application\Query\Author\CountFollowersHandler:
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+        class: 'Cheeper\Chapter7\Application\Query\Author\CountFollowersHandler'
+
     Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }

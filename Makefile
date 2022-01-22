@@ -25,10 +25,15 @@ default: up
 .PHONY: up
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
-	symfony serve -d
+	symfony serve -d --no-tls
 
 .PHONY: database
 database:
+	redis-cli flushall
+	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
+	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
+	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
+	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed-messages/contents
 	php bin/console doc:sch:drop --force
 	php bin/console doc:sch:create
 
