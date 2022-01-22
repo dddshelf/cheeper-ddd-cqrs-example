@@ -29,10 +29,6 @@ final class CountFollowersController extends AbstractController
         try {
             $query = CountFollowers::ofAuthor($authorId);
             $timeline = $queryBus->query($query);
-
-            dump($query);
-            dump($timeline);
-
             $httpContent['_meta']['message_id'] = $query->messageId()?->toString();
             $httpContent['data'] = $timeline;
         } catch (AuthorDoesNotExist $e) {

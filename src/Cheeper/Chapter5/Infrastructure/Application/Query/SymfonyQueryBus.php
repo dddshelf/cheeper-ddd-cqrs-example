@@ -23,7 +23,11 @@ final class SymfonyQueryBus implements QueryBus
 
     public function query(Query $query): mixed
     {
-        return $this->handle($query);
+        try {
+            return $this->handle($query);
+        } catch (HandlerFailedException $e) {
+            throw first($e->getNestedExceptions());
+        }
     }
 }
 //end-snippet
