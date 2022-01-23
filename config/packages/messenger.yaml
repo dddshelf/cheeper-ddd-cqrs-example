@@ -27,7 +27,11 @@ framework:
             projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/projections'
 
             chapter7_sync_commands: 'sync://'
-            chapter7_async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
+            chapter7_async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_commands'
+            chapter7_events: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_events'
+            chapter7_sync_projections: 'sync://'
+            chapter7_async_projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_projections'
+            chapter7_failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_failed_messages'
         routing:
             # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
@@ -35,13 +39,25 @@ framework:
             Cheeper\AllChapters\Application\Command\Author\SignUp: async_commands
             Cheeper\AllChapters\Application\Command\AsyncCommand: async_commands
             Cheeper\AllChapters\Application\Command\SyncCommand: sync_commands
-            Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
 
-            # Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_async_commands
+            # Chapter 6
+            Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
+            # End of Chapter 6
+
+            # Chapter 7
+            ## Commands
             Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_sync_commands
             Cheeper\Chapter7\Application\Command\Author\Follow: chapter7_sync_commands
             Cheeper\Chapter7\Application\Command\Cheep\PostCheep: chapter7_sync_commands
-#            Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection: chapter7_sync_commands
+
+            ## Events
+            # Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
+
+            ## Projections
+            Cheeper\Chapter7\Application\Projection\Author\CreateFollowersCounterProjection: chapter7_sync_projections
+            Cheeper\Chapter7\Application\Projection\Author\CountFollowersProjection: chapter7_sync_projections
+            # Cheeper\Chapter7\Application\Projection\Author\CreateEmptyTimelineProjection: chapter7_projections
+            # End of Chapter 7
 
             # Domain Events are sent to asynchronous
             # transport to be processed later.
