@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Chapter7;
 
-use Cheeper\Application\Query\Timeline\Timeline;
-use Cheeper\Chapter6\Application\Query\QueryBus;
+use Cheeper\Chapter5\Application\Query\QueryBus;
+use Cheeper\Chapter7\Application\Query\Timeline\Timeline;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,19 +18,21 @@ final class GetTimelineController extends AbstractController
 {
     private const DEFAULT_TIMELINE_CHUNK_SIZE = 10;
 
-    #[Route(path: "/api/timelines/{authorId}", methods: ["GET"])]
-    public function __invoke(string $id, QueryBus $queryBus, SerializerInterface $serializer, Request $request): Response
+    #[Route(path: "/chapter7/author/{authorId}/timeline", methods: ["GET"])]
+    public function __invoke(string $authorId, QueryBus $queryBus, SerializerInterface $serializer, Request $request): Response
     {
         $offset = $request->query->getInt('offset');
         $size = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
 
         $timeline = $queryBus->query(
             Timeline::fromArray([
-                'authorId' => $id,
+                'author_id' => $authorId,
                 'offset' => $offset,
                 'size' => $size
             ])
         );
+
+        // SymfonyMessengerCheepProjectionToRedis
 
         return new JsonResponse(
             $serializer->serialize($timeline, 'json'),

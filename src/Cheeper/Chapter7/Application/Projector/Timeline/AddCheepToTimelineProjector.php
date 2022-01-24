@@ -1,6 +1,6 @@
 <?php
 
-namespace Cheeper\Chapter7\Application\Command\Timeline;
+namespace Cheeper\Chapter7\Application\Projector\Timeline;
 
 use Redis;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;

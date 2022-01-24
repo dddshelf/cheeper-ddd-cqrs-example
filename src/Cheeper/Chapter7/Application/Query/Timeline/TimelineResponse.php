@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Query\Timeline;
+namespace Cheeper\Chapter7\Application\Query\Timeline;
 
 final class TimelineResponse
 {

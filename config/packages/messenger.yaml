@@ -29,6 +29,7 @@ framework:
             chapter7_sync_commands: 'sync://'
             chapter7_async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_commands'
             chapter7_events: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_events'
+            chapter7_sync_queries: 'sync://'
             chapter7_sync_projections: 'sync://'
             chapter7_async_projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_projections'
             chapter7_failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_failed_messages'
@@ -42,6 +43,7 @@ framework:
 
             # Chapter 6
             Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
+
             # End of Chapter 6
 
             # Chapter 7
@@ -54,9 +56,12 @@ framework:
             # Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
 
             ## Projections
-            Cheeper\Chapter7\Application\Projection\Author\CreateFollowersCounterProjection: chapter7_sync_projections
-            Cheeper\Chapter7\Application\Projection\Author\CountFollowersProjection: chapter7_sync_projections
+            Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection: chapter7_sync_projections
+            Cheeper\Chapter7\Application\Projector\Author\CountFollowersProjection: chapter7_sync_projections
             # Cheeper\Chapter7\Application\Projection\Author\CreateEmptyTimelineProjection: chapter7_projections
+
+            ## Queries
+            Cheeper\Chapter7\Application\Query\Timeline\Timeline: chapter7_sync_queries
             # End of Chapter 7
 
             # Domain Events are sent to asynchronous

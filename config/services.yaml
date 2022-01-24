@@ -113,25 +113,30 @@ services:
     Cheeper\Chapter7\Application\Projector\:
         resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
 
-    Cheeper\Chapter7\Application\Command\Author\SignUpHandler:
-        tags:
-            - { name: messenger.message_handler, bus: command.bus }
-        class: 'Cheeper\Chapter7\Application\Command\Author\SignUpHandler'
-
-    Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler:
-        tags:
-            - { name: messenger.message_handler, bus: command.bus }
-        class: 'Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler'
-
-    Cheeper\Chapter7\Application\Command\Author\FollowHandler:
-        tags:
-            - { name: messenger.message_handler, bus: command.bus }
-        class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
-
-    Cheeper\Chapter7\Application\Query\Author\CountFollowersHandler:
+    Cheeper\Chapter7\Application\Query\:
+        resource: '../src/Cheeper/Chapter7/Application/Query/**/*Handler.php'
         tags:
             - { name: messenger.message_handler, bus: query.bus }
-        class: 'Cheeper\Chapter7\Application\Query\Author\CountFollowersHandler'
+
+    Cheeper\Chapter7\Application\Command\:
+        resource: '../src/Cheeper/Chapter7/Application/Command/**/*Handler.php'
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
+
+#    Cheeper\Chapter7\Application\Command\Author\SignUpHandler:
+#        tags:
+#            - { name: messenger.message_handler, bus: command.bus }
+#        class: 'Cheeper\Chapter7\Application\Command\Author\SignUpHandler'
+#
+#    Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler:
+#        tags:
+#            - { name: messenger.message_handler, bus: command.bus }
+#        class: 'Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler'
+#
+#    Cheeper\Chapter7\Application\Command\Author\FollowHandler:
+#        tags:
+#            - { name: messenger.message_handler, bus: command.bus }
+#        class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
 
     Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler:
         tags:

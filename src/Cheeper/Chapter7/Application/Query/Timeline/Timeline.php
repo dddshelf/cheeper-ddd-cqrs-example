@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Query\Timeline;
+namespace Cheeper\Chapter7\Application\Query\Timeline;
 
-use Cheeper\Chapter6\Application\Query\Query;
+use Cheeper\Chapter5\Application\Query\Query;
 
 //snippet timeline-query
 final class Timeline implements Query

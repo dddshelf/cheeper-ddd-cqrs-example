@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Infrastructure\EventHandler;
 
-use Cheeper\Chapter7\Application\Command\Timeline\AddCheepToTimelineProjection;
-use Cheeper\Chapter7\Application\Command\Timeline\AddCheepToTimelineProjector;
+use Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjection;
+use Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjector;
 use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
