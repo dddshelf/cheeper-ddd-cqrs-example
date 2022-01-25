@@ -3,10 +3,9 @@
 namespace Cheeper\Chapter7\Application\Projector\Timeline;
 
 use Redis;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 //snippet put-cheep-on-redis-timeline-handler
-final class AddCheepToTimelineProjector implements MessageHandlerInterface
+final class AddCheepToTimelineProjector
 {
     public function __construct(
         private Redis $redis,

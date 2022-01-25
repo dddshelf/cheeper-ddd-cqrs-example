@@ -2,9 +2,9 @@
 
 namespace Cheeper\Chapter7\Application\Projector\Timeline;
 
-//snippet put-cheep-on-redis-timeline
 use Cheeper\Chapter7\Application\Projector\Projection;
 
+//snippet put-cheep-on-redis-timeline
 final class AddCheepToTimelineProjection implements Projection
 {
     public function __construct(

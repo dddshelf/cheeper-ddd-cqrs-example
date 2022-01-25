@@ -16,9 +16,16 @@ final class TimelineHandler
     {
         $serializedCheeps = $this->redis->lRange(
             sprintf('timelines_%s', $query->authorId()),
-            $query->offset(),
-            ($query->offset() + $query->size()) - 1
+            0,
+            -1
         );
+//        $serializedCheeps = $this->redis->lRange(
+//            sprintf('timelines_%s', $query->authorId()),
+//            $query->offset(),
+//            ($query->offset() + $query->size()) - 1
+//        );
+
+        dd($serializedCheeps);
 
         return new TimelineResponse(
             array_map(
