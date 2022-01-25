@@ -46,6 +46,14 @@ framework:
             Cheeper\AllChapters\Application\Command\Author\SignUp: async_commands
             Cheeper\AllChapters\Application\Command\AsyncCommand: async_commands
             Cheeper\AllChapters\Application\Command\SyncCommand: sync_commands
+            # Domain Events are sent to asynchronous
+            # transport to be processed later.
+            Cheeper\AllChapters\DomainModel\DomainEvent: [events, projections]
+            
+            # Chapter 5
+            # Queries are executed synchronously
+            # in the same request that data is requested.
+            Cheeper\Chapter5\Application\Query\Query: query
 
             # Chapter 6
             Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
@@ -67,11 +75,3 @@ framework:
             ## Queries
             Cheeper\Chapter7\Application\Query\Timeline\Timeline: chapter7_sync_queries
             # End of Chapter 7
-
-            # Domain Events are sent to asynchronous
-            # transport to be processed later.
-            Cheeper\AllChapters\DomainModel\DomainEvent: [events, projections]
-
-            # Queries are executed synchronously
-            # in the same request that data is requested.
-            Cheeper\Chapter5\Application\Query\Query: query

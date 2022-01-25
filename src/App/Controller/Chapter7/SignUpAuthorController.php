@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
+use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\Chapter7\Application\Command\Author\SignUp;
-use Cheeper\DomainModel\Author\AuthorAlreadyExists;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
