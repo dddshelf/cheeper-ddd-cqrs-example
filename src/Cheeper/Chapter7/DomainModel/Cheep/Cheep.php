@@ -8,7 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
+use Cheeper\Chapter7\DomainModel\TriggerEventsTrait;
 
 class Cheep
 {

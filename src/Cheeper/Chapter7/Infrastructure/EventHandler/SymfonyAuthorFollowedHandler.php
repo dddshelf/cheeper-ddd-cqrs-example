@@ -20,8 +20,8 @@ final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
     public static function getHandledMessages(): iterable
     {
         yield AuthorFollowed::class => [
-            'bus' => 'event.bus',
             'method' => 'handle',
+            'from_transport' => 'chapter7_events'
         ];
     }
 

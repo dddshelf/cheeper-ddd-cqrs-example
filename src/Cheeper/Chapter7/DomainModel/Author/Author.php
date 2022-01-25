@@ -11,7 +11,7 @@ use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
-use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
+use Cheeper\Chapter7\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
 use InvalidArgumentException;
 

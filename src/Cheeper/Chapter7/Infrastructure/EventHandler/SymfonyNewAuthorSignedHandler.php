@@ -20,8 +20,8 @@ final class SymfonyNewAuthorSignedHandler implements MessageSubscriberInterface
     public static function getHandledMessages(): iterable
     {
         yield NewAuthorSigned::class => [
-            'bus' => 'event.bus',
             'method' => 'handlerNewAuthorSigned',
+            'from_transport' => 'chapter7_events'
         ];
     }
 

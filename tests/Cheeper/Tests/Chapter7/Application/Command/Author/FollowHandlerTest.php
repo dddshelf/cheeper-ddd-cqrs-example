@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter7\Application\Command\Author;
 
-use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
+use Cheeper\Chapter7\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\Chapter7\Application\Command\Author\FollowHandler;
 use Cheeper\Chapter7\Application\Command\Author\Follow;
 use Cheeper\Chapter7\DomainModel\Author\Author;

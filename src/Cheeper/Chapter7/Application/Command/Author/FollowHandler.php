@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Command\Author;
 
-use Cheeper\Chapter6\Application\Event\EventBus;
+use Cheeper\Chapter7\Application\Event\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;

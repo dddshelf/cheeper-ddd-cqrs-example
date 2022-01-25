@@ -28,8 +28,11 @@ services:
             # ignore
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
+            Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
             Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
+            Cheeper\Chapter7\Application\Event\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\Event\SymfonyEventBus'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
+            Cheeper\Chapter7\Application\Projector\ProjectionBus: '@Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus'
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
             Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
@@ -107,6 +110,8 @@ services:
         class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
 
     # CHAPTER 7
+    Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus: ~
+
     Cheeper\Chapter7\Infrastructure\:
         resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
 
@@ -123,25 +128,20 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
-#    Cheeper\Chapter7\Application\Command\Author\SignUpHandler:
-#        tags:
-#            - { name: messenger.message_handler, bus: command.bus }
-#        class: 'Cheeper\Chapter7\Application\Command\Author\SignUpHandler'
-#
-#    Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler:
-#        tags:
-#            - { name: messenger.message_handler, bus: command.bus }
-#        class: 'Cheeper\Chapter7\Application\Command\Cheep\PostCheepHandler'
-#
-#    Cheeper\Chapter7\Application\Command\Author\FollowHandler:
-#        tags:
-#            - { name: messenger.message_handler, bus: command.bus }
-#        class: 'Cheeper\Chapter7\Application\Command\Author\FollowHandler'
-
     Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }
         class: 'Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler'
+
+    Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyCheepPostedHandler:
+        tags:
+            - { name: messenger.message_handler, bus: event.bus }
+        class: 'Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyCheepPostedHandler'
+
+    Cheeper\Chapter7\Infrastructure\ProjectionHandler\SymfonyAddCheepToTimelineProjectionHandler:
+        tags:
+            - { name: messenger.message_handler, bus: projection.bus }
+        class: 'Cheeper\Chapter7\Infrastructure\ProjectionHandler\SymfonyAddCheepToTimelineProjectionHandler'
 
     App\EventListener\UserCreatedListener:
         tags:

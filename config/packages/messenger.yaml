@@ -10,6 +10,12 @@ framework:
                     - doctrine_ping_connection
                     - doctrine_close_connection
                     - doctrine_transaction
+            projection.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction
             query.bus:
                 default_middleware: allow_no_handlers
                 middleware:
@@ -53,12 +59,12 @@ framework:
             Cheeper\Chapter7\Application\Command\Cheep\PostCheep: chapter7_sync_commands
 
             ## Events
-            # Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
+            Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
 
             ## Projections
-            Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection: chapter7_sync_projections
-            Cheeper\Chapter7\Application\Projector\Author\CountFollowersProjection: chapter7_sync_projections
-            # Cheeper\Chapter7\Application\Projection\Author\CreateEmptyTimelineProjection: chapter7_projections
+            Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection: chapter7_async_projections
+            Cheeper\Chapter7\Application\Projector\Author\CountFollowersProjection: chapter7_async_projections
+            Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjection: chapter7_async_projections
 
             ## Queries
             Cheeper\Chapter7\Application\Query\Timeline\Timeline: chapter7_sync_queries

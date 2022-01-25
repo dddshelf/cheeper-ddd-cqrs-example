@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\DomainModel\Follow;
 
 use Cheeper\Chapter7\Application\MessageTrait;
-use Cheeper\AllChapters\DomainModel\DomainEvent;
+use Cheeper\Chapter7\DomainModel\DomainEvent;
 use DateTimeImmutable;
 use DateTimeZone;
 

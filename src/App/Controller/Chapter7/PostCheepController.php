@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Chapter7\Application\Command\Cheep\PostCheep;
-use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -6,7 +6,7 @@ namespace Cheeper\Chapter7\DomainModel\Follow;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
-use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
+use Cheeper\Chapter7\DomainModel\TriggerEventsTrait;
 
 // snippet follow-entity-with-events
 final class Follow
