@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Command\Cheep;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter7\Application\Event\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
-use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 
 //snippet post-cheep-handler
 final class PostCheepHandler

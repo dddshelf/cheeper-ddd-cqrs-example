@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Messenger;
 
+use function Functional\first;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
-use function Functional\first;
 
 // snippet command-bus
 final class CommandBus

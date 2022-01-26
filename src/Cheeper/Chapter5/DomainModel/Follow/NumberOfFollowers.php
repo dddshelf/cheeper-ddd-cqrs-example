@@ -15,7 +15,6 @@ class NumberOfFollowers
         #[ORM\GeneratedValue(strategy: "NONE")]
         #[ORM\Id]
         private UuidInterface $userId,
-
         #[ORM\Column(type: "integer")]
         private int $followers
     ) {

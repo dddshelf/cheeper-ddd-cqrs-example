@@ -7,7 +7,6 @@ namespace Cheeper\Chapter6\Application\Projector\Author;
 //snippet count-followers
 final class CountFollowers
 {
-
     public static function ofAuthor(string $authorId): self
     {
         return new self($authorId);

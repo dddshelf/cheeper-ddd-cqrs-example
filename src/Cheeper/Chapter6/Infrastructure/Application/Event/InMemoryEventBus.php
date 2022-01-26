@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Infrastructure\Application\Event;
 
-use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\AllChapters\DomainModel\DomainEvent;
+use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet in-memory-event-bus
 final class InMemoryEventBus implements EventBus
@@ -13,8 +13,7 @@ final class InMemoryEventBus implements EventBus
     public function __construct(
         /** @param DomainEvent[] $events */
         private array $events = []
-    )
-    {
+    ) {
     }
 
     public function events(): array

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
 
 //snippet doctrine-orm-follows
 final class DoctrineOrmFollows implements Follows

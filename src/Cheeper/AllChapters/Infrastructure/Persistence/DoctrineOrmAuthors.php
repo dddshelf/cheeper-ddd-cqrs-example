@@ -9,7 +9,6 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Doctrine\ORM\EntityManagerInterface;
-use Ramsey\Uuid\Uuid;
 
 //snippet doctrine-orm-authors
 final class DoctrineOrmAuthors implements Authors

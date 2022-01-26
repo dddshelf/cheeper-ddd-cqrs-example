@@ -6,7 +6,6 @@ namespace Cheeper\AllChapters\DomainModel\Cheep;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
-use DateTimeImmutable;
 
 class Cheep
 {

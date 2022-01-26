@@ -22,7 +22,7 @@ final class CreateFollowersCounterProjectionProjector
         $result = [
             'id' => $projection->authorId(),
             'username' => $projection->authorUsername(),
-            'followers' => 0
+            'followers' => 0,
         ];
 
         $this->redis->set(

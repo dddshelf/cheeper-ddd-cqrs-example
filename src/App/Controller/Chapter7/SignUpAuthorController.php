@@ -57,4 +57,3 @@ final class SignUpAuthorController extends AbstractController
         );
     }
 }
-

@@ -9,16 +9,14 @@ use Cheeper\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmAuthors;
 use Cheeper\Infrastructure\Persistence\DoctrineOrmCheeps;
-use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Messenger\Handler\HandlersLocator;
 use Symfony\Component\Messenger\MessageBus;
 use Symfony\Component\Messenger\Middleware\HandleMessageMiddleware;
 
 final class FromScratch
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         //snippet symfony-messenger-from-scratch
         $connection = \Doctrine\DBAL\DriverManager::getConnection([/** ... */]);

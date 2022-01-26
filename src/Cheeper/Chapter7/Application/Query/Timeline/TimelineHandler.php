@@ -22,7 +22,7 @@ final class TimelineHandler
 
         return new TimelineResponse(
             array_map(
-                static fn(string $cheep): array => json_decode($cheep, true, flags: JSON_THROW_ON_ERROR),
+                static fn (string $cheep): array => json_decode($cheep, true, flags: JSON_THROW_ON_ERROR),
                 $serializedCheeps
             )
         );

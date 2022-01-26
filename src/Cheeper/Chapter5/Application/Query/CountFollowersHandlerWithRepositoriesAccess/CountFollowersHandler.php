@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
 
-use Cheeper\Chapter5\Application\Query\CountFollowers;
-use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
-use Cheeper\Chapter5\DomainModel\Follow\Followers;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\Chapter5\Application\Query\CountFollowers;
+use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
+use Cheeper\Chapter5\DomainModel\Follow\Followers;
 
 //snippet count-followers-handler
 final class CountFollowersHandler
@@ -17,8 +17,7 @@ final class CountFollowersHandler
     public function __construct(
         private Followers $followers,
         private Authors   $authors
-    )
-    {
+    ) {
     }
 
     public function __invoke(CountFollowers $query): CountFollowersResponse

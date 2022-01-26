@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter5\Infrastructure\Persistence;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter5\DomainModel\Follow\Followers;
 use Cheeper\Chapter5\DomainModel\Follow\NumberOfFollowers;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class DoctrineOrmFollowers implements Followers

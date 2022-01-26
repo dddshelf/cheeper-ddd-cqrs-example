@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\AllChapters\Application\Command\Author\SignUpWithEvents;
 
 use Cheeper\AllChapters\Application\Command\Author\SignUp;
-use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
@@ -14,6 +13,7 @@ use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet sign-up-handler-with-events
 final class SignUpHandler

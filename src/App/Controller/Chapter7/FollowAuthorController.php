@@ -28,7 +28,7 @@ final class FollowAuthorController extends AbstractController
             $commandBus->handle($command);
 
             $httpContent = [
-                'message_id' => $command->messageId()?->toString()
+                'message_id' => $command->messageId()?->toString(),
             ];
         } catch (
             AuthorDoesNotExist $exception

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Application\Command\Cheep;
 
-use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
@@ -13,6 +12,7 @@ use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
+use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet post-cheep-handler
 final class PostCheepHandler

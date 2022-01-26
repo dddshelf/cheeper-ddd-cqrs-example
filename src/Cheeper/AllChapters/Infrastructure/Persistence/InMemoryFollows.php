@@ -45,9 +45,7 @@ final class InMemoryFollows implements Follows
     {
         return reduce_left(
             $this->collection,
-            function(Follow $f, string $key, array $collection, int $initial) use($authorId): int {
-                return $initial + ($f->fromAuthorId()->equals($authorId) ? 1 : 0);
-            },
+            fn (Follow $f, string $key, array $collection, int $initial): int => $initial + ($f->fromAuthorId()->equals($authorId) ? 1 : 0),
             0
         );
     }

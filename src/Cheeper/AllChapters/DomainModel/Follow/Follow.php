@@ -43,8 +43,7 @@ class Follow
         FollowId $followId,
         AuthorId $fromAuthorId,
         AuthorId $toAuthorId,
-    ): static
-    {
+    ): static {
         return new static(
             followId: $followId,
             fromAuthorId: $fromAuthorId,

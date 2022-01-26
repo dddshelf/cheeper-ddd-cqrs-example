@@ -8,8 +8,6 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\Follow;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
 
 //snippet doctrine-orm-follows
 final class DoctrineOrmFollows implements Follows

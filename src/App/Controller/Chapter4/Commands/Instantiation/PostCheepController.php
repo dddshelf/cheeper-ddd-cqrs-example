@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter4\Commands\Instantiation;
 
-use Cheeper\Application\Command\Author\SignUp;
 use Cheeper\Application\Command\Cheep\PostCheep;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
-use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\Chapter7\DomainModel\Follow\Follows;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\Chapter7\DomainModel\Follow\Follow;
+use Cheeper\Chapter7\DomainModel\Follow\Follows;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
@@ -45,9 +45,7 @@ final class InMemoryFollows implements Follows
     {
         return reduce_left(
             $this->collection,
-            function(Follow $f, string $key, array $collection, int $initial) use($authorId): int {
-                return $initial + ($f->fromAuthorId()->equals($authorId) ? 1 : 0);
-            },
+            fn (Follow $f, string $key, array $collection, int $initial): int => $initial + ($f->fromAuthorId()->equals($authorId) ? 1 : 0),
             0
         );
     }

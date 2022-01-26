@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author;
 
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
 use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
 use Cheeper\AllChapters\DomainModel\Follow\AuthorUnfollowed;
+use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
+use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-projector-count-followers
@@ -22,7 +22,7 @@ final class SymfonyCountFollowerProjector implements MessageSubscriberInterface
     {
         yield AuthorUnfollowed::class => [
             'bus' => 'event.bus',
-            'method' => 'handleAuthorUnfollowed'
+            'method' => 'handleAuthorUnfollowed',
         ];
 
         yield AuthorFollowed::class => [
@@ -56,6 +56,5 @@ final class SymfonyCountFollowerProjector implements MessageSubscriberInterface
             CountFollowers::ofAuthor($event->toAuthorId())
         );
     }
-
 }
 //end-snippet

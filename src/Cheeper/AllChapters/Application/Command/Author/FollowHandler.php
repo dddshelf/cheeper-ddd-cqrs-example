@@ -7,9 +7,9 @@ namespace Cheeper\AllChapters\Application\Command\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowAggregate;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
-use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowAggregate;
 
 final class FollowHandler
 {

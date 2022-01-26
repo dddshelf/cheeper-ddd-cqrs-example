@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Command\Author\WithIdempotency;
 
-use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\Chapter6\Application\Event\EventBus;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
+use Cheeper\Chapter6\Application\Command\Author\Follow;
+use Cheeper\Chapter6\Application\Event\EventBus;
 
 final class FollowHandler
 {

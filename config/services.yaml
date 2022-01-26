@@ -115,6 +115,9 @@ services:
     Cheeper\Chapter7\Infrastructure\:
         resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
 
+    Cheeper\Chapter7\Application\Event\:
+        resource: '../src/Cheeper/Chapter7/Application/Event/**/*Handler.php'
+
     Cheeper\Chapter7\Application\Projector\:
         resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
 
@@ -128,15 +131,15 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
-    Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler:
+    Cheeper\Chapter7\Infrastructure\Application\Event\Author\SymfonyNewAuthorSignedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyNewAuthorSignedHandler'
+        class: 'Cheeper\Chapter7\Infrastructure\Application\Event\Author\SymfonyNewAuthorSignedHandler'
 
-    Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyCheepPostedHandler:
+    Cheeper\Chapter7\Infrastructure\Application\Event\Cheep\SymfonyCheepPostedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\EventHandler\SymfonyCheepPostedHandler'
+        class: 'Cheeper\Chapter7\Infrastructure\Application\Event\Cheep\SymfonyCheepPostedHandler'
 
     Cheeper\Chapter7\Infrastructure\ProjectionHandler\SymfonyAddCheepToTimelineProjectionHandler:
         tags:

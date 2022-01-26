@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Projector\Author;
 
-use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -35,7 +34,7 @@ final class CountFollowerProjector
         $projectionResult = [
             'id' => $authorId->toString(),
             'username' => $result['username'],
-            'followers' => 0
+            'followers' => 0,
         ];
 
         if (false !== $result) {

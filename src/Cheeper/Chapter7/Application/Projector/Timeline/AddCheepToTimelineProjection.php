@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Projector\Timeline;
 
 use Cheeper\Chapter7\Application\Projector\Projection;
 
-//snippet put-cheep-on-redis-timeline
+//snippet add-cheep-to-timeline-projection
 final class AddCheepToTimelineProjection implements Projection
 {
     public function __construct(

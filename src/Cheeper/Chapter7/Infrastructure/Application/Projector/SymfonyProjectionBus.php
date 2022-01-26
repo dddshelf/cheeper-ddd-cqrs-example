@@ -6,10 +6,10 @@ namespace Cheeper\Chapter7\Infrastructure\Application\Projector;
 
 use Cheeper\Chapter7\Application\Projector\Projection;
 use Cheeper\Chapter7\Application\Projector\ProjectionBus;
+use function Functional\first;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
-use function Functional\first;
 
 //snippet symfony-projection-bus
 final class SymfonyProjectionBus implements ProjectionBus

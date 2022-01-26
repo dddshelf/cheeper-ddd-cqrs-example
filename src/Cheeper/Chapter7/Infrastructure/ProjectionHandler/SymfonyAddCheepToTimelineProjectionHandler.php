@@ -8,7 +8,7 @@ use Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjection
 use Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjector;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-//snippet cheep-projection-to-redis
+//snippet add-cheep-to-one-timeline
 final class SymfonyAddCheepToTimelineProjectionHandler implements MessageSubscriberInterface
 {
     public function __construct(
@@ -25,7 +25,7 @@ final class SymfonyAddCheepToTimelineProjectionHandler implements MessageSubscri
     {
         yield AddCheepToTimelineProjection::class => [
             'method' => 'handle',
-            'from_transport' => 'chapter7_async_projections'
+            'from_transport' => 'chapter7_async_projections',
         ];
     }
 }

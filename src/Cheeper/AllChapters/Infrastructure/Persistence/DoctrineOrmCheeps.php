@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;

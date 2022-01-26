@@ -23,7 +23,7 @@ final class CountFollowersController extends AbstractController
         $httpCode = Response::HTTP_ACCEPTED;
         $httpContent = [
             '_meta' => [],
-            'data' => []
+            'data' => [],
         ];
 
         try {

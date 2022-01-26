@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Command\Author;
 
-use Cheeper\Chapter7\Application\Event\EventBus;
-use Cheeper\Chapter7\DomainModel\Author\Author;
-use Cheeper\Chapter7\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter7\Application\Event\EventBus;
+use Cheeper\Chapter7\DomainModel\Author\Author;
+use Cheeper\Chapter7\DomainModel\Author\Authors;
 
 //snippet sign-up-handler-with-events
 final class SignUpHandler

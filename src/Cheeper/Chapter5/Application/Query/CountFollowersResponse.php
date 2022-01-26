@@ -7,7 +7,6 @@ namespace Cheeper\Chapter5\Application\Query;
 //snippet count-followers-response
 final class CountFollowersResponse
 {
-
     public function __construct(
         private string $authorId,
         private string $authorUsername,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\EventHandler;
+namespace Cheeper\Chapter7\Application\Event\Cheep;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\Application\Projector\ProjectionBus;
@@ -11,10 +11,9 @@ use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-//snippet cheep-projection-to-redis
-final class SymfonyCheepPostedHandler implements MessageSubscriberInterface
+//snippet cheep-posted-event-handler
+final class CheepPostedEventHandler
 {
     public function __construct(
         private Follows $follows,
@@ -22,7 +21,7 @@ final class SymfonyCheepPostedHandler implements MessageSubscriberInterface
     ) {
     }
 
-    public function whenCheepPosted(CheepPosted $event): void
+    public function handle(CheepPosted $event): void
     {
         $follows = $this->follows->toAuthorId(
             AuthorId::fromString($event->authorId())
@@ -34,8 +33,7 @@ final class SymfonyCheepPostedHandler implements MessageSubscriberInterface
                     authorId:       $follow->fromAuthorId()->toString(),
                     cheepId:        $event->cheepId(),
                     cheepMessage:   $event->cheepMessage(),
-                    cheepDate:      DateTimeImmutable
-                        ::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
+                    cheepDate:      DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
                         ->setTimezone(new \DateTimeZone('UTC'))
                         ->format(DateTimeInterface::ATOM),
                 )
@@ -54,14 +52,6 @@ final class SymfonyCheepPostedHandler implements MessageSubscriberInterface
             //     ])
             // );
         }
-    }
-
-    public static function getHandledMessages(): iterable
-    {
-        yield CheepPosted::class => [
-            'method' => 'whenCheepPosted',
-            'from_transport' => 'chapter7_events'
-        ];
     }
 }
 //end-snippet

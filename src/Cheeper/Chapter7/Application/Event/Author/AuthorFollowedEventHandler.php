@@ -2,27 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\EventHandler;
+namespace Cheeper\Chapter7\Application\Event\Author;
 
 use Cheeper\Chapter7\Application\Projector\Author\CountFollowerProjector;
 use Cheeper\Chapter7\Application\Projector\Author\CountFollowersProjection;
 use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
-use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-//snippet symfony-author-followed-handler
-final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
+//snippet author-followed-event-handler
+final class AuthorFollowedEventHandler
 {
     public function __construct(
         private CountFollowerProjector $projector
     ) {
-    }
-
-    public static function getHandledMessages(): iterable
-    {
-        yield AuthorFollowed::class => [
-            'method' => 'handle',
-            'from_transport' => 'chapter7_events'
-        ];
     }
 
     public function handle(AuthorFollowed $event): void

@@ -1,10 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace App\Command;
 
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
 use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
-use Doctrine\DBAL\Driver\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Redis;
 use Symfony\Component\Console\Attribute\AsCommand;

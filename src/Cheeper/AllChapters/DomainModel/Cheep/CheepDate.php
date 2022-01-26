@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\AllChapters\DomainModel\Cheep;
 
 use Cheeper\AllChapters\DomainModel\Common\ValueObject;
-use InvalidArgumentException;
 use DateTimeImmutable;
+use InvalidArgumentException;
 
 final class CheepDate extends ValueObject
 {

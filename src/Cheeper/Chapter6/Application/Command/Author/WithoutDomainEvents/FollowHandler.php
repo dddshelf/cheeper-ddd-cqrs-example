@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents;
 
-use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
+use Cheeper\Chapter6\Application\Command\Author\Follow;
 
 //snippet follow-handler-without-event
 final class FollowHandler

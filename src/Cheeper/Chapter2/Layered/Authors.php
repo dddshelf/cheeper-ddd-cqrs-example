@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter2\Layered;
 
 use Cheeper\Chapter2\Author;
-use PDO;
 use function mimic\hydrate;
+use PDO;
 
 //snippet authors
 class Authors

@@ -28,7 +28,7 @@ final class GetTimelineController extends AbstractController
             Timeline::fromArray([
                 'author_id' => $authorId,
                 'offset' => $offset,
-                'size' => $size
+                'size' => $size,
             ])
         );
 
