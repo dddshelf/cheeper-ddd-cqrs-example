@@ -5,7 +5,7 @@ namespace Cheeper\Chapter7\Application\Projector\Timeline;
 
 use Redis;
 
-//snippet put-cheep-on-redis-timeline-handler
+//snippet add-cheep-to-timeline-projector
 final class AddCheepToTimelineProjector
 {
     public function __construct(
