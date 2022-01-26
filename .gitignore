@@ -16,14 +16,6 @@
 ###> application ###
 infection.log
 ###< application ###
-
-###> symfony/webpack-encore-bundle ###
-/node_modules/
-/public/build/
-npm-debug.log
-yarn-error.log
-###< symfony/webpack-encore-bundle ###
-
 ###> php-cs-fixer ###
 .php-cs-fixer.cache
 ###< php-cs-fixer ###

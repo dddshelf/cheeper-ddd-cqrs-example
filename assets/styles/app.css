@@ -1,7 +1,0 @@
-@import url("https://fonts.googleapis.com/css2?family=Jost&display=swap");
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-.jost {
-    font-family: "Jost", sans-serif;
-}
