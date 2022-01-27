@@ -112,20 +112,6 @@ services:
     # CHAPTER 7
     Cheeper\Chapter7\:
         resource: '../src/Cheeper/Chapter7/*'
-#        exclude:
-#            - ''
-#            - ''
-#
-#    Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus: ~
-#
-#    Cheeper\Chapter7\Infrastructure\:
-#        resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
-#
-#    Cheeper\Chapter7\Application\Event\:
-#        resource: '../src/Cheeper/Chapter7/Application/Event/**/*Handler.php'
-#
-#    Cheeper\Chapter7\Application\Projector\:
-#        resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
 
     chapter7_command_handlers:
         namespace: Cheeper\Chapter7\Application\

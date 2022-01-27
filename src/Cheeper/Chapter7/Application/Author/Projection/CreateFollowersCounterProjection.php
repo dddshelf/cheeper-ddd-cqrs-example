@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Application\Author\Projector;
+namespace Cheeper\Chapter7\Application\Author\Projection;
 
 use Cheeper\Chapter7\Application\Projection;
 

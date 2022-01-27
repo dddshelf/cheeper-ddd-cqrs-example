@@ -10,7 +10,7 @@ use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
-use Cheeper\Chapter7\Application\Event\EventBus;
+use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\Authors;
 

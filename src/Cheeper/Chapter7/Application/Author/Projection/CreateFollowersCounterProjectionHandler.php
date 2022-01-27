@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Application\Author\Projector;
+namespace Cheeper\Chapter7\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Redis;
 
 //snippet create-followers-counter-projection-projector
-final class CreateFollowersCounterProjectionProjector
+final class CreateFollowersCounterProjectionHandler
 {
     public function __construct(
         private Redis $redis

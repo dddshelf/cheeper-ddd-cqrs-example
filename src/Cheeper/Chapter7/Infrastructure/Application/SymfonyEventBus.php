@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\Application\Event;
+namespace Cheeper\Chapter7\Infrastructure\Application;
 
 use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\DomainEvent;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Application\Author\Projector;
+namespace Cheeper\Chapter7\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet projector-count-followers
-final class CountFollowerProjectionHandler
+final class CountFollowersProjectionHandler
 {
     public function __construct(
         private \Redis $redis,

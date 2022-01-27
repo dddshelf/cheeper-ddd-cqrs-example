@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\Application\Cheep\Event;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\Chapter7\Application\Projector\ProjectionBus;
-use Cheeper\Chapter7\Application\Projector\Timeline\AddCheepToTimelineProjection;
+use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjection;
+use Cheeper\Chapter7\Application\ProjectionBus;
 use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter7\DomainModel\Follow\Follows;
 use DateTimeImmutable;

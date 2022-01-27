@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Event;
 
-use Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjection;
-use Cheeper\Chapter7\Application\Projector\Author\CreateFollowersCounterProjectionProjector;
+use Cheeper\Chapter7\Application\Author\Projection\CreateFollowersCounterProjection;
+use Cheeper\Chapter7\Application\Author\Projection\CreateFollowersCounterProjectionHandler;
 use Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned;
 
 //snippet new-author-signed-event-handler
 final class NewAuthorSignedEventHandler
 {
     public function __construct(
-        private CreateFollowersCounterProjectionProjector $projector
+        private CreateFollowersCounterProjectionHandler $projector
     ) {
     }
 
