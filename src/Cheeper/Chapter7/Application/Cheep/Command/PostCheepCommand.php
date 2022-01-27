@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Cheep\Command;
 
-use Cheeper\Chapter7\Application\Command\Command;
+use Cheeper\Chapter7\Application\Command;
 use Cheeper\Chapter7\Application\MessageTrait;
 
 //snippet post-cheep

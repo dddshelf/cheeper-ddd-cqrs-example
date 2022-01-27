@@ -30,7 +30,7 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
             Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
-            Cheeper\Chapter7\Application\Event\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\Event\SymfonyEventBus'
+            Cheeper\Chapter7\Application\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyEventBus'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
             Cheeper\Chapter7\Application\Projector\ProjectionBus: '@Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus'
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
@@ -110,41 +110,46 @@ services:
         class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
 
     # CHAPTER 7
-    Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus: ~
+    Cheeper\Chapter7\:
+        resource: '../src/Cheeper/Chapter7/*'
+#        exclude:
+#            - ''
+#            - ''
+#
+#    Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus: ~
+#
+#    Cheeper\Chapter7\Infrastructure\:
+#        resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
+#
+#    Cheeper\Chapter7\Application\Event\:
+#        resource: '../src/Cheeper/Chapter7/Application/Event/**/*Handler.php'
+#
+#    Cheeper\Chapter7\Application\Projector\:
+#        resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
 
-    Cheeper\Chapter7\Infrastructure\:
-        resource: '../src/Cheeper/Chapter7/Infrastructure/**/*.php'
-
-    Cheeper\Chapter7\Application\Event\:
-        resource: '../src/Cheeper/Chapter7/Application/Event/**/*Handler.php'
-
-    Cheeper\Chapter7\Application\Projector\:
-        resource: '../src/Cheeper/Chapter7/Application/Projector/**/*.php'
-
-    Cheeper\Chapter7\Application\Query\:
-        resource: '../src/Cheeper/Chapter7/Application/Query/**/*Handler.php'
-        tags:
-            - { name: messenger.message_handler, bus: query.bus }
-
-    Cheeper\Chapter7\Application\Command\:
-        resource: '../src/Cheeper/Chapter7/Application/Command/**/*Handler.php'
+    chapter7_command_handlers:
+        namespace: Cheeper\Chapter7\Application\
+        resource: '../src/Cheeper/Chapter7/Application/**/*CommandHandler.php'
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
-    Cheeper\Chapter7\Infrastructure\Application\Event\Author\SymfonyNewAuthorSignedHandler:
+    chapter7_event_handlers:
+        namespace: Cheeper\Chapter7\Application\
+        resource: '../src/Cheeper/Chapter7/Application/**/Symfony*EventHandler.php'
         tags:
             - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\Application\Event\Author\SymfonyNewAuthorSignedHandler'
 
-    Cheeper\Chapter7\Infrastructure\Application\Event\Cheep\SymfonyCheepPostedHandler:
+    chapter7_query_handlers:
+        namespace: Cheeper\Chapter7\Application\
+        resource: '../src/Cheeper/Chapter7/Application/**/*QueryHandler.php'
         tags:
-            - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\Application\Event\Cheep\SymfonyCheepPostedHandler'
+            - { name: messenger.message_handler, bus: query.bus }
 
-    Cheeper\Chapter7\Infrastructure\ProjectionHandler\SymfonyAddCheepToTimelineProjectionHandler:
+    chapter7_projection_handlers:
+        namespace: Cheeper\Chapter7\Application\
+        resource: '../src/Cheeper/Chapter7/Application/**/Symfony*ProjectionHandler.php'
         tags:
             - { name: messenger.message_handler, bus: projection.bus }
-        class: 'Cheeper\Chapter7\Infrastructure\ProjectionHandler\SymfonyAddCheepToTimelineProjectionHandler'
 
     App\EventListener\UserCreatedListener:
         tags:

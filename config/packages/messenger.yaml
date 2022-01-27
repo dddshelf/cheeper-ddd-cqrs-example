@@ -49,7 +49,7 @@ framework:
             # Domain Events are sent to asynchronous
             # transport to be processed later.
             Cheeper\AllChapters\DomainModel\DomainEvent: [events, projections]
-            
+
             # Chapter 5
             # Queries are executed synchronously
             # in the same request that data is requested.
@@ -62,16 +62,14 @@ framework:
 
             # Chapter 7
             ## Commands
-            Cheeper\Chapter7\Application\Command\Author\SignUp: chapter7_sync_commands
-            Cheeper\Chapter7\Application\Command\Author\Follow: chapter7_sync_commands
-            Cheeper\Chapter7\Application\Command\Cheep\PostCheep: chapter7_sync_commands
+            Cheeper\Chapter7\Application\Command: chapter7_sync_commands
 
             ## Events
             Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
 
             ## Projections
-            Cheeper\Chapter7\Application\Projector\Projection: chapter7_async_projections
+            Cheeper\Chapter7\Application\Projection: chapter7_async_projections
 
             ## Queries
-            Cheeper\Chapter7\Application\Query\Timeline\Timeline: chapter7_sync_queries
+            Cheeper\Chapter7\Application\Query: chapter7_sync_queries
             # End of Chapter 7
