@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\Chapter5\Application\Query\QueryBus;
-use Cheeper\Chapter7\Application\Query\Author\CountFollowers;
+use Cheeper\Chapter7\Application\QueryBus;
+use Cheeper\Chapter7\Application\Author\Query\CountFollowersQuery;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ final class CountFollowersController extends AbstractController
         ];
 
         try {
-            $query = CountFollowers::ofAuthor($authorId);
+            $query = CountFollowersQuery::ofAuthor($authorId);
             $timeline = $queryBus->query($query);
             $httpContent['_meta']['message_id'] = $query->messageId()?->toString();
             $httpContent['data'] = $timeline;

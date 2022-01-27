@@ -29,10 +29,15 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
+
             Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
-            Cheeper\Chapter7\Application\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyEventBus'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
-            Cheeper\Chapter7\Application\Projector\ProjectionBus: '@Cheeper\Chapter7\Infrastructure\Application\Projector\SymfonyProjectionBus'
+
+            Cheeper\Chapter7\Application\CommandBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyCommandBus'
+            Cheeper\Chapter7\Application\QueryBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyQueryBus'
+            Cheeper\Chapter7\Application\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyEventBus'
+            Cheeper\Chapter7\Application\ProjectionBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyProjectionBus'
+
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
             Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
@@ -112,6 +117,8 @@ services:
     # CHAPTER 7
     Cheeper\Chapter7\:
         resource: '../src/Cheeper/Chapter7/*'
+
+    Cheeper\Chapter7\Infrastructure\Application\SymfonyQueryBus: ~
 
     chapter7_command_handlers:
         namespace: Cheeper\Chapter7\Application\

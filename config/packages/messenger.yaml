@@ -61,15 +61,8 @@ framework:
             # End of Chapter 6
 
             # Chapter 7
-            ## Commands
             Cheeper\Chapter7\Application\Command: chapter7_sync_commands
-
-            ## Events
             Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
-
-            ## Projections
             Cheeper\Chapter7\Application\Projection: chapter7_async_projections
-
-            ## Queries
             Cheeper\Chapter7\Application\Query: chapter7_sync_queries
             # End of Chapter 7

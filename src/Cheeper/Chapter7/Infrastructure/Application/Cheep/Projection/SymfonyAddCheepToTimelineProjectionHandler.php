@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\Cheep\Projection;
+namespace Cheeper\Chapter7\Infrastructure\Application\Cheep\Projection;
 
 use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjection;
 use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjectionHandler;
