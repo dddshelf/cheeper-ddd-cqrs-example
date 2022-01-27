@@ -6,7 +6,7 @@ namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\Chapter7\Application\Command\Cheep\PostCheep;
+use Cheeper\Chapter7\Application\Command\Cheep\PostCheepCommand;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +21,7 @@ final class PostCheepController extends AbstractController
     {
         $httpCode = Response::HTTP_ACCEPTED;
         try {
-            $command = PostCheep::fromArray(
+            $command = PostCheepCommand::fromArray(
                 $this->getRequestContentInJson($request)
             );
 

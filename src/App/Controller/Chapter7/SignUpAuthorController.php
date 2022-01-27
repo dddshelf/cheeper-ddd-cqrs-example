@@ -6,7 +6,7 @@ namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
-use Cheeper\Chapter7\Application\Command\Author\SignUp;
+use Cheeper\Chapter7\Application\Command\Author\SignUpCommand;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,7 +21,7 @@ final class SignUpAuthorController extends AbstractController
     {
         $httpCode = Response::HTTP_ACCEPTED;
         try {
-            $command = SignUp::fromArray(
+            $command = SignUpCommand::fromArray(
                 $this->getRequestContentInJson($request)
             );
 

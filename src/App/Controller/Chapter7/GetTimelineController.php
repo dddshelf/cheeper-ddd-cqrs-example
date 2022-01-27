@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use Cheeper\Chapter5\Application\Query\QueryBus;
-use Cheeper\Chapter7\Application\Query\Timeline\Timeline;
+use Cheeper\Chapter7\Application\Query\Timeline\TimelineQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ final class GetTimelineController extends AbstractController
         $size = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
 
         $timeline = $queryBus->query(
-            Timeline::fromArray([
+            TimelineQuery::fromArray([
                 'author_id' => $authorId,
                 'offset' => $offset,
                 'size' => $size,
