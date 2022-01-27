@@ -8,7 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjection;
 use Cheeper\Chapter7\Application\ProjectionBus;
 use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
-use Cheeper\Chapter7\DomainModel\Follow\Follows;
+use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 
@@ -16,8 +16,8 @@ use DateTimeInterface;
 final class CheepPostedEventHandler
 {
     public function __construct(
-        private Follows $follows,
-        private ProjectionBus $projectionBus,
+        private FollowRepository $follows,
+        private ProjectionBus    $projectionBus,
     ) {
     }
 

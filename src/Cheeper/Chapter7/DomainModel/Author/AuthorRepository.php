@@ -8,7 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 
 //snippet authors
-interface Authors
+interface AuthorRepository
 {
     public function ofId(AuthorId $authorId): ?Author;
     public function ofUserName(UserName $userName): ?Author;

@@ -10,17 +10,17 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
-use Cheeper\Chapter7\DomainModel\Author\Authors;
+use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
-use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
+use Cheeper\Chapter7\DomainModel\Cheep\CheepRepository;
 
 //snippet post-cheep-handler
 final class PostCheepCommandHandler
 {
     public function __construct(
-        private Authors $authors,
-        private Cheeps $cheeps,
-        private EventBus $eventBus
+        private AuthorRepository $authors,
+        private CheepRepository  $cheeps,
+        private EventBus         $eventBus
     ) {
     }
 

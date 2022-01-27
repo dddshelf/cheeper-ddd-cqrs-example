@@ -7,11 +7,11 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\Chapter7\DomainModel\Author\Author;
-use Cheeper\Chapter7\DomainModel\Author\Authors;
+use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
 use function Functional\head;
 use function Functional\select;
 
-final class InMemoryAuthors implements Authors
+final class InMemoryAuthorRepository implements AuthorRepository
 {
     public array $authors;
 

@@ -6,12 +6,12 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
-use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
+use Cheeper\Chapter7\DomainModel\Cheep\CheepRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 
 //snippet doctrine-orm-cheeps
-final class DoctrineOrmCheeps implements Cheeps
+final class DoctrineOrmCheepRepository implements CheepRepository
 {
     //ignore
     public function __construct(

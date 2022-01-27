@@ -8,15 +8,15 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
-use Cheeper\Chapter7\DomainModel\Author\Authors;
-use Cheeper\Chapter7\DomainModel\Follow\Follows;
+use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
 
 final class FollowCommandHandler
 {
     public function __construct(
-        private Authors  $authors,
-        private Follows  $follows,
-        private EventBus $eventBus
+        private AuthorRepository $authors,
+        private FollowRepository $follows,
+        private EventBus         $eventBus
     ) {
     }
 

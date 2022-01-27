@@ -7,7 +7,7 @@ namespace Cheeper\Chapter7\DomainModel\Follow;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 
 //snippet follows
-interface Follows
+interface FollowRepository
 {
     public function numberOfFollowersFor(AuthorId $authorId): int;
     public function add(Follow $follow): void;

@@ -6,11 +6,11 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\Chapter7\DomainModel\Follow\Follows;
+use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet doctrine-orm-follows
-final class DoctrineOrmFollows implements Follows
+final class DoctrineOrmFollowRepository implements FollowRepository
 {
     public function __construct(
         private EntityManagerInterface $em

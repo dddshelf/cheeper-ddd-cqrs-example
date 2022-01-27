@@ -7,12 +7,12 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\Chapter7\DomainModel\Follow\Follows;
+use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
 
-final class InMemoryFollows implements Follows
+final class InMemoryFollowRepository implements FollowRepository
 {
     /** @var array<string, Follow> */
     public array $collection = [];

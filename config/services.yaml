@@ -20,9 +20,6 @@ services:
             Cheeper\AllChapters\DomainModel\Author\Authors $authorsRepository: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmAuthors'
             Cheeper\AllChapters\DomainModel\Follow\Follows $follows: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmFollows'
 
-            Cheeper\Chapter7\DomainModel\Author\Authors $authors: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmAuthors'
-            Cheeper\Chapter7\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmCheeps'
-            Cheeper\Chapter7\DomainModel\Follow\Follows $follows: '@Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmFollows'
             #end-ignore
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
             # ignore
@@ -30,17 +27,12 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
 
-            Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
+            Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
-
-            Cheeper\Chapter7\Application\CommandBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyCommandBus'
-            Cheeper\Chapter7\Application\QueryBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyQueryBus'
-            Cheeper\Chapter7\Application\EventBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyEventBus'
-            Cheeper\Chapter7\Application\ProjectionBus: '@Cheeper\Chapter7\Infrastructure\Application\SymfonyProjectionBus'
+            Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
 
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
-            Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -118,7 +110,26 @@ services:
     Cheeper\Chapter7\:
         resource: '../src/Cheeper/Chapter7/*'
 
-    Cheeper\Chapter7\Infrastructure\Application\SymfonyQueryBus: ~
+    Cheeper\Chapter7\DomainModel\Author\AuthorRepository:
+        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmAuthorRepository'
+
+    Cheeper\Chapter7\DomainModel\Cheep\CheepRepository:
+        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmCheepRepository'
+
+    Cheeper\Chapter7\DomainModel\Follow\FollowRepository:
+        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmFollowRepository'
+
+    Cheeper\Chapter7\Application\CommandBus:
+        class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyCommandBus'
+
+    Cheeper\Chapter7\Application\QueryBus:
+        class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyQueryBus'
+
+    Cheeper\Chapter7\Application\EventBus:
+        class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyEventBus'
+
+    Cheeper\Chapter7\Application\ProjectionBus:
+        class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyProjectionBus'
 
     chapter7_command_handlers:
         namespace: Cheeper\Chapter7\Application\

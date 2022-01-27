@@ -15,8 +15,8 @@ use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
 use Cheeper\Chapter7\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter7\Infrastructure\Application\InMemoryEventBus;
-use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryAuthors;
-use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryFollows;
+use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryAuthorRepository;
+use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryFollowRepository;
 use PHPUnit\Framework\TestCase;
 
 final class FollowCommandHandlerTest extends TestCase
@@ -32,8 +32,8 @@ final class FollowCommandHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->authors = new InMemoryAuthors();
-        $this->follows = new InMemoryFollows();
+        $this->authors = new InMemoryAuthorRepository();
+        $this->follows = new InMemoryFollowRepository();
         $this->eventBus = new InMemoryEventBus();
     }
 

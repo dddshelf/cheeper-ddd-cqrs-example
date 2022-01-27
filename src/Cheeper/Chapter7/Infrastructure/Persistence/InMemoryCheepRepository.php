@@ -6,10 +6,10 @@ namespace Cheeper\Chapter7\Infrastructure\Persistence;
 
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;
-use Cheeper\Chapter7\DomainModel\Cheep\Cheeps;
+use Cheeper\Chapter7\DomainModel\Cheep\CheepRepository;
 
 //snippet inmemory-cheeps
-final class InMemoryCheeps implements Cheeps
+final class InMemoryCheepRepository implements CheepRepository
 {
     /** @var Cheep[] */
     private array $items = [];

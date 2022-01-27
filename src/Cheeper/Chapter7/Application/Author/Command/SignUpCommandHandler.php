@@ -12,14 +12,14 @@ use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
 use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\Author\Author;
-use Cheeper\Chapter7\DomainModel\Author\Authors;
+use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
 
 //snippet sign-up-handler-with-events
 final class SignUpCommandHandler
 {
     public function __construct(
-        private Authors $authors,
-        private EventBus $eventBus
+        private AuthorRepository $authors,
+        private EventBus         $eventBus
     ) {
     }
 
