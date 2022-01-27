@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\Application\Event;
+namespace Cheeper\Chapter7\Infrastructure\Application;
 
-//snippet in-memory-event-bus
-use Cheeper\Chapter7\Application\Event\EventBus;
+use Cheeper\Chapter7\Application\EventBus;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 
+//snippet in-memory-event-bus
 final class InMemoryEventBus implements EventBus
 {
     public function __construct(
