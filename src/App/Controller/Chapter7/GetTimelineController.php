@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter7;
 
-use Cheeper\Chapter5\Application\Query\QueryBus;
-use Cheeper\Chapter7\Application\Query\Timeline\TimelineQuery;
+use Cheeper\Chapter7\Application\Author\Query\TimelineQuery;
+use Cheeper\Chapter7\Application\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

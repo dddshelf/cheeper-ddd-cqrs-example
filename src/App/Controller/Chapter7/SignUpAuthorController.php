@@ -6,7 +6,7 @@ namespace App\Controller\Chapter7;
 
 use App\Messenger\CommandBus;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
-use Cheeper\Chapter7\Application\Command\Author\SignUpCommand;
+use Cheeper\Chapter7\Application\Author\Command\SignUpCommand;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
