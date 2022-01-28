@@ -8,7 +8,7 @@ use function mimic\hydrate;
 use PDO;
 
 //snippet cheeps
-class Cheeps
+class CheepDAO
 {
     //ignore
     private PDO $db;

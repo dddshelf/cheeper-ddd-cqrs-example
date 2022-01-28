@@ -5,10 +5,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Helper;
 
-use Cheeper\AllChapters\Application\Command\Author\Follow;
-use Cheeper\AllChapters\Application\Command\Author\FollowHandler;
+use Cheeper\AllChapters\Application\Command\Author\FollowCommand;
+use Cheeper\AllChapters\Application\Command\Author\FollowCommandHandler;
 use Cheeper\AllChapters\Application\Command\Author\SignUp;
-use Cheeper\AllChapters\Application\Command\Author\SignUpHandler;
+use Cheeper\AllChapters\Application\Command\Author\SignUpCommandHandler;
 use Cheeper\AllChapters\Application\Command\Cheep\PostCheep;
 use Cheeper\AllChapters\Application\Command\Cheep\PostCheepHandler;
 use Cheeper\Chapter6\Application\Event\EventBus;
@@ -59,7 +59,7 @@ trait SendsCommands
 
     private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
-        (new SignUpHandler(
+        (new SignUpCommandHandler(
             $this->authors
         ))(
             new SignUp(
@@ -77,8 +77,8 @@ trait SendsCommands
 
     private function followAuthor(string $followee, string $followed): void
     {
-        (new FollowHandler($this->authors, $this->follows))(
-            Follow::anAuthor($followed, $followee)
+        (new FollowCommandHandler($this->authors, $this->follows))(
+            FollowCommand::anAuthor($followed, $followee)
         );
     }
 

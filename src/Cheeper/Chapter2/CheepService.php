@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Cheeper\Chapter2;
 
 use Cheeper\Chapter2\Layered\Authors;
-use Cheeper\Chapter2\Layered\Cheeps;
+use Cheeper\Chapter2\Layered\CheepDAO;
 
 //snippet cheep-service
 final class CheepService
 {
     public function __construct(
-        private Authors $authors,
-        private Cheeps $cheeps,
+        private Authors  $authors,
+        private CheepDAO $cheepDao,
     ) {
     }
 
@@ -26,7 +26,7 @@ final class CheepService
 
         $cheep = $author->compose($message);
 
-        $this->cheeps->add($cheep);
+        $this->cheepDao->add($cheep);
 
         return $cheep;
     }

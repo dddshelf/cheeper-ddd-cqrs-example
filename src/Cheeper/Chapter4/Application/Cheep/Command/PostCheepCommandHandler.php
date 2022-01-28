@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Cheep;
+namespace Cheeper\Chapter4\Application\Cheep\Command;
 
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
@@ -15,7 +15,7 @@ use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet post-cheep-handler
-final class PostCheepHandler
+final class PostCheepCommandHandler
 {
     public function __construct(
         private Authors $authors,
@@ -24,7 +24,7 @@ final class PostCheepHandler
     ) {
     }
 
-    public function __invoke(PostCheep $command): void
+    public function __invoke(PostCheepCommand $command): void
     {
         $authorId = AuthorId::fromString($command->authorId());
         $cheepId = CheepId::fromString($command->cheepId());

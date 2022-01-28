@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author;
+namespace Cheeper\Chapter4\Application\Author\Command;
 
 //snippet follow-command
-final class Follow
+final class FollowCommand
 {
     public function __construct(
         private string $followeeUsername,

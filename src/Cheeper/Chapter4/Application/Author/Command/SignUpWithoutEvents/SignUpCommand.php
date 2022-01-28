@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author;
+namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 use Cheeper\Chapter7\Application\MessageTrait;
 
 //snippet sign-up
-final class SignUp
+final class SignUpCommand
 {
     //ignore
     use MessageTrait;

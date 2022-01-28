@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\AllChapters\Application\Command\Author;
 
-use Cheeper\AllChapters\Application\Command\Author\Follow;
-use Cheeper\AllChapters\Application\Command\Author\FollowHandler;
+use Cheeper\AllChapters\Application\Command\Author\FollowCommand;
+use Cheeper\AllChapters\Application\Command\Author\FollowCommandHandler;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;

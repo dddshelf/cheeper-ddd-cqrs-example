@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Tests\AllChapters\Application\Command\Author;
 
 use Cheeper\AllChapters\Application\Command\Author\SignUp;
-use Cheeper\AllChapters\Application\Command\Author\SignUpHandler;
+use Cheeper\AllChapters\Application\Command\Author\SignUpCommandHandler;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
@@ -24,7 +24,7 @@ final class SignUpHandlerTest extends TestCase
         $authors = new InMemoryAuthors();
 
         //snippet sign-up-handler-usage
-        $signUpHandler = new SignUpHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($authors);
 
         $signUpHandler(
             new SignUp(
@@ -59,7 +59,7 @@ final class SignUpHandlerTest extends TestCase
     {
         $authors = new InMemoryAuthors();
 
-        $signUpHandler = new SignUpHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($authors);
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';
@@ -88,7 +88,7 @@ final class SignUpHandlerTest extends TestCase
     {
         $authors = new InMemoryAuthors();
 
-        $signUpHandler = new SignUpHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($authors);
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';

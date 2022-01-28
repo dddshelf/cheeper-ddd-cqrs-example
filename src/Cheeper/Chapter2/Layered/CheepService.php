@@ -16,7 +16,7 @@ final class CheepService
 
         $cheep = $author->compose($message);
 
-        (new Cheeps())->add($cheep);
+        (new CheepDAO())->add($cheep);
 
         return $cheep;
     }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Cheep;
+namespace Cheeper\Chapter4\Application\Cheep\Command;
 
 //snippet post-cheep
-final class PostCheep
+final class PostCheepCommand
 {
     private function __construct(
         private string $cheepId,

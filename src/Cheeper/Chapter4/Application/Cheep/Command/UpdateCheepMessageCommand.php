@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Cheep;
+namespace Cheeper\Chapter4\Application\Cheep\Command;
 
-final class UpdateCheepMessage
+final class UpdateCheepMessageCommand
 {
     public function __construct(
         private string $cheepId,

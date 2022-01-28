@@ -10,7 +10,7 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use DateTimeInterface;
 
 //snippet cheeps-with-a-lot-of-finders
-interface Cheeps
+interface CheepRepository
 {
     public function add(Cheep $cheep): void;
 

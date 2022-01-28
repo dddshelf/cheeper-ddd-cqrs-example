@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author;
+namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
@@ -14,14 +14,14 @@ use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
 
 //snippet sign-up-handler
-final class SignUpHandler
+final class SignUpCommandHandler
 {
     public function __construct(
         private Authors $authors
     ) {
     }
 
-    public function __invoke(SignUp $command): void
+    public function __invoke(SignUpCommand $command): void
     {
         $userName = UserName::pick($command->userName());
         $author = $this->authors->ofUserName($userName);

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author;
+namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 //snippet sign-up-builder
-final class SignUpBuilder
+final class SignUpCommandBuilder
 {
     private function __construct(
         private string $authorId,

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author;
+namespace Cheeper\Chapter4\Application\Author\Command;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
@@ -11,7 +11,7 @@ use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowAggregate;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
 
-final class FollowHandler
+final class FollowCommandHandler
 {
     public function __construct(
         private Authors $authors,
@@ -19,7 +19,7 @@ final class FollowHandler
     ) {
     }
 
-    public function __invoke(Follow $command): void
+    public function __invoke(FollowCommand $command): void
     {
         $followeeUserName = UserName::pick($command->followeeUsername());
         $followedUserName = UserName::pick($command->followedUsername());

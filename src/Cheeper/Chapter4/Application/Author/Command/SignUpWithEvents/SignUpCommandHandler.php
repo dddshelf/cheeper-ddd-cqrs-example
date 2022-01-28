@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Application\Command\Author\SignUpWithEvents;
+namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents;
 
-use Cheeper\AllChapters\Application\Command\Author\SignUp;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
@@ -13,10 +12,11 @@ use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet sign-up-handler-with-events
-final class SignUpHandler
+final class SignUpCommandHandler
 {
     public function __construct(
         private Authors $authors,
@@ -24,7 +24,7 @@ final class SignUpHandler
     ) {
     }
 
-    public function __invoke(SignUp $command): void
+    public function __invoke(SignUpCommand $command): void
     {
         $userName = UserName::pick($command->userName());
         $authorId = AuthorId::fromString($command->authorId());

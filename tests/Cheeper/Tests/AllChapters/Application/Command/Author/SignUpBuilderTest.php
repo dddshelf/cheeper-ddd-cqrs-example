@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Tests\AllChapters\Application\Command\Author;
 
 use Cheeper\AllChapters\Application\Command\Author\SignUp as SignUpCommand;
-use Cheeper\AllChapters\Application\Command\Author\SignUpBuilder;
+use Cheeper\AllChapters\Application\Command\Author\SignUpCommandBuilder;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -15,9 +15,9 @@ final class SignUp {
         string $authorId,
         string $userName,
         string $email
-    ): SignUpBuilder
+    ): SignUpCommandBuilder
     {
-        return SignUpBuilder::create($authorId, $userName, $email);
+        return SignUpCommandBuilder::create($authorId, $userName, $email);
     }
     //end-snippet
 }
