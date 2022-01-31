@@ -76,9 +76,9 @@ final class SignUpCommandBuilder
         return $this;
     }
 
-    public function build(): SignUp
+    public function build(): SignUpCommand
     {
-        return new SignUp(
+        return new SignUpCommand(
             $this->authorId,
             $this->userName,
             $this->email,

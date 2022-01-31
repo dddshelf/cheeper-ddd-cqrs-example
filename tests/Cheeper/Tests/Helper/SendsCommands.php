@@ -5,24 +5,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Helper;
 
-use Cheeper\AllChapters\Application\Command\Author\FollowCommand;
-use Cheeper\AllChapters\Application\Command\Author\FollowCommandHandler;
-use Cheeper\AllChapters\Application\Command\Author\SignUp;
-use Cheeper\AllChapters\Application\Command\Author\SignUpCommandHandler;
-use Cheeper\AllChapters\Application\Command\Cheep\PostCheep;
-use Cheeper\AllChapters\Application\Command\Cheep\PostCheepHandler;
-use Cheeper\Chapter6\Application\Event\EventBus;
+use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
+use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
-use Cheeper\AllChapters\DomainModel\DomainEvent;
-use Cheeper\AllChapters\DomainModel\Follow\Follows;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryCheeps;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
-use DateTimeImmutable;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 trait SendsCommands
 {
@@ -57,36 +47,11 @@ trait SendsCommands
         $this->eventBus = new InMemoryEventBus();
     }
 
-    private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
-    {
-        (new SignUpCommandHandler(
-            $this->authors
-        ))(
-            new SignUp(
-                $authorId,
-                $userName,
-                $email,
-                $name,
-                $biography,
-                $location,
-                $website,
-                $birthDate
-            )
-        );
-    }
-
-    private function followAuthor(string $followee, string $followed): void
-    {
-        (new FollowCommandHandler($this->authors, $this->follows))(
-            FollowCommand::anAuthor($followed, $followee)
-        );
-    }
-
     //snippet post-new-cheep-tests
     private function postNewCheep(string $authorId, string $cheepId, string $message): void
     {
-        (new PostCheepHandler($this->authors, $this->cheeps, $this->eventBus))(
-            PostCheep::fromArray([
+        (new PostCheepCommandHandler($this->authors, $this->cheeps, $this->eventBus))(
+            PostCheepCommand::fromArray([
                 'author_id' => $authorId,
                 'cheep_id' => $cheepId,
                 'message' => $message,
