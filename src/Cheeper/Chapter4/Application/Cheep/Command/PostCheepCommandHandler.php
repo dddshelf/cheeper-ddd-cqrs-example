@@ -7,20 +7,20 @@ namespace Cheeper\Chapter4\Application\Cheep\Command;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet post-cheep-handler
 final class PostCheepCommandHandler
 {
     public function __construct(
-        private Authors $authors,
-        private Cheeps $cheeps,
-        private EventBus $eventBus
+        private AuthorRepository $authors,
+        private CheepRepository  $cheeps,
+        private EventBus         $eventBus
     ) {
     }
 

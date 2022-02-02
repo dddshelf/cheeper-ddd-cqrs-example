@@ -10,7 +10,7 @@ final class CheepService
 {
     public function postCheep(string $username, string $message): Cheep
     {
-        if (!$author = (new Authors())->byUsername($username)) {
+        if (!$author = (new AuthorDAO())->byUsername($username)) {
             throw new AuthorNotFound($username);
         }
 

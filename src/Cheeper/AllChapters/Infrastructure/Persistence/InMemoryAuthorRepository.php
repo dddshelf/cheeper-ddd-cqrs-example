@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\Chapter2\Author;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 use function Functional\head;
 use function Functional\select;
 
-final class InMemoryAuthors implements Authors
+final class InMemoryAuthorRepository implements AuthorRepository
 {
     public array $authors;
 

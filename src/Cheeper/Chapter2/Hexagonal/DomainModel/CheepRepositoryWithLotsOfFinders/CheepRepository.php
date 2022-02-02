@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter2;
+namespace Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepositoryWithLotsOfFinders;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\Chapter2\Author;
+use Cheeper\Chapter2\Cheep;
 use DateTimeInterface;
 
-//snippet cheeps-with-a-lot-of-finders
+//snippet snippet
 interface CheepRepository
 {
     public function add(Cheep $cheep): void;

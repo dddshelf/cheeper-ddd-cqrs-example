@@ -7,7 +7,7 @@ namespace Cheeper\Chapter6\Application\Command\Author\WithDomainEvents;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 use Cheeper\Chapter6\Application\Event\EventBus;
@@ -16,10 +16,10 @@ use Cheeper\Chapter6\Application\Event\EventBus;
 final class FollowHandler
 {
     public function __construct(
-        private Authors  $authors,
-        private Follows  $follows,
+        private AuthorRepository $authors,
+        private Follows          $follows,
         // leanpub-start-insert
-        private EventBus $eventBus
+        private EventBus         $eventBus
         // leanpub-end-insert
     ) {
     }

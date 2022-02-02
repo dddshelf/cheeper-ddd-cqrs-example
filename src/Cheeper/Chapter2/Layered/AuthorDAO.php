@@ -9,7 +9,7 @@ use function mimic\hydrate;
 use PDO;
 
 //snippet authors
-class Authors
+class AuthorDAO
 {
     private PDO $db;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter4\Application\Author\Command;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowAggregate;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
@@ -14,8 +14,8 @@ use Cheeper\AllChapters\DomainModel\Follow\Follows;
 final class FollowCommandHandler
 {
     public function __construct(
-        private Authors $authors,
-        private Follows $follows,
+        private AuthorRepository $authors,
+        private Follows          $follows,
     ) {
     }
 

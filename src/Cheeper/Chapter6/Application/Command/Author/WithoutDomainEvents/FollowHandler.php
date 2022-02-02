@@ -7,7 +7,7 @@ namespace Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
+use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
 use Cheeper\Chapter6\Application\Command\Author\Follow;
 
@@ -15,8 +15,8 @@ use Cheeper\Chapter6\Application\Command\Author\Follow;
 final class FollowHandler
 {
     public function __construct(
-        private Authors $authors,
-        private Follows $follows
+        private AuthorRepository $authors,
+        private Follows          $follows
     ) {
     }
 

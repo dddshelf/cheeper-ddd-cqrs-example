@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\Infrastructure\Persistence;
+namespace Cheeper\Chapter2\Hexagonal\Infrastructure\DomainModel;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\Chapter2\Author;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet doctrine-orm-authors
-final class DoctrineOrmAuthors implements Authors
+final class DoctrineOrmAuthorRepository implements AuthorRepository
 {
     public function __construct(
         private EntityManagerInterface $em

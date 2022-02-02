@@ -6,7 +6,7 @@ namespace Cheeper\Tests\Chapter2;
 
 use Cheeper\Chapter2\Author;
 use Cheeper\Chapter2\CheepService;
-use Cheeper\Chapter2\Layered\Authors;
+use Cheeper\Chapter2\Layered\AuthorDAO;
 use Cheeper\Chapter2\Layered\CheepDAO;
 use PHPUnit\Framework\TestCase;
 
@@ -14,13 +14,13 @@ use PHPUnit\Framework\TestCase;
 final class CheepServiceTest extends TestCase
 {
     private CheepDAO $cheeps;
-    private Authors $authors;
+    private AuthorDAO $authors;
     private CheepService $cheepService;
 
     public function setUp(): void
     {
         $this->cheeps = \Mockery::mock(CheepDAO::class);
-        $this->authors = \Mockery::mock(Authors::class);
+        $this->authors = \Mockery::mock(AuthorDAO::class);
         $this->cheepService = new CheepService($this->authors, $this->cheeps);
     }
 

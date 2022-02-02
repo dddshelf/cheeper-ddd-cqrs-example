@@ -5,33 +5,33 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Helper;
 
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryCheepRepository;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
+use Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepository;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryCheeps;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
 
 trait SendsCommands
 {
-    private Authors $authors;
-    private Cheeps $cheeps;
+    private AuthorRepository $authors;
+    private CheepRepository $cheeps;
     private InMemoryFollows $follows;
     private InMemoryEventBus $eventBus;
 
     /** @before */
     final protected function makeUserRepository(): void
     {
-        $this->authors = new InMemoryAuthors();
+        $this->authors = new InMemoryAuthorRepository();
     }
 
     //snippet setup-cheeps-repository
     /** @before */
     final protected function makeCheepsRepository(): void
     {
-        $this->cheeps = new InMemoryCheeps();
+        $this->cheeps = new InMemoryCheepRepository();
     }
     //end-snippet
 

@@ -2,25 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter2;
+namespace Cheeper\Chapter2\Hexagonal\Application;
+
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\Chapter2\Author;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 
 //snippet author-service
-use Cheeper\Chapter2\Layered\Authors;
-
 final class AuthorService
 {
     public function __construct(
-        private Authors $authors
+        private AuthorRepository $authorRepository
     ) {
     }
 
     public function update(
-        int $id,
+        string $id,
         string $username,
         ?string $website,
         ?string $bio
     ): Author {
-        $author = $this->authors->byId($id);
+        $author = $this->authorRepository->ofId(AuthorId::fromString($id));
 
         if (null === $author) {
             throw new \RuntimeException(sprintf('%s author not found', $username));
@@ -30,7 +32,7 @@ final class AuthorService
         $author->setWebsite($website);
         $author->setBio($bio);
 
-        $this->authors->save($author);
+        $this->authorRepository->add($author);
 
         return $author;
     }

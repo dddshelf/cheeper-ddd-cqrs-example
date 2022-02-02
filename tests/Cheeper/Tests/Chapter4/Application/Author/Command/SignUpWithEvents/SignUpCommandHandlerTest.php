@@ -7,7 +7,7 @@ namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithEvents;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\NewAuthorSigned;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents\SignUpCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
@@ -22,7 +22,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
 
         $signUpHandler = new SignUpCommandHandler(
@@ -62,7 +62,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpWithOnlyMandatoryFieldsThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
             $authors,
@@ -97,7 +97,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpWithAllFieldsThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
             $authors,
@@ -146,7 +146,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email not-a-valid-email');
 
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
             $authors,
@@ -181,7 +181,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid URL given');
 
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
             $authors,

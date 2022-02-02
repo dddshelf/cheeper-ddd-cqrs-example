@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
-use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
+use Cheeper\Chapter2\Cheep;
+use Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepository;
 
 //snippet inmemory-cheeps
-final class InMemoryCheeps implements Cheeps
+final class InMemoryCheepRepository implements CheepRepository
 {
     /** @var Cheep[] */
     private array $items = [];

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommandHandler;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +20,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
 
         //snippet sign-up-handler-usage
         $signUpHandler = new SignUpCommandHandler($authors);
@@ -57,7 +56,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWithOnlyMandatoryFieldsWhenSignUpThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
 
         $signUpHandler = new SignUpCommandHandler($authors);
 
@@ -86,7 +85,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthors();
+        $authors = new InMemoryAuthorRepository();
 
         $signUpHandler = new SignUpCommandHandler($authors);
 

@@ -13,7 +13,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthors;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
 use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;

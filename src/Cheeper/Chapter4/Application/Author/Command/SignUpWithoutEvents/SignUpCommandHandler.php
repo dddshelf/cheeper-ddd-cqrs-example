@@ -7,17 +7,17 @@ namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\Authors;
 use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 
 //snippet sign-up-handler
 final class SignUpCommandHandler
 {
     public function __construct(
-        private Authors $authors
+        private AuthorRepository $authors
     ) {
     }
 

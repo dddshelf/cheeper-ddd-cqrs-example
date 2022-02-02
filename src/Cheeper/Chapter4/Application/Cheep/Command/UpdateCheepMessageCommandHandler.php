@@ -7,13 +7,13 @@ namespace Cheeper\Chapter4\Application\Cheep\Command;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheeps;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
 
 //snippet recompose-cheep-handler
 final class UpdateCheepMessageCommandHandler
 {
     public function __construct(
-        private Cheeps $cheeps
+        private CheepRepository $cheeps
     ) {
     }
 
