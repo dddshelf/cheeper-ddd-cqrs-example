@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\AllChapters\DomainModel\Author;
+namespace Cheeper\Chapter4\DomainModel\Author;
 
 use Cheeper\AllChapters\DomainModel\Follow\Follow;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
