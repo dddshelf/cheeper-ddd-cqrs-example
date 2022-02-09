@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Chapter4\Application\Author\Command;
+namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommandBuilder;
@@ -22,7 +22,7 @@ final class SignUpCommandBuilderMock {
     //end-snippet
 }
 
-final class SignUpBuilderTest extends TestCase
+final class SignUpCommandBuilderTest extends TestCase
 {
     /** @test */
     public function itBuildsRequiredFields(): void

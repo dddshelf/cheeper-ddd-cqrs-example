@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\Application\Cheep\Command;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
-use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Cheep\Cheep;
+use Cheeper\Chapter4\DomainModel\Cheep\CheepRepository;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet post-cheep-handler
 final class PostCheepCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private CheepRepository  $cheeps,
+        private AuthorRepository $authorRepository,
+        private CheepRepository  $cheepRepository,
         private EventBus         $eventBus
     ) {
     }
@@ -30,11 +29,11 @@ final class PostCheepCommandHandler
         $cheepId = CheepId::fromString($command->cheepId());
         $message = CheepMessage::write($command->message());
 
-        $author = $this->authors->ofId($authorId);
+        $author = $this->authorRepository->ofId($authorId);
         $this->checkAuthorExists($author, $authorId);
 
         $cheep = Cheep::compose($authorId, $cheepId, $message);
-        $this->cheeps->add($cheep);
+        $this->cheepRepository->add($cheep);
 
         $this->eventBus->notifyAll($cheep->domainEvents());
     }

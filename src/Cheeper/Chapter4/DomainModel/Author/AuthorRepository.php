@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter2\Hexagonal\DomainModel;
+namespace Cheeper\Chapter4\DomainModel\Author;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\Chapter2\Author;
 
 //snippet authors
 interface AuthorRepository

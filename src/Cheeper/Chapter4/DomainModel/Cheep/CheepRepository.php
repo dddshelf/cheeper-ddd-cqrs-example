@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter2\Hexagonal\DomainModel;
+namespace Cheeper\Chapter4\DomainModel\Cheep;
 
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\Chapter2\Cheep;
 
 //snippet snippet
 interface CheepRepository

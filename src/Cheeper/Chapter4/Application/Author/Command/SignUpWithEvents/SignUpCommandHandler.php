@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\BirthDate;

@@ -13,7 +13,7 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
 final class UpdateCheepMessageCommandHandler
 {
     public function __construct(
-        private CheepRepository $cheeps
+        private CheepRepository $cheepRepository
     ) {
     }
 
@@ -22,7 +22,7 @@ final class UpdateCheepMessageCommandHandler
         $cheepId = CheepId::fromString($message->cheepId());
         $cheepMessage = CheepMessage::write($message->message());
 
-        $cheep = $this->cheeps->ofId($cheepId);
+        $cheep = $this->cheepRepository->ofId($cheepId);
 
         if (null === $cheep) {
             throw CheepDoesNotExist::withIdOf($cheepId);
