@@ -8,16 +8,29 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommandHandler;
+use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
+use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter4\Application\Cheep\Command\UpdateCheepMessageCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\UpdateCheepMessageCommandHandler;
-use Cheeper\Tests\Helper\SendsCommands;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 //snippet recompose-cheep-handler-test
 final class UpdateCheepMessageHandlerTest extends TestCase
 {
-    use SendsCommands;
+    private InMemoryCheepRepository $cheepRepository;
+    private InMemoryAuthorRepository $authorRepository;
+    private InMemoryEventBus $eventBus;
+
+    protected function setUp(): void
+    {
+        $this->cheepRepository = new InMemoryCheepRepository();
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     /** @test */
     public function whenCheepDoesNotExistThenAnExceptionShouldBeThrown(): void
@@ -47,17 +60,31 @@ final class UpdateCheepMessageHandlerTest extends TestCase
         );
 
         $this->postNewCheep($authorId, $cheepId, 'Cheep message');
-
         $this->updateCheepMessage($cheepId, "new cheep message");
 
-        $cheep = $this->cheeps->ofId(CheepId::fromString($cheepId));
-        $this->assertSame("new cheep message", $cheep->cheepMessage()->message());
+        $cheep = $this->cheepRepository->ofId(CheepId::fromString($cheepId));
+        $this->assertSame("new cheep message", $cheep->message()->message());
+    }
+
+    private function postNewCheep(string $authorId, string $cheepId, string $message): void
+    {
+        (new PostCheepCommandHandler(
+            $this->authorRepository,
+            $this->cheepRepository,
+            $this->eventBus
+        ))(
+            PostCheepCommand::fromArray([
+                'author_id' => $authorId,
+                'cheep_id' => $cheepId,
+                'message' => $message,
+            ])
+        );
     }
 
     private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
         (new SignUpCommandHandler(
-            $this->authors
+            $this->authorRepository
         ))(
             new SignUpCommand(
                 $authorId,
@@ -74,7 +101,9 @@ final class UpdateCheepMessageHandlerTest extends TestCase
 
     private function updateCheepMessage(string $cheepId, string $message): void
     {
-        $updateCheepMessageHandler = new UpdateCheepMessageCommandHandler($this->cheeps);
+        $updateCheepMessageHandler = new UpdateCheepMessageCommandHandler(
+            $this->cheepRepository
+        );
 
         $updateCheepMessageHandler(
             new UpdateCheepMessageCommand(

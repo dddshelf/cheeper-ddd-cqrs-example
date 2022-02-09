@@ -9,6 +9,9 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
 use Cheeper\Tests\AllChapters\DomainModel\Author\AuthorTestDataBuilder;
 use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +20,16 @@ use Ramsey\Uuid\Uuid;
 //snippet post-cheep-handler-test
 final class PostCheepCommandHandlerTest extends TestCase
 {
-    use SendsCommands;
+    private InMemoryCheepRepository $cheepRepository;
+    private InMemoryAuthorRepository $authorRepository;
+    private InMemoryEventBus $eventBus;
+
+    protected function setUp(): void
+    {
+        $this->cheepRepository = new InMemoryCheepRepository();
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     /** @test */
     public function throwsExceptionWhenAuthorDoesNotExist(): void
@@ -75,7 +87,7 @@ final class PostCheepCommandHandlerTest extends TestCase
     public function cheepIsPersistedSuccessfully(): void
     {
         $author = AuthorTestDataBuilder::anAuthor()->build();
-        $this->authors->add($author);
+        $this->authorRepository->add($author);
 
         $cheepId = Uuid::uuid4()->toString();
 
@@ -85,7 +97,7 @@ final class PostCheepCommandHandlerTest extends TestCase
             'A message'
         );
 
-        $cheep = $this->cheeps->ofId(CheepId::fromString($cheepId));
+        $cheep = $this->cheepRepository->ofId(CheepId::fromString($cheepId));
         $this->assertNotNull($cheep);
 
         $events = $this->eventBus->events();
@@ -99,8 +111,8 @@ final class PostCheepCommandHandlerTest extends TestCase
         string $message
     ): void {
         (new PostCheepCommandHandler(
-            $this->authors,
-            $this->cheeps,
+            $this->authorRepository,
+            $this->cheepRepository,
             $this->eventBus
         ))(
             PostCheepCommand::fromArray([

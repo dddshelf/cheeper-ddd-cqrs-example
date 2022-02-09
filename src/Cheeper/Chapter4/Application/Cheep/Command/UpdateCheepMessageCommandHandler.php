@@ -7,7 +7,7 @@ namespace Cheeper\Chapter4\Application\Cheep\Command;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
+use Cheeper\Chapter4\DomainModel\Cheep\CheepRepository;
 
 //snippet recompose-cheep-handler
 final class UpdateCheepMessageCommandHandler

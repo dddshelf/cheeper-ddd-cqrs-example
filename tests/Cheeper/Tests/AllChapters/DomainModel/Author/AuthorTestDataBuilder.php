@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\AllChapters\DomainModel\Author;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter4\DomainModel\Author\Author;
 use Ramsey\Uuid\Uuid;
 
 final class AuthorTestDataBuilder

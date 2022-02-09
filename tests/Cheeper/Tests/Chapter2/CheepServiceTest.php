@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter2;
 
 use Cheeper\Chapter2\Author;
-use Cheeper\Chapter2\CheepService;
+use Cheeper\Chapter2\Hexagonal\Application\CheepService;
 use Cheeper\Chapter2\Layered\AuthorDAO;
 use Cheeper\Chapter2\Layered\CheepDAO;
 use PHPUnit\Framework\TestCase;

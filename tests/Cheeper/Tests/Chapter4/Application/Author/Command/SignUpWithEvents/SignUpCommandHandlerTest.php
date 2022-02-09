@@ -7,27 +7,35 @@ namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithEvents;
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\NewAuthorSigned;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents\SignUpCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
-use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class SignUpCommandHandlerTest extends TestCase
 {
+    private InMemoryAuthorRepository $authorRepository;
+    private InMemoryEventBus $eventBus;
+
+    protected function setUp(): void
+    {
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->eventBus = new InMemoryEventBus();
+    }
+
     /** @test */
     public function givenAUserNameThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
-        $authors = new InMemoryAuthorRepository();
         $eventBus = new InMemoryEventBus();
 
         $signUpHandler = new SignUpCommandHandler(
-            $authors,
-            $eventBus
+            $this->authorRepository,
+            $this->eventBus
         );
 
         $signUpHandler(
@@ -62,11 +70,9 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpWithOnlyMandatoryFieldsThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthorRepository();
-        $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
-            $authors,
-            $eventBus
+            $this->authorRepository,
+            $this->eventBus
         );
 
         $userName = 'johndoe';
@@ -79,7 +85,7 @@ final class SignUpCommandHandlerTest extends TestCase
             )
         );
 
-        $actualAuthor = $authors->ofUserName(UserName::pick($userName));
+        $actualAuthor = $this->authorRepository->ofUserName(UserName::pick($userName));
         $this->assertNotNull($actualAuthor);
         $this->assertSame($userName, $actualAuthor->userName()->userName());
         $this->assertSame($email, $actualAuthor->email()->value());
@@ -89,7 +95,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->assertNull($actualAuthor->website());
         $this->assertNull($actualAuthor->birthDate());
 
-        $events = $eventBus->events();
+        $events = $this->eventBus->events();
         $this->assertCount(1, $events);
         $this->assertSame(NewAuthorSigned::class, $events[0]::class);
     }
@@ -97,11 +103,9 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpWithAllFieldsThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthorRepository();
-        $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
-            $authors,
-            $eventBus
+            $this->authorRepository,
+            $this->eventBus
         );
 
         $userName = 'johndoe';
@@ -125,7 +129,7 @@ final class SignUpCommandHandlerTest extends TestCase
             )
         );
 
-        $actualAuthor = $authors->ofUserName(UserName::pick($userName));
+        $actualAuthor = $this->authorRepository->ofUserName(UserName::pick($userName));
         $this->assertNotNull($actualAuthor);
         $this->assertSame($userName, $actualAuthor->userName()->userName());
         $this->assertSame($email, $actualAuthor->email()->value());
@@ -135,7 +139,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->assertSame($website, $actualAuthor->website()->toString());
         $this->assertSame($birthDate, $actualAuthor->birthDate()->date()->format('Y-m-d'));
 
-        $events = $eventBus->events();
+        $events = $this->eventBus->events();
         $this->assertCount(1, $events);
         $this->assertSame(NewAuthorSigned::class, $events[0]::class);
     }
@@ -146,11 +150,9 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid email not-a-valid-email');
 
-        $authors = new InMemoryAuthorRepository();
-        $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
-            $authors,
-            $eventBus
+            $this->authorRepository,
+            $this->eventBus
         );
 
         $userName = 'johndoe';
@@ -181,11 +183,9 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid URL given');
 
-        $authors = new InMemoryAuthorRepository();
-        $eventBus = new InMemoryEventBus();
         $signUpHandler = new SignUpCommandHandler(
-            $authors,
-            $eventBus
+            $this->authorRepository,
+            $this->eventBus
         );
 
         $userName = 'johndoe';

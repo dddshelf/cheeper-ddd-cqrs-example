@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\DomainModel\Author;
 
-use Cheeper\AllChapters\DomainModel\Follow\Follow;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Author\BirthDate;
+use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
+use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Author\Website;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
-use Cheeper\AllChapters\DomainModel\TriggerEventsTrait;
+use Cheeper\Chapter4\DomainModel\Follow\Follow;
+use Cheeper\Chapter4\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
 use InvalidArgumentException;
 

@@ -10,6 +10,10 @@ use Cheeper\Chapter4\Application\Author\Command\FollowCommand;
 use Cheeper\Chapter4\Application\Author\Command\FollowCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
 use Cheeper\Tests\Helper\SendsCommands;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +21,18 @@ use Ramsey\Uuid\Uuid;
 
 final class FollowCommandHandlerTest extends TestCase
 {
-    use SendsCommands;
+    private InMemoryCheepRepository $cheepRepository;
+    private InMemoryAuthorRepository $authorRepository;
+    private InMemoryEventBus $eventBus;
+    private InMemoryFollowRepository $followRepository;
+
+    protected function setUp(): void
+    {
+        $this->cheepRepository = new InMemoryCheepRepository();
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->followRepository = new InMemoryFollowRepository();
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     /** @test */
     public function whenFollowerDoesNotExistAnExceptionShouldBeThrown(): void
@@ -51,7 +66,7 @@ final class FollowCommandHandlerTest extends TestCase
     private function signUpAuthorWith(string $authorId, string $userName, string $email, string $name, string $biography, string $location, string $website, string $birthDate): void
     {
         (new SignUpCommandHandler(
-            $this->authors
+            $this->authorRepository
         ))(
             new SignUpCommand(
                 $authorId,
@@ -97,13 +112,13 @@ final class FollowCommandHandlerTest extends TestCase
 
         $this->followAuthor('test', 'test2');
 
-        $followers = $this->follows->numberOfFollowersFor(AuthorId::fromUuid($authorId));
+        $followers = $this->followRepository->numberOfFollowersFor(AuthorId::fromUuid($authorId));
         $this->assertSame(1, $followers);
     }
 
     private function followAuthor(string $followee, string $followed): void
     {
-        (new FollowCommandHandler($this->authors, $this->follows))(
+        (new FollowCommandHandler($this->authorRepository, $this->followRepository))(
             FollowCommand::anAuthor($followed, $followee)
         );
     }

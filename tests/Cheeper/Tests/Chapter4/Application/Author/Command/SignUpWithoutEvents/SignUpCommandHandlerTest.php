@@ -6,24 +6,30 @@ namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommandHandler;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class SignUpCommandHandlerTest extends TestCase
 {
+    private InMemoryAuthorRepository $authorRepository;
+
+    protected function setUp(): void
+    {
+        $this->authorRepository = new InMemoryAuthorRepository();
+    }
+
     /** @test */
     public function givenAUserNameThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
-        $authors = new InMemoryAuthorRepository();
-
         //snippet sign-up-handler-usage
-        $signUpHandler = new SignUpCommandHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 
         $signUpHandler(
             new SignUpCommand(
@@ -34,7 +40,7 @@ final class SignUpCommandHandlerTest extends TestCase
                 'The usual profile example',
                 'Madrid',
                 'https://example.com/',
-                (new \DateTimeImmutable())->format('Y-m-d')
+                (new DateTimeImmutable())->format('Y-m-d')
             )
         );
         //end-snippet
@@ -48,7 +54,7 @@ final class SignUpCommandHandlerTest extends TestCase
                 'The usual profile example',
                 'Madrid',
                 'https://example.com/',
-                (new \DateTimeImmutable())->format('Y-m-d')
+                (new DateTimeImmutable())->format('Y-m-d')
             )
         );
     }
@@ -56,9 +62,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWithOnlyMandatoryFieldsWhenSignUpThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthorRepository();
-
-        $signUpHandler = new SignUpCommandHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';
@@ -71,7 +75,7 @@ final class SignUpCommandHandlerTest extends TestCase
             )
         );
 
-        $actualAuthor = $authors->ofUserName(UserName::pick($userName));
+        $actualAuthor = $this->authorRepository->ofUserName(UserName::pick($userName));
         $this->assertNotNull($actualAuthor);
         $this->assertSame($userName, $actualAuthor->userName()->userName());
         $this->assertSame($email, $actualAuthor->email()->value());
@@ -85,9 +89,7 @@ final class SignUpCommandHandlerTest extends TestCase
     /** @test */
     public function givenValidUserDataWhenSignUpThenAValidUserShouldBeCreated(): void
     {
-        $authors = new InMemoryAuthorRepository();
-
-        $signUpHandler = new SignUpCommandHandler($authors);
+        $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 
         $userName = 'johndoe';
         $email = 'johndoe@example.com';
@@ -95,7 +97,7 @@ final class SignUpCommandHandlerTest extends TestCase
         $biography = 'The usual profile example';
         $location = 'Madrid';
         $website = 'https://example.com/';
-        $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
+        $birthDate = (new DateTimeImmutable())->format('Y-m-d');
 
         $signUpHandler(
             new SignUpCommand(
@@ -110,7 +112,7 @@ final class SignUpCommandHandlerTest extends TestCase
             )
         );
 
-        $actualAuthor = $authors->ofUserName(UserName::pick($userName));
+        $actualAuthor = $this->authorRepository->ofUserName(UserName::pick($userName));
         $this->assertNotNull($actualAuthor);
         $this->assertSame($userName, $actualAuthor->userName()->userName());
         $this->assertSame($email, $actualAuthor->email()->value());
