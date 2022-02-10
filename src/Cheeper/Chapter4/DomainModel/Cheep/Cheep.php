@@ -7,7 +7,7 @@ namespace Cheeper\Chapter4\DomainModel\Cheep;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
-use Cheeper\Chapter7\DomainModel\TriggerEventsTrait;
+use Cheeper\Chapter4\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
 use DateTimeInterface;
 use RuntimeException;
@@ -39,6 +39,9 @@ final class Cheep
     {
         $this->date = new DateTimeImmutable();
         $this->setMessage($message);
+        $this->notifyDomainEvent(
+            CheepPosted::fromCheep($this)
+        );
     }
 
     private function setMessage(string $message): void
