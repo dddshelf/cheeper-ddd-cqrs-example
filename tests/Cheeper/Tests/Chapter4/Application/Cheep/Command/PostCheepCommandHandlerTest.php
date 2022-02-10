@@ -13,7 +13,6 @@ use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
 use Cheeper\Tests\AllChapters\DomainModel\Author\AuthorTestDataBuilder;
-use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -110,6 +109,8 @@ final class PostCheepCommandHandlerTest extends TestCase
         string $cheepId,
         string $message
     ): void {
+        $this->eventBus->reset();
+
         (new PostCheepCommandHandler(
             $this->authorRepository,
             $this->cheepRepository,

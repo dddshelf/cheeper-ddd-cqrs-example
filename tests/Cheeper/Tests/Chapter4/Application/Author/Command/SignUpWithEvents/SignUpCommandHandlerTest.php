@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
-use Cheeper\AllChapters\DomainModel\Author\NewAuthorSigned;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents\SignUpCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
+use Cheeper\Chapter4\DomainModel\Author\NewAuthorSigned;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use PHPUnit\Framework\TestCase;
