@@ -6,6 +6,8 @@ namespace Cheeper\Tests\Chapter2;
 
 use Cheeper\Chapter2\Author;
 use Cheeper\Chapter2\Hexagonal\Application\CheepService;
+use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
+use Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepository;
 use Cheeper\Chapter2\Layered\AuthorDAO;
 use Cheeper\Chapter2\Layered\CheepDAO;
 use PHPUnit\Framework\TestCase;
@@ -13,14 +15,14 @@ use PHPUnit\Framework\TestCase;
 //snippet cheep-service-test
 final class CheepServiceTest extends TestCase
 {
-    private CheepDAO $cheeps;
-    private AuthorDAO $authors;
+    private CheepRepository $cheeps;
+    private AuthorRepository $authors;
     private CheepService $cheepService;
 
     public function setUp(): void
     {
-        $this->cheeps = \Mockery::mock(CheepDAO::class);
-        $this->authors = \Mockery::mock(AuthorDAO::class);
+        $this->cheeps = \Mockery::mock(CheepRepository::class);
+        $this->authors = \Mockery::mock(AuthorRepository::class);
         $this->cheepService = new CheepService($this->authors, $this->cheeps);
     }
 
@@ -29,7 +31,7 @@ final class CheepServiceTest extends TestCase
     {
         $this->expectException(\RuntimeException::class);
 
-        $this->authors->allows('byUsername')->andReturns(null);
+        $this->authors->allows('ofUserName')->andReturns(null);
 
         $this->cheepService->postCheep('irrelevant', 'irrelevant');
     }
@@ -37,7 +39,7 @@ final class CheepServiceTest extends TestCase
     /** @test */
     public function itShouldAddCheep(): void
     {
-        $this->authors->allows('byUsername')->andReturns(self::anAuthor());
+        $this->authors->allows('ofUsername')->andReturns(self::anAuthor());
         $this->cheeps->expects('add');
 
         $cheep = $this->cheepService->postCheep('irrelevant', 'message');

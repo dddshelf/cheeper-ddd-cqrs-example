@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Command\Author\WithIdempotency;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
-use Cheeper\Chapter6\Application\Command\Author\Follow;
+use Cheeper\Chapter6\Application\Command\Author\FollowCommand;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 final class FollowHandler
@@ -24,7 +22,7 @@ final class FollowHandler
     }
 
     //snippet idempotency-example
-    public function __invoke(Follow $command): void
+    public function __invoke(FollowCommand $command): void
     {
         $fromAuthorId = AuthorId::fromString($command->fromAuthorId());
         $toAuthorId = AuthorId::fromString($command->toAuthorId());

@@ -9,7 +9,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Follow\Follows;
-use Cheeper\Chapter6\Application\Command\Author\Follow;
+use Cheeper\Chapter6\Application\Command\Author\FollowCommand;
 use Cheeper\Chapter6\Application\Event\EventBus;
 
 //snippet follow-handler-with-event
@@ -24,7 +24,7 @@ final class FollowHandler
     ) {
     }
 
-    public function __invoke(Follow $command): void
+    public function __invoke(FollowCommand $command): void
     {
         $fromAuthorId = AuthorId::fromString($command->fromAuthorId());
         $toAuthorId = AuthorId::fromString($command->toAuthorId());

@@ -4,26 +4,21 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithDomainEvents;
 
+use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
 use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
-use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowRelation;
-use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\AllChapters\DomainModel\Follow\Follow;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
-use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase
 {
-    use SendsCommands;
-
     private const AUTHOR_ID_FROM = '400ea77d-0c8c-44f2-abe8-db05d0852966';
     private const AUTHOR_ID_TO = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
 
@@ -31,6 +26,16 @@ final class FollowHandlerTest extends TestCase
     private const USERNAME_CARLOS = 'carlosbuenosvinos';
     private const EMAIL_KEYVAN = 'keyvan.akbary@gmail.com';
     private const EMAIL_CARLOS = 'carlos.buenosvinos@gmail.com';
+
+    private InMemoryAuthorRepository $authorRepository;
+    private InMemoryEventBus $eventBus;
+
+    protected function setUp(): void
+    {
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->eventBus = new InMemoryEventBus();
+    }
 
     /** @test */
     public function givenTwoNonExistingAuthorsWhenFollowingOneToAnotherOneNonExistingAuthorExceptionShouldBeThrown(): void
@@ -45,7 +50,7 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->authors->add(
+        $this->authorRepository->add(
             $this->buildAuthor(
                 self::AUTHOR_ID_TO,
                 self::USERNAME_CARLOS,
@@ -61,7 +66,7 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->authors->add(
+        $this->authorRepository->add(
             $this->buildAuthor(
                 self::AUTHOR_ID_FROM,
                 self::USERNAME_CARLOS,
@@ -91,8 +96,8 @@ final class FollowHandlerTest extends TestCase
             EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $this->authors->add($fromAuthor);
-        $this->authors->add($toAuthor);
+        $this->authorRepository->add($fromAuthor);
+        $this->authorRepository->add($toAuthor);
         $this->follows->add(
             FollowRelation::fromAuthorToAuthor(
                 FollowId::fromString($followId),
@@ -130,8 +135,8 @@ final class FollowHandlerTest extends TestCase
             EmailAddress::from(self::EMAIL_KEYVAN)
         );
 
-        $this->authors->add($fromAuthor);
-        $this->authors->add($toAuthor);
+        $this->authorRepository->add($fromAuthor);
+        $this->authorRepository->add($toAuthor);
 
         $this->runHandler($fromAuthorId, $toAuthorId);
 
@@ -159,7 +164,7 @@ final class FollowHandlerTest extends TestCase
         $this->eventBus->reset();
 
         (new FollowHandler(
-            $this->authors,
+            $this->authorRepository,
             $this->follows,
             $this->eventBus
         ))(

@@ -6,6 +6,7 @@ namespace Cheeper\Chapter4\DomainModel\Cheep;
 
 use Cheeper\Chapter4\DomainModel\DomainEvent;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 
 // snippet cheep-posted-domain-event
@@ -23,10 +24,10 @@ final class CheepPosted implements DomainEvent
     public static function fromCheep(Cheep $cheep): self
     {
         return new self(
-            $cheep->cheepId()->toString(),
+            $cheep->id()->toString(),
             $cheep->authorId()->toString(),
-            $cheep->cheepMessage()->message(),
-            $cheep->cheepDate()->date(),
+            $cheep->message()->message(),
+            $cheep->date()->format(DateTimeInterface::ATOM),
             new DateTimeImmutable(
                 timezone: new DateTimeZone("UTC")
             )

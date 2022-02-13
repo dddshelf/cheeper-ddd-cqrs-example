@@ -8,8 +8,6 @@
             <directory suffix=".php">src/Cheeper</directory>
         </include>
         <exclude>
-            <file>src/Cheeper/Infrastructure/Persistence/InMemoryCheeps.php</file>
-            <directory>src/Cheeper/Infrastructure</directory>
             <directory>src/Cheeper/Chapter5/Infrastructure</directory>
             <directory>src/Cheeper/Chapter6/Infrastructure</directory>
         </exclude>
@@ -21,7 +19,8 @@
     </php>
     <testsuites>
         <testsuite name="full">
-            <directory>tests/</directory>
+            <directory>tests/Cheeper/Tests/Chapter2</directory>
+            <directory>tests/Cheeper/Tests/Chapter4</directory>
         </testsuite>
     </testsuites>
     <extensions>

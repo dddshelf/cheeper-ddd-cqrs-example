@@ -43,12 +43,14 @@ framework:
             # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
             # be run asynchronously.
-            Cheeper\AllChapters\Application\Command\Author\SignUp: async_commands
-            Cheeper\AllChapters\Application\Command\AsyncCommand: async_commands
-            Cheeper\AllChapters\Application\Command\SyncCommand: sync_commands
+            # TODO: Review this comment
+
             # Domain Events are sent to asynchronous
             # transport to be processed later.
             Cheeper\AllChapters\DomainModel\DomainEvent: [events, projections]
+
+            # Chapter 4
+            Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand: async_commands
 
             # Chapter 5
             # Queries are executed synchronously
@@ -56,7 +58,7 @@ framework:
             Cheeper\Chapter5\Application\Query\Query: query
 
             # Chapter 6
-            Cheeper\Chapter6\Application\Command\Author\Follow: async_commands
+            Cheeper\Chapter6\Application\Command\Author\FollowCommand: async_commands
 
             # End of Chapter 6
 

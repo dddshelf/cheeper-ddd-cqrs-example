@@ -80,11 +80,19 @@ services:
     Cheeper\Chapter6\Infrastructure\:
         resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
 
-# CHAPTER 5
+    # CHAPTER 4
+    Cheeper\Chapter4\DomainModel\Author\AuthorRepository:
+        class: 'Cheeper\Chapter4\Infrastructure\DomainModel\Author\DoctrineOrmAuthorRepository'
+    Cheeper\Chapter4\DomainModel\Cheep\CheepRepository:
+        class: 'Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\DoctrineOrmCheepRepository'
+    Cheeper\Chapter4\DomainModel\Follow\FollowRepository:
+        class: 'Cheeper\Chapter4\Infrastructure\DomainModel\Follow\DoctrineOrmFollowRepository'
+
+    # CHAPTER 5
     Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus: ~
     Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
 
-# CHAPTER 6
+    # CHAPTER 6
 #    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
 #        resource: '../src/Cheeper/Infrastructure/**/*.php'
 

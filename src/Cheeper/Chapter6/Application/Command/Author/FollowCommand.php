@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter6\Application\Command\Author;
 
 //snippet follow-command
-final class Follow
+final class FollowCommand
 {
     private function __construct(
         private string $fromAuthorId,

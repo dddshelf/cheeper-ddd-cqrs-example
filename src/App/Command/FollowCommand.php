@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Cheeper\Chapter6\Application\Command\Author\Follow;
+use Cheeper\Chapter6\Application\Command\Author\FollowCommand as ApplicationFollowCommand;
 use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -38,7 +38,7 @@ final class FollowCommand extends Command
         $io->info(sprintf('Making %s follow %s', $from, $to));
 
         $this->followHandler->__invoke(
-            Follow::fromAuthorIdToAuthorId(
+            ApplicationFollowCommand::fromAuthorIdToAuthorId(
                 from: $from,
                 to: $to
             )

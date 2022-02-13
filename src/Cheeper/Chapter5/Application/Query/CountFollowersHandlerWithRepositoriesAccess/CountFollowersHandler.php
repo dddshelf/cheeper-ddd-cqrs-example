@@ -6,7 +6,7 @@ namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositori
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter5\Application\Query\CountFollowers;
 use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
 use Cheeper\Chapter5\DomainModel\Follow\Followers;

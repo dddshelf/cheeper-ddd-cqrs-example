@@ -6,7 +6,7 @@ namespace Cheeper\Tests\Chapter4\Application\Cheep\Command;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepPosted;
+use Cheeper\Chapter4\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;

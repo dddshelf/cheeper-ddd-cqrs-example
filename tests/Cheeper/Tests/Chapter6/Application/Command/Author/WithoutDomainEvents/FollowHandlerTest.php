@@ -4,24 +4,19 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithoutDomainEvents;
 
+use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter6\Application\Command\Author\WithoutDomainEvents\FollowHandler;
 use Cheeper\AllChapters\DomainModel\Follow\Follow as FollowRelation;
-use Cheeper\Chapter6\Application\Command\Author\Follow;
-use Cheeper\AllChapters\DomainModel\Author\Author;
+use Cheeper\Chapter6\Application\Command\Author\FollowCommand;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
-use Cheeper\Tests\Helper\SendsCommands;
 use PHPUnit\Framework\TestCase;
 
 final class FollowHandlerTest extends TestCase
 {
-    use SendsCommands;
-
     private const AUTHOR_ID_FROM = '400ea77d-0c8c-44f2-abe8-db05d0852966';
     private const AUTHOR_ID_TO = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
 
@@ -149,7 +144,7 @@ final class FollowHandlerTest extends TestCase
             $this->authors,
             $this->follows,
         ))(
-            Follow::fromAuthorIdToAuthorId(
+            FollowCommand::fromAuthorIdToAuthorId(
                 $fromAuthorId,
                 $toAuthorId
             )
