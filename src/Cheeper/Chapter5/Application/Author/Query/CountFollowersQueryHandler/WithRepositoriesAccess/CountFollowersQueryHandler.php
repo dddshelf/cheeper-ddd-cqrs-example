@@ -41,4 +41,5 @@ final class CountFollowersQueryHandler
         );
     }
 }
+
 //end-snippet
