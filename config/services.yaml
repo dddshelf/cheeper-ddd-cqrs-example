@@ -78,6 +78,9 @@ services:
     Cheeper\Chapter4\DomainModel\Follow\FollowRepository:
         class: 'Cheeper\Chapter4\Infrastructure\DomainModel\Follow\DoctrineOrmFollowRepository'
 
+    Cheeper\Chapter4\Application\EventBus:
+        class: 'Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus'
+
     # CHAPTER 5
     Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus: ~
     Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
