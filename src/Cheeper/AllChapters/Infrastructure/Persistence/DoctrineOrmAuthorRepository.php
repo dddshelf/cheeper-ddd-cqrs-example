@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
-use Cheeper\AllChapters\DomainModel\Author\Author;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\AuthorRepository;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet doctrine-orm-authors

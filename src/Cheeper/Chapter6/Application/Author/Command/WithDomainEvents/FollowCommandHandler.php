@@ -9,14 +9,15 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
-use Cheeper\Chapter6\Application\EventBus;
+use Cheeper\Chapter4\Application\EventBus;
+use Cheeper\Chapter4\DomainModel\Author\Author;
 
 //snippet follow-handler-with-event
 final class FollowCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private FollowRepository $follows,
+        private AuthorRepository $authorRepository,
+        private FollowRepository $followRepository,
         // leanpub-start-insert
         private EventBus $eventBus
         // leanpub-end-insert
@@ -31,13 +32,13 @@ final class FollowCommandHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
-        $follow = $this->follows->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+        $follow = $this->followRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
         if (null !== $follow) {
             return;
         }
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-        $this->follows->add($follow);
+        $this->followRepository->add($follow);
 
         // leanpub-start-insert
         $this->eventBus->notifyAll($follow->domainEvents());
@@ -46,7 +47,7 @@ final class FollowCommandHandler
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
     {
-        $author = $this->authors->ofId($authorId);
+        $author = $this->authorRepository->ofId($authorId);
         if (null === $author) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }

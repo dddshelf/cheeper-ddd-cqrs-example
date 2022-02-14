@@ -2,22 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Chapter6\Application\Command\Author\WithDomainEvents;
+namespace Cheeper\Tests\Chapter6\Application\Author\Command\WithoutDomainEvents;
 
-use Cheeper\Chapter4\DomainModel\Author\Author;
-use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
-use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
-use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
-use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
-use Cheeper\AllChapters\DomainModel\Follow\Follow;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
+use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Follow\Follow;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use Cheeper\Chapter4\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
+use Cheeper\Chapter6\Application\Author\Command\WithoutDomainEvents\FollowCommandHandler;
 use PHPUnit\Framework\TestCase;
 
-final class FollowHandlerTest extends TestCase
+final class FollowCommandHandlerTest extends TestCase
 {
     private const AUTHOR_ID_FROM = '400ea77d-0c8c-44f2-abe8-db05d0852966';
     private const AUTHOR_ID_TO = '52d8f0b5-544f-46e0-84dc-f8b513391a0e';
@@ -29,11 +30,12 @@ final class FollowHandlerTest extends TestCase
 
     private InMemoryAuthorRepository $authorRepository;
     private InMemoryEventBus $eventBus;
+    private InMemoryFollowRepository $followRepository;
 
     protected function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
-        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->followRepository = new InMemoryFollowRepository();
         $this->eventBus = new InMemoryEventBus();
     }
 
@@ -50,13 +52,11 @@ final class FollowHandlerTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->authorRepository->add(
-            $this->buildAuthor(
-                self::AUTHOR_ID_TO,
-                self::USERNAME_CARLOS,
-                self::EMAIL_CARLOS
-            )
-        );
+        $this->authorRepository->add($this->buildAuthor(
+            self::AUTHOR_ID_TO,
+            self::USERNAME_CARLOS,
+            self::EMAIL_CARLOS
+        ));
 
         $this->runHandler(self::AUTHOR_ID_FROM, self::AUTHOR_ID_TO);
     }
@@ -98,8 +98,8 @@ final class FollowHandlerTest extends TestCase
 
         $this->authorRepository->add($fromAuthor);
         $this->authorRepository->add($toAuthor);
-        $this->follows->add(
-            FollowRelation::fromAuthorToAuthor(
+        $this->followRepository->add(
+            Follow::fromAuthorToAuthor(
                 FollowId::fromString($followId),
                 $fromAuthor->authorId(),
                 $toAuthor->authorId(),
@@ -110,11 +110,8 @@ final class FollowHandlerTest extends TestCase
 
         $this->assertCount(
             1,
-            $this->follows->collection
+            $this->followRepository->collection
         );
-
-        $events = $this->eventBus->events();
-        $this->assertCount(0, $events);
     }
 
     /** @test */
@@ -142,12 +139,8 @@ final class FollowHandlerTest extends TestCase
 
         $this->assertCount(
             1,
-            $this->follows->collection
+            $this->followRepository->collection
         );
-
-        $events = $this->eventBus->events();
-        $this->assertCount(1, $events);
-        $this->assertSame(AuthorFollowed::class, $events[0]::class);
     }
 
     private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
@@ -161,14 +154,11 @@ final class FollowHandlerTest extends TestCase
 
     private function runHandler(string $fromAuthorId, string $toAuthorId): void
     {
-        $this->eventBus->reset();
-
-        (new FollowHandler(
+        (new FollowCommandHandler(
             $this->authorRepository,
-            $this->follows,
-            $this->eventBus
+            $this->followRepository,
         ))(
-            Follow::fromAuthorIdToAuthorId(
+            FollowCommand::fromAuthorIdToAuthorId(
                 $fromAuthorId,
                 $toAuthorId
             )

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Follow\Follow;
-use Cheeper\AllChapters\DomainModel\Follow\Follows;
+use Cheeper\Chapter4\DomainModel\Follow\Follow;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 //snippet doctrine-orm-follows
-final class DoctrineOrmFollows implements Follows
+final class DoctrineOrmFollows implements FollowRepository
 {
     public function __construct(
         private EntityManagerInterface $em
@@ -29,9 +29,7 @@ final class DoctrineOrmFollows implements Follows
 
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
     {
-        $repository = $this->em->getRepository(Follow::class);
-
-        return $repository->findOneBy([
+        return $this->em->getRepository(Follow::class)->findOneBy([
             'fromAuthorId' => $fromAuthorId,
             'toAuthorId' => $toAuthorId,
         ]);
@@ -39,9 +37,9 @@ final class DoctrineOrmFollows implements Follows
 
     public function toAuthorId(AuthorId $authorId): array
     {
-        $repository = $this->em->getRepository(Follow::class);
-
-        return $repository->findBy(['toAuthorId' => $authorId]);
+        return $this->em->getRepository(Follow::class)->findBy([
+            'toAuthorId' => $authorId
+        ]);
     }
 }
 //end-snippet

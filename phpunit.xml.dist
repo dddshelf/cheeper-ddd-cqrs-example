@@ -21,6 +21,7 @@
         <testsuite name="full">
             <directory>tests/Cheeper/Tests/Chapter2</directory>
             <directory>tests/Cheeper/Tests/Chapter4</directory>
+            <directory>tests/Cheeper/Tests/Chapter6</directory>
         </testsuite>
     </testsuites>
     <extensions>

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\AllChapters\Infrastructure\Persistence;
 
-use Cheeper\AllChapters\DomainModel\Cheep\Cheep;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepRepository;
+use Cheeper\Chapter4\DomainModel\Cheep\Cheep;
+use Cheeper\Chapter4\DomainModel\Cheep\CheepRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 
