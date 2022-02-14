@@ -10,10 +10,16 @@ use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRed
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use PHPUnit\Framework\TestCase;
 
+//snippet count-followers-query-handler-test
 final class CountFollowersQueryHandlerTest extends TestCase
 {
-    /** @test */
-    public function givenNoExistingAuthorWhenCountingFollowersThenEmptyResultIsReturned(): void
+    /**
+     * @test
+     * @Given Non Existing Author
+     * @When Counting Followers
+     * @Then Non Existing Author Exception Should Be Thrown
+     */
+    public function nonExistingAuthor(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
         $this->expectExceptionMessage('Author "3409a21d-83b3-471e-a4f1-cf6748af65d2" does not exist');
@@ -28,8 +34,13 @@ final class CountFollowersQueryHandlerTest extends TestCase
         );
     }
 
-    /** @test */
-    public function givenExistingAuthorWhenCountingFollowersThenProperResultIsReturned(): void
+    /**
+     * @test
+     * @Given Existing Author With 0 Followers
+     * @When Counting Followers
+     * @Then Proper Result With 0 Followers Is Returned
+     */
+    public function givenExistingAuthorWithZeroFollowers(): void
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $authorUsername = 'buenosvinos';
@@ -68,3 +79,4 @@ final class CountFollowersQueryHandlerTest extends TestCase
         return $mock;
     }
 }
+//end-snippet
