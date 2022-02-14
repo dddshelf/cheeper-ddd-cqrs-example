@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Infrastructure\Application\Projector\Author;
+namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
 use App\Messenger\CommandBus;
 use Cheeper\AllChapters\DomainModel\Follow\AuthorUnfollowed;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
+use Cheeper\Chapter6\Application\Projector\Author\CountFollowersProjection;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-author-unfollowed-handler
@@ -28,7 +28,7 @@ final class SymfonyAuthorUnfollowedHandler implements MessageSubscriberInterface
     public function handleAuthorUnfollowed(AuthorUnfollowed $event): void
     {
         $this->commandBus->handle(
-            CountFollowers::ofAuthor($event->toAuthorId())
+            CountFollowersProjection::ofAuthor($event->toAuthorId())
         );
     }
 }

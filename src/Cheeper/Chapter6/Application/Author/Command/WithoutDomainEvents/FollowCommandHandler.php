@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Command\Author\WithIdempotency;
+namespace Cheeper\Chapter6\Application\Author\Command\WithoutDomainEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Follow\Follows;
-use Cheeper\Chapter6\Application\Command\Author\FollowCommand;
-use Cheeper\Chapter6\Application\Event\EventBus;
+use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 
-final class FollowHandler
+//snippet follow-handler-without-event
+final class FollowCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private Follows          $follows,
-        // leanpub-start-insert
-        private EventBus         $eventBus
-        // leanpub-end-insert
+        private AuthorRepository $authorRepository,
+        private FollowRepository $followRepository
     ) {
     }
 
-    //snippet idempotency-example
     public function __invoke(FollowCommand $command): void
     {
         $fromAuthorId = AuthorId::fromString($command->fromAuthorId());
@@ -30,23 +28,18 @@ final class FollowHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
-        $follow = $this->follows->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+        $follow = $this->followRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
         if (null !== $follow) {
             return;
         }
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-        $this->follows->add($follow);
-
-        // leanpub-start-insert
-        $this->eventBus->notifyAll($follow->domainEvents());
-        // leanpub-end-insert
+        $this->followRepository->add($follow);
     }
-    //end-snippet
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
     {
-        $author = $this->authors->ofId($authorId);
+        $author = $this->authorRepository->ofId($authorId);
         if (null === $author) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
@@ -54,3 +47,4 @@ final class FollowHandler
         return $author;
     }
 }
+// end-snippet

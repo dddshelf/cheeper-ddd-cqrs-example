@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Command\Author;
+namespace Cheeper\Chapter6\Application\Author\Command;
 
 //snippet follow-command
 final class FollowCommand

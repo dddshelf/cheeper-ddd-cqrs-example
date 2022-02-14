@@ -58,7 +58,7 @@ framework:
             Cheeper\Chapter5\Application\Query\Query: query
 
             # Chapter 6
-            Cheeper\Chapter6\Application\Command\Author\FollowCommand: async_commands
+            Cheeper\Chapter6\Application\Author\Command\FollowCommand: async_commands
 
             # End of Chapter 6
 

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Cheeper\Chapter6\Application\Command\Author\FollowCommand as ApplicationFollowCommand;
-use Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
+use Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,10 +13,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(name: "app:follow", description: "Make an author follow another author")]
-final class FollowCommand extends Command
+final class FollowCliCommand extends Command
 {
     public function __construct(
-        private FollowHandler $followHandler
+        private FollowCommandHandler $followHandler
     ) {
         parent::__construct();
     }
@@ -38,7 +38,7 @@ final class FollowCommand extends Command
         $io->info(sprintf('Making %s follow %s', $from, $to));
 
         $this->followHandler->__invoke(
-            ApplicationFollowCommand::fromAuthorIdToAuthorId(
+            FollowCommand::fromAuthorIdToAuthorId(
                 from: $from,
                 to: $to
             )

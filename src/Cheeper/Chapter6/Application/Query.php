@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Application\Query;
+namespace Cheeper\Chapter6\Application;
 
 //snippet query
 interface Query

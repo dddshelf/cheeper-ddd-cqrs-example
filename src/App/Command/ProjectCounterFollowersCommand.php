@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowers;
+use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjectionHandler;
+use Cheeper\Chapter6\Application\Projector\Author\CountFollowersProjection;
 use Doctrine\ORM\EntityManagerInterface;
 use Redis;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -35,11 +35,11 @@ final class ProjectCounterFollowersCommand extends Command
     {
         $authorId = $input->getArgument("authorId");
 
-        (new CountFollowerProjector(
+        (new CountFollowerProjectionHandler(
             $this->redis,
             $this->entityManager,
         ))(
-            CountFollowers::ofAuthor($authorId)
+            CountFollowersProjection::ofAuthor($authorId)
         );
 
         return Command::SUCCESS;

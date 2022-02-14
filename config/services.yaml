@@ -29,7 +29,6 @@ services:
 
             Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
             Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
-            Cheeper\Chapter6\Application\Event\EventBus: '@Cheeper\Chapter6\Infrastructure\Application\Event\SymfonyEventBus'
 
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
@@ -68,15 +67,6 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
-    Cheeper\Chapter5\Application\Query\:
-        resource: '../src/Cheeper/Chapter5/Application/Query/**/*Handler.php'
-        autoconfigure: false
-        tags:
-            - { name: messenger.message_handler, bus: query.bus }
-
-    Cheeper\Chapter5\Infrastructure\:
-        resource: '../src/Cheeper/Chapter5/Infrastructure/**/*.php'
-
     Cheeper\Chapter6\Infrastructure\:
         resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
 
@@ -92,27 +82,39 @@ services:
     Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus: ~
     Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
 
+    Cheeper\Chapter5\Application\Query\:
+        resource: '../src/Cheeper/Chapter5/Application/Query/**/*Handler.php'
+        autoconfigure: false
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+
+    Cheeper\Chapter5\Infrastructure\:
+        resource: '../src/Cheeper/Chapter5/Infrastructure/**/*.php'
+
     # CHAPTER 6
-#    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
-#        resource: '../src/Cheeper/Infrastructure/**/*.php'
+    Cheeper\Chapter6\:
+        resource: '../src/Cheeper/Chapter6/*'
 
-    Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector: ~
+    Cheeper\Chapter6\Application\Author\Projection\CountFollowerProjectionHandler: ~
 
-    Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler:
+    Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
-        class: 'Cheeper\Chapter6\Application\Command\Author\WithDomainEvents\FollowHandler'
+        class: 'Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler'
 
-    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyCountFollowerProjector:
+    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyCountFollowerProjector:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
         arguments:
-            - '@Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjector'
+            - '@Cheeper\Chapter6\Application\Author\Projection\CountFollowerProjectionHandler'
 
-    Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler:
+    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedHandler:
         tags:
             - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter6\Infrastructure\Application\Projector\Author\SymfonyAuthorFollowedHandler'
+        class: 'Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedHandler'
+
+    Cheeper\Chapter6\Application\EventBus:
+        class: 'Cheeper\Chapter6\Infrastructure\Application\SymfonyEventBus'
 
     # CHAPTER 7
     Cheeper\Chapter7\:
