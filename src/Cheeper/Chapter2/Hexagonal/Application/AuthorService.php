@@ -8,7 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter2\Author;
 use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 
-//snippet autho r-service
+//snippet author-service
 final class AuthorService
 {
     public function __construct(
