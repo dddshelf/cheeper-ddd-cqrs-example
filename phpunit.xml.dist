@@ -20,7 +20,7 @@
         <server name="SHELL_VERBOSITY" value="-1"/>
     </php>
     <testsuites>
-        <testsuite name="full">
+        <testsuite name="Full">
             <directory>tests/Cheeper/Tests/Chapter2</directory>
             <directory>tests/Cheeper/Tests/Chapter4</directory>
             <directory>tests/Cheeper/Tests/Chapter5</directory>

@@ -50,7 +50,13 @@ final class CountFollowersQueryHandlerTest extends TestCase
             CountFollowersQuery::ofAuthor($authorId)
         );
 
-        $this->assertEquals($expectedReponse, $actualResponse);
+        $this->assertSame($expectedReponse->authorId(), $actualResponse->authorId());
+        $this->assertSame($expectedReponse->authorUsername(), $actualResponse->authorUsername());
+        $this->assertSame($expectedReponse->numberOfFollowers(), $actualResponse->numberOfFollowers());
+
+        // In PHPUnit, there is also the chance to
+        // compare the whole content of the object
+        // $this->assertEquals($expectedReponse, $actualResponse);
     }
 
     private function buildRedisMockReturning($fakeReturn) {
