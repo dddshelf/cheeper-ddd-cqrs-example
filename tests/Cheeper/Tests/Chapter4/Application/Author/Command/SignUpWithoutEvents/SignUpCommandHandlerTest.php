@@ -127,7 +127,7 @@ final class SignUpCommandHandlerTest extends TestCase
     public function givenAnAuthorIdThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorAlreadyExists::class);
-//        $this->expectExceptionMessage('Author with name "johndoe" already exists');
+        $this->expectExceptionMessage('Author with id "0c57e704-3982-4c90-9f3f-e00d5ea546ac" already exists');
 
         $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 

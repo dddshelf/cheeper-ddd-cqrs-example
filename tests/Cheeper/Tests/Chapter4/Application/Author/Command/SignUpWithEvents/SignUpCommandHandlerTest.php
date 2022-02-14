@@ -11,6 +11,7 @@ use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpComman
 use Cheeper\Chapter4\DomainModel\Author\NewAuthorSigned;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -206,6 +207,45 @@ final class SignUpCommandHandlerTest extends TestCase
                 $location,
                 $website,
                 $birthDate
+            )
+        );
+    }
+
+    /** @test */
+    public function givenAnAuthorIdThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
+    {
+        $this->expectException(AuthorAlreadyExists::class);
+        $this->expectExceptionMessage('Author with id "0c57e704-3982-4c90-9f3f-e00d5ea546ac" already exists');
+
+        $signUpHandler = new SignUpCommandHandler(
+            $this->authorRepository,
+            $this->eventBus
+        );
+
+        $authorId = '0c57e704-3982-4c90-9f3f-e00d5ea546ac';
+        $signUpHandler(
+            new SignUpCommand(
+                $authorId,
+                'johndoe',
+                'johndoe@example.com',
+                'John Doe',
+                'The usual profile example',
+                'Madrid',
+                'https://example.com/',
+                (new DateTimeImmutable())->format('Y-m-d')
+            )
+        );
+
+        $signUpHandler(
+            new SignUpCommand(
+                $authorId,
+                'new_johndoe',
+                'johndoe@example.com',
+                'John Doe',
+                'The usual profile example',
+                'Madrid',
+                'https://example.com/',
+                (new DateTimeImmutable())->format('Y-m-d')
             )
         );
     }

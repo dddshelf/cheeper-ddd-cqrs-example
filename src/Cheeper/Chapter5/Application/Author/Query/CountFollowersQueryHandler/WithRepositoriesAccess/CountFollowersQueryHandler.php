@@ -2,35 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter5\Application\Query\CountFollowersHandlerWithRepositoriesAccess;
+namespace Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRepositoriesAccess;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
-use Cheeper\Chapter5\Application\Query\CountFollowers;
-use Cheeper\Chapter5\Application\Query\CountFollowersResponse;
-use Cheeper\Chapter5\DomainModel\Follow\Followers;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
+use Cheeper\Chapter5\DomainModel\Follow\FollowRepository;
 
 //snippet count-followers-handler
-final class CountFollowersHandler
+final class CountFollowersQueryHandler
 {
     public function __construct(
-        private Followers $followers,
-        private AuthorRepository $authors
+        private FollowRepository $followRepository,
+        private AuthorRepository $authorRepository
     ) {
     }
 
-    public function __invoke(CountFollowers $query): CountFollowersResponse
+    public function __invoke(CountFollowersQuery $query): CountFollowersResponse
     {
         $authorId = AuthorId::fromString($query->authorId());
 
-        $author = $this->authors->ofId($authorId);
-
+        $author = $this->authorRepository->ofId($authorId);
         if (null === $author) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        $followersCount = $this->followers->ofAuthorId($authorId)?->followers() ?? 0;
+        $followersCount = $this->followRepository->ofAuthorId($authorId)?->followers() ?? 0;
 
         // Other option would be with a counter method in the Repository
         // $followersCount = $this->followers->countOfAuthorId($authorId));

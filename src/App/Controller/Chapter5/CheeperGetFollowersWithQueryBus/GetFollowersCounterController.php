@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Chapter5\CheeperGetFollowersWithQueryBus;
 
-use Cheeper\Chapter5\Application\Query\CountFollowers;
-use Cheeper\Chapter5\Application\Query\QueryBus;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
+use Cheeper\Chapter5\Application\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +26,7 @@ final class GetFollowersCounterController extends AbstractController
                 $this
                     ->queryBus
                     ->query(
-                        CountFollowers::ofAuthor($authorId)
+                        CountFollowersQuery::ofAuthor($authorId)
                     ),
             );
 

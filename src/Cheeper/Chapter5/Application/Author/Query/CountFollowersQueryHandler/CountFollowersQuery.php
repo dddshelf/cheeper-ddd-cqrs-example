@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter5\Application\Query;
+namespace Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler;
+
+use Cheeper\Chapter5\Application\Query;
 
 //snippet count-followers
-final class CountFollowers implements Query
+final class CountFollowersQuery implements Query
 {
     private string $authorId;
 

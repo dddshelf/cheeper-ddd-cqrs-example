@@ -55,7 +55,7 @@ framework:
             # Chapter 5
             # Queries are executed synchronously
             # in the same request that data is requested.
-            Cheeper\Chapter5\Application\Query\Query: query
+            Cheeper\Chapter5\Application\Query: query
 
             # Chapter 6
             Cheeper\Chapter6\Application\Author\Command\FollowCommand: async_commands

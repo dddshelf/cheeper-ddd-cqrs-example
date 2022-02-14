@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter5\Infrastructure\Application\Query;
+namespace Cheeper\Chapter5\Infrastructure\Application;
 
-use Cheeper\Chapter5\Application\Query\Query;
-use Cheeper\Chapter5\Application\Query\QueryBus;
+use Cheeper\Chapter5\Application\Query;
+use Cheeper\Chapter5\Application\QueryBus;
 use function Functional\first;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\HandleTrait;

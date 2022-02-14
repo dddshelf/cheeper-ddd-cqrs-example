@@ -27,9 +27,6 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
 
-            Cheeper\Chapter5\DomainModel\Follow\Followers: '@Cheeper\Chapter5\Infrastructure\Persistence\DoctrineOrmFollowers'
-            Cheeper\Chapter5\Application\Query\QueryBus: '@Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus'
-
             Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
 
@@ -82,17 +79,19 @@ services:
         class: 'Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus'
 
     # CHAPTER 5
-    Cheeper\Chapter5\Infrastructure\Application\Query\SymfonyQueryBus: ~
-    Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
+    Cheeper\Chapter5\:
+        resource: '../src/Cheeper/Chapter5/*'
 
-    Cheeper\Chapter5\Application\Query\:
-        resource: '../src/Cheeper/Chapter5/Application/Query/**/*Handler.php'
-        autoconfigure: false
+    Cheeper\Chapter5\Application\QueryBus:
+        class: 'Cheeper\Chapter5\Infrastructure\Application\SymfonyQueryBus'
+
+#    Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
+
+    chapter5_query_handlers:
+        namespace: Cheeper\Chapter5\Application\
+        resource: '../src/Cheeper/Chapter5/Application/**/*QueryHandler.php'
         tags:
             - { name: messenger.message_handler, bus: query.bus }
-
-    Cheeper\Chapter5\Infrastructure\:
-        resource: '../src/Cheeper/Chapter5/Infrastructure/**/*.php'
 
     # CHAPTER 6
     Cheeper\Chapter6\:
