@@ -19,7 +19,7 @@ final class DoctrineOrmFollowRepository implements FollowRepository
 
     public function numberOfFollowersFor(AuthorId $authorId): int
     {
-        return 13;
+        return count($this->toAuthorId($authorId));
     }
 
     public function add(Follow $follow): void

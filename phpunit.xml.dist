@@ -25,6 +25,7 @@
             <directory>tests/Cheeper/Tests/Chapter4</directory>
             <directory>tests/Cheeper/Tests/Chapter5</directory>
             <directory>tests/Cheeper/Tests/Chapter6</directory>
+            <directory>tests/Cheeper/Tests/Chapter7</directory>
         </testsuite>
     </testsuites>
     <extensions>

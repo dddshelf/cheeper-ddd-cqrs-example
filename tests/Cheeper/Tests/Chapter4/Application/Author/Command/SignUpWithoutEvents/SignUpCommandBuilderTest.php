@@ -43,9 +43,33 @@ final class SignUpCommandBuilderTest extends TestCase
             ->name('John Doe')
             ->website('https://johndoe.com')
             ->biography('An example author')
+            ->birthDate('31/01/1983')
+            ->location('California')
             ->build();
         //end-snippet
 
         $this->assertInstanceOf(SignUpCommand::class, $command);
+    }
+
+    /** @test */
+    public function itBuildsOptionalFieldsAndCanUpdateMandatoryOnesBeforeBuilding(): void
+    {
+        $location = 'California';
+        $name = 'John Doe';
+        $newUserName = 'new_johndoe';
+
+        $command = SignUpCommandBuilderMock::builder(Uuid::uuid4()->toString(), 'johndoe', 'test@email.com')
+            ->name($name)
+            ->website('https://johndoe.com')
+            ->biography('An example author')
+            ->birthDate('31/01/1983')
+            ->location($location)
+            ->username($newUserName)
+            ->email('john@doe.domain')
+            ->build();
+
+        $this->assertInstanceOf(SignUpCommand::class, $command);
+        $this->assertSame($command->location(), $location);
+        $this->assertSame($command->username(), $newUserName);
     }
 }

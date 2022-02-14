@@ -65,15 +65,6 @@ final class SignUpCommand
     {
         return $this->birthDate;
     }
-
-    public static function fromArray(array $array): self
-    {
-        return new self(
-            $array['author_id'] ?? '',
-            $array['username'] ?? '',
-            $array['email'] ?? '',
-        );
-    }
     //end-ignore
 }
 //end-snippet

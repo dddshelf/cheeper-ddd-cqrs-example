@@ -8,7 +8,6 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter4\DomainModel\Follow\Follow;
 use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
-use Cheeper\Chapter5\DomainModel\Follow\NumberOfFollowers;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
