@@ -23,7 +23,7 @@ final class SignUpCommandHandlerTest extends TestCase
     }
 
     /** @test */
-    public function givenAUserNameThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
+    public function givenAnAuthorNameThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
     {
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
@@ -60,7 +60,7 @@ final class SignUpCommandHandlerTest extends TestCase
     }
 
     /** @test */
-    public function givenValidUserDataWithOnlyMandatoryFieldsWhenSignUpThenAValidUserShouldBeCreated(): void
+    public function givenValidAuthorDataWithOnlyMandatoryFieldsWhenSignUpThenAValidUserShouldBeCreated(): void
     {
         $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 
@@ -87,7 +87,7 @@ final class SignUpCommandHandlerTest extends TestCase
     }
 
     /** @test */
-    public function givenValidUserDataWhenSignUpThenAValidUserShouldBeCreated(): void
+    public function givenValidAuthorDataWhenSignUpThenAValidUserShouldBeCreated(): void
     {
         $signUpHandler = new SignUpCommandHandler($this->authorRepository);
 
@@ -121,5 +121,41 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->assertSame($location, $actualAuthor->location());
         $this->assertSame($website, $actualAuthor->website()->toString());
         $this->assertSame($birthDate, $actualAuthor->birthDate()->date()->format('Y-m-d'));
+    }
+
+    /** @test */
+    public function givenAnAuthorIdThatAlreadyBelongsToAnExistingUserWhenSignUpThenAnExceptionShouldBeThrown(): void
+    {
+        $this->expectException(AuthorAlreadyExists::class);
+//        $this->expectExceptionMessage('Author with name "johndoe" already exists');
+
+        $signUpHandler = new SignUpCommandHandler($this->authorRepository);
+
+        $authorId = '0c57e704-3982-4c90-9f3f-e00d5ea546ac';
+        $signUpHandler(
+            new SignUpCommand(
+                $authorId,
+                'johndoe',
+                'johndoe@example.com',
+                'John Doe',
+                'The usual profile example',
+                'Madrid',
+                'https://example.com/',
+                (new DateTimeImmutable())->format('Y-m-d')
+            )
+        );
+
+        $signUpHandler(
+            new SignUpCommand(
+                $authorId,
+                'new_johndoe',
+                'johndoe@example.com',
+                'John Doe',
+                'The usual profile example',
+                'Madrid',
+                'https://example.com/',
+                (new DateTimeImmutable())->format('Y-m-d')
+            )
+        );
     }
 }

@@ -22,15 +22,13 @@ final class InMemoryAuthorRepository implements AuthorRepository
 
     public function ofId(AuthorId $authorId): ?Author
     {
+        return $this->authors[$authorId->id()] ?? null;
+
         $candidate = head(
             select($this->authors, fn (Author $u): bool => $u->authorId()->equals($authorId))
         );
 
-        if (null === $candidate) {
-            return $candidate;
-        }
-
-        return $candidate;
+        return $candidate ?? null;
     }
 
     public function ofUserName(UserName $userName): ?Author

@@ -24,33 +24,47 @@ final class SignUpCommandHandler
     public function __invoke(SignUpCommand $command): void
     {
         $userName = UserName::pick($command->userName());
-        $author = $this->authors->ofUserName($userName);
+        $authorId = AuthorId::fromString($command->authorId());
+        $email = EmailAddress::from($command->email());
 
+        $author = $this->authors->ofUserName($userName);
+        $this->checkAuthorDoesNotAlreadyExistByUsername($author, $userName);
+
+        $author = $this->authors->ofId($authorId);
+        $this->checkAuthorDoesNotAlreadyExistById($author, $authorId);
+
+        $inputWebsite = $command->website();
+        $website = null !== $inputWebsite ? Website::fromString($inputWebsite) : null;
+
+        $inputBirthDate = $command->birthDate();
+        $birthDate  = null !== $inputBirthDate ? BirthDate::fromString($inputBirthDate) : null;
+
+        $author = Author::signUp(
+            $authorId,
+            $userName,
+            $email,
+            $command->name(),
+            $command->biography(),
+            $command->location(),
+            $website,
+            $birthDate
+        );
+
+        $this->authors->add($author);
+    }
+
+    private function checkAuthorDoesNotAlreadyExistByUsername(?Author $author, UserName $userName): void
+    {
         if (null !== $author) {
             throw AuthorAlreadyExists::withUserNameOf($userName);
         }
+    }
 
-        $authorId   = AuthorId::fromString($command->authorId());
-        $email      = new EmailAddress($command->email());
-
-        $inputWebsite = $command->website();
-        $website    = null !== $inputWebsite ? new Website($inputWebsite) : null;
-
-        $inputBirthDate = $command->birthDate();
-        $birthDate  = null !== $inputBirthDate ? new BirthDate($inputBirthDate) : null;
-
-        $this->authors->add(
-            Author::signUp(
-                $authorId,
-                $userName,
-                $email,
-                $command->name(),
-                $command->biography(),
-                $command->location(),
-                $website,
-                $birthDate
-            )
-        );
+    private function checkAuthorDoesNotAlreadyExistById(?Author $author, AuthorId $authorId): void
+    {
+        if (null !== $author) {
+            throw AuthorAlreadyExists::withIdOf($authorId);
+        }
     }
 }
 //end-snippet
