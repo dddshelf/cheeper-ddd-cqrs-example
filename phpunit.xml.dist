@@ -8,6 +8,8 @@
             <directory suffix=".php">src/Cheeper</directory>
         </include>
         <exclude>
+            <directory>src/App</directory>
+            <directory>src/Cheeper/Chapter2/Spaghetti</directory>
             <directory>src/Cheeper/Chapter5/Infrastructure</directory>
             <directory>src/Cheeper/Chapter6/Infrastructure</directory>
         </exclude>
