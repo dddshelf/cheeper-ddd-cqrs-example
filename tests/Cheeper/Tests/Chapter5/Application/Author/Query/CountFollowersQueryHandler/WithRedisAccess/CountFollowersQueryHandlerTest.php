@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithDbAccess;
+namespace Cheeper\Tests\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRedisAccess;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithDbAccess\CountFollowersQueryHandler;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRedisAccess\CountFollowersQueryHandler;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
-use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class CountFollowersQueryHandlerTest extends TestCase
@@ -21,7 +20,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
         $nonExistingAuthorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $queryHandler = new CountFollowersQueryHandler(
-            $this->buildEntityManagerMockReturning(false)
+            $this->buildRedisMockReturning(false)
         );
 
         $queryHandler->__invoke(
@@ -36,8 +35,8 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $authorUsername = 'buenosvinos';
         $authorFollowers = 0;
         $queryHandler = new CountFollowersQueryHandler(
-            $this->buildEntityManagerMockReturning(
-                ['id' => $authorId, 'username' => $authorUsername, 'followers' => $authorFollowers]
+            $this->buildRedisMockReturning(
+                json_encode(['id' => $authorId, 'username' => $authorUsername, 'followers' => $authorFollowers])
             )
         );
 
@@ -54,24 +53,12 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->assertEquals($expectedReponse, $actualResponse);
     }
 
-    private function buildEntityManagerMockReturning($fakeReturn) {
-        $mock = $this->createStub(EntityManagerInterface::class);
-
-        $connectionMock = new class($fakeReturn) {
-            public function __construct(private $toReturn) {
-            }
-
-            public function fetchAssociative($query, $params): mixed {
-                return $this->toReturn;
-            }
-        };
-
-        $mock->method('getConnection')->willReturn(
-            $connectionMock
+    private function buildRedisMockReturning($fakeReturn) {
+        $mock = $this->createStub(\Redis::class);
+        $mock->method('get')->willReturn(
+            $fakeReturn
         );
 
         return $mock;
     }
-
-    // @TODO: What happen if the connection is not right?
 }
