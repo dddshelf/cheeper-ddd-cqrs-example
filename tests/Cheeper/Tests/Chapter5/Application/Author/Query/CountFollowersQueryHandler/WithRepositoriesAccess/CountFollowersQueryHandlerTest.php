@@ -13,10 +13,8 @@ use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRepositoriesAccess\CountFollowersQueryHandler;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
-use Cheeper\Chapter5\DomainModel\Follow\FollowRepository;
-use Cheeper\Chapter5\DomainModel\Follow\NumberOfFollowers;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class CountFollowersQueryHandlerTest extends TestCase
 {
@@ -26,14 +24,14 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->expectException(AuthorDoesNotExist::class);
         $this->expectExceptionMessage('Author "3409a21d-83b3-471e-a4f1-cf6748af65d2" does not exist');
 
-        $nonExistingAuthorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
+        $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $queryHandler = new CountFollowersQueryHandler(
-            $this->buildFollowRepositoryMockReturning(null),
+            $this->buildFollowRepositoryMockReturning([]),
             $this->buildAuthorRepositoryMockReturning(null)
         );
 
         $queryHandler->__invoke(
-            CountFollowersQuery::ofAuthor($nonExistingAuthorId)
+            CountFollowersQuery::ofAuthor($authorId)
         );
     }
 
@@ -42,20 +40,13 @@ final class CountFollowersQueryHandlerTest extends TestCase
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $authorUsername = 'buenosvinos';
+        $authorEmail = 'carlos.buenosvinos@gmail.com';
         $authorFollowers = 0;
+
         $queryHandler = new CountFollowersQueryHandler(
-            $this->buildFollowRepositoryMockReturning(
-                new NumberOfFollowers(
-                    Uuid::fromString($authorId),
-                    0
-                )
-            ),
+            $this->buildFollowRepositoryMockReturning([]),
             $this->buildAuthorRepositoryMockReturning(
-                Author::signUp(
-                    AuthorId::fromString($authorId),
-                    UserName::pick('buenosvinos'),
-                    EmailAddress::from('carlos.buenosvinos@gmail.com')
-                )
+                $this->buildSampleAuthor($authorId, $authorUsername, $authorEmail)
             )
         );
 
@@ -72,7 +63,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->assertEquals($expectedReponse, $actualResponse);
     }
 
-    private function buildAuthorRepositoryMockReturning($fakeReturn) {
+    private function buildAuthorRepositoryMockReturning(?Author $fakeReturn) {
         $mock = $this->createStub(AuthorRepository::class);
 
         $mock->method('ofId')->willReturn(
@@ -82,10 +73,10 @@ final class CountFollowersQueryHandlerTest extends TestCase
         return $mock;
     }
 
-    private function buildFollowRepositoryMockReturning($fakeReturn) {
+    private function buildFollowRepositoryMockReturning(array $fakeReturn) {
         $mock = $this->createStub(FollowRepository::class);
 
-        $mock->method('ofAuthorId')->willReturn(
+        $mock->method('fromAuthorId')->willReturn(
             $fakeReturn
         );
 
@@ -93,4 +84,12 @@ final class CountFollowersQueryHandlerTest extends TestCase
     }
 
     // @TODO: What happen if the connection is not right?
+    private function buildSampleAuthor(string $authorId, string $authorUsername, string $authorEmail): Author
+    {
+        return Author::signUp(
+            AuthorId::fromString($authorId),
+            UserName::pick($authorUsername),
+            EmailAddress::from($authorEmail)
+        );
+    }
 }

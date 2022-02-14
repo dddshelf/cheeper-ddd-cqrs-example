@@ -9,7 +9,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
-use Cheeper\Chapter5\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 
 //snippet count-followers-handler
 final class CountFollowersQueryHandler
@@ -29,7 +29,7 @@ final class CountFollowersQueryHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        $followersCount = $this->followRepository->ofAuthorId($authorId)?->followers() ?? 0;
+        $followersCount = count($this->followRepository->toAuthorId($authorId));
 
         // Other option would be with a counter method in the Repository
         // $followersCount = $this->followers->countOfAuthorId($authorId));

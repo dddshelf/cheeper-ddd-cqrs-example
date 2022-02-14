@@ -8,6 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter4\DomainModel\Follow\Follow;
 use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter5\DomainModel\Follow\NumberOfFollowers;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
@@ -62,5 +63,10 @@ final class InMemoryFollowRepository implements FollowRepository
     public function toAuthorId(AuthorId $authorId): array
     {
         return select($this->collection, fn (Follow $f): bool => $f->toAuthorId()->equals($authorId));
+    }
+
+    public function fromAuthorId(AuthorId $authorId): array
+    {
+        return select($this->collection, fn (Follow $f): bool => $f->fromAuthorId()->equals($authorId));
     }
 }

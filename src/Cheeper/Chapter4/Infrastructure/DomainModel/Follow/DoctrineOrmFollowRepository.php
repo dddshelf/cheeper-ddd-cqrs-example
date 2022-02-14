@@ -42,5 +42,12 @@ final class DoctrineOrmFollowRepository implements FollowRepository
             ->getRepository(Follow::class)
             ->findBy(['toAuthorId' => $authorId]);
     }
+
+    public function fromAuthorId(AuthorId $authorId): array
+    {
+        return $this->em
+            ->getRepository(Follow::class)
+            ->findBy(['fromAuthorId' => $authorId]);
+    }
 }
 //end-snippet
