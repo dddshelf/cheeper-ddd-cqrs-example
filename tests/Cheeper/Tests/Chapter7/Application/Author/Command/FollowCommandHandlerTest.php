@@ -15,8 +15,8 @@ use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
 use Cheeper\Chapter7\DomainModel\Follow\Follow as FollowRelation;
 use Cheeper\Chapter7\Infrastructure\Application\InMemoryEventBus;
-use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryAuthorRepository;
-use Cheeper\Chapter7\Infrastructure\Persistence\InMemoryFollowRepository;
+use Cheeper\Chapter7\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
+use Cheeper\Chapter7\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
 use PHPUnit\Framework\TestCase;
 
 final class FollowCommandHandlerTest extends TestCase

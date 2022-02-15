@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\Persistence;
+namespace Cheeper\Chapter7\Infrastructure\DomainModel\Cheep;
 
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\Chapter7\DomainModel\Cheep\Cheep;

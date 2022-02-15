@@ -14,13 +14,6 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         bind:
-            # ignore
-            Cheeper\AllChapters\DomainModel\Cheep\Cheeps $cheeps: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmCheeps'
-            Cheeper\AllChapters\DomainModel\Author\Authors $authors: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmAuthors'
-            Cheeper\AllChapters\DomainModel\Author\Authors $authorsRepository: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmAuthors'
-            Cheeper\AllChapters\DomainModel\Follow\Follows $follows: '@Cheeper\AllChapters\Infrastructure\Persistence\DoctrineOrmFollows'
-
-            #end-ignore
             Symfony\Component\Messenger\MessageBusInterface $commandBus: "@command.bus"
             # ignore
             Symfony\Component\Messenger\MessageBusInterface $queryBus: "@query.bus"
@@ -123,13 +116,13 @@ services:
         resource: '../src/Cheeper/Chapter7/*'
 
     Cheeper\Chapter7\DomainModel\Author\AuthorRepository:
-        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmAuthorRepository'
+        class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Author\DoctrineOrmAuthorRepository'
 
     Cheeper\Chapter7\DomainModel\Cheep\CheepRepository:
-        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmCheepRepository'
+        class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Cheep\DoctrineOrmCheepRepository'
 
     Cheeper\Chapter7\DomainModel\Follow\FollowRepository:
-        class: 'Cheeper\Chapter7\Infrastructure\Persistence\DoctrineOrmFollowRepository'
+        class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Follow\DoctrineOrmFollowRepository'
 
     Cheeper\Chapter7\Application\CommandBus:
         class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyCommandBus'

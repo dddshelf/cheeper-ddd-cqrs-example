@@ -35,11 +35,6 @@ final class FollowCommand implements Command
         return $this->followId;
     }
 
-    public static function fromAuthorIdToAuthorId(string $from, string $to): self
-    {
-        return new self($from, $to, FollowId::nextIdentity()->toString());
-    }
-
     public static function fromArray(array $array): self
     {
         return new self(

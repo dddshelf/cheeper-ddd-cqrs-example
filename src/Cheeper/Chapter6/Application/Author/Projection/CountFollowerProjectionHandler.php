@@ -6,12 +6,13 @@ namespace Cheeper\Chapter6\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
+use Redis;
 
 //snippet projector-count-followers
 final class CountFollowerProjectionHandler
 {
     public function __construct(
-        private \Redis $redis,
+        private Redis $redis,
         private EntityManagerInterface $entityManager
     ) {
     }

@@ -16,18 +16,22 @@ use DateTimeInterface;
 final class CheepPostedEventHandler
 {
     public function __construct(
-        private FollowRepository $follows,
+        private FollowRepository $followRepository,
         private ProjectionBus    $projectionBus,
     ) {
     }
 
     public function handle(CheepPosted $event): void
     {
-        $follows = $this->follows->toAuthorId(
+        $follows = $this->followRepository->toAuthorId(
             AuthorId::fromString($event->authorId())
         );
 
         foreach ($follows as $follow) {
+            // Sending the projection to be processed
+            // asynchronously helps on improving
+            // performance by distributing the tasks
+            // between multiple workers
             $this->projectionBus->project(
                 new AddCheepToTimelineProjection(
                     authorId:       $follow->fromAuthorId()->toString(),
@@ -39,7 +43,11 @@ final class CheepPostedEventHandler
                 )
             );
 
-            // This is an example on how to straightly do it with a Redis class instance
+            // This is an example on how to straightly do
+            // it with a Redis class instance. This approach
+            // is synchronous. Depending on the case, it could
+            // be the right choice.
+            //
             // $this->redis->lPush(
             //     sprintf("timelines_%s", $follow->fromAuthorId()->toString()),
             //     serialize([

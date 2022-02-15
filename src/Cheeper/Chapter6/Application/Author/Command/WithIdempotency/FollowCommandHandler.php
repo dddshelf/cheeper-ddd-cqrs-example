@@ -6,15 +6,17 @@ namespace Cheeper\Chapter6\Application\Author\Command\WithIdempotency;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Follow\Follows;
-use Cheeper\Chapter6\Application\Command\Author\FollowCommand;
-use Cheeper\Chapter6\Application\Event\EventBus;
+use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
+use Cheeper\Chapter6\Application\EventBus;
 
 final class FollowCommandHandler
 {
     public function __construct(
         private AuthorRepository $authors,
-        private Follows          $follows,
+        private FollowRepository $follows,
         // leanpub-start-insert
         private EventBus         $eventBus
         // leanpub-end-insert
