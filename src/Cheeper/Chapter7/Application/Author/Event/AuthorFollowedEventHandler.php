@@ -12,13 +12,13 @@ use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
 final class AuthorFollowedEventHandler
 {
     public function __construct(
-        private CountFollowersProjectionHandler $projector
+        private CountFollowersProjectionHandler $projectionHandler
     ) {
     }
 
     public function handle(AuthorFollowed $event): void
     {
-        $this->projector->__invoke(
+        $this->projectionHandler->__invoke(
             CountFollowersProjection::ofAuthor($event->toAuthorId())
         );
     }

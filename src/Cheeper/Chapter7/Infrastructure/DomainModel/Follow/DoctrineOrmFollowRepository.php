@@ -19,7 +19,7 @@ final class DoctrineOrmFollowRepository implements FollowRepository
 
     public function numberOfFollowersFor(AuthorId $authorId): int
     {
-        return 13;
+        return count($this->em->getRepository(Follow::class)->findBy(['fromAuthorId' => $authorId]));
     }
 
     public function add(Follow $follow): void
@@ -29,9 +29,7 @@ final class DoctrineOrmFollowRepository implements FollowRepository
 
     public function ofFromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
     {
-        $repository = $this->em->getRepository(Follow::class);
-
-        return $repository->findOneBy([
+        return $this->em->getRepository(Follow::class)->findOneBy([
             'fromAuthorId' => $fromAuthorId,
             'toAuthorId' => $toAuthorId,
         ]);
@@ -39,9 +37,7 @@ final class DoctrineOrmFollowRepository implements FollowRepository
 
     public function toAuthorId(AuthorId $authorId): array
     {
-        $repository = $this->em->getRepository(Follow::class);
-
-        return $repository->findBy(['toAuthorId' => $authorId]);
+        return $this->em->getRepository(Follow::class)->findBy(['toAuthorId' => $authorId]);
     }
 }
 //end-snippet

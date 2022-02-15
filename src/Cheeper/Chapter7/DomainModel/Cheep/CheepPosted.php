@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Cheep;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter7\Application\MessageTrait;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 use DateTimeImmutable;
@@ -31,6 +35,24 @@ final class CheepPosted implements DomainEvent
             $cheep->authorId()->toString(),
             $cheep->cheepMessage()->message(),
             $cheep->cheepDate()->date(),
+            new DateTimeImmutable(
+                timezone: new DateTimeZone("UTC")
+            )
+        );
+    }
+
+    public static function create(
+        CheepId $cheepId,
+        AuthorId $authorId,
+        CheepMessage $cheepMessage,
+        CheepDate $cheepDate,
+    ): self
+    {
+        return new self(
+            $cheepId->toString(),
+            $authorId->toString(),
+            $cheepMessage->message(),
+            $cheepDate->date(),
             new DateTimeImmutable(
                 timezone: new DateTimeZone("UTC")
             )
