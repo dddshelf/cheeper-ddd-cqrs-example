@@ -54,7 +54,9 @@ final class SignUpCommandHandler
         );
 
         $this->authors->add($author);
-        $this->eventBus->notifyAll($author->domainEvents());
+        $this->eventBus->notifyAll(
+            $author->retrieveAndFlushDomainEvents()
+        );
     }
 
     private function checkAuthorDoesNotAlreadyExistByUsername(?Author $author, UserName $userName): void

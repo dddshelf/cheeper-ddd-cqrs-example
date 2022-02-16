@@ -6,6 +6,8 @@ namespace Cheeper\Tests\Chapter4\Application\Author\Command\SignUpWithEvents;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Clock;
+use Cheeper\AllChapters\DomainModel\Clock\DateCollectionClockStrategy;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithEvents\SignUpCommandHandler;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
 use Cheeper\Chapter4\DomainModel\Author\NewAuthorSigned;
@@ -14,16 +16,29 @@ use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use function Functional\first;
 
 final class SignUpCommandHandlerTest extends TestCase
 {
     private InMemoryAuthorRepository $authorRepository;
     private InMemoryEventBus $eventBus;
+    private DateTimeImmutable $today;
 
     protected function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->eventBus = new InMemoryEventBus();
+        $this->today = $this->getToday();
+        Clock::instance()->changeStrategy(
+            new DateCollectionClockStrategy([$this->today])
+        );
+    }
+
+    protected function tearDown(): void
+    {
+        Clock::instance()->changeStrategy(
+            new Clock\DefaultClockStrategy()
+        );
     }
 
     /** @test */
@@ -97,8 +112,13 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->assertNull($actualAuthor->birthDate());
 
         $events = $this->eventBus->events();
+
+        /** @var NewAuthorSigned $firstEvent */
+        $firstEvent = first($events);
         $this->assertCount(1, $events);
-        $this->assertSame(NewAuthorSigned::class, $events[0]::class);
+        $this->assertSame(NewAuthorSigned::class, $firstEvent::class);
+        $this->assertSame($actualAuthor->authorId()->toString(), $firstEvent->authorId());
+        $this->assertSame($this->today, $firstEvent->occurredOn());
     }
 
     /** @test */
@@ -247,6 +267,13 @@ final class SignUpCommandHandlerTest extends TestCase
                 'https://example.com/',
                 (new DateTimeImmutable())->format('Y-m-d')
             )
+        );
+    }
+
+    protected function getToday(): DateTimeImmutable
+    {
+        return new DateTimeImmutable(
+            'now', new \DateTimeZone('UTC')
         );
     }
 }

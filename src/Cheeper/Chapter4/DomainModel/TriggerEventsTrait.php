@@ -16,12 +16,21 @@ trait TriggerEventsTrait
         return $this->domainEvents;
     }
 
+    /** @return DomainEvent[] */
+    public function retrieveAndFlushDomainEvents(): array
+    {
+        $events = $this->domainEvents();
+        $this->resetDomainEvent();
+
+        return $events;
+    }
+
     public function notifyDomainEvent(DomainEvent $domainEvent): void
     {
         $this->domainEvents[] = $domainEvent;
     }
 
-    public function resetDomainEvent(): void
+    private function resetDomainEvent(): void
     {
         $this->domainEvents = [];
     }

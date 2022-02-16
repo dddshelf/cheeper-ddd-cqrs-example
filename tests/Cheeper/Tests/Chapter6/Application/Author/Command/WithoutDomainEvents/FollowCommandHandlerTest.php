@@ -11,7 +11,6 @@ use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter4\DomainModel\Follow\Follow;
-use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
 use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
@@ -29,14 +28,12 @@ final class FollowCommandHandlerTest extends TestCase
     private const EMAIL_CARLOS = 'carlos.buenosvinos@gmail.com';
 
     private InMemoryAuthorRepository $authorRepository;
-    private InMemoryEventBus $eventBus;
     private InMemoryFollowRepository $followRepository;
 
     protected function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->followRepository = new InMemoryFollowRepository();
-        $this->eventBus = new InMemoryEventBus();
     }
 
     /** @test */

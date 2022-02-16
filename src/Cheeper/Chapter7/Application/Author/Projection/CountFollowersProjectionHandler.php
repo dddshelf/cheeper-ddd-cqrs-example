@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Projection;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 use Redis;
@@ -31,6 +32,10 @@ final class CountFollowersProjectionHandler
             "GROUP BY id, username",
             ['authorId' => $authorId->toString()]
         );
+
+        if (false === $result) {
+            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
+        }
 
         $projectionResult = [
             'id' => $authorId->toString(),

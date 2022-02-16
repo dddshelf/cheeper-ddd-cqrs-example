@@ -21,17 +21,13 @@ use Ramsey\Uuid\Uuid;
 
 final class FollowCommandHandlerTest extends TestCase
 {
-    private InMemoryCheepRepository $cheepRepository;
     private InMemoryAuthorRepository $authorRepository;
-    private InMemoryEventBus $eventBus;
     private InMemoryFollowRepository $followRepository;
 
     protected function setUp(): void
     {
-        $this->cheepRepository = new InMemoryCheepRepository();
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->followRepository = new InMemoryFollowRepository();
-        $this->eventBus = new InMemoryEventBus();
     }
 
     /** @test */

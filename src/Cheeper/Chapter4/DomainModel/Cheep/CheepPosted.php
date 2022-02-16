@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\DomainModel\Cheep;
 
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter4\DomainModel\DomainEvent;
 use DateTimeImmutable;
 use DateTimeInterface;
@@ -28,9 +29,7 @@ final class CheepPosted implements DomainEvent
             $cheep->authorId()->toString(),
             $cheep->message()->message(),
             $cheep->date()->format(DateTimeInterface::ATOM),
-            new DateTimeImmutable(
-                timezone: new DateTimeZone("UTC")
-            )
+            Clock::instance()->now()
         );
     }
 

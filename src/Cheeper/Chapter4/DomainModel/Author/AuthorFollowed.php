@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\DomainModel\Author;
 
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter4\DomainModel\DomainEvent;
 use Cheeper\Chapter4\DomainModel\Follow\Follow;
 use DateTimeImmutable;
-use DateTimeZone;
 
 // snippet author-followed-domain-event
 final class AuthorFollowed implements DomainEvent
@@ -26,9 +26,7 @@ final class AuthorFollowed implements DomainEvent
             $follow->followId()->toString(),
             $follow->fromAuthorId()->toString(),
             $follow->toAuthorId()->toString(),
-            new DateTimeImmutable(
-                timezone: new DateTimeZone("UTC")
-            )
+            Clock::instance()->now()
         );
     }
 
