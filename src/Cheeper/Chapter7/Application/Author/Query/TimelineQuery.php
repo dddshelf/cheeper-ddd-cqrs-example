@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Query;
 
+use Cheeper\Chapter7\Application\MessageTrait;
 use Cheeper\Chapter7\Application\Query;
 
 //snippet timeline-query
 final class TimelineQuery implements Query
 {
+    use MessageTrait;
+
     public static function fromArray(array $array): self
     {
         return new self(
@@ -23,6 +26,7 @@ final class TimelineQuery implements Query
         private int $offset,
         private int $size,
     ) {
+        $this->stampAsNewMessage();
     }
 
     public function authorId(): string

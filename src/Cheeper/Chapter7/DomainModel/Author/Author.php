@@ -85,11 +85,6 @@ final class Author
         return AuthorId::fromString($this->authorId);
     }
 
-    public function userId(): AuthorId
-    {
-        return AuthorId::fromString($this->authorId);
-    }
-
     public function userName(): UserName
     {
         return UserName::pick($this->userName);

@@ -36,10 +36,8 @@ final class FollowCommandHandler
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
         $this->follows->add($follow);
 
-        $followEvent = $follow->domainEvents()[0];
-        $followEvent->stampAsResponseTo($command);
-
-        $this->eventBus->notifyAll([$followEvent]);
+        $domainEvents = $follow->domainEvents();
+        $this->notifyEvents($command, $domainEvents);
     }
 
     private function tryToFindTheAuthorOfId(AuthorId $authorId): Author
@@ -50,5 +48,15 @@ final class FollowCommandHandler
         }
 
         return $author;
+    }
+
+    private function notifyEvents(FollowCommand $command, array $domainEvents): void
+    {
+        $stamppedEvents = array_map(
+            static fn($event) => $event->stampAsResponseTo($command),
+            $domainEvents
+        );
+
+        $this->eventBus->notifyAll($stamppedEvents);
     }
 }
