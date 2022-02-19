@@ -58,10 +58,7 @@ final class FollowCommandHandler
         $follow = $this->followRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
 
         if (null !== $follow) {
-            throw FollowDoesAlreadyExistException::withFromAuthorIdToAuthorId(
-                $fromAuthorId,
-                $toAuthorId
-            );
+            throw FollowDoesAlreadyExistException::withFromAuthorIdToAuthorId($fromAuthorId, $toAuthorId);
         }
     }
 }

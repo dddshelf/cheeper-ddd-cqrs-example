@@ -6,11 +6,11 @@ namespace Cheeper\Chapter6\Application\Author\Command\WithIdempotency;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\Chapter4\Application\EventBus;
 use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
-use Cheeper\Chapter6\Application\EventBus;
 
 final class FollowCommandHandler
 {
@@ -32,6 +32,7 @@ final class FollowCommandHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
+        // Idempotency check
         $follow = $this->follows->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
         if (null !== $follow) {
             return;
