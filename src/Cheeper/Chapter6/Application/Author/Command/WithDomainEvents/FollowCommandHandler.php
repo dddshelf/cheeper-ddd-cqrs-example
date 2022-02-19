@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Author\Command\WithDomainEvents;
 
+use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
 use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
@@ -32,10 +33,7 @@ final class FollowCommandHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
-        $follow = $this->followRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
-        if (null !== $follow) {
-            return;
-        }
+        $this->checkFollowDoesNotExistsYet($fromAuthorId, $toAuthorId);
 
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
         $this->followRepository->add($follow);
@@ -53,6 +51,18 @@ final class FollowCommandHandler
         }
 
         return $author;
+    }
+
+    protected function checkFollowDoesNotExistsYet(AuthorId $fromAuthorId, AuthorId $toAuthorId): void
+    {
+        $follow = $this->followRepository->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+
+        if (null !== $follow) {
+            throw FollowDoesAlreadyExistException::withFromAuthorIdToAuthorId(
+                $fromAuthorId,
+                $toAuthorId
+            );
+        }
     }
 }
 // end-snippet

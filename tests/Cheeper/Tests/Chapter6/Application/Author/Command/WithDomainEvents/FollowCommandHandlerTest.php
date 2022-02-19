@@ -8,6 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
 use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter4\DomainModel\Follow\Follow;
@@ -83,6 +84,8 @@ final class FollowCommandHandlerTest extends TestCase
     /** @test */
     public function givenTwoAuthorsFollowingOneToAnotherAlreadyWhenTryingToFollowAgainNothingShouldBeHappening(): void
     {
+        $this->expectException(FollowDoesAlreadyExistException::class);
+
         $fromAuthorId = self::AUTHOR_ID_FROM;
         $toAuthorId = self::AUTHOR_ID_TO;
         $followId = '51d8ffff-123f-78e1-48fc-f8b513391a0e';

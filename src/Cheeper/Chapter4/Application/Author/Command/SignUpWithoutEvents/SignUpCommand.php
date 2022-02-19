@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents;
 
+use Cheeper\Chapter4\Application\Command;
 use Cheeper\Chapter7\Application\MessageTrait;
 
 //snippet sign-up
-final class SignUpCommand
+final class SignUpCommand implements Command
 {
     //ignore
     use MessageTrait;

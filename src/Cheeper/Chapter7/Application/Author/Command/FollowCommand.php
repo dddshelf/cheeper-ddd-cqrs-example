@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Command;
 
-use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter7\Application\Command;
 use Cheeper\Chapter7\Application\MessageTrait;
 

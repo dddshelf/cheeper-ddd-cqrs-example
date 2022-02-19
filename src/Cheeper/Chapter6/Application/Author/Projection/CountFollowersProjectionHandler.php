@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Author\Projection;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Doctrine\ORM\EntityManagerInterface;
 use Redis;
 
 //snippet projector-count-followers
-final class CountFollowerProjectionHandler
+final class CountFollowersProjectionHandler
 {
     public function __construct(
         private Redis $redis,
@@ -31,6 +32,10 @@ final class CountFollowerProjectionHandler
             "GROUP BY id, username",
             ['authorId' => $authorId->toString()]
         );
+
+        if (false === $result) {
+            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
+        }
 
         $result['followers'] = (int) $result['followers'];
 

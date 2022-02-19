@@ -21,7 +21,6 @@ final class CountFollowersQueryHandler
     public function __invoke(CountFollowersQuery $query): CountFollowersResponse
     {
         $connection = $this->entityManager->getConnection();
-
         $authorId = AuthorId::fromString($query->authorId());
 
         $arrayResult = $connection->fetchAssociative(

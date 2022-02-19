@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter4\Application\Cheep\Command;
 
+use Cheeper\Chapter4\Application\Command;
+
 //snippet post-cheep
-final class PostCheepCommand
+final class PostCheepCommand implements Command
 {
     private function __construct(
         private string $cheepId,

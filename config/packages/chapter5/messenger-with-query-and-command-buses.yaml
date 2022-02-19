@@ -27,7 +27,7 @@ framework:
             # Route your messages to the transports
             # One way to route the messages is using Interfaces or Parent Classes
             # that helps on not having to maintaining this routing 1 to 1 approach
-            'Cheeper\DomainModel\DomainEvent': async
-            'Cheeper\Application\Command\AsyncCommand': async
-            'Cheeper\Application\Command\SyncCommand': sync
+            'Cheeper\Chapter5\DomainModel\DomainEvent': async
+            'Cheeper\Chapter5\Application\Command': async
+            'Cheeper\Chapter5\Application\Query': sync
         #end-ignore

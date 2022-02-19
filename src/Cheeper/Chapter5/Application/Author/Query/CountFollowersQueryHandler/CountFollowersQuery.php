@@ -9,16 +9,15 @@ use Cheeper\Chapter5\Application\Query;
 //snippet count-followers
 final class CountFollowersQuery implements Query
 {
-    private string $authorId;
-
     public static function ofAuthor(string $authorId): self
     {
         return new self($authorId);
     }
 
-    private function __construct(string $authorId)
+    private function __construct(
+        private string $authorId
+    )
     {
-        $this->authorId = $authorId;
     }
 
     public function authorId(): string

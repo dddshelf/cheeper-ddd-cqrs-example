@@ -75,7 +75,7 @@ final class Cheep
 
     final public function recomposeWith(CheepMessage $cheepMessage): void
     {
-        $this->message = $cheepMessage->message();
+        $this->setMessage($cheepMessage->message());
     }
 }
 //end-snippet

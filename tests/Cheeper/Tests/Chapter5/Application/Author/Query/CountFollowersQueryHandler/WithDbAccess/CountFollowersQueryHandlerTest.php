@@ -38,11 +38,11 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
     /**
      * @test
-     * @Given Existing Author With 0 Followers
+     * @Given An Existing Author With 0 Followers
      * @When Counting Followers
      * @Then Proper Result With 0 Followers Is Returned
      */
-    public function givenExistingAuthorWithZeroFollowers(): void
+    public function existingAuthorWithZeroFollowers(): void
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $authorUsername = 'buenosvinos';
@@ -68,8 +68,11 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->assertEquals($expectedReponse, $actualResponse);
     }
 
-    private function buildEntityManagerMockReturning($fakeReturn) {
-        $mock = $this->createStub(EntityManagerInterface::class);
+    private function buildEntityManagerMockReturning($fakeReturn): EntityManagerInterface
+    {
+        $mock = $this->createStub(
+            EntityManagerInterface::class
+        );
 
         $connectionMock = new class($fakeReturn) {
             public function __construct(private $toReturn) {

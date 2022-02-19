@@ -9,6 +9,7 @@ use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFo
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRedisAccess\CountFollowersQueryHandler;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use PHPUnit\Framework\TestCase;
+use Redis;
 
 //snippet count-followers-query-handler-test
 final class CountFollowersQueryHandlerTest extends TestCase
@@ -36,18 +37,22 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
     /**
      * @test
-     * @Given Existing Author With 0 Followers
+     * @Given An Existing Author With 0 Followers
      * @When Counting Followers
      * @Then Proper Result With 0 Followers Is Returned
      */
-    public function givenExistingAuthorWithZeroFollowers(): void
+    public function existingAuthorWithZeroFollowers(): void
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $authorUsername = 'buenosvinos';
         $authorFollowers = 0;
         $queryHandler = new CountFollowersQueryHandler(
             $this->buildRedisMockReturning(
-                json_encode(['id' => $authorId, 'username' => $authorUsername, 'followers' => $authorFollowers])
+                json_encode([
+                    'id' => $authorId,
+                    'username' => $authorUsername,
+                    'followers' => $authorFollowers
+                ])
             )
         );
 
@@ -61,17 +66,29 @@ final class CountFollowersQueryHandlerTest extends TestCase
             CountFollowersQuery::ofAuthor($authorId)
         );
 
-        $this->assertSame($expectedReponse->authorId(), $actualResponse->authorId());
-        $this->assertSame($expectedReponse->authorUsername(), $actualResponse->authorUsername());
-        $this->assertSame($expectedReponse->numberOfFollowers(), $actualResponse->numberOfFollowers());
+        $this->assertSame(
+            $expectedReponse->authorId(),
+            $actualResponse->authorId()
+        );
+
+        $this->assertSame(
+            $expectedReponse->authorUsername(),
+            $actualResponse->authorUsername()
+        );
+
+        $this->assertSame(
+            $expectedReponse->numberOfFollowers(),
+            $actualResponse->numberOfFollowers()
+        );
 
         // In PHPUnit, there is also the chance to
         // compare the whole content of the object
         // $this->assertEquals($expectedReponse, $actualResponse);
     }
 
-    private function buildRedisMockReturning($fakeReturn) {
-        $mock = $this->createStub(\Redis::class);
+    private function buildRedisMockReturning($fakeReturn): Redis
+    {
+        $mock = $this->createStub(Redis::class);
         $mock->method('get')->willReturn(
             $fakeReturn
         );

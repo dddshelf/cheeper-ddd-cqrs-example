@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
-use Cheeper\Chapter6\Application\Author\Projection\CountFollowerProjectionHandler;
+use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler;
 use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
 {
     public function __construct(
-        private CountFollowerProjectionHandler $projector
+        private CountFollowersProjectionHandler $projector
     ) {
     }
 

@@ -18,8 +18,13 @@ use PHPUnit\Framework\TestCase;
 
 final class CountFollowersQueryHandlerTest extends TestCase
 {
-    /** @test */
-    public function givenNoExistingAuthorWhenCountingFollowersThenEmptyResultIsReturned(): void
+    /**
+     * @test
+     * @Given Non Existing Author
+     * @When Counting Followers
+     * @Then Non Existing Author Exception Should Be Thrown
+     */
+    public function nonExistingAuthor(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
         $this->expectExceptionMessage('Author "3409a21d-83b3-471e-a4f1-cf6748af65d2" does not exist');
@@ -35,8 +40,13 @@ final class CountFollowersQueryHandlerTest extends TestCase
         );
     }
 
-    /** @test */
-    public function givenExistingAuthorWhenCountingFollowersThenProperResultIsReturned(): void
+    /**
+     * @test
+     * @Given An Existing Author With 0 Followers
+     * @When Counting Followers
+     * @Then Proper Result With 0 Followers Is Returned
+     */
+    public function existingAuthorWithZeroFollowers(): void
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
         $authorUsername = 'buenosvinos';
@@ -63,7 +73,8 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->assertEquals($expectedReponse, $actualResponse);
     }
 
-    private function buildAuthorRepositoryMockReturning(?Author $fakeReturn) {
+    private function buildAuthorRepositoryMockReturning(?Author $fakeReturn): AuthorRepository
+    {
         $mock = $this->createStub(AuthorRepository::class);
 
         $mock->method('ofId')->willReturn(
@@ -73,7 +84,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
         return $mock;
     }
 
-    private function buildFollowRepositoryMockReturning(array $fakeReturn) {
+    private function buildFollowRepositoryMockReturning(array $fakeReturn): FollowRepository {
         $mock = $this->createStub(FollowRepository::class);
 
         $mock->method('fromAuthorId')->willReturn(
@@ -83,9 +94,11 @@ final class CountFollowersQueryHandlerTest extends TestCase
         return $mock;
     }
 
-    // @TODO: What happen if the connection is not right?
-    private function buildSampleAuthor(string $authorId, string $authorUsername, string $authorEmail): Author
-    {
+    private function buildSampleAuthor(
+        string $authorId,
+        string $authorUsername,
+        string $authorEmail
+    ): Author {
         return Author::signUp(
             AuthorId::fromString($authorId),
             UserName::pick($authorUsername),
