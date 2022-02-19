@@ -37,11 +37,13 @@ final class CountFollowersProjectionHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
-        $result['followers'] = (int) $result['followers'];
-
         $this->redis->set(
             'author_followers_counter_projection:'.$authorId->toString(),
-            json_encode($result)
+            json_encode([
+                'id' => $result['id'],
+                'username' => $result['username'],
+                'followers' => (int) $result['followers'],
+            ])
         );
     }
 }

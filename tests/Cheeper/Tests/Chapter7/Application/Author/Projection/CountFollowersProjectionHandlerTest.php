@@ -22,7 +22,7 @@ final class CountFollowersProjectionHandlerTest extends TestCase
      * @When
      * @Then
      */
-    public function authorNonExistingOrWithoutFollowers(): void
+    public function nonExistingOrWithoutFollowers(): void
     {
         $authorId = '1c22ed61-c305-44dd-a558-f261f434f583';
 
@@ -30,11 +30,6 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Author "1c22ed61-c305-44dd-a558-f261f434f583" does not exist');
 
         $redisMock = $this->createMock(\Redis::class);
-//        $redisMock
-//            ->expects($this->once())
-//            ->method('set')
-//        ;
-
         $dbMock = $this->buildEntityManagerMockReturning(false);
 
         $handler = new CountFollowersProjectionHandler(

@@ -18,11 +18,11 @@ final class CountFollowersProjectionHandlerTest extends TestCase
 {
     /**
      * @test
-     * @Given
-     * @When
-     * @Then
+     * @Given Non Existing Author
+     * @When Counting Followers
+     * @Then Non Existing Author Exception Should Be Thrown
      */
-    public function authorNonExistingOrWithoutFollowers(): void
+    public function nonExistingAuthor(): void
     {
         $authorId = '1c22ed61-c305-44dd-a558-f261f434f583';
 
@@ -30,11 +30,6 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Author "1c22ed61-c305-44dd-a558-f261f434f583" does not exist');
 
         $redisMock = $this->createMock(\Redis::class);
-//        $redisMock
-//            ->expects($this->once())
-//            ->method('set')
-//        ;
-
         $dbMock = $this->buildEntityManagerMockReturning(false);
 
         $handler = new CountFollowersProjectionHandler(
@@ -48,25 +43,38 @@ final class CountFollowersProjectionHandlerTest extends TestCase
     }
 
     /**
-     * @atest
-     * @Given
-     * @When
-     * @Then
+     * @test
+     * @Given An Existing Author With 0 Followers
+     * @When Counting Followers
+     * @Then Proper Result With 0 Followers Is Returned
      */
-    public function authorExistingWithMoreThanOneFollowers(): void
+    public function existingAuthorWithZeroFollowers(): void
     {
         $authorId = '1c22ed61-c305-44dd-a558-f261f434f583';
-
-        $this->expectException(AuthorDoesNotExist::class);
-        $this->expectExceptionMessage('Author "1c22ed61-c305-44dd-a558-f261f434f583" does not exist');
+        $authorUsername = 'alice';
+        $authorFollowers = 10;
 
         $redisMock = $this->createMock(\Redis::class);
-//        $redisMock
-//            ->expects($this->once())
-//            ->method('set')
-//        ;
+        $redisMock
+            ->expects($this->once())
+            ->method('set')
+            ->with(
+                'author_followers_counter_projection:'.$authorId,
+                json_encode(
+                    [
+                        'id' => $authorId,
+                        'username' => $authorUsername,
+                        'followers' => $authorFollowers
+                    ]
+                )
+            )
+        ;
 
-        $dbMock = $this->buildEntityManagerMockReturning(false);
+        $dbMock = $this->buildEntityManagerMockReturning([
+            'id' => $authorId,
+            'username' => $authorUsername,
+            'followers' => $authorFollowers
+        ]);
 
         $handler = new CountFollowersProjectionHandler(
             $redisMock,
@@ -78,7 +86,8 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         );
     }
 
-    private function buildEntityManagerMockReturning($fakeReturn) {
+    private function buildEntityManagerMockReturning($fakeReturn): EntityManagerInterface
+    {
         $mock = $this->createStub(EntityManagerInterface::class);
 
         $connectionMock = new class($fakeReturn) {

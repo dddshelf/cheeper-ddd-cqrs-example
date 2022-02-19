@@ -43,9 +43,7 @@ final class CountFollowersProjectionHandler
             'followers' => 0,
         ];
 
-        if (false !== $result) {
-            $projectionResult['followers'] = (int) $result['followers'];
-        }
+        $projectionResult['followers'] = (int) $result['followers'];
 
         $this->redis->set(
             'author_followers_counter_projection:'.$authorId->toString(),
