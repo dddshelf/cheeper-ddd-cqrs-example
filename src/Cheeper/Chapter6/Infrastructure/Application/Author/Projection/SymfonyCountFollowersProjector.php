@@ -6,15 +6,14 @@ namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
 use Cheeper\AllChapters\DomainModel\Follow\AuthorUnfollowed;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowerProjectionHandler;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowersProjection;
+use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-projector-count-followers
-final class SymfonyCountFollowerProjector implements MessageSubscriberInterface
+final class SymfonyCountFollowersProjector implements MessageSubscriberInterface
 {
     public function __construct(
-        private CountFollowerProjectionHandler $projector
+        private CountFollowersProjectionHandler $projector
     ) {
     }
 

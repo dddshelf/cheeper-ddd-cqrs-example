@@ -90,18 +90,18 @@ services:
     Cheeper\Chapter6\:
         resource: '../src/Cheeper/Chapter6/*'
 
-    Cheeper\Chapter6\Application\Author\Projection\CountFollowerProjectionHandler: ~
+    Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler: ~
 
     Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
         class: 'Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler'
 
-    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyCountFollowerProjector:
+    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyCountFollowersProjector:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
         arguments:
-            - '@Cheeper\Chapter6\Application\Author\Projection\CountFollowerProjectionHandler'
+            - '@Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler'
 
     Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedHandler:
         tags:

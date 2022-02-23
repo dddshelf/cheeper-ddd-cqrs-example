@@ -4,25 +4,39 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter7\Application\Author\Event;
 
-use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter7\Application\Author\Event\AuthorFollowedEventHandler;
-use Cheeper\Chapter7\Application\Author\Projection\CountFollowersProjectionHandler;
-use DateTimeImmutable;
+use Cheeper\Chapter7\Application\Author\Projection\CountFollowersProjectionHandlerInterface;
+use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
+use Cheeper\Chapter7\DomainModel\Follow\Follow;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class AuthorFollowedEventHandlerTest extends TestCase
 {
-
-    protected function setUp(): void
+    /**
+     * @test
+     * @Given Non Existing Customer Or Without
+     * @When When
+     * @Then
+     */
+    public function authorNonExistingOrWithoutFollowers(): void
     {
+        $mock = $this->createMock(CountFollowersProjectionHandlerInterface::class);
+        $mock->expects($this->once())->method('__invoke');
 
-    }
+        $eventHandler = new AuthorFollowedEventHandler($mock);
 
-    /** @test */
-    public function itDelegatesIntoProjectionHandler(): void
-    {
-        $this->markTestSkipped();
+        $follow = Follow::fromAuthorToAuthor(
+            FollowId::nextIdentity(),
+            AuthorId::nextIdentity(),
+            AuthorId::nextIdentity(),
+        );
+
+        $eventHandler->handle(
+            AuthorFollowed::fromFollow(
+                $follow
+            )
+        );
     }
 }

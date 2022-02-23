@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Redis;
 
 //snippet projector-count-followers
-final class CountFollowersProjectionHandler
+final class CountFollowersProjectionHandler implements CountFollowersProjectionHandlerInterface
 {
     public function __construct(
         private Redis $redis,
@@ -40,10 +40,8 @@ final class CountFollowersProjectionHandler
         $projectionResult = [
             'id' => $authorId->toString(),
             'username' => $result['username'],
-            'followers' => 0,
+            'followers' => (int) $result['followers'],
         ];
-
-        $projectionResult['followers'] = (int) $result['followers'];
 
         $this->redis->set(
             'author_followers_counter_projection:'.$authorId->toString(),
