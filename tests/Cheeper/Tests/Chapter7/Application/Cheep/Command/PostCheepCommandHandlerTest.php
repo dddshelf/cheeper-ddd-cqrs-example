@@ -19,6 +19,7 @@ use Cheeper\Chapter7\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter7\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use function Functional\first;
 
 //snippet post-cheep-handler-test
 final class PostCheepCommandHandlerTest extends TestCase
@@ -107,8 +108,13 @@ final class PostCheepCommandHandlerTest extends TestCase
         $this->assertNotNull($cheep);
 
         $events = $this->eventBus->events();
+
+        /** @var CheepPosted $cheepPosted */
+        $cheepPosted = first($events);
         $this->assertCount(1, $events);
-        $this->assertSame(CheepPosted::class, $events[0]::class);
+        $this->assertSame(CheepPosted::class, $cheepPosted::class);
+        $this->assertSame($authorId, $cheepPosted->authorId());
+        $this->assertSame($cheepId, $cheepPosted->cheepId());
     }
 
     private function postNewCheep(

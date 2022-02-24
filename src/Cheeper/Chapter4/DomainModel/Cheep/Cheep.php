@@ -10,7 +10,6 @@ use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter4\DomainModel\TriggerEventsTrait;
 use DateTimeImmutable;
 use DateTimeInterface;
-use RuntimeException;
 
 //snippet cheep
 final class Cheep
@@ -46,10 +45,6 @@ final class Cheep
 
     private function setMessage(string $message): void
     {
-        if (empty($message)) {
-            throw new RuntimeException('Message cannot be empty');
-        }
-
         $this->message = $message;
     }
 

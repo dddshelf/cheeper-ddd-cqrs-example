@@ -8,7 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Redis;
 
 //snippet create-followers-counter-projection-projector
-final class CreateFollowersCounterProjectionHandler
+final class CreateFollowersCounterProjectionHandler implements CreateFollowersCounterProjectionHandlerInterface
 {
     public function __construct(
         private Redis $redis

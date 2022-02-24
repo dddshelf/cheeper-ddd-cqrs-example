@@ -16,11 +16,8 @@ final class AuthorFollowedEventHandlerTest extends TestCase
 {
     /**
      * @test
-     * @Given Non Existing Customer Or Without
-     * @When When
-     * @Then
      */
-    public function authorNonExistingOrWithoutFollowers(): void
+    public function delegateToTheCountFollowersProjection(): void
     {
         $mock = $this->createMock(CountFollowersProjectionHandlerInterface::class);
         $mock->expects($this->once())->method('__invoke');

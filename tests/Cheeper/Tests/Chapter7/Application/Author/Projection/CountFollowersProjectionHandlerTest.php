@@ -43,7 +43,7 @@ final class CountFollowersProjectionHandlerTest extends TestCase
     }
 
     /**
-     * @atest
+     * @test
      * @Given
      * @When
      * @Then
@@ -51,17 +51,21 @@ final class CountFollowersProjectionHandlerTest extends TestCase
     public function authorExistingWithMoreThanOneFollowers(): void
     {
         $authorId = '1c22ed61-c305-44dd-a558-f261f434f583';
-
-        $this->expectException(AuthorDoesNotExist::class);
-        $this->expectExceptionMessage('Author "1c22ed61-c305-44dd-a558-f261f434f583" does not exist');
+        $authorUsername = 'alice';
+        $redisKey = 'author_followers_counter_projection:'.$authorId;
+        $redisRecord = [
+            'id' => $authorId,
+            'username' => $authorUsername,
+            'followers' => 3,
+        ];
 
         $redisMock = $this->createMock(\Redis::class);
-//        $redisMock
-//            ->expects($this->once())
-//            ->method('set')
-//        ;
+        $redisMock
+            ->expects($this->once())
+            ->method('set')
+            ->with($redisKey, json_encode($redisRecord));
 
-        $dbMock = $this->buildEntityManagerMockReturning(false);
+        $dbMock = $this->buildEntityManagerMockReturning($redisRecord);
 
         $handler = new CountFollowersProjectionHandler(
             $redisMock,
