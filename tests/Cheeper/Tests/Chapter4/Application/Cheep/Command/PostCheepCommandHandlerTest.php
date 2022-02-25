@@ -6,6 +6,8 @@ namespace Cheeper\Tests\Chapter4\Application\Cheep\Command;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
+use Cheeper\AllChapters\DomainModel\Clock;
+use Cheeper\AllChapters\DomainModel\Clock\DateCollectionClockStrategy;
 use Cheeper\Chapter4\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
@@ -13,6 +15,7 @@ use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
 use Cheeper\Tests\AllChapters\DomainModel\Author\AuthorTestDataBuilder;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use function Functional\first;
@@ -23,12 +26,25 @@ final class PostCheepCommandHandlerTest extends TestCase
     private InMemoryCheepRepository $cheepRepository;
     private InMemoryAuthorRepository $authorRepository;
     private InMemoryEventBus $eventBus;
+    private DateTimeImmutable $today;
 
     protected function setUp(): void
     {
         $this->cheepRepository = new InMemoryCheepRepository();
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->eventBus = new InMemoryEventBus();
+        $this->today = $this->getToday();
+
+        Clock::instance()->changeStrategy(
+            new DateCollectionClockStrategy([$this->today])
+        );
+    }
+
+    protected function getToday(): DateTimeImmutable
+    {
+        return new DateTimeImmutable(
+            'now', new \DateTimeZone('UTC')
+        );
     }
 
     /** @test */
@@ -109,6 +125,8 @@ final class PostCheepCommandHandlerTest extends TestCase
         $this->assertSame($author->authorId()->toString(), $cheepPosted->authorId());
         $this->assertSame($cheepId, $cheepPosted->cheepId());
         $this->assertSame($message, $cheepPosted->cheepMessage());
+        $this->assertSame($this->today->format(DATE_ATOM), $cheepPosted->cheepDate());
+        $this->assertSame($this->today, $cheepPosted->occurredOn());
     }
 
     private function postNewCheep(

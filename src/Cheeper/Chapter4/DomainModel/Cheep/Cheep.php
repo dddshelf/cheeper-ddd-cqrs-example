@@ -7,8 +7,8 @@ namespace Cheeper\Chapter4\DomainModel\Cheep;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter4\DomainModel\TriggerEventsTrait;
-use DateTimeImmutable;
 use DateTimeInterface;
 
 //snippet cheep
@@ -36,7 +36,7 @@ final class Cheep
         private string $message,
     )
     {
-        $this->date = new DateTimeImmutable();
+        $this->date = Clock::instance()->now();
         $this->setMessage($message);
         $this->notifyDomainEvent(
             CheepPosted::fromCheep($this)

@@ -268,6 +268,8 @@ final class SignUpCommandHandlerTest extends TestCase
                 (new DateTimeImmutable())->format('Y-m-d')
             )
         );
+
+
     }
 
     protected function getToday(): DateTimeImmutable

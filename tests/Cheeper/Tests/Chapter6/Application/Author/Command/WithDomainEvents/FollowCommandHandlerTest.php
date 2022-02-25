@@ -8,6 +8,8 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
+use Cheeper\AllChapters\DomainModel\Clock;
+use Cheeper\AllChapters\DomainModel\Clock\DateCollectionClockStrategy;
 use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
 use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
@@ -18,7 +20,11 @@ use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
 use Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints\Uuid;
+use function Functional\first;
 
 final class FollowCommandHandlerTest extends TestCase
 {
@@ -33,12 +39,23 @@ final class FollowCommandHandlerTest extends TestCase
     private InMemoryAuthorRepository $authorRepository;
     private InMemoryEventBus $eventBus;
     private InMemoryFollowRepository $followRepository;
+    private DateTimeImmutable $date;
 
     protected function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->followRepository = new InMemoryFollowRepository();
         $this->eventBus = new InMemoryEventBus();
+        $this->date = new DateTimeImmutable(
+            'now',
+            new \DateTimeZone(
+                'UTC'
+            )
+        );
+
+        Clock::instance()->changeStrategy(
+            new DateCollectionClockStrategy([$this->date])
+        );
     }
 
     /** @test */
@@ -152,8 +169,14 @@ final class FollowCommandHandlerTest extends TestCase
         );
 
         $events = $this->eventBus->events();
+        /** @var AuthorFollowed $authorFollowed */
+        $authorFollowed = first($events);
         $this->assertCount(1, $events);
-        $this->assertSame(AuthorFollowed::class, $events[0]::class);
+        $this->assertSame(AuthorFollowed::class, $authorFollowed::class);
+        $this->assertSame($fromAuthorId, $authorFollowed->fromAuthorId());
+        $this->assertSame($toAuthorId, $authorFollowed->toAuthorId());
+        $this->assertSame($this->date, $authorFollowed->occurredOn());
+        $this->assertTrue(UuidV4::isValid($authorFollowed->followId()));
     }
 
     private function buildAuthor(string $toAuthorId, string $userName, string $email): Author
