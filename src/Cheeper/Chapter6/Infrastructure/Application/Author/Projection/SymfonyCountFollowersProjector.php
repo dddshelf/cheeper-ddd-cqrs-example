@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
-use Cheeper\AllChapters\DomainModel\Follow\AuthorFollowed;
-use Cheeper\AllChapters\DomainModel\Follow\AuthorUnfollowed;
+use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
+use Cheeper\Chapter4\DomainModel\Author\AuthorUnfollowed;
+use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
@@ -28,19 +29,7 @@ final class SymfonyCountFollowersProjector implements MessageSubscriberInterface
             'bus' => 'event.bus',
             'method' => 'handleAuthorFollowed',
         ];
-
-//        yield CountFollowers::class => [
-//            'bus' => 'projection.bus',
-//            'method' => 'handleProjectionRequest'
-//        ];
     }
-
-//    public function handleProjectionRequest(CountFollowers $projection): void
-//    {
-//        $this->appProjector->__invoke(
-//            CountFollowers::ofAuthor($projection->authorId())
-//        );
-//    }
 
     public function handleAuthorFollowed(AuthorFollowed $event): void
     {

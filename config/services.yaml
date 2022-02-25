@@ -3,11 +3,6 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-    # ignore
-    elasticsearch_config:
-        hosts: '%env(csv:ELASTICSEARCH_DSNS)%'
-    #end-ignore
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -48,17 +43,11 @@ services:
         tags:
             - { name: api_platform.identifier.denormalizer }
 
-    Cheeper\AllChapters\Infrastructure\:
-        resource: '../src/Cheeper/AllChapters/Infrastructure/**/*.php'
-
     Cheeper\AllChapters\Application\Command\:
         resource: '../src/Cheeper/AllChapters/Application/Command/**/*Handler.php'
         autoconfigure: false
         tags:
             - { name: messenger.message_handler, bus: command.bus }
-
-    Cheeper\Chapter6\Infrastructure\:
-        resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
 
     # CHAPTER 4
     Cheeper\Chapter4\DomainModel\Author\AuthorRepository:
@@ -87,6 +76,9 @@ services:
             - { name: messenger.message_handler, bus: query.bus }
 
     # CHAPTER 6
+    Cheeper\Chapter6\Infrastructure\:
+        resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
+
     Cheeper\Chapter6\:
         resource: '../src/Cheeper/Chapter6/*'
 

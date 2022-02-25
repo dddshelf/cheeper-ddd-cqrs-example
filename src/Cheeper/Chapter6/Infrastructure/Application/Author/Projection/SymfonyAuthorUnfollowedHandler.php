@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
 use App\Messenger\CommandBus;
-use Cheeper\AllChapters\DomainModel\Follow\AuthorUnfollowed;
-use Cheeper\Chapter6\Application\Projector\Author\CountFollowersProjection;
+use Cheeper\Chapter4\DomainModel\Author\AuthorUnfollowed;
+use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-author-unfollowed-handler
