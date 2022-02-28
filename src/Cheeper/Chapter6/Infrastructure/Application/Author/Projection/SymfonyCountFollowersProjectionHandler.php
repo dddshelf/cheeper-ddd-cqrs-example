@@ -11,7 +11,7 @@ use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandl
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-projector-count-followers
-final class SymfonyCountFollowersProjector implements MessageSubscriberInterface
+final class SymfonyCountFollowersProjectionHandler implements MessageSubscriberInterface
 {
     public function __construct(
         private CountFollowersProjectionHandler $projector

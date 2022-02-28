@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter6\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
+#snippet code
 final class CountFollowersProjectionHandlerTest extends TestCase
 {
     /**
@@ -106,3 +103,4 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         return $mock;
     }
 }
+#end-snippet

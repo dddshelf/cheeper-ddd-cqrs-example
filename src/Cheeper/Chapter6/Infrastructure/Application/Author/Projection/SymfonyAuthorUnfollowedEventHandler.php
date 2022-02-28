@@ -10,7 +10,7 @@ use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
 //snippet symfony-author-unfollowed-handler
-final class SymfonyAuthorUnfollowedHandler implements MessageSubscriberInterface
+final class SymfonyAuthorUnfollowedEventHandler implements MessageSubscriberInterface
 {
     public function __construct(
         private CommandBus $commandBus

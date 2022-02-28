@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SagaStyle;
+namespace Cheeper\Chapter6\Infrastructure\Application\Author\Projection;
 
-use App\Messenger\CommandBus;
 use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
+use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler;
 use Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjection;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-//snippet symfony-author-followed-handler-in-saga-style
-final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
+//snippet symfony-author-followed-handler
+final class SymfonyAuthorFollowedEventHandler implements MessageSubscriberInterface
 {
     public function __construct(
-        private CommandBus $commandBus
+        private CountFollowersProjectionHandler $projector
     ) {
     }
 
@@ -27,7 +27,7 @@ final class SymfonyAuthorFollowedHandler implements MessageSubscriberInterface
 
     public function handlerAuthorFollowed(AuthorFollowed $event): void
     {
-        $this->commandBus->handle(
+        $this->projector->__invoke(
             CountFollowersProjection::ofAuthor($event->toAuthorId())
         );
     }

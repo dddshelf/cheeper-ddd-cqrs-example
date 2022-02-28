@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Author\Command;
 
+use Cheeper\Chapter6\Application\Command;
+
 //snippet follow-command
-final class FollowCommand
+final class FollowCommand implements Command
 {
     private function __construct(
         private string $fromAuthorId,

@@ -10,12 +10,6 @@ framework:
                     - doctrine_ping_connection
                     - doctrine_close_connection
                     - doctrine_transaction
-            projection.bus:
-                default_middleware: allow_no_handlers
-                middleware:
-                    - doctrine_ping_connection
-                    - doctrine_close_connection
-                    - doctrine_transaction
             query.bus:
                 default_middleware: allow_no_handlers
                 middleware:
@@ -24,47 +18,56 @@ framework:
                 default_middleware: allow_no_handlers
                 middleware:
                     - validation
-        transports:
-            async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
-            sync_commands: 'sync://'
-            events: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
-            query: 'sync://'
-            failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed-messages'
-            projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/projections'
+            projection.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction
 
-            chapter7_sync_commands: 'sync://'
-            chapter7_async_commands: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_commands'
-            chapter7_events: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_events'
-            chapter7_sync_queries: 'sync://'
-            chapter7_sync_projections: 'sync://'
-            chapter7_async_projections: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_projections'
-            chapter7_failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/chapter7_failed_messages'
+        transports:
+            # Command Transports
+            commands_async: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/commands'
+            commands_sync: 'sync://'
+
+            # Event Transports
+            events_async: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/events'
+            events_sync: 'sync://'
+
+            # Query Transports
+            # It makes no sense to queries to
+            # have an async transport. It has
+            # to be sync so the customer can
+            # get back the response
+            queries_sync: 'sync://'
+
+            # Projection Transports
+            projections_async: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/projections'
+            projections_sync: 'sync://'
+
+            # Dead letter box
+            failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed_messages'
+
         routing:
-            # Consider Signing up an Author is a sync command.
             # With a proper UX, almost all the commands should
             # be run asynchronously.
-            # TODO: Review this comment
+            Cheeper\Chapter7\Application\Command: commands_async
 
-            # Domain Events are sent to asynchronous
-            # transport to be processed later.
-            Cheeper\AllChapters\DomainModel\DomainEvent: [events, projections]
+            # However, some commands can be defined to
+            # be run synchronously.
+            Cheeper\Chapter7\Application\Author\Command\SignUpCommand: commands_sync
 
-            # Chapter 4
-            Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand: async_commands
+            # Events can be run synchronously, however
+            # all the benefits like performance and
+            # transaction isolation comes when using
+            # the asynchronous transport.
+            Cheeper\Chapter7\DomainModel\DomainEvent: events_async
 
-            # Chapter 5
-            # Queries are executed synchronously
-            # in the same request that data is requested.
-            Cheeper\Chapter5\Application\Query: query
+            # Queries must be synchronous. Their responses
+            # need to be back to the customers.
+            Cheeper\Chapter7\Application\Query: queries_sync
 
-            # Chapter 6
-            Cheeper\Chapter6\Application\Author\Command\FollowCommand: async_commands
-
-            # End of Chapter 6
-
-            # Chapter 7
-            Cheeper\Chapter7\Application\Command: chapter7_sync_commands
-            Cheeper\Chapter7\DomainModel\DomainEvent: chapter7_events
-            Cheeper\Chapter7\Application\Projection: chapter7_async_projections
-            Cheeper\Chapter7\Application\Query: chapter7_sync_queries
-            # End of Chapter 7
+            # Projections should run asynchronously by default.
+            # However, it's possible to run some synchronously
+            # without getting the performance benefits.
+            Cheeper\Chapter7\Application\Projection: projections_async

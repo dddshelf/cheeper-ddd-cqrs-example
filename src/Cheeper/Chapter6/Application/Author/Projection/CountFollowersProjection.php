@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Author\Projection;
 
+use Cheeper\Chapter6\Application\Projection;
+
 //snippet count-followers
-final class CountFollowersProjection
+final class CountFollowersProjection implements Projection
 {
     public static function ofAuthor(string $authorId): self
     {
