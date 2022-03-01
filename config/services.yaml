@@ -76,32 +76,33 @@ services:
             - { name: messenger.message_handler, bus: query.bus }
 
     # CHAPTER 6
-    Cheeper\Chapter6\Infrastructure\:
-        resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
-
-    Cheeper\Chapter6\:
-        resource: '../src/Cheeper/Chapter6/*'
-
-    Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler: ~
-
-    Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler:
+    chapter6_command_handlers:
+        namespace: Cheeper\Chapter6\Application\
+        resource: '../src/Cheeper/Chapter6/Application/**/*CommandHandler.php'
         tags:
             - { name: messenger.message_handler, bus: command.bus }
-        class: 'Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler'
 
-    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyCountFollowersProjector:
-        tags:
-            - { name: messenger.message_handler, bus: command.bus }
-        arguments:
-            - '@Cheeper\Chapter6\Application\Author\Projection\CountFollowersProjectionHandler'
+#    Cheeper\Chapter6\Infrastructure\:
+#        resource: '../src/Cheeper/Chapter6/Infrastructure/**/*.php'
+#
+#    Cheeper\Chapter6\:
+#        resource: '../src/Cheeper/Chapter6/*'
+#
+#    Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler:
+#        tags:
+#            - { name: messenger.message_handler, bus: command.bus }
+#        class: 'Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler'
+#
+#    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedEventHandler:
+#        tags:
+#            - { name: messenger.message_handler, bus: event.bus }
+#        class: 'Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedEventHandler'
 
-    Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedHandler:
-        tags:
-            - { name: messenger.message_handler, bus: event.bus }
-        class: 'Cheeper\Chapter6\Infrastructure\Application\Author\Projection\SymfonyAuthorFollowedHandler'
+#    Cheeper\Chapter6\Application\EventBus:
+#        class: 'Cheeper\Chapter6\Infrastructure\Application\SymfonyEventBus'
 
-    Cheeper\Chapter6\Application\EventBus:
-        class: 'Cheeper\Chapter6\Infrastructure\Application\SymfonyEventBus'
+#    Cheeper\Chapter6\Application\ProjectionBus:
+#        class: 'Cheeper\Chapter6\Infrastructure\Application\SymfonyProjectionBus'
 
     # CHAPTER 7
     Cheeper\Chapter7\:
@@ -157,8 +158,4 @@ services:
             - name: "doctrine.orm.entity_listener"
               event: "postPersist"
               entity: 'App\Entity\User'
-
-    Elasticsearch\Client:
-        factory: [ 'Elasticsearch\ClientBuilder', fromConfig ]
-        arguments: [ '%elasticsearch_config%' ]
 #end-ignore
