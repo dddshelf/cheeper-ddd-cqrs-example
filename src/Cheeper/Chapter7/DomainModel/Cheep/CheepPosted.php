@@ -8,10 +8,10 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter7\Application\MessageTrait;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 use DateTimeImmutable;
-use DateTimeZone;
 
 // snippet cheep-posted-domain-event
 final class CheepPosted implements DomainEvent
@@ -35,9 +35,7 @@ final class CheepPosted implements DomainEvent
             $cheep->authorId()->toString(),
             $cheep->cheepMessage()->message(),
             $cheep->cheepDate()->date(),
-            new DateTimeImmutable(
-                timezone: new DateTimeZone("UTC")
-            )
+            Clock::instance()->now()
         );
     }
 
@@ -53,9 +51,7 @@ final class CheepPosted implements DomainEvent
             $authorId->toString(),
             $cheepMessage->message(),
             $cheepDate->date(),
-            new DateTimeImmutable(
-                timezone: new DateTimeZone("UTC")
-            )
+            Clock::instance()->now()
         );
     }
 

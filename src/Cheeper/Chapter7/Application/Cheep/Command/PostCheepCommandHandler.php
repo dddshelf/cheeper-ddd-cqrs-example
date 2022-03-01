@@ -18,8 +18,8 @@ use Cheeper\Chapter7\DomainModel\Cheep\CheepRepository;
 final class PostCheepCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private CheepRepository  $cheeps,
+        private AuthorRepository $authorRepository,
+        private CheepRepository  $cheepRepository,
         private EventBus         $eventBus
     ) {
     }
@@ -30,11 +30,11 @@ final class PostCheepCommandHandler
         $cheepId = CheepId::fromString($command->cheepId());
         $message = CheepMessage::write($command->message());
 
-        $author = $this->authors->ofId($authorId);
+        $author = $this->authorRepository->ofId($authorId);
         $this->checkAuthorExists($author, $authorId);
 
         $cheep = Cheep::compose($authorId, $cheepId, $message);
-        $this->cheeps->add($cheep);
+        $this->cheepRepository->add($cheep);
 
         $this->eventBus->notifyAll($cheep->domainEvents());
     }
