@@ -35,12 +35,19 @@ final class PostCheepController extends AbstractController
                 'cheep_id' => $command->authorId(),
             ];
 
-            return $this->buildJsonResponse($httpContent, $httpCode);
+            return $this->buildJsonResponse(
+                $httpContent,
+                $httpCode
+            );
         } catch (
             AuthorDoesNotExist
             | InvalidArgumentException $exception
         ) {
-            throw new HttpException(Response::HTTP_INTERNAL_SERVER_ERROR, $exception->getMessage(), $exception);
+            throw new HttpException(
+                statusCode: Response::HTTP_INTERNAL_SERVER_ERROR,
+                message: $exception->getMessage(),
+                previous: $exception
+            );
         }
     }
 
