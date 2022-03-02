@@ -9,7 +9,6 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRepositoriesAccess\CountFollowersQueryHandler;
 use Cheeper\Chapter7\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter7\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter7\DomainModel\Author\Author;
@@ -35,7 +34,9 @@ final class PostCheepCommandHandlerTest extends TestCase
         $this->eventBus = new InMemoryEventBus();
     }
 
-    /** @test */
+    /**
+     * @test
+     */
     public function throwsExceptionWhenAuthorDoesNotExist(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
