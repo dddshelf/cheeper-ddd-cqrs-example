@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Query;
 
+use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+
 //snippet timeline-handler
 final class TimelineQueryHandler
 {
@@ -14,8 +16,13 @@ final class TimelineQueryHandler
 
     public function __invoke(TimelineQuery $query): TimelineQueryResponse
     {
+        $authorId = $query->authorId();
+        $key = sprintf('timelines_%s', $authorId);
+
+        $this->checkAuthorExists($key, $authorId);
+
         $serializedCheeps = $this->redis->lRange(
-            sprintf('timelines_%s', $query->authorId()),
+            $key,
             $query->offset(),
             ($query->offset() + $query->size()) - 1
         );
@@ -26,6 +33,13 @@ final class TimelineQueryHandler
                 $serializedCheeps
             )
         );
+    }
+
+    private function checkAuthorExists(string $key, string $authorId): void
+    {
+        if (!$this->redis->exists($key)) {
+            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
+        }
     }
 }
 //end-snippet

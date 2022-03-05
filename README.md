@@ -44,6 +44,11 @@ This code can also be run using Symfony Local Webserver.
 
     make database
 
+
+Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc. Let's see what happens with the existing Projections when 
+
+
+
 #### Follower Counters Query
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
@@ -71,6 +76,8 @@ Expected output
 
 #### Adding Authors
 
+Cheeper is configured so signing up new Authors is a synchronous operations. This mean that once the HTTP request made to the Cheeper API is finished, the Author will be in the database without having to perform any other action. As soon the API receives the request, the SignUpCommand is created and delegated to the Command Bus. The Command Bus will check the routing configurations and it will pass the Command to the SignUpCommandHandler that will perform all the actions required to sign up a new Author.
+
     http --json --body POST http://127.0.0.1:8000/chapter7/author author_id="a64a52cc-3ee9-4a15-918b-099e18b43119" username="bob" email="bob@bob.com"
     http --json --body POST http://127.0.0.1:8000/chapter7/author author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" username="alice" email="alice@alice.com"
     http --json --body POST http://127.0.0.1:8000/chapter7/author author_id="1da1366f-b066-4514-9b29-7346df41e371" username="charlie" email="charlie@charlie.com"
@@ -83,8 +90,6 @@ Expected output
     }
 
 # in Redis with use lpush() and if the entry does not exist it's automatically created. What result should the timeline return if the author does no exist yet vs. created without any cheep
-
-# consume
 
 #### Follower Counters Query
 
@@ -119,8 +124,14 @@ Expected output
 
 #### Following other Authors
 
+Following an Author is a Command that is defined as asynchronous. This means that once the request to the Cheeper API is done, the Command will wait to be processed by a worker. The initial HTTP request to the API returns really fast, but the changes in the database will not be done until the Command is processed.
+
     http --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id="8cc71bf2-f827-4c92-95a5-43bb1bc622ad" from_author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" to_author_id="a64a52cc-3ee9-4a15-918b-099e18b43119"
     http --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id="f3088920-841e-4577-a3c2-efdc80f0dea5" from_author_id="1da1366f-b066-4514-9b29-7346df41e371" to_author_id="a64a52cc-3ee9-4a15-918b-099e18b43119"
+
+# consume
+
+    php bin/console messenger:consume events_async
 
 #### Follower Counters Query
 

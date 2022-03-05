@@ -33,7 +33,7 @@ database:
 	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
 	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
 	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
-	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed-messages/contents
+	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed_messages/contents
 	php bin/console doc:sch:drop --force
 	php bin/console doc:sch:create
 

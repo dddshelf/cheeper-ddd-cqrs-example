@@ -50,12 +50,10 @@ framework:
 
         routing:
             # With a proper UX, almost all the commands should
-            # be run asynchronously.
-            Cheeper\Chapter7\Application\Command: commands_async
-
-            # However, some commands can be defined to
-            # be run synchronously.
+            # be run asynchronously.However, some commands can
+            # be defined to run synchronously.
             Cheeper\Chapter7\Application\Author\Command\SignUpCommand: commands_sync
+            Cheeper\Chapter7\Application\Author\Command\FollowCommand: commands_async
 
             # Events can be run synchronously, however
             # all the benefits like performance and
