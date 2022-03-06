@@ -28,10 +28,11 @@ final class GetTimelineController extends AbstractController
 
         $httpCode = Response::HTTP_ACCEPTED;
         $httpContent = [
-            '_meta' => [],
+            'meta' => [],
             'data' => [],
         ];
 
+        $query = null;
         try {
             $query = TimelineQuery::fromArray([
                 'author_id' => $authorId,
@@ -40,7 +41,6 @@ final class GetTimelineController extends AbstractController
             ]);
             $timeline = $queryBus->query($query);
 
-            $httpContent['_meta']['message_id'] = $query->messageId()?->toString();
             $httpContent['data'] = $timeline;
         } catch (AuthorDoesNotExist $e) {
             $httpCode = Response::HTTP_NOT_FOUND;
@@ -48,6 +48,8 @@ final class GetTimelineController extends AbstractController
         } catch (\InvalidArgumentException $e) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
             $httpContent['data'] = $e->getMessage();
+        } finally {
+            $httpContent['meta']['message_id'] = $query?->messageId()?->toString();
         }
 
         return $this->json(

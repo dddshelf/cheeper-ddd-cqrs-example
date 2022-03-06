@@ -20,22 +20,27 @@ final class SignUpAuthorController extends AbstractController
     public function __invoke(Request $request, CommandBus $commandBus): Response
     {
         $httpCode = Response::HTTP_ACCEPTED;
+        $httpContent = [
+            'meta' => [],
+            'data' => [],
+        ];
+
+        $command = null;
         try {
             $command = SignUpCommand::fromArray(
                 $this->getRequestContentInJson($request)
             );
 
             $commandBus->handle($command);
-            $httpContent = [
-                'message_id' => $command->messageId()?->toString(),
-                'author_id' => $command->authorId(),
-            ];
+            $httpContent['data']['author_id'] = $command->authorId();
         } catch (
             AuthorAlreadyExists
             |InvalidArgumentException $exception
         ) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-            $httpContent = ['message' => $exception->getMessage()];
+            $httpContent['data']['message'] = $exception->getMessage();
+        } finally {
+            $httpContent['meta']['message_id'] = $command?->messageId()?->toString();
         }
 
         return $this->buildJsonResponse($httpContent, $httpCode);
