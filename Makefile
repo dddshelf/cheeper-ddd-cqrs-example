@@ -20,15 +20,15 @@ DOCKER = $(shell which docker)
 DOCKER_COMPOSE = $(DOCKER) compose
 
 # Default target when run with just 'make'
-default: up
+default: start
 
-.PHONY: up
-up:
+.PHONY: start
+start:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 	symfony serve -d --no-tls
 
-.PHONY: database
-database:
+.PHONY: infrastructure
+infrastructure:
 	redis-cli flushall
 	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
 	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents

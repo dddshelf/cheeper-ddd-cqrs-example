@@ -92,7 +92,7 @@ Expected output
 
 The response to the HTTP request and the Authors in the database are not the only outcome generated. In RabbitMQ, there are store multiple events of type `NewAuthorSigned`. Those Domain Events are waiting to be handled. In order to do so, they will have to be consumed. Until not getting consumed, the Follower Counters Query will still return a 404 HTTP Status Code.
 
-# consume
+#### Consuming Events
 
     php bin/console messenger:consume events_async
 
@@ -107,6 +107,10 @@ Expected output
     08:59:13 INFO      [messenger] Received message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
     08:59:13 INFO      [messenger] Message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned handled by Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned","handler" => "Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle"]
     08:59:13 INFO      [messenger] Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned was handled successfully (acknowledging to transport). ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+
+There is one `NewAuthorSigned` event to handle for each new Author signed in. That's a total of three. In Cheeper, the `NewAuthorSigned` is handled by the `SymfonyNewAuthorSignedEventHandler` class. Chapter 6 showed that `SymfonyNewAuthorSignedEventHandler` is 
+
+Now, that all the Domain Events are processed, and their corresponding Projections are calculated, the queries to check how many followers - an Author has - are not empty anymore.
 
 #### Follower Counters Query
 
