@@ -25,7 +25,7 @@ final class SymfonyNewAuthorSignedEventHandler implements MessageSubscriberInter
     {
         yield NewAuthorSigned::class => [
             'method' => 'handle',
-            'from_transport' => 'chapter7_events',
+            'from_transport' => 'events_async',
         ];
     }
 }

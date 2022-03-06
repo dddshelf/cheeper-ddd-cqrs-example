@@ -54,6 +54,7 @@ framework:
             # be defined to run synchronously.
             Cheeper\Chapter7\Application\Author\Command\SignUpCommand: commands_sync
             Cheeper\Chapter7\Application\Author\Command\FollowCommand: commands_async
+            Cheeper\Chapter7\Application\Cheep\Command\PostCheepCommand: commands_async
 
             # Events can be run synchronously, however
             # all the benefits like performance and

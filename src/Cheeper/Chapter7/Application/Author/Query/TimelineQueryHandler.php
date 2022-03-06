@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\Application\Author\Query;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 
 //snippet timeline-handler
 final class TimelineQueryHandler
@@ -38,7 +39,9 @@ final class TimelineQueryHandler
     private function checkAuthorExists(string $key, string $authorId): void
     {
         if (!$this->redis->exists($key)) {
-            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
+            throw AuthorDoesNotExist::withAuthorIdOf(
+                AuthorId::fromString($authorId)
+            );
         }
     }
 }

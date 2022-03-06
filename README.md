@@ -47,13 +47,11 @@ This code can also be run using Symfony Local Webserver.
 
 Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc. Let's see what happens with the existing Projections when 
 
-
-
 #### Follower Counters Query
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/followers-counter
-    http --json --body http://127.0.0.1:8000/chapter7/author/1da1366f-b066-4514-9b29-7346df41e371/followers-counter
+    http --json --check-status --body http://127.0.0.1:8000/chapter7/author/1da1366f-b066-4514-9b29-7346df41e371/followers-counter
 
 Expected output
 
@@ -71,8 +69,10 @@ Expected output
 Expected output
 
     {
-        "cheeps": []
+        "_meta": [],
+        "data": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
     }
+    ...
 
 #### Adding Authors
 
@@ -88,8 +88,25 @@ Expected output
         "author_id": "a64a52cc-3ee9-4a15-918b-099e18b43119",
         "message_id": "d3c90181-c2c1-4e5c-90e9-99a799197b88"
     }
+    ...
 
-# in Redis with use lpush() and if the entry does not exist it's automatically created. What result should the timeline return if the author does no exist yet vs. created without any cheep
+The response to the HTTP request and the Authors in the database are not the only outcome generated. In RabbitMQ, there are store multiple events of type `NewAuthorSigned`. Those Domain Events are waiting to be handled. In order to do so, they will have to be consumed. Until not getting consumed, the Follower Counters Query will still return a 404 HTTP Status Code.
+
+# consume
+
+    php bin/console messenger:consume events_async
+
+Expected output
+
+    08:59:13 INFO      [messenger] Received message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+    08:59:13 INFO      [messenger] Message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned handled by Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned","handler" => "Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle"]
+    08:59:13 INFO      [messenger] Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned was handled successfully (acknowledging to transport). ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+    08:59:13 INFO      [messenger] Received message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+    08:59:13 INFO      [messenger] Message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned handled by Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned","handler" => "Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle"]
+    08:59:13 INFO      [messenger] Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned was handled successfully (acknowledging to transport). ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+    08:59:13 INFO      [messenger] Received message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
+    08:59:13 INFO      [messenger] Message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned handled by Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned","handler" => "Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle"]
+    08:59:13 INFO      [messenger] Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned was handled successfully (acknowledging to transport). ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
 
 #### Follower Counters Query
 
@@ -109,6 +126,7 @@ Expected output
             "numberOfFollowers": 0
         }
     }
+    ...
 
 #### Author Timeline
 
