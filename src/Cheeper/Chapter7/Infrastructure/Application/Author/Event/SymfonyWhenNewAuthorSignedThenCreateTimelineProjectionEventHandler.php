@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Infrastructure\Application\Author\Event;
 
-use Cheeper\Chapter7\Application\Author\Event\NewAuthorSignedEventHandler;
+use Cheeper\Chapter7\Application\Author\Event\WhenNewAuthorSignedThenCreateTimelineProjectionEventHandler;
 use Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned;
 use Symfony\Component\Messenger\Handler\MessageSubscriberInterface;
 
-//snippet symfony-new-author-signed-event-handler
-final class SymfonyNewAuthorSignedEventHandler implements MessageSubscriberInterface
+final
+    class SymfonyWhenNewAuthorSignedThenCreateTimelineProjectionEventHandler
+    implements MessageSubscriberInterface
 {
     public function __construct(
-        private NewAuthorSignedEventHandler $eventHandler,
+        private WhenNewAuthorSignedThenCreateTimelineProjectionEventHandler $eventHandler,
     ) {
     }
 
-    public function handle(
-        NewAuthorSigned $event
-    ): void {
+    public function handle(NewAuthorSigned $event): void
+    {
         $this->eventHandler->handle($event);
     }
 
@@ -30,4 +30,3 @@ final class SymfonyNewAuthorSignedEventHandler implements MessageSubscriberInter
         ];
     }
 }
-//end-snippet

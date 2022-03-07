@@ -10,22 +10,20 @@ use Cheeper\Chapter7\Application\Author\Projection\CreateTimelineProjection;
 use Cheeper\Chapter7\Application\Author\Projection\CreateTimelineProjectionHandlerInterface;
 use Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned;
 
-//snippet new-author-signed-event-handler
-final class NewAuthorSignedEventHandler
+final class WhenNewAuthorSignedThenCreateTimelineProjectionEventHandler
 {
     public function __construct(
-        private CreateFollowersCounterProjectionHandlerInterface $followersProjector
+        private CreateTimelineProjectionHandlerInterface $projector
     ) {
     }
 
     public function handle(NewAuthorSigned $event): void
     {
-        $this->followersProjector->__invoke(
-            CreateFollowersCounterProjection::ofAuthor(
+        $this->projector->__invoke(
+            CreateTimelineProjection::ofAuthor(
                 $event->authorId(),
                 $event->authorUsername()
             )
         );
     }
 }
-//end-snippet

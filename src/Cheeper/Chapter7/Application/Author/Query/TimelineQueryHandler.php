@@ -18,7 +18,7 @@ final class TimelineQueryHandler
     public function __invoke(TimelineQuery $query): TimelineQueryResponse
     {
         $authorId = $query->authorId();
-        $key = sprintf('timelines_%s', $authorId);
+        $key = sprintf('author_timeline_projection:%s', $authorId);
 
         $this->checkAuthorExists($key, $authorId);
 

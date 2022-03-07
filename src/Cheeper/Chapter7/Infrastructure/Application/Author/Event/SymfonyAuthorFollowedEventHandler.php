@@ -25,7 +25,7 @@ final class SymfonyAuthorFollowedEventHandler implements MessageSubscriberInterf
     {
         yield AuthorFollowed::class => [
             'method' => 'handle',
-            'from_transport' => 'chapter7_events',
+            'from_transport' => 'events_async',
         ];
     }
 }
