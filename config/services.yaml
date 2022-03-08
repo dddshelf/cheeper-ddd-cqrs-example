@@ -153,6 +153,31 @@ services:
         tags:
             - { name: messenger.message_handler, bus: projection.bus }
 
+    # CHAPTER 8
+    Cheeper\Chapter8\:
+        resource: '../src/Cheeper/Chapter8/*'
+
+    Cheeper\Chapter8\DomainModel\Follow\FollowRepository:
+        class: 'Cheeper\Chapter8\Infrastructure\DomainModel\Follow\DoctrineOrmFollowRepository'
+
+    chapter8_event_handlers:
+        namespace: Cheeper\Chapter8\Application\
+        resource: '../src/Cheeper/Chapter8/Application/**/Symfony*EventHandler.php'
+        tags:
+            - { name: messenger.message_handler, bus: event.bus }
+
+    chapter8_query_handlers:
+        namespace: Cheeper\Chapter8\Application\
+        resource: '../src/Cheeper/Chapter8/Application/**/*QueryHandler.php'
+        tags:
+            - { name: messenger.message_handler, bus: query.bus }
+
+    chapter8_projection_handlers:
+        namespace: Cheeper\Chapter8\Application\
+        resource: '../src/Cheeper/Chapter8/Application/**/Symfony*ProjectionHandler.php'
+        tags:
+            - { name: messenger.message_handler, bus: projection.bus }
+
     App\EventListener\UserCreatedListener:
         tags:
             - name: "doctrine.orm.entity_listener"

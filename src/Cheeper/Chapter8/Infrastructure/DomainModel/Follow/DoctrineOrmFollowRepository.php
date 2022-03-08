@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\DomainModel\Follow;
+namespace Cheeper\Chapter8\Infrastructure\DomainModel\Follow;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-//snippet doctrine-orm-follows
 final class DoctrineOrmFollowRepository implements FollowRepository
 {
     public function __construct(
@@ -39,5 +38,11 @@ final class DoctrineOrmFollowRepository implements FollowRepository
     {
         return $this->em->getRepository(Follow::class)->findBy(['toAuthorId' => $authorId]);
     }
+
+    public function findFollowingOf(AuthorId $authorId): array
+    {
+        return $this->em->getRepository(Follow::class)->findBy([
+            'fromAuthorId' => $authorId,
+        ]);
+    }
 }
-//end-snippet

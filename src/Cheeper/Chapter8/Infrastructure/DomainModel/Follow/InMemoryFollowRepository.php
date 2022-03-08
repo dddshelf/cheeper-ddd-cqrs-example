@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Infrastructure\DomainModel\Follow;
+namespace Cheeper\Chapter8\Infrastructure\DomainModel\Follow;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
-use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use function Functional\head;
 use function Functional\reduce_left;
 use function Functional\select;
@@ -23,11 +23,7 @@ final class InMemoryFollowRepository implements FollowRepository
             select($this->collection, fn (Follow $u): bool => $u->followId()->equals($followId))
         );
 
-        if (null === $candidate) {
-            return null;
-        }
-
-        return $candidate;
+        return $candidate ?? null;
     }
 
     public function add(Follow $follow): void
@@ -62,5 +58,10 @@ final class InMemoryFollowRepository implements FollowRepository
     public function toAuthorId(AuthorId $authorId): array
     {
         return select($this->collection, fn (Follow $f): bool => $f->toAuthorId()->equals($authorId));
+    }
+
+    public function findFollowingOf(AuthorId $authorId): array
+    {
+        return select($this->collection, fn (Follow $f): bool => $f->fromAuthorId()->equals($authorId));
     }
 }

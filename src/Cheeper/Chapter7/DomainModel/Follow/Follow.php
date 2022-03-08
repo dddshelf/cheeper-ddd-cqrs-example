@@ -44,8 +44,8 @@ final class Follow
         FollowId $followId,
         AuthorId $fromAuthorId,
         AuthorId $toAuthorId,
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             followId: $followId->toString(),
             fromAuthorId: $fromAuthorId->toString(),
             toAuthorId: $toAuthorId->toString()

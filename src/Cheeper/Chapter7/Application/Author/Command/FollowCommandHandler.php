@@ -28,7 +28,8 @@ final class FollowCommandHandler
         $fromAuthor = $this->tryToFindTheAuthorOfId($fromAuthorId);
         $toAuthor = $this->tryToFindTheAuthorOfId($toAuthorId);
 
-        $follow = $this->follows->ofFromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+        $follow = $this->follows->fromAuthorIdAndToAuthorId($fromAuthorId, $toAuthorId);
+
         if (null !== $follow) {
             return;
         }
