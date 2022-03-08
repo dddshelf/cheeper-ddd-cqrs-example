@@ -19,11 +19,6 @@ infection.log
 ###> php-cs-fixer ###
 .php-cs-fixer.cache
 ###< php-cs-fixer ###
-
-###> lexik/jwt-authentication-bundle ###
-/config/jwt/*.pem
-###< lexik/jwt-authentication-bundle ###
-
 ###> yarn ###
 .yarn/*
 !.yarn/cache

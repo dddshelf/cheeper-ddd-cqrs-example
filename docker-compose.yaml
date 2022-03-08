@@ -19,3 +19,10 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
       MYSQL_DATABASE: db
+  app:
+    build: .docker/php
+    env_file: .env.docker.dist
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html

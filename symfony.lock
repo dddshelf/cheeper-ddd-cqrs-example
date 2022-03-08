@@ -146,12 +146,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
-    },
-    "gesdinet/jwt-refresh-token-bundle": {
-        "version": "v0.12.0"
-    },
     "hamcrest/hamcrest-php": {
         "version": "v2.0.1"
     },
@@ -160,30 +154,6 @@
     },
     "laminas/laminas-code": {
         "version": "3.4.1"
-    },
-    "laminas/laminas-eventmanager": {
-        "version": "3.2.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.0.1"
-    },
-    "lcobucci/clock": {
-        "version": "2.0.0"
-    },
-    "lcobucci/jwt": {
-        "version": "4.1.4"
-    },
-    "lexik/jwt-authentication-bundle": {
-        "version": "2.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
-        },
-        "files": [
-            "config/packages/lexik_jwt_authentication.yaml"
-        ]
     },
     "lstrojny/functional-php": {
         "version": "1.11.0"
@@ -196,9 +166,6 @@
     },
     "myclabs/deep-copy": {
         "version": "1.9.5"
-    },
-    "namshi/jose": {
-        "version": "7.2.3"
     },
     "nelmio/cors-bundle": {
         "version": "1.5",
@@ -215,20 +182,11 @@
     "nikic/php-parser": {
         "version": "v4.3.0"
     },
-    "ocramius/package-versions": {
-        "version": "2.3.0"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.7.0"
-    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },
     "phar-io/version": {
         "version": "2.0.1"
-    },
-    "php": {
-        "version": "7.4"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.0.0"
@@ -256,9 +214,6 @@
     },
     "phpunit/php-timer": {
         "version": "3.0.0"
-    },
-    "phpunit/php-token-stream": {
-        "version": "4.0.0"
     },
     "phpunit/phpunit": {
         "version": "4.7",
@@ -312,6 +267,9 @@
     },
     "react/promise": {
         "version": "v2.7.1"
+    },
+    "roave/security-advisories": {
+        "version": "dev-latest"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -373,8 +331,17 @@
             "config/packages/snc_redis.yaml"
         ]
     },
-    "symfony/amqp-messenger": {
-        "version": "v5.1.0"
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "9d254a22efca7264203eea98b866f16f944b2f09"
+        },
+        "files": [
+            "public/.htaccess"
+        ]
     },
     "symfony/asset": {
         "version": "v5.0.7"
@@ -424,9 +391,6 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.5"
-    },
-    "symfony/doctrine-messenger": {
-        "version": "v5.1.0"
     },
     "symfony/dom-crawler": {
         "version": "v5.0.5"
@@ -496,9 +460,6 @@
     "symfony/http-kernel": {
         "version": "v5.0.4"
     },
-    "symfony/inflector": {
-        "version": "v5.0.5"
-    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -549,9 +510,6 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.14.0"
     },
-    "symfony/polyfill-php73": {
-        "version": "v1.14.0"
-    },
     "symfony/polyfill-php80": {
         "version": "v1.17.0"
     },
@@ -572,9 +530,6 @@
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.2.12"
-    },
-    "symfony/redis-messenger": {
-        "version": "v5.1.0"
     },
     "symfony/routing": {
         "version": "4.2",
@@ -609,9 +564,6 @@
         "version": "v5.0.5"
     },
     "symfony/security-csrf": {
-        "version": "v5.0.5"
-    },
-    "symfony/security-guard": {
         "version": "v5.0.5"
     },
     "symfony/security-http": {
@@ -702,9 +654,6 @@
     },
     "twig/twig": {
         "version": "v3.0.3"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.7.0"

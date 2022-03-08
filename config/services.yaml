@@ -15,7 +15,6 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $eventBus: "@event.bus"
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
 
-            Architecture\CQRS\App\Repository\FollowersRepository: '@Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository'
             Redis: '@snc_redis.default'
 
     # makes classes in src/ available to be used as services
