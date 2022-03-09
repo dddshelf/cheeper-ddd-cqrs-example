@@ -21,8 +21,33 @@ services:
       MYSQL_DATABASE: db
   app:
     build: .docker/php
+    init: true
     env_file: .env.docker.dist
     ports:
       - "8000:80"
+    volumes:
+      - ./:/var/www/html
+  async-commands-consumer:
+    build: .docker/php-cli
+    init: true
+    env_file: .env.docker.dist
+    working_dir: /var/www/html
+    command: "php bin/console messenger:consume commands_async -vv"
+    volumes:
+      - ./:/var/www/html
+  async-events-consumer:
+    build: .docker/php-cli
+    init: true
+    env_file: .env.docker.dist
+    working_dir: /var/www/html
+    command: "php bin/console messenger:consume events_async -vv"
+    volumes:
+      - ./:/var/www/html
+  async-projections-consumer:
+    build: .docker/php-cli
+    init: true
+    env_file: .env.docker.dist
+    working_dir: /var/www/html
+    command: "php bin/console messenger:consume projections_async -vv"
     volumes:
       - ./:/var/www/html

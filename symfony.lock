@@ -331,6 +331,9 @@
             "config/packages/snc_redis.yaml"
         ]
     },
+    "symfony/amqp-messenger": {
+        "version": "v6.0.5"
+    },
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

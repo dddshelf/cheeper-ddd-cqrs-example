@@ -14,10 +14,12 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
-DOCKER = $(shell which docker)
 
-# Shortcut for docker-compose command
+# Shortcuts
+DOCKER = $(shell which docker)
 DOCKER_COMPOSE = $(DOCKER) compose
+HTTPIE = docker run --network=host -ti --rm alpine/httpie
+PHP = $(DOCKER_COMPOSE) exec app php
 
 # Default target when run with just 'make'
 default: start
@@ -25,19 +27,18 @@ default: start
 .PHONY: start
 start:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
-	symfony serve -d --no-tls
 
 .PHONY: infrastructure
 infrastructure:
-	redis-cli flushall
-	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
-	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
-	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
-	http --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed_messages/contents
-	php bin/console doc:sch:drop --force
-	php bin/console doc:sch:create
+	$(DOCKER_COMPOSE) exec redis redis-cli flushall
+	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
+	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
+	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
+	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed_messages/contents
+	$(PHP) bin/console doc:sch:drop --force
+	$(PHP) bin/console doc:sch:create
+	$(PHP) bin/console messenger:setup-transports
 
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) stop
-	symfony server:stop
