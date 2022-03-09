@@ -41,4 +41,4 @@ infrastructure:
 
 .PHONY: stop
 stop:
-	$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) --profile async-events --profile async-commands --profile async-projections stop

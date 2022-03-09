@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   redis:
@@ -29,6 +29,7 @@ services:
       - ./:/var/www/html
   async-commands-consumer:
     build: .docker/php-cli
+    profiles: ["async-commands"]
     init: true
     env_file: .env.docker.dist
     working_dir: /var/www/html
@@ -37,6 +38,7 @@ services:
       - ./:/var/www/html
   async-events-consumer:
     build: .docker/php-cli
+    profiles: ["async-events"]
     init: true
     env_file: .env.docker.dist
     working_dir: /var/www/html
@@ -45,6 +47,7 @@ services:
       - ./:/var/www/html
   async-projections-consumer:
     build: .docker/php-cli
+    profiles: ["async-projections"]
     init: true
     env_file: .env.docker.dist
     working_dir: /var/www/html
