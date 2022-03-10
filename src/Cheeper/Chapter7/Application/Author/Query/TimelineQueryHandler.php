@@ -20,8 +20,6 @@ final class TimelineQueryHandler
         $authorId = $query->authorId();
         $key = sprintf('author_timeline_projection:%s', $authorId);
 
-        $this->checkAuthorExists($key, $authorId);
-
         $serializedCheeps = $this->redis->lRange(
             $key,
             $query->offset(),
@@ -34,15 +32,6 @@ final class TimelineQueryHandler
                 $serializedCheeps
             )
         );
-    }
-
-    private function checkAuthorExists(string $key, string $authorId): void
-    {
-        if (!$this->redis->exists($key)) {
-            throw AuthorDoesNotExist::withAuthorIdOf(
-                AuthorId::fromString($authorId)
-            );
-        }
     }
 }
 //end-snippet
