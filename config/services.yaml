@@ -135,25 +135,25 @@ services:
         namespace: Cheeper\Chapter7\Application\
         resource: '../src/Cheeper/Chapter7/Application/**/Command/*CommandHandler.php'
         tags:
-            - { name: messenger.message_handler, bus: command.bus }
+            - { name: messenger.message_handler, bus: command.bus, method: handle }
 
     chapter7_event_handlers:
         namespace: Cheeper\Chapter7\Application\
         resource: '../src/Cheeper/Chapter7/Application/**/*EventHandler.php'
         tags:
-            - { name: messenger.message_handler, bus: event.bus }
+            - { name: messenger.message_handler, bus: event.bus, method: handle }
 
     chapter7_query_handlers:
         namespace: Cheeper\Chapter7\Application\
         resource: '../src/Cheeper/Chapter7/Application/**/*QueryHandler.php'
         tags:
-            - { name: messenger.message_handler, bus: query.bus }
+            - { name: messenger.message_handler, bus: query.bus, method: handle }
 
     chapter7_projection_handlers:
         namespace: Cheeper\Chapter7\Application\
         resource: '../src/Cheeper/Chapter7/Application/**/*ProjectionHandler.php'
         tags:
-            - { name: messenger.message_handler, bus: projection.bus }
+            - { name: messenger.message_handler, bus: projection.bus, method: handle }
 
     # CHAPTER 8
     Cheeper\Chapter8\:
