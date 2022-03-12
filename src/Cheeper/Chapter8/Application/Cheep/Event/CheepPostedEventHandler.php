@@ -8,8 +8,8 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjection;
 use Cheeper\Chapter7\Application\ProjectionBus;
 use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
-use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use Cheeper\Chapter8\Application\Cheep\Projection\AddCheepToGlobalStoreProjection;
+use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 

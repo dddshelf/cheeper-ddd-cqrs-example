@@ -8,13 +8,13 @@ use App\Messenger\CommandBus;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\Chapter7\Application\Cheep\Command\PostCheepCommand;
 use InvalidArgumentException;
+use function Safe\json_decode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use function Safe\json_decode;
 
 //snippet chapter7-postcheep-controller
 final class PostCheepController extends AbstractController

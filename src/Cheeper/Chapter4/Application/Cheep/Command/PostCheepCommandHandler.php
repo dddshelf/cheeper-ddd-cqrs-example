@@ -8,11 +8,11 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
+use Cheeper\Chapter4\Application\EventBus;
 use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter4\DomainModel\Cheep\Cheep;
 use Cheeper\Chapter4\DomainModel\Cheep\CheepRepository;
-use Cheeper\Chapter4\Application\EventBus;
 
 //snippet post-cheep-handler
 final class PostCheepCommandHandler

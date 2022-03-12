@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Author\Query;
 
-use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-
 //snippet timeline-handler
 final class TimelineQueryHandler
 {

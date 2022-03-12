@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\Chapter7\Application\QueryBus;
 use Cheeper\Chapter7\Application\Author\Query\CountFollowersQuery;
+use Cheeper\Chapter7\Application\QueryBus;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Controller\Chapter7;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\Chapter7\Application\Author\Query\CountFollowersQuery;
 use Cheeper\Chapter7\Application\Author\Query\TimelineQuery;
 use Cheeper\Chapter7\Application\QueryBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -27,11 +27,13 @@ class Clock
         return static::$instance;
     }
 
-    public function now(): DateTimeImmutable {
+    public function now(): DateTimeImmutable
+    {
         return $this->strategy->now();
     }
 
-    public function changeStrategy(ClockStrategy $clockStrategy): self {
+    public function changeStrategy(ClockStrategy $clockStrategy): self
+    {
         $this->strategy = $clockStrategy;
 
         return $this;

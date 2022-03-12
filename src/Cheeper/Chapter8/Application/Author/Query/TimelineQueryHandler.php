@@ -38,7 +38,7 @@ final class TimelineQueryHandler
             $cheeps[] = [
                 'cheep_id' => $popularCheep->getId()->toString(),
                 'cheep_message' => $popularCheep->getMessage(),
-                'cheep_date' => $popularCheep->getCreatedAt()->format(DateTimeInterface::ATOM)
+                'cheep_date' => $popularCheep->getCreatedAt()->format(DateTimeInterface::ATOM),
             ];
         }
 
@@ -48,7 +48,7 @@ final class TimelineQueryHandler
 
         usort(
             $cheeps,
-            function(array $c1, array $c2): int {
+            function (array $c1, array $c2): int {
                 $date1 = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $c1['cheep_date']);
                 $date2 = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $c2['cheep_date']);
                 return $date1 <=> $date2;

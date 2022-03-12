@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter6\Application\Author\Command\WithDomainEvents;
 
-use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
-use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
-use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
 use Cheeper\Chapter4\Application\EventBus;
 use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 
 //snippet follow-handler-with-event
 final class FollowCommandHandler

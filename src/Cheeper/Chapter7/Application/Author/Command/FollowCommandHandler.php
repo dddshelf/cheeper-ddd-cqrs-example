@@ -54,7 +54,7 @@ final class FollowCommandHandler
     private function notifyEvents(FollowCommand $command, array $domainEvents): void
     {
         $stamppedEvents = array_map(
-            static fn($event) => $event->stampAsResponseTo($command),
+            static fn ($event) => $event->stampAsResponseTo($command),
             $domainEvents
         );
 

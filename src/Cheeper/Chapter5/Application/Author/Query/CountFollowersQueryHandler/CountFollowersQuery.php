@@ -16,8 +16,7 @@ final class CountFollowersQuery implements Query
 
     private function __construct(
         private string $authorId
-    )
-    {
+    ) {
     }
 
     public function authorId(): string

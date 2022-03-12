@@ -8,7 +8,8 @@ use DateTimeImmutable;
 
 class DefaultClockStrategy implements ClockStrategy
 {
-    public function now(): DateTimeImmutable {
+    public function now(): DateTimeImmutable
+    {
         return new DateTimeImmutable(
             'now',
             new \DateTimeZone(

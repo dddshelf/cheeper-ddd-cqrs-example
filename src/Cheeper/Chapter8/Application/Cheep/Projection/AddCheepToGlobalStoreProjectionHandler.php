@@ -13,8 +13,7 @@ final class AddCheepToGlobalStoreProjectionHandler
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     public function __invoke(AddCheepToGlobalStoreProjection $projection): void

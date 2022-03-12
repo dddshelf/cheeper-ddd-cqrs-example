@@ -44,8 +44,7 @@ final class CheepPosted implements DomainEvent
         AuthorId $authorId,
         CheepMessage $cheepMessage,
         CheepDate $cheepDate,
-    ): self
-    {
+    ): self {
         return new self(
             $cheepId->toString(),
             $authorId->toString(),

@@ -12,8 +12,7 @@ class DateCollectionClockStrategy implements ClockStrategy
 
     public function __construct(
         private array $collection = []
-    )
-    {
+    ) {
         $this->iterator = 0;
     }
 

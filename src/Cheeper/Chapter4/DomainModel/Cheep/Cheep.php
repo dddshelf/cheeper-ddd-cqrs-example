@@ -34,8 +34,7 @@ final class Cheep
         private string $cheepId,
         private string $authorId,
         private string $message,
-    )
-    {
+    ) {
         $this->date = Clock::instance()->now();
         $this->setMessage($message);
         $this->notifyDomainEvent(
@@ -68,7 +67,7 @@ final class Cheep
         return CheepId::fromString($this->cheepId);
     }
 
-    final public function recomposeWith(CheepMessage $cheepMessage): void
+    public function recomposeWith(CheepMessage $cheepMessage): void
     {
         $this->setMessage($cheepMessage->message());
     }

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\PopularCheep;
-use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Follow\Follow;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use function Doctrine\ORM\QueryBuilder;
 
 final class PopularCheepRepository extends ServiceEntityRepository
 {
@@ -25,7 +23,7 @@ final class PopularCheepRepository extends ServiceEntityRepository
     public function of(array $follows): array
     {
         return $this->findBy([
-            'id' => array_map(static fn(Follow $f) => $f->toAuthorId()->id(), $follows)
+            'id' => array_map(static fn (Follow $f) => $f->toAuthorId()->id(), $follows),
         ]);
     }
 }

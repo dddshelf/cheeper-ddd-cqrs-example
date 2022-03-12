@@ -15,7 +15,9 @@ use Ramsey\Uuid\UuidInterface;
 class PopularCheep
 {
     public function __construct(
-        #[ORM\Id, ORM\GeneratedValue(strategy: "NONE"), ORM\Column(type: UuidType::NAME)]
+        #[ORM\Id,
+        ORM\GeneratedValue(strategy: "NONE"),
+        ORM\Column(type: UuidType::NAME)]
         private UuidInterface $id,
         #[ORM\Column(type: UuidType::NAME)]
         private UuidInterface $authorId,

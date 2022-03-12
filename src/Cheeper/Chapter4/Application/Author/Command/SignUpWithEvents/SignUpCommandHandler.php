@@ -11,9 +11,9 @@ use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
 use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpCommand;
+use Cheeper\Chapter4\Application\EventBus;
 use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
-use Cheeper\Chapter4\Application\EventBus;
 
 //snippet sign-up-handler-with-events
 final class SignUpCommandHandler
