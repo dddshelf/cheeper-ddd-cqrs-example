@@ -10,6 +10,8 @@ use Redis;
 //snippet create-followers-counter-projection-projector
 final class CreateFollowersCounterProjectionHandler implements CreateFollowersCounterProjectionHandlerInterface
 {
+    public const REDIS_KEY_TEMPLATE = 'author_followers_counter_projection:%s';
+
     public function __construct(
         private Redis $redis
     ) {
@@ -26,7 +28,10 @@ final class CreateFollowersCounterProjectionHandler implements CreateFollowersCo
         ];
 
         $this->redis->set(
-            'author_followers_counter_projection:'.$authorId->toString(),
+            sprintf(
+                self::REDIS_KEY_TEMPLATE,
+                $authorId->toString()
+            ),
             json_encode($result)
         );
     }
