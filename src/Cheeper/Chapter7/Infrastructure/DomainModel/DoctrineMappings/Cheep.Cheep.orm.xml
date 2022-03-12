@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Cheeper\Chapter7\DomainModel\Cheep\Cheep" table="chapter7_cheeps">
+    <entity name="Cheeper\Chapter7\DomainModel\Cheep\Cheep" table="cheeps">
         <id name="cheepId" column="cheep_id" type="string" length="36">
             <generator strategy="NONE"/>
         </id>
