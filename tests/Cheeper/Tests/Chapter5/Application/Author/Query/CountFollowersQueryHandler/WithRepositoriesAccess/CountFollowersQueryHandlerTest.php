@@ -10,10 +10,10 @@ use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\Chapter4\DomainModel\Author\Author;
 use Cheeper\Chapter4\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRepositoriesAccess\CountFollowersQueryHandler;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
-use Cheeper\Chapter4\DomainModel\Follow\FollowRepository;
 use PHPUnit\Framework\TestCase;
 
 final class CountFollowersQueryHandlerTest extends TestCase
@@ -84,7 +84,8 @@ final class CountFollowersQueryHandlerTest extends TestCase
         return $mock;
     }
 
-    private function buildFollowRepositoryMockReturning(array $fakeReturn): FollowRepository {
+    private function buildFollowRepositoryMockReturning(array $fakeReturn): FollowRepository
+    {
         $mock = $this->createStub(FollowRepository::class);
 
         $mock->method('fromAuthorId')->willReturn(

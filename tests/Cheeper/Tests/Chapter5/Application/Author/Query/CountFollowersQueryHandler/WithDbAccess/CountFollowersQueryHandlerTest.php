@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithDbAccess;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithDbAccess\CountFollowersQueryHandler;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +51,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
             $this->buildEntityManagerMockReturning([
                 'id' => $authorId,
                 'username' => $authorUsername,
-                'followers' => $authorFollowers
+                'followers' => $authorFollowers,
             ])
         );
 
@@ -75,10 +75,12 @@ final class CountFollowersQueryHandlerTest extends TestCase
         );
 
         $connectionMock = new class($fakeReturn) {
-            public function __construct(private $toReturn) {
+            public function __construct(private $toReturn)
+            {
             }
 
-            public function fetchAssociative($query, $params): mixed {
+            public function fetchAssociative($query, $params): mixed
+            {
                 return $this->toReturn;
             }
         };

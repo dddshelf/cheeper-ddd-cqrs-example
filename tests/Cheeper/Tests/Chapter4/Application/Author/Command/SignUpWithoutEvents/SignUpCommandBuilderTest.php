@@ -9,14 +9,14 @@ use Cheeper\Chapter4\Application\Author\Command\SignUpWithoutEvents\SignUpComman
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-final class SignUpCommandBuilderMock {
+final class SignUpCommandBuilderMock
+{
     //snippet builder-method
     public static function builder(
         string $authorId,
         string $userName,
         string $email
-    ): SignUpCommandBuilder
-    {
+    ): SignUpCommandBuilder {
         return SignUpCommandBuilder::create($authorId, $userName, $email);
     }
     //end-snippet

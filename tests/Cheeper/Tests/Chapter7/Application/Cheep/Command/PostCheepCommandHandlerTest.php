@@ -16,9 +16,9 @@ use Cheeper\Chapter7\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter7\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter7\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter7\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
+use function Functional\first;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use function Functional\first;
 
 //snippet post-cheep-handler-test
 final class PostCheepCommandHandlerTest extends TestCase

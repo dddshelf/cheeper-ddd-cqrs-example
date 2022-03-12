@@ -5,10 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter7\Application\Author\Projection;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
-use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
 use Cheeper\Chapter7\Application\Author\Projection\CountFollowersProjection;
 use Cheeper\Chapter7\Application\Author\Projection\CountFollowersProjectionHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,14 +73,17 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         );
     }
 
-    private function buildEntityManagerMockReturning($fakeReturn) {
+    private function buildEntityManagerMockReturning($fakeReturn)
+    {
         $mock = $this->createStub(EntityManagerInterface::class);
 
         $connectionMock = new class($fakeReturn) {
-            public function __construct(private $toReturn) {
+            public function __construct(private $toReturn)
+            {
             }
 
-            public function fetchAssociative($query, $params): mixed {
+            public function fetchAssociative($query, $params): mixed
+            {
                 return $this->toReturn;
             }
         };

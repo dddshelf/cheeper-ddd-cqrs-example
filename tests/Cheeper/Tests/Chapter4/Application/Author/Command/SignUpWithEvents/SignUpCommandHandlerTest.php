@@ -14,9 +14,9 @@ use Cheeper\Chapter4\DomainModel\Author\NewAuthorSigned;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use DateTimeImmutable;
+use function Functional\first;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use function Functional\first;
 
 final class SignUpCommandHandlerTest extends TestCase
 {
@@ -268,14 +268,13 @@ final class SignUpCommandHandlerTest extends TestCase
                 (new DateTimeImmutable())->format('Y-m-d')
             )
         );
-
-
     }
 
     protected function getToday(): DateTimeImmutable
     {
         return new DateTimeImmutable(
-            'now', new \DateTimeZone('UTC')
+            'now',
+            new \DateTimeZone('UTC')
         );
     }
 }

@@ -8,8 +8,6 @@ use Cheeper\Chapter2\Author;
 use Cheeper\Chapter2\Hexagonal\Application\CheepService;
 use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 use Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepository;
-use Cheeper\Chapter2\Layered\AuthorDAO;
-use Cheeper\Chapter2\Layered\CheepDAO;
 use PHPUnit\Framework\TestCase;
 
 //snippet cheep-service-test

@@ -187,14 +187,13 @@ final class FollowCommandHandlerTest extends TestCase
         string $followId,
         string $fromAuthorId,
         string $toAuthorId
-    ): FollowCommand
-    {
+    ): FollowCommand {
         $this->eventBus->reset();
 
         $command = FollowCommand::fromArray([
             'follow_id' => $followId,
             'from_author_id' => $fromAuthorId,
-            'to_author_id' => $toAuthorId
+            'to_author_id' => $toAuthorId,
         ]);
 
         (new FollowCommandHandler(

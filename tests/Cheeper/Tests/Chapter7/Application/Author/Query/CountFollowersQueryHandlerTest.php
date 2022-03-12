@@ -51,7 +51,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
                 json_encode([
                     'id' => $authorId,
                     'username' => $authorUsername,
-                    'followers' => $authorFollowers
+                    'followers' => $authorFollowers,
                 ])
             )
         );

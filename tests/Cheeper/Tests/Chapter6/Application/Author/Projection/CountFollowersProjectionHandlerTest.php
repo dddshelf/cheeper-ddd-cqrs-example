@@ -61,7 +61,7 @@ final class CountFollowersProjectionHandlerTest extends TestCase
                     [
                         'id' => $authorId,
                         'username' => $authorUsername,
-                        'followers' => $authorFollowers
+                        'followers' => $authorFollowers,
                     ]
                 )
             )
@@ -70,7 +70,7 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $dbMock = $this->buildEntityManagerMockReturning([
             'id' => $authorId,
             'username' => $authorUsername,
-            'followers' => $authorFollowers
+            'followers' => $authorFollowers,
         ]);
 
         $handler = new CountFollowersProjectionHandler(
@@ -88,10 +88,12 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $mock = $this->createStub(EntityManagerInterface::class);
 
         $connectionMock = new class($fakeReturn) {
-            public function __construct(private $toReturn) {
+            public function __construct(private $toReturn)
+            {
             }
 
-            public function fetchAssociative($query, $params): mixed {
+            public function fetchAssociative($query, $params): mixed
+            {
                 return $this->toReturn;
             }
         };

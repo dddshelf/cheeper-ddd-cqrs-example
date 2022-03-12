@@ -11,20 +11,19 @@ use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\AllChapters\DomainModel\Clock\DateCollectionClockStrategy;
 use Cheeper\AllChapters\DomainModel\Follow\FollowDoesAlreadyExistException;
-use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
 use Cheeper\AllChapters\DomainModel\Follow\FollowId;
-use Cheeper\Chapter4\DomainModel\Follow\Follow;
-use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 use Cheeper\Chapter4\DomainModel\Author\Author;
+use Cheeper\Chapter4\DomainModel\Author\AuthorFollowed;
+use Cheeper\Chapter4\DomainModel\Follow\Follow;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Follow\InMemoryFollowRepository;
+use Cheeper\Chapter6\Application\Author\Command\FollowCommand;
 use Cheeper\Chapter6\Application\Author\Command\WithDomainEvents\FollowCommandHandler;
 use DateTimeImmutable;
+use function Functional\first;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\UuidV4;
-use Symfony\Component\Validator\Constraints\Uuid;
-use function Functional\first;
 
 final class FollowCommandHandlerTest extends TestCase
 {

@@ -7,12 +7,12 @@ namespace Cheeper\Tests\Helper;
 
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryCheepRepository;
+use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
 use Cheeper\Chapter2\Hexagonal\DomainModel\AuthorRepository;
 use Cheeper\Chapter2\Hexagonal\DomainModel\CheepRepository;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter6\Infrastructure\Application\Event\InMemoryEventBus;
-use Cheeper\AllChapters\Infrastructure\Persistence\InMemoryFollows;
 
 trait SendsCommands
 {

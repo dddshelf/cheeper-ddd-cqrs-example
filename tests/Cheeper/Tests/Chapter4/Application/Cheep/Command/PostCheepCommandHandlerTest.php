@@ -8,17 +8,17 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\AllChapters\DomainModel\Clock\DateCollectionClockStrategy;
-use Cheeper\Chapter4\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
+use Cheeper\Chapter4\DomainModel\Cheep\CheepPosted;
 use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
 use Cheeper\Tests\AllChapters\DomainModel\Author\AuthorTestDataBuilder;
 use DateTimeImmutable;
+use function Functional\first;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use function Functional\first;
 
 //snippet post-cheep-handler-test
 final class PostCheepCommandHandlerTest extends TestCase
@@ -43,7 +43,8 @@ final class PostCheepCommandHandlerTest extends TestCase
     protected function getToday(): DateTimeImmutable
     {
         return new DateTimeImmutable(
-            'now', new \DateTimeZone('UTC')
+            'now',
+            new \DateTimeZone('UTC')
         );
     }
 

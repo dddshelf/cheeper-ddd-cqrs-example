@@ -12,9 +12,9 @@ use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\PostCheepCommandHandler;
 use Cheeper\Chapter4\Application\Cheep\Command\UpdateCheepMessageCommand;
 use Cheeper\Chapter4\Application\Cheep\Command\UpdateCheepMessageCommandHandler;
+use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Author\InMemoryAuthorRepository;
 use Cheeper\Chapter4\Infrastructure\DomainModel\Cheep\InMemoryCheepRepository;
-use Cheeper\Chapter4\Infrastructure\Application\InMemoryEventBus;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

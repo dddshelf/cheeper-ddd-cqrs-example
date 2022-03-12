@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRedisAccess;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
+use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
 use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\WithRedisAccess\CountFollowersQueryHandler;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersQuery;
 use PHPUnit\Framework\TestCase;
 use Redis;
 
@@ -51,7 +51,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
                 json_encode([
                     'id' => $authorId,
                     'username' => $authorUsername,
-                    'followers' => $authorFollowers
+                    'followers' => $authorFollowers,
                 ])
             )
         );

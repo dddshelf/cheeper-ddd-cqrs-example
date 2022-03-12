@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Chapter7\Application\Author\Query;
 
-use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\Chapter5\Application\Author\Query\CountFollowersQueryHandler\CountFollowersResponse;
-use Cheeper\Chapter7\Application\Author\Query\CountFollowersQuery;
-use Cheeper\Chapter7\Application\Author\Query\CountFollowersQueryHandler;
 use Cheeper\Chapter7\Application\Author\Query\TimelineQuery;
 use Cheeper\Chapter7\Application\Author\Query\TimelineQueryHandler;
 use PHPUnit\Framework\TestCase;
