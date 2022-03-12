@@ -31,7 +31,7 @@ final class NewAuthorSignedEventHandlerTest extends TestCase
             EmailAddress::from('alice@alice.com')
         );
 
-        $eventHandler->handle(
+        $eventHandler(
             NewAuthorSigned::fromAuthor($author)
         );
     }

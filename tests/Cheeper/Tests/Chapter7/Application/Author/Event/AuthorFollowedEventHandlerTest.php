@@ -30,7 +30,7 @@ final class AuthorFollowedEventHandlerTest extends TestCase
             AuthorId::nextIdentity(),
         );
 
-        $eventHandler->handle(
+        $eventHandler(
             AuthorFollowed::fromFollow(
                 $follow
             )

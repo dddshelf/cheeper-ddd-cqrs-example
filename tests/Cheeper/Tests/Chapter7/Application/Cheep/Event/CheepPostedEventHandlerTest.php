@@ -43,7 +43,7 @@ final class CheepPostedEventHandlerTest extends TestCase
             $projectionBus
         );
 
-        $eventHandler->handle(
+        $eventHandler(
             CheepPosted::create(
                 CheepId::nextIdentity(),
                 AuthorId::nextIdentity(),
@@ -89,7 +89,7 @@ final class CheepPostedEventHandlerTest extends TestCase
             $projectionBus
         );
 
-        $eventHandler->handle(
+        $eventHandler(
             CheepPosted::create(
                 CheepId::nextIdentity(),
                 $rockStarAuthorId,
