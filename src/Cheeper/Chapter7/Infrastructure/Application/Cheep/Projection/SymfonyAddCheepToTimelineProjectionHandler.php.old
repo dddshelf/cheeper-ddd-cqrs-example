@@ -25,7 +25,8 @@ final class SymfonyAddCheepToTimelineProjectionHandler implements MessageSubscri
     {
         yield AddCheepToTimelineProjection::class => [
             'method' => 'handle',
-            'from_transport' => 'chapter7_async_projections',
+            'bus' => 'projection.bus',
+            'from_transport' => 'projections_async',
         ];
     }
 }

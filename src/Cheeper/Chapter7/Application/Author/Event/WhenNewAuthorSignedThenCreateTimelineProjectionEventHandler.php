@@ -17,7 +17,7 @@ final class WhenNewAuthorSignedThenCreateTimelineProjectionEventHandler
     ) {
     }
 
-    public function handle(NewAuthorSigned $event): void
+    public function __invoke(NewAuthorSigned $event): void
     {
         $this->projector->__invoke(
             CreateTimelineProjection::ofAuthor(

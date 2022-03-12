@@ -26,6 +26,7 @@ final
     {
         yield NewAuthorSigned::class => [
             'method' => 'handle',
+            'bus' => 'event.bus',
             'from_transport' => 'events_async',
         ];
     }

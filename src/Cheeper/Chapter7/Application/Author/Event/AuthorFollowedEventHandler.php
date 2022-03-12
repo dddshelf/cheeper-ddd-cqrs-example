@@ -16,7 +16,7 @@ final class AuthorFollowedEventHandler
     ) {
     }
 
-    public function handle(AuthorFollowed $event): void
+    public function __invoke(AuthorFollowed $event): void
     {
         $this->projectionHandler->__invoke(
             CountFollowersProjection::ofAuthor($event->toAuthorId())

@@ -47,7 +47,6 @@ framework:
 
             # Dead letter box
             failed_messages: '%env(MESSENGER_TRANSPORT_BASE_DSN)%/failed_messages'
-
         routing:
             # With a proper UX, almost all the commands should
             # be run asynchronously.However, some commands can

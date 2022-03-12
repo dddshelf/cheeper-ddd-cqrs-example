@@ -21,7 +21,7 @@ final class CheepPostedEventHandler
     ) {
     }
 
-    public function handle(CheepPosted $event): void
+    public function __invoke(CheepPosted $event): void
     {
         $follows = $this->followRepository->toAuthorId(
             AuthorId::fromString($event->authorId())

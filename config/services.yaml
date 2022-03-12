@@ -104,8 +104,11 @@ services:
 #        class: 'Cheeper\Chapter6\Infrastructure\Application\SymfonyProjectionBus'
 
     # CHAPTER 7
-    Cheeper\Chapter7\:
-        resource: '../src/Cheeper/Chapter7/*'
+    Cheeper\Chapter7\Application\:
+        resource: '../src/Cheeper/Chapter7/Application/*'
+
+    Cheeper\Chapter7\Infrastructure\:
+        resource: '../src/Cheeper/Chapter7/Infrastructure/*'
 
     Cheeper\Chapter7\DomainModel\Author\AuthorRepository:
         class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Author\DoctrineOrmAuthorRepository'
@@ -130,13 +133,13 @@ services:
 
     chapter7_command_handlers:
         namespace: Cheeper\Chapter7\Application\
-        resource: '../src/Cheeper/Chapter7/Application/**/*CommandHandler.php'
+        resource: '../src/Cheeper/Chapter7/Application/**/Command/*CommandHandler.php'
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
     chapter7_event_handlers:
         namespace: Cheeper\Chapter7\Application\
-        resource: '../src/Cheeper/Chapter7/Application/**/Symfony*EventHandler.php'
+        resource: '../src/Cheeper/Chapter7/Application/**/*EventHandler.php'
         tags:
             - { name: messenger.message_handler, bus: event.bus }
 
@@ -148,7 +151,7 @@ services:
 
     chapter7_projection_handlers:
         namespace: Cheeper\Chapter7\Application\
-        resource: '../src/Cheeper/Chapter7/Application/**/Symfony*ProjectionHandler.php'
+        resource: '../src/Cheeper/Chapter7/Application/**/*ProjectionHandler.php'
         tags:
             - { name: messenger.message_handler, bus: projection.bus }
 

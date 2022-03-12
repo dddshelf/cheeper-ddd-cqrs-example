@@ -18,7 +18,7 @@ final class NewAuthorSignedEventHandler
     ) {
     }
 
-    public function handle(NewAuthorSigned $event): void
+    public function __invoke(NewAuthorSigned $event): void
     {
         $this->followersProjector->__invoke(
             CreateFollowersCounterProjection::ofAuthor(

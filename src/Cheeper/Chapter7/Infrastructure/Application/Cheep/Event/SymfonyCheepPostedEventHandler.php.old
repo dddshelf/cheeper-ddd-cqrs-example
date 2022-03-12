@@ -25,7 +25,8 @@ final class SymfonyCheepPostedEventHandler implements MessageSubscriberInterface
     {
         yield CheepPosted::class => [
             'method' => 'handle',
-            'from_transport' => 'chapter7_events',
+            'bus' => 'event.bus',
+            'from_transport' => 'events',
         ];
     }
 }
