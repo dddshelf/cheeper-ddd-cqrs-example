@@ -6,6 +6,7 @@ namespace Cheeper\Chapter7\Application\Author\Query;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
+use Cheeper\Chapter7\Application\Author\Projection\CreateFollowersCounterProjectionHandler;
 use Redis;
 
 //snippet count-followers-handler
@@ -20,15 +21,16 @@ final class CountFollowersQueryHandler
     {
         $authorId = AuthorId::fromString($query->authorId());
 
-        $data = $this->redis->get(
-            'author_followers_counter_projection:'.$authorId->toString()
+        $result = $this->redis->hGetAll(
+            sprintf(
+                CreateFollowersCounterProjectionHandler::REDIS_KEY_TEMPLATE,
+                $authorId->toString()
+            )
         );
 
-        if (false === $data) {
+        if (empty($result)) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
-
-        $result = json_decode($data, true, flags: JSON_THROW_ON_ERROR);
 
         return new CountFollowersQueryResponse(
             authorId: $result['id'],

@@ -22,15 +22,13 @@ final class CountFollowersQueryHandler
     {
         $authorId = AuthorId::fromString($query->authorId());
 
-        $data = $this->redis->get(
+        $result = $this->redis->hGetAll(
             'author_followers_counter_projection:'.$authorId->toString()
         );
 
-        if (false === $data) {
+        if (empty($result)) {
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
-
-        $result = json_decode($data, true, flags: JSON_THROW_ON_ERROR);
 
         return new CountFollowersResponse(
             authorId: $result['id'],

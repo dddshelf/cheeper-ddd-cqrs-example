@@ -27,12 +27,12 @@ final class CreateFollowersCounterProjectionHandler implements CreateFollowersCo
             'followers' => 0,
         ];
 
-        $this->redis->set(
+        $this->redis->hMSet(
             sprintf(
                 self::REDIS_KEY_TEMPLATE,
                 $authorId->toString()
             ),
-            json_encode($result)
+            $result
         );
     }
 }

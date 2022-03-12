@@ -26,7 +26,7 @@ final class CountFollowersProjectionHandler implements CountFollowersProjectionH
 
         $result = $connection->fetchAssociative(
             "SELECT a.author_id as id, a.user_name as username, COUNT(*) as followers ".
-            "FROM chapter7_authors a, chapter7_follows f ".
+            "FROM authors a, follows f ".
             "WHERE a.author_id = f.to_author_id ".
             "AND a.author_id = :authorId ".
             "GROUP BY id, username",
@@ -43,9 +43,12 @@ final class CountFollowersProjectionHandler implements CountFollowersProjectionH
             'followers' => (int) $result['followers'],
         ];
 
-        $this->redis->set(
-            'author_followers_counter_projection:'.$authorId->toString(),
-            json_encode($projectionResult, JSON_THROW_ON_ERROR)
+        $this->redis->hMSet(
+            sprintf(
+                CreateFollowersCounterProjectionHandler::REDIS_KEY_TEMPLATE,
+                $authorId->toString()
+            ),
+            $projectionResult
         );
     }
 }
