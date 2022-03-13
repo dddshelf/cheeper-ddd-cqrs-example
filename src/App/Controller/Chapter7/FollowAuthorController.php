@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function json_decode;
 
 final class FollowAuthorController extends AbstractController
 {
@@ -20,6 +21,12 @@ final class FollowAuthorController extends AbstractController
     public function __invoke(Request $request, CommandBus $commandBus): Response
     {
         $httpCode = Response::HTTP_ACCEPTED;
+        $httpContent = [
+            'meta' => [],
+            'data' => [],
+        ];
+
+        $command = null;
         try {
             $command = FollowCommand::fromArray(
                 $this->getRequestContentInJson($request)
@@ -27,19 +34,16 @@ final class FollowAuthorController extends AbstractController
 
             $commandBus->handle($command);
 
-            $httpContent = [
-                'message_id' => $command->messageId()?->toString(),
-            ];
+            $httpContent['data']['from_author_id'] = $command->fromAuthorId();
+            $httpContent['data']['to_author_id'] = $command->toAuthorId();
         } catch (
-            AuthorDoesNotExist $exception
-        ) {
-            $httpCode = Response::HTTP_NOT_FOUND;
-            $httpContent = ['message' => $exception->getMessage()];
-        } catch (
-            InvalidArgumentException $exception
+        AuthorDoesNotExist
+        |InvalidArgumentException $exception
         ) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-            $httpContent = ['message' => $exception->getMessage()];
+            $httpContent['data']['message'] = $exception->getMessage();
+        } finally {
+            $httpContent['meta']['message_id'] = $command?->messageId()?->toString();
         }
 
         return $this->buildJsonResponse($httpContent, $httpCode);
@@ -47,7 +51,7 @@ final class FollowAuthorController extends AbstractController
 
     private function getRequestContentInJson(Request $request): mixed
     {
-        return \Safe\json_decode(
+        return json_decode(
             $request->getContent(),
             true
         );
