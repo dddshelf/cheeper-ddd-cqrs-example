@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter7\Application\Author\Query;
 
 //snippet timeline-handler
+use Cheeper\Chapter7\Application\Cheep\Projection\AddCheepToTimelineProjectionHandler;
+
 final class TimelineQueryHandler
 {
     public function __construct(
@@ -15,7 +17,10 @@ final class TimelineQueryHandler
     public function __invoke(TimelineQuery $query): TimelineQueryResponse
     {
         $authorId = $query->authorId();
-        $key = sprintf('author_timeline_projection:%s', $authorId);
+        $key = sprintf(
+            AddCheepToTimelineProjectionHandler::REDIS_KEY_TEMPLATE,
+            $authorId
+        );
 
         $serializedCheeps = $this->redis->lRange(
             $key,

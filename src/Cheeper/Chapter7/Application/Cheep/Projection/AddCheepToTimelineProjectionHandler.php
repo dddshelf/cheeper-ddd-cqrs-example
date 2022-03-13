@@ -10,6 +10,8 @@ use Redis;
 //snippet add-cheep-to-timeline-projector
 final class AddCheepToTimelineProjectionHandler
 {
+    public const REDIS_KEY_TEMPLATE = 'author_timeline_projection:%s';
+
     public function __construct(
         private Redis $redis,
     ) {
@@ -26,7 +28,7 @@ final class AddCheepToTimelineProjectionHandler
     private function getRedisKey(AddCheepToTimelineProjection $message): string
     {
         return sprintf(
-            CreateFollowersCounterProjectionHandler::REDIS_KEY_TEMPLATE,
+            self::REDIS_KEY_TEMPLATE,
             $message->authorId
         );
     }

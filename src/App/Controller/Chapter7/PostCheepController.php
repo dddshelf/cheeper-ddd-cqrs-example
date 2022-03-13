@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 //snippet chapter7-postcheep-controller
@@ -23,32 +22,35 @@ final class PostCheepController extends AbstractController
     public function __invoke(Request $request, CommandBus $commandBus): Response
     {
         $httpCode = Response::HTTP_ACCEPTED;
+        $httpContent = [
+            'meta' => [],
+            'data' => [],
+        ];
 
+        $command = null;
         try {
             $command = PostCheepCommand::fromArray(
                 $this->getRequestContentInJson($request)
             );
 
             $commandBus->handle($command);
-            $httpContent = [
-                'message_id' => $command->messageId()?->toString(),
-                'cheep_id' => $command->authorId(),
-            ];
 
-            return $this->buildJsonResponse(
-                $httpContent,
-                $httpCode
-            );
+            $httpContent['data']['cheep_id'] = $command->cheepId();
+
         } catch (
             AuthorDoesNotExist
             | InvalidArgumentException $exception
         ) {
-            throw new HttpException(
-                statusCode: Response::HTTP_INTERNAL_SERVER_ERROR,
-                message: $exception->getMessage(),
-                previous: $exception
-            );
+            $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $httpContent['data']['message'] = $exception->getMessage();
+        } finally {
+            $httpContent['meta']['message_id'] = $command?->messageId()?->toString();
         }
+
+        return $this->buildJsonResponse(
+            $httpContent,
+            $httpCode
+        );
     }
 
     //ignore

@@ -1,3 +1,5 @@
+# Cheeper: CQRS By Example Repository
+
 <h1 align="center">
     <a href="http://leanpub.com/cqrs-by-example">
         <img src="http://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
@@ -26,24 +28,15 @@
 
 This code can run fully on docker. In order to do so just run
 
-    make run
+    make start
 
 To start the development environment. If this is the first time you run the code you will need to run database migrations
 
-    make database
+    make infrastructure
 
 And to stop all services just run
 
     make stop
-
-### Local Symfony Webserver + Docker for external services
-
-This code can also be run using Symfony Local Webserver.
-
-### Fixtures 
-
-    make database
-
 
 Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc. Let's see what happens with the existing Projections when 
 

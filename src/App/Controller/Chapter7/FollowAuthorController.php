@@ -37,8 +37,8 @@ final class FollowAuthorController extends AbstractController
             $httpContent['data']['from_author_id'] = $command->fromAuthorId();
             $httpContent['data']['to_author_id'] = $command->toAuthorId();
         } catch (
-        AuthorDoesNotExist
-        |InvalidArgumentException $exception
+            AuthorDoesNotExist
+            |InvalidArgumentException $exception
         ) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
             $httpContent['data']['message'] = $exception->getMessage();
