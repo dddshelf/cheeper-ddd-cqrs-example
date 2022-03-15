@@ -13,6 +13,7 @@ use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 
+//snippet chapter8-cheep-posted-event-handler
 final class CheepPostedEventHandler
 {
     private const MAX_NUMBER_OF_FOLLOWERS = 1000000;
@@ -28,15 +29,18 @@ final class CheepPostedEventHandler
         $authorId = AuthorId::fromString($event->authorId());
         $numberOfFollowers = $this->followRepository->numberOfFollowersFor($authorId);
 
+        $cheepDate = DateTimeImmutable
+            ::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->format(DateTimeInterface::ATOM);
+
         if ($numberOfFollowers >= self::MAX_NUMBER_OF_FOLLOWERS) {
             $this->projectionBus->project(
                 new AddCheepToGlobalStoreProjection(
                     authorId:       $authorId->toString(),
                     cheepId:        $event->cheepId(),
                     cheepMessage:   $event->cheepMessage(),
-                    cheepDate:      DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
-                        ->setTimezone(new \DateTimeZone('UTC'))
-                        ->format(DateTimeInterface::ATOM),
+                    cheepDate: $cheepDate,
                 )
             );
 
@@ -46,37 +50,15 @@ final class CheepPostedEventHandler
         $follows = $this->followRepository->toAuthorId($authorId);
 
         foreach ($follows as $follow) {
-            // Sending the projection to be processed
-            // asynchronously helps on improving
-            // performance by distributing the tasks
-            // between multiple workers
             $this->projectionBus->project(
                 new AddCheepToTimelineProjection(
                     authorId:       $follow->fromAuthorId()->toString(),
                     cheepId:        $event->cheepId(),
                     cheepMessage:   $event->cheepMessage(),
-                    cheepDate:      DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
-                        ->setTimezone(new \DateTimeZone('UTC'))
-                        ->format(DateTimeInterface::ATOM),
+                    cheepDate: $cheepDate,
                 )
             );
-
-            // This is an example on how to straightly do
-            // it with a Redis class instance. This approach
-            // is synchronous. Depending on the case, it could
-            // be the right choice.
-            //
-            // $this->redis->lPush(
-            //     sprintf("timelines_%s", $follow->fromAuthorId()->toString()),
-            //     serialize([
-            //         'cheep_id' => $event->cheepId(),
-            //         'cheep_message' => $event->cheepMessage(),
-            //         'cheep_date' => DateTimeImmutable
-            //             ::createFromFormat('Y-m-d H:i:s', $event->cheepDate())
-            //             ->setTimezone(new \DateTimeZone('UTC'))
-            //             ->format(DateTimeInterface::ATOM)
-            //     ])
-            // );
         }
     }
 }
+//end-snippet

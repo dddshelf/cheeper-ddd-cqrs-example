@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Doctrine\UuidType;
 use Ramsey\Uuid\UuidInterface;
 
+//snippet popular-cheep-entity
 #[ORM\Entity(repositoryClass: PopularCheepRepository::class)]
 class PopularCheep
 {
@@ -28,6 +29,8 @@ class PopularCheep
     ) {
     }
 
+    // Getters & setters
+    //ignore
     public function getId(): UuidInterface
     {
         return $this->id;
@@ -47,4 +50,6 @@ class PopularCheep
     {
         return $this->createdAt;
     }
+    //end-ignore
 }
+//end-snippet

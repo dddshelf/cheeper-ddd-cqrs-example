@@ -10,6 +10,7 @@ use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 
+//snippet chapter8-timeline-query-handler
 final class TimelineQueryHandler
 {
     public function __construct(
@@ -58,3 +59,4 @@ final class TimelineQueryHandler
         return new TimelineQueryResponse($cheeps);
     }
 }
+//end-snippet

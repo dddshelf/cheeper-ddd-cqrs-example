@@ -41,7 +41,7 @@ final class PostCheepCommand extends Command
         dump($command);
         //end-ignore
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
 //end-snippet

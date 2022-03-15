@@ -9,6 +9,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 
+//snippet add-cheep-to-global-store-projection
 final class AddCheepToGlobalStoreProjectionHandler
 {
     public function __construct(
@@ -29,3 +30,4 @@ final class AddCheepToGlobalStoreProjectionHandler
         $this->entityManager->flush();
     }
 }
+//end-snippet
