@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\Application\Cheep\Projection;
 
-use Cheeper\Chapter7\Application\Author\Projection\CreateFollowersCounterProjectionHandler;
 use Redis;
 
 //snippet add-cheep-to-timeline-projector

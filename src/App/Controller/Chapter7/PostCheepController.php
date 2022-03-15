@@ -36,7 +36,6 @@ final class PostCheepController extends AbstractController
             $commandBus->handle($command);
 
             $httpContent['data']['cheep_id'] = $command->cheepId();
-
         } catch (
             AuthorDoesNotExist
             | InvalidArgumentException $exception
