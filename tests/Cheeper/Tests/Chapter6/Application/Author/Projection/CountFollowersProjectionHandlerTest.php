@@ -54,16 +54,14 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $redisMock = $this->createMock(\Redis::class);
         $redisMock
             ->expects($this->once())
-            ->method('set')
+            ->method('hmset')
             ->with(
-                'author_followers_counter_projection:'.$authorId,
-                json_encode(
-                    [
-                        'id' => $authorId,
-                        'username' => $authorUsername,
-                        'followers' => $authorFollowers,
-                    ]
-                )
+            'author_followers_counter_projection:'.$authorId,
+                [
+                    'id' => $authorId,
+                    'username' => $authorUsername,
+                    'followers' => $authorFollowers,
+                ]
             )
         ;
 

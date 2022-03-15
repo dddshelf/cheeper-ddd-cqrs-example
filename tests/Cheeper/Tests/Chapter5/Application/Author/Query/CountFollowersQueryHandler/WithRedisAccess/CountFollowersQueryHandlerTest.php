@@ -56,7 +56,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
             )
         );
 
-        $expectedReponse = new CountFollowersResponse(
+        $expectedResponse = new CountFollowersResponse(
             authorId: $authorId,
             authorUsername: $authorUsername,
             numberOfFollowers: $authorFollowers
@@ -67,23 +67,23 @@ final class CountFollowersQueryHandlerTest extends TestCase
         );
 
         $this->assertSame(
-            $expectedReponse->authorId(),
+            $expectedResponse->authorId(),
             $actualResponse->authorId()
         );
 
         $this->assertSame(
-            $expectedReponse->authorUsername(),
+            $expectedResponse->authorUsername(),
             $actualResponse->authorUsername()
         );
 
         $this->assertSame(
-            $expectedReponse->numberOfFollowers(),
+            $expectedResponse->numberOfFollowers(),
             $actualResponse->numberOfFollowers()
         );
 
         // In PHPUnit, there is also the chance to
         // compare the whole content of the object
-        // $this->assertEquals($expectedReponse, $actualResponse);
+        // $this->assertEquals($expectedResponse, $actualResponse);
     }
 
     private function buildRedisMockReturning($fakeReturn): Redis

@@ -58,8 +58,8 @@ final class CountFollowersProjectionHandlerTest extends TestCase
         $redisMock = $this->createMock(\Redis::class);
         $redisMock
             ->expects($this->once())
-            ->method('set')
-            ->with($redisKey, json_encode($redisRecord));
+            ->method('hmset')
+            ->with($redisKey, $redisRecord);
 
         $dbMock = $this->buildEntityManagerMockReturning($redisRecord);
 
