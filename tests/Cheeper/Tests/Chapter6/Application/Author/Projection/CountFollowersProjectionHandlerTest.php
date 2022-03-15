@@ -56,7 +56,7 @@ final class CountFollowersProjectionHandlerTest extends TestCase
             ->expects($this->once())
             ->method('hmset')
             ->with(
-            'author_followers_counter_projection:'.$authorId,
+                'author_followers_counter_projection:'.$authorId,
                 [
                     'id' => $authorId,
                     'username' => $authorUsername,
