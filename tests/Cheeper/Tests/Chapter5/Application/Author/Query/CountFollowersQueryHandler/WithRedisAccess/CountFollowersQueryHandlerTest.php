@@ -48,11 +48,11 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $authorFollowers = 0;
         $queryHandler = new CountFollowersQueryHandler(
             $this->buildRedisMockReturning(
-                json_encode([
+                [
                     'id' => $authorId,
                     'username' => $authorUsername,
                     'followers' => $authorFollowers,
-                ])
+                ]
             )
         );
 
@@ -89,7 +89,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
     private function buildRedisMockReturning($fakeReturn): Redis
     {
         $mock = $this->createStub(Redis::class);
-        $mock->method('get')->willReturn(
+        $mock->method('hGetAll')->willReturn(
             $fakeReturn
         );
 
