@@ -33,10 +33,10 @@ final class CountFollowersController extends AbstractController
             $httpContent['data'] = $timeline;
         } catch (AuthorDoesNotExist $e) {
             $httpCode = Response::HTTP_NOT_FOUND;
-            $httpContent['data'] = $e->getMessage();
+            $httpContent['data']['message'] = $e->getMessage();
         } catch (InvalidArgumentException $e) {
             $httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-            $httpContent['data'] = $e->getMessage();
+            $httpContent['data']['message'] = $e->getMessage();
         } finally {
             $httpContent['meta']['message_id'] = $query?->messageId()?->toString();
         }
