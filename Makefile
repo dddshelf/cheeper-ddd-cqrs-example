@@ -58,9 +58,13 @@ demo:
 	$(PHP) bin/console messenger:consume commands_async --limit 3 -vv
 	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
 	$(PHP) bin/console messenger:consume events_async --limit 2 -vv
+	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
+	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='28bc90bd-2dfb-4b71-962f-81f02b0b3149' author_id='a64a52cc-3ee9-4a15-918b-099e18b43119' message='Hello world, this is Bob'
+	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='04efc3af-59a3-4695-803f-d37166c3af56' author_id='1fd7d739-2ad7-41a8-8c18-565603e3733f' message='Hello world, this is Alice'
+	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='8a5539e6-3be2-4fa7-906e-179efcfca46b' author_id='1da1366f-b066-4514-9b29-7346df41e371' message='Hello world, this is Charlie'
 	$(PHP) bin/console messenger:consume commands_async --limit 3 -vv
 	$(PHP) bin/console messenger:consume events_async --limit 3 -vv
 	$(PHP) bin/console messenger:consume projections_async --limit 2 -vv
-	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
-	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
-	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/1da1366f-b066-4514-9b29-7346df41e371/timeline
+	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
+	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
+	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/1da1366f-b066-4514-9b29-7346df41e371/timeline
