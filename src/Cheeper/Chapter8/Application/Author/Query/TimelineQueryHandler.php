@@ -9,12 +9,13 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Redis;
 
 //snippet chapter8-timeline-query-handler
 final class TimelineQueryHandler
 {
     public function __construct(
-        private \Redis $redis,
+        private Redis $redis,
         private PopularCheepRepository $popularCheepRepository,
         private FollowRepository $followRepository,
     ) {
