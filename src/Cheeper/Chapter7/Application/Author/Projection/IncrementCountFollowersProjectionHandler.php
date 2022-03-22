@@ -2,21 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter8\Application\Author\Projection;
+namespace Cheeper\Chapter7\Application\Author\Projection;
 
-use Cheeper\Chapter7\Application\Author\Projection\CountFollowersProjection;
-use Cheeper\Chapter7\Application\Author\Projection\CreateFollowersCounterProjectionHandler;
 use Redis;
 
-//snippet projector-count-followers
-final class CountFollowersProjectionHandler
+//snippet snippet
+final class IncrementCountFollowersProjectionHandler
 {
     public function __construct(
         private Redis $redis
     ) {
     }
 
-    public function __invoke(CountFollowersProjection $projection): void
+    public function __invoke(IncrementCountFollowersProjection $projection): void
     {
         $this->redis->hIncrBy(
             sprintf(

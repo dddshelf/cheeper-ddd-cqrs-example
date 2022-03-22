@@ -24,6 +24,15 @@ final class NewAuthorSignedEventHandler
                 $event->authorUsername()
             )
         );
+
+        // Other actions, like welcoming the new author,
+        // can be added here. Alternatively, a more
+        // scalable design is to create one Event Handler
+        // for each of the needed actions to happen in
+        // reaction. All of those listening to the same
+        // NewAuthorSigned Domain Event.
+        // @see: WhenNewAuthorSignedThenCreateEmptyFollowersCounterProjectionEventHandler
+        // @see: WhenNewAuthorSignedThenWelcomeAuthorEventHandler
     }
 }
 //end-snippet
