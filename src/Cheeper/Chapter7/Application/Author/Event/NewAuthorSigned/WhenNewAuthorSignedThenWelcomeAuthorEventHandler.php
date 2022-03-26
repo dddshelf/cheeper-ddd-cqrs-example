@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Chapter7\Application\Author\Event\AuthorFollowed;
+namespace Cheeper\Chapter7\Application\Author\Event\NewAuthorSigned;
 
 use Cheeper\Chapter7\Application\Author\Command\WelcomeCommand;
 use Cheeper\Chapter7\Application\CommandBus;

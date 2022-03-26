@@ -119,6 +119,9 @@ services:
     Cheeper\Chapter7\DomainModel\Follow\FollowRepository:
         class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Follow\DoctrineOrmFollowRepository'
 
+    Cheeper\Chapter7\DomainModel\Notifier\Notifier:
+        class: 'Cheeper\Chapter7\Infrastructure\DomainModel\Notifier\NullNotifier'
+
     Cheeper\Chapter7\Application\CommandBus:
         class: 'Cheeper\Chapter7\Infrastructure\Application\SymfonyCommandBus'
 
