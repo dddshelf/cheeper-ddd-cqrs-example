@@ -88,6 +88,7 @@ final class PostCheepCommandHandlerTest extends TestCase
         );
     }
 
+    //snippet post-cheep-handler-test-testing-events
     /** @test */
     public function cheepIsPersistedSuccessfully(): void
     {
@@ -117,6 +118,7 @@ final class PostCheepCommandHandlerTest extends TestCase
         $this->assertSame($authorId, $cheepPosted->authorId());
         $this->assertSame($cheepId, $cheepPosted->cheepId());
     }
+    //end-snippet post-cheep-handler-test-testing-events
 
     private function postNewCheep(
         string $authorId,
@@ -147,4 +149,4 @@ final class PostCheepCommandHandlerTest extends TestCase
         );
     }
 }
-//end-snippet
+//end-snippet post-cheep-handler-test
