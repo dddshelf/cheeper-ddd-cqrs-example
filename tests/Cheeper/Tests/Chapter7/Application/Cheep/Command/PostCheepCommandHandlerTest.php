@@ -93,8 +93,8 @@ final class PostCheepCommandHandlerTest extends TestCase
     public function cheepIsPersistedSuccessfully(): void
     {
         $authorId = '3409a21d-83b3-471e-a4f1-cf6748af65d2';
-        $authorUsername = 'buenosvinos';
-        $authorEmail = 'carlos.buenosvinos@gmail.com';
+        $authorUsername = 'johndoe';
+        $authorEmail = 'johndoe@example.com';
         $author = $this->buildSampleAuthor($authorId, $authorUsername, $authorEmail);
         $this->authorRepository->add($author);
 
