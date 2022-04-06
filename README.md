@@ -3,10 +3,8 @@
         <img src="http://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
     </a>
     <br>
-    Cheeper
+    CQRS by Example Book code repository
 </h1>
-
-# Cheeper: CQRS by Example Book Repository
 
 <h4 align="center">Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation.</h4>
 
