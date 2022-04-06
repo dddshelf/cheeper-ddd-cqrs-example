@@ -12,7 +12,7 @@
     <a href="http://github.com/cqrs-by-example/cheeper/actions"><img src="http://github.com/cqrs-by-example/cheeper/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
     <img src="https://img.shields.io/static/v1?label=PHP&message=8.1&color=blueviolet" alt="PHP Version" />
     <img src="https://img.shields.io/static/v1?label=Symfony&message=6.0&color=informational" alt="Symfony Version" />
-    <img src="https://img.shields.io/static/v1?label=Built-with&message=❤️&color=red" alt="Symfony Version" />
+    <img src="https://img.shields.io/static/v1?label=Built-with&message=%E2%9D%A4%EF%B8%8F&color=red" alt="Built with love" />
 </p>
 
 ## How to run the application
