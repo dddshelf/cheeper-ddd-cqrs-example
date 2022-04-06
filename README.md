@@ -12,6 +12,7 @@
     <a href="http://github.com/cqrs-by-example/cheeper/actions"><img src="http://github.com/cqrs-by-example/cheeper/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
     <img src="https://img.shields.io/static/v1?label=PHP&message=8.1&color=blueviolet" alt="PHP Version" />
     <img src="https://img.shields.io/static/v1?label=Symfony&message=6.0&color=informational" alt="Symfony Version" />
+    <img src="https://img.shields.io/static/v1?label=Built-with&message=❤️&color=red" alt="Symfony Version" />
 </p>
 
 ## How to run the application
@@ -20,8 +21,8 @@
 
 * Just install [docker](http://docs.docker.com/get-docker/).
 * If you want to run PHP locally and leave docker for just external services (mysql, redis, elastic and rabbitmq): 
-    * Make sure to have a local PHP installation. The minimum PHP version needed is 7.4.1.
-    * Needed PHP extensions: bcmath, pdo_mysql, pcntl, posix, mysqli.
+    * Make sure to have a local PHP installation. The minimum PHP version needed is 8.1.
+    * Needed PHP extensions: pdo_mysql, mysqli, amqp.
     * Make sure to install [Symfony CLI](http://symfony.com/download).
 
 ### 🐳 Full Docker
