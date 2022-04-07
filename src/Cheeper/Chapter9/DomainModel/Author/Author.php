@@ -60,8 +60,20 @@ final class Author
         $obj->birthDate = $birthDate?->date();
 
         //
-        $this->notifyDomainEvent(
-            $this->buildNewAuthorSignedDomainEvent()
+        $obj->notifyDomainEvent(
+            $obj->buildNewAuthorSignedDomainEvent()
+        );
+
+        return $obj;
+    }
+
+    public function changeEmail(EmailAddress $newEmail)
+    {
+        $this->recordApplyAndPublishThat(
+            AuthorEmailChanged::ofAuthorIdAndNewEmail(
+                $this->authorId(),
+                $newEmail
+            )
         );
     }
 

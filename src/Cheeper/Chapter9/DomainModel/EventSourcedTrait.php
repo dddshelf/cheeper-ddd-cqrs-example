@@ -29,6 +29,11 @@ trait EventSourcedTrait
         $this->domainEvents = [];
     }
 
+    protected function recordApplyAndPublishThat(DomainEvent $event): void {
+        $this->notifyDomainEvent($event);
+        $this->applyThat($event);
+    }
+
     protected function applyThat(DomainEvent $event): void
     {
         $className = (new ReflectionClass($event))->getShortName();
