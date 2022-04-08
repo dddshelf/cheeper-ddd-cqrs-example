@@ -1,40 +1,47 @@
 <?php
 
-namespace Architecture\ES\Infrastructure;
+declare(strict_types=1);
 
-use Zumba\JsonSerializer\JsonSerializer;
+namespace Cheeper\Chapter9\Infrastructure\DomainModel;
 
-use Architecture\CQRS\Domain\DomainEvent;
-use Architecture\ES\Domain\EventStream;
-use Predis\Client;
+use Cheeper\Chapter7\DomainModel\DomainEvent;
+use Cheeper\Chapter9\DomainModel\EventStore;
+use Cheeper\Chapter9\DomainModel\EventStream;
+use Redis;
+use Symfony\Component\Serializer\Serializer;
 
-//snippet event-store
-class EventStore
+//snippet code
+class RedisEventStore implements EventStore
 {
-    private Client $redis;
-    private JsonSerializer $serializer;
+    private Redis $redis;
+    private Serializer $serializer;
 
-    public function __construct(Client $redis, JsonSerializer $serializer)
+    public function __construct(
+        Redis $redis,
+        Serializer $serializer
+    )
     {
         $this->redis = $redis;
         $this->serializer = $serializer;
     }
 
-    public function append(EventStream $eventstream): void
+    public function append(EventStream $eventStream): void
     {
         /** @var DomainEvent */
-        foreach ($eventstream as $event) {
-            $data = $this->serializer->serialize($event);
+        foreach ($eventStream as $event) {
+            $data = $this->serializer->serialize($event, 'json');
 
             $date = (new \DateTimeImmutable())->format('YmdHis');
 
             $this->redis->rpush(
-                'events:' . $eventstream->getAggregateId(),
+                'events:' . $eventStream->getAggregateId(),
                 $this->serializer->serialize([
-                    'type' => get_class($event),
-                    'created_on' => $date,
-                    'data' => $data
-                ])
+                        'type' => get_class($event),
+                        'created_on' => $date,
+                        'data' => $data
+                    ],
+            'json'
+                )
             );
         }
     }
@@ -57,12 +64,12 @@ class EventStore
 
         /** @var string */
         foreach ($serializedEvents as $serializedEvent) {
-            $event = (array) $this->serializer->unserialize($serializedEvent);
+            $event = (array) $this->serializer->deserialize($serializedEvent);
 
             $eventData = (string) $event['data'];
 
             /** @var DomainEvent */
-            $events[] = $this->serializer->unserialize($eventData);
+            $events[] = $this->serializer->deserialize($eventData);
         }
 
         return new EventStream($id, $events);

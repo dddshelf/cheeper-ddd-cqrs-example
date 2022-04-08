@@ -6,8 +6,9 @@ namespace Cheeper\Chapter9\Infrastructure\DomainModel\Author;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\Chapter7\DomainModel\Author\Author;
 use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
+use Cheeper\Chapter9\DomainModel\Author\Author;
+use Cheeper\Chapter9\DomainModel\EventStore;
 
 //snippet code
 class EventSourcedAuthorRepository implements AuthorRepository
@@ -21,14 +22,16 @@ class EventSourcedAuthorRepository implements AuthorRepository
 
     public function ofId(AuthorId $authorId): Author
     {
-        return Author:: ::reconstitute(
+        return Author::reconstitute(
             $this->eventStore->getEventsFor($authorId->id())
         );
     }
 
     public function ofUserName(UserName $userName): ?Author
     {
-        // TODO: Implement ofUserName() method.
+        // It's not possible to look
+        // for an entity by the username
+        // except that we consume
     }
 
     public function add(Author $author): void
