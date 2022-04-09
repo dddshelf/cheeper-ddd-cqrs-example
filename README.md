@@ -23,9 +23,9 @@
   <br />
   <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Buy the book</a></strong>
   ·
-  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Report an issue in the book</a>
+  <a href="https://github.com/cqrs-by-example/book-issues/issues">Report an issue in the book</a>
   ·
-  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Report an issue in the code</a>
+  <a href="https://github.com/cqrs-by-example/book/issues">Report an issue in the code</a>
 </p>
 
 ## Table of contents
