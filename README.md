@@ -3,10 +3,8 @@
         <img src="http://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
     </a>
     <br>
-    DDD – CQRS by Example Book code repository
+    Hexagonal Architecture + DDD + CQRS by Example Book code repository
 </h1>
-
-<h4 align="center">Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation.</h4>
 
 <p align="center">
     <a href="http://github.com/cqrs-by-example/cheeper/actions"><img src="http://github.com/cqrs-by-example/cheeper/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
@@ -15,10 +13,34 @@
     <img src="https://img.shields.io/static/v1?label=Built+with&message=%E2%9D%A4%EF%B8%8F&color=FDE0D9" alt="Built with love" />
 </p>
 
+<p align="center">
+    Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case.
+  <br />
+  <br />
+  Take a look around, play a bit with the code, and if you like what you see ... 
+  <a href="https://github.com/cqrs-by-example/book/stargazers">Consider giving an star 💫</a>
+  <br />
+  <br />
+  <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Buy the book</a></strong>
+  ·
+  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Report an issue in the book</a>
+  ·
+  <a href="https://github.com/CodelyTV/php-ddd-example/issues">Report an issue in the code</a>
+</p>
+
 ## Table of contents
 
-* Code structure
-* Running the application
+* [About the book](#about-the-book)
+* [Code structure](#code-structure)
+* [Running the application](#running-the-application)
+
+## About the Book
+
+TBW
+
+### DDD in PHP by Example
+
+TBW
 
 ## Code Structure
 
