@@ -48,25 +48,38 @@ TBC
 
 ### Requirements
 
-* Just install [docker](http://docs.docker.com/get-docker/).
-* If you want to run PHP locally and leave docker for just external services (mysql, redis, elastic and rabbitmq): 
-    * Make sure to have a local PHP installation. The minimum PHP version needed is 8.1.
-    * Needed PHP extensions: pdo_mysql, mysqli, amqp.
-    * Make sure to install [Symfony CLI](http://symfony.com/download).
+* [Docker](http://docs.docker.com/get-docker/) 👉 To run all services in your computer without installing all the dependencies.
+* [Docker Compose](https://docs.docker.com/compose/) 👉 To orchestrate the services. If you're on Mac or Windows and you have installed [Docker Desktop](https://docs.docker.com/desktop/) you already have Docker Compose installed. If you're on Linux, you can check out installation [here](https://docs.docker.com/compose/install/).
 
-### 🐳 Full Docker
+### Getting started
 
-This code can run fully on docker. In order to do so just run
+The first thing you should do is to have a fresh copy of the code. To do so just clone the repository
+
+    git clone https://github.com/cqrs-by-example/ddd-cqrs-example
+
+Then, in order to get environment set up properly, you should have a `.env.local` file with all the correct values 👇
+
+    cp .env.docker.dist .env.local
+
+And you're ready to go! 🤘
+
+### Set all the infrastructure up 
+
+As the code runs fully on docker, several `make` targets have been carefully prepared in order to make the interaction with the code as easy and smooth as possible. To start all the services just run 👇
 
     make start
 
-To start the development environment. If this is the first time you run the code you will need to run database migrations
+This `make` target, runs docker compose, and ensures all services are up and running. Next, once all the services have been started, we must make sure the database and queues start empty and database migrations are executed successfully. To do so, just run
 
     make infrastructure
 
-And to stop all services just run
+Finally to stop all services just run
 
     make stop
+
+And now you're ready to execute all the demo steps! 🚀
+
+### Demo time!
 
 Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc. Let's see what happens with the existing Projections when 
 
