@@ -18,7 +18,7 @@
   <br />
   <br />
   Take a look around, play a bit with the code, and if you like what you see ... 
-  <a href="https://github.com/cqrs-by-example/book/stargazers">Give us an star 💫</a>
+  <a href="https://github.com/cqrs-by-example/book/stargazers">Give us a star 💫</a>
   <br />
   <br />
   <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Check out the book</a></strong>
