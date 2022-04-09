@@ -14,14 +14,14 @@
 </p>
 
 <p align="center">
-    Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case.
+    Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case <strong>PHP</strong> application.
   <br />
   <br />
   Take a look around, play a bit with the code, and if you like what you see ... 
-  <a href="https://github.com/cqrs-by-example/book/stargazers">Consider giving an star 💫</a>
+  <a href="https://github.com/cqrs-by-example/book/stargazers">Give us an star 💫</a>
   <br />
   <br />
-  <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Buy the book</a></strong>
+  <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Check out the book</a></strong>
   ·
   <a href="https://github.com/cqrs-by-example/book-issues/issues">Report an issue in the book</a>
   ·
