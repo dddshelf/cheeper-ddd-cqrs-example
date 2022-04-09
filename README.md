@@ -36,11 +36,9 @@
 
 ## About the Book
 
-TBW
+Command-Query Responsibility Segregation is an architectural style for developing applications that split the Domain Model in Read and Write operations in order to maximize semantics, performance, and scalability. What are all the benefits of CQRS? What are the drawbacks? In which cases does it worth applying it? How does it relate to Hexagonal Architecture? How do we properly implement the Write Model and Read Models? How do we keep in sync both sides? What are the following steps to move towards Event Sourcing? This book will answer all these questions and many more, guided through lots of practical examples. Brought to you by the same authors behind "Domain-Driven Design in PHP".
 
-### DDD in PHP by Example
-
-TBW
+[Go checkout the book](https://leanpub.com/cqrs-by-example/)
 
 ## Code Structure
 
