@@ -48,12 +48,12 @@ class RedisEventStore implements EventStore
 
     public function getEventsFor(string $id): EventStream
     {
-        return $this->fromVersion($id, 0);
+        return $this->fromVersion($id);
     }
 
-    public function fromVersion(string $id, int $version): EventStream
+    private function fromVersion(string $id, int $version = 0): EventStream
     {
-        $serializedEvents = (array) $this->redis->lrange(
+        $serializedEvents = $this->redis->lrange(
             'events:' . $id,
             $version,
             -1
@@ -73,11 +73,6 @@ class RedisEventStore implements EventStore
         }
 
         return new EventStream($id, $events);
-    }
-
-    public function countEventsFor(string $id): int
-    {
-        return (int) $this->redis->llen('events:' . $id);
     }
 }
 //end-snippet
