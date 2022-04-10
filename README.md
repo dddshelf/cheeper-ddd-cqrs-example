@@ -13,10 +13,10 @@
     <img src="https://img.shields.io/static/v1?label=Built+with&message=%E2%9D%A4%EF%B8%8F&color=FDE0D9" alt="Built with love" />
 </p>
 
-<p align="center">
+<p align="justify">
     Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case <strong>PHP</strong> application.
-  <br />
-  <br />
+</p>
+<p align="center">
   Take a look around, play a bit with the code, and if you like what you see ... 
   <a href="https://github.com/cqrs-by-example/book/stargazers">Give us a star 💫</a>
   <br />
