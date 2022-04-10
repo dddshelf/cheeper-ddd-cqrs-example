@@ -30,9 +30,46 @@
 
 ## Table of contents
 
-* [About the book](#about-the-book)
-* [Code structure](#code-structure)
-* [Running the application](#running-the-application)
+<ul>
+    <li><a href="#about-the-book">About the book</a></li>
+    <li><a href="#code-structure">Code structure</a></li>
+    <li>
+        <a href="#running-the-application">Running the application</a>
+        <ul>
+            <li><a href="#requirements">Requirements</a>li>
+            <li><a href="#getting-started">Getting started</a>li>
+            <li><a href="#set-all-the-infrastructure-up">Set all the infrastructure up</a></li>
+            <li>
+                <details>
+                    <summary><a href="#demo-time">Demo time!</a></summary>
+
+                    <ul>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                        <li><a href="#requirements">Requirements</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+[//]: # (* [About the book]&#40;#about-the-book&#41;)
+
+[//]: # (* [Code structure]&#40;#code-structure&#41;)
+
+[//]: # (* [Running the application]&#40;#running-the-application&#41;)
+
+[//]: # (  * [Requirements]&#40;#requirements&#41;)
+
+[//]: # (  * [Getting started]&#40;#getting-started&#41;)
+
+[//]: # (  * [Set all the infrastructure up]&#40;#set-all-the-infrastructure-up&#41;)
+
+[//]: # (  * [Demo time!]&#40;#demo-time&#41;)
+
+[//]: # (  * )
 
 ## About the Book
 
