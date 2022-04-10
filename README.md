@@ -32,6 +32,8 @@
 
 * [About the book](#about-the-book)
 * [Code structure](#code-structure)
+  * [The `App` namespace](#the-app-namespace)
+  * [The `Cheeper` namespace](#the-cheeper-namespace)
 * [Running the application](#running-the-application)
     * [Requirements](#requirements)
     * [Getting started](#getting-started)
@@ -66,6 +68,41 @@ This repository follows a typical PHP application layout: All the code lives in 
 This namespace contains all the classes that are specific to the delivery mechanism. In this case the delivery mechanism is the [Symfony framework](https://symfony.com/) following the recommended structure.
 
 ### The `Cheeper` namespace
+
+The `Cheeper` namespaces is a bit little different from a typical PHP application using tactical Domain-Driven design patterns, where you could expect several modules under the `Cheeper` namespace. In here you will find book-chapter namespaces instead of modules, so it's easy for you to navigate through all the code of each chapter.
+
+    src/Cheeper
+    ├── AllChapters
+    │         ├── Application
+    │         ├── DomainModel
+    │         └── Infrastructure
+    ├── Chapter2
+    │         ├── Author.php
+    │         ├── Cheep.php
+    │         ├── Hexagonal
+    │         ├── Layered
+    │         └── Spaghetti
+    ├── Chapter4
+    │         ├── Application
+    │         ├── DomainModel
+    │         └── Infrastructure
+    ├── Chapter5
+    │         ├── Application
+    │         └── Infrastructure
+    ├── Chapter6
+    │         ├── Application
+    │         └── Infrastructure
+    ├── Chapter7
+    │         ├── Application
+    │         ├── DomainModel
+    │         └── Infrastructure
+    ├── Chapter8
+    │         ├── Application
+    │         ├── DomainModel
+    │         └── Infrastructure
+    └── Chapter9
+    ├── DomainModel
+    └── Infrastructure
 
 ## Running the application
 
