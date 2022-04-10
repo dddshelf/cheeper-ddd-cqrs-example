@@ -18,7 +18,7 @@ final class DoctrineOrmAuthorRepository implements AuthorRepository
     ) {
     }
 
-    public function ofId(AuthorId $authorId): ?Author
+    public function ofId(AuthorId $authorId): Author|null
     {
         return $this->em
             ->getRepository(Author::class)
@@ -27,7 +27,7 @@ final class DoctrineOrmAuthorRepository implements AuthorRepository
             ]);
     }
 
-    public function ofUserName(UserName $userName): ?Author
+    public function ofUserName(UserName $userName): Author|null
     {
         return $this->em
             ->getRepository(Author::class)

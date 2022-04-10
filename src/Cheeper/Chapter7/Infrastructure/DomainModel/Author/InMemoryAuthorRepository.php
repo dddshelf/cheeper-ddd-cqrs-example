@@ -20,20 +20,20 @@ final class InMemoryAuthorRepository implements AuthorRepository
         $this->authors = [];
     }
 
-    public function ofId(AuthorId $authorId): ?Author
+    public function ofId(AuthorId $authorId): Author|null
     {
         $candidate = head(
             select($this->authors, fn (Author $u): bool => $u->authorId()->equals($authorId))
         );
 
         if (null === $candidate) {
-            return $candidate;
+            return null;
         }
 
         return $candidate;
     }
 
-    public function ofUserName(UserName $userName): ?Author
+    public function ofUserName(UserName $userName): Author|null
     {
         $candidate = head(
             select($this->authors, fn (Author $u): bool => $u->userName()->equalsTo($userName))

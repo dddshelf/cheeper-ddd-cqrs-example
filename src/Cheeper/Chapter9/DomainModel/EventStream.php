@@ -8,18 +8,13 @@ use Cheeper\Chapter7\DomainModel\DomainEvent;
 
 class EventStream implements \Iterator
 {
-    private string $aggregateId;
-    /** @var DomainEvent[] */
-    private array $events;
-
     /**
-     * @param string $aggregateId
      * @param DomainEvent[] $events
      */
-    public function __construct(string $aggregateId, array $events)
-    {
-        $this->aggregateId = $aggregateId;
-        $this->events = $events;
+    public function __construct(
+        private string $aggregateId,
+        private array $events
+    ) {
     }
 
     public function getAggregateId(): string
@@ -50,5 +45,10 @@ class EventStream implements \Iterator
     public function valid(): bool
     {
         return key($this->events) !== null;
+    }
+
+    public function isEmpty(): bool
+    {
+        return count($this->events) === 0;
     }
 }

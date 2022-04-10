@@ -45,10 +45,10 @@ final class Author
         ?string $location = null,
         ?Website $website = null,
         ?BirthDate $birthDate = null
-    ): static {
+    ): self {
         // Regular semantic constructors
         // still apply as a proper design
-        $obj = new static();
+        $obj = new self();
 
         $obj->authorId = $authorId->toString();
         $obj->userName = $userName->userName();
@@ -65,6 +65,11 @@ final class Author
         );
 
         return $obj;
+    }
+
+    public function authorId(): string
+    {
+        return $this->authorId;
     }
 
     public function changeEmail(EmailAddress $newEmail)

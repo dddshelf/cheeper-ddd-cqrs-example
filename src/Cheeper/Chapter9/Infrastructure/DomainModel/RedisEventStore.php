@@ -11,37 +11,23 @@ use Redis;
 use Symfony\Component\Serializer\Serializer;
 
 //snippet code
-class RedisEventStore implements EventStore
+final class RedisEventStore implements EventStore
 {
-    private Redis $redis;
-    private Serializer $serializer;
-
     public function __construct(
-        Redis $redis,
-        Serializer $serializer
-    )
-    {
-        $this->redis = $redis;
-        $this->serializer = $serializer;
+        private Redis $redis,
+        private Serializer $serializer,
+    ) {
     }
 
     public function append(EventStream $eventStream): void
     {
         /** @var DomainEvent */
         foreach ($eventStream as $event) {
-            $data = $this->serializer->serialize($event, 'json');
-
-            $date = (new \DateTimeImmutable())->format('YmdHis');
+            $serializedEvent = $this->serialize($event);
 
             $this->redis->rpush(
                 'events:' . $eventStream->getAggregateId(),
-                $this->serializer->serialize([
-                        'type' => get_class($event),
-                        'created_on' => $date,
-                        'data' => $data
-                    ],
-            'json'
-                )
+                $this->serializer->serialize($serializedEvent, 'json')
             );
         }
     }
@@ -59,20 +45,34 @@ class RedisEventStore implements EventStore
             -1
         );
 
-        /** @var DomainEvent[] */
         $events = [];
 
-        /** @var string */
         foreach ($serializedEvents as $serializedEvent) {
-            $event = (array) $this->serializer->deserialize($serializedEvent);
-
-            $eventData = (string) $event['data'];
-
             /** @var DomainEvent */
-            $events[] = $this->serializer->deserialize($eventData);
+            $events[] = $this->deserialize($serializedEvent);
         }
 
         return new EventStream($id, $events);
     }
+
+    //ignore
+    private function deserialize(array $event): DomainEvent
+    {
+        return $this->serializer->deserialize(
+            $event['data'],
+            $event['type'],
+            'json'
+        );
+    }
+
+    private function serialize(mixed $event): array
+    {
+        return [
+            'type' => get_class($event),
+            'created_on' => (new \DateTimeImmutable())->format('YmdHis'),
+            'data' => $this->serializer->serialize($event, 'json')
+        ];
+    }
+    //end-ignore
 }
 //end-snippet
