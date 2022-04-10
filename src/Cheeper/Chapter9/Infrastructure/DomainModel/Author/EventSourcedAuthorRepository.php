@@ -9,6 +9,7 @@ use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter9\DomainModel\Author\Author;
 use Cheeper\Chapter9\DomainModel\EventStore;
+use Cheeper\Chapter9\DomainModel\EventStream;
 
 //snippet code
 class EventSourcedAuthorRepository implements AuthorRepository
@@ -36,7 +37,9 @@ class EventSourcedAuthorRepository implements AuthorRepository
 
     public function add(Author $author): void
     {
-        // TODO: Implement add() method.
+        $this->eventStore->append(
+            newEventStream:: $author->domainEvents()
+        );
     }
 }
 //end-snippet
