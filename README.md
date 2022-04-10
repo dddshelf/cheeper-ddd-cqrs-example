@@ -77,13 +77,13 @@ Finally to stop all services just run
 
     make stop
 
-And now you're ready to execute all the demo steps! 🚀
+Now you're ready to execute all the demo steps! 🚀
 
 ### Demo time!
 
-Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc. Let's see what happens with the existing Projections when 
+Cheeper starts totally as a blank application. There is no Author, Cheeps, Follows, etc.
 
-#### Follower Counters Query
+#### 1. Follower Counters Query
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/followers-counter
@@ -96,7 +96,7 @@ Expected output
         "data": "Author \"a64a52cc-3ee9-4a15-918b-099e18b43119\" does not exist"
     }
 
-#### Author Timeline
+#### 2. Author Timeline
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
@@ -110,9 +110,7 @@ Expected output
     }
     ...
 
-#### Adding Authors
-
-Cheeper is configured so signing up new Authors is a synchronous operations. This mean that once the HTTP request made to the Cheeper API is finished, the Author will be in the database without having to perform any other action. As soon the API receives the request, the SignUpCommand is created and delegated to the Command Bus. The Command Bus will check the routing configurations and it will pass the Command to the SignUpCommandHandler that will perform all the actions required to sign up a new Author.
+#### 3. Adding Authors
 
     http --json --body POST http://127.0.0.1:8000/chapter7/author author_id="a64a52cc-3ee9-4a15-918b-099e18b43119" username="bob" email="bob@bob.com"
     http --json --body POST http://127.0.0.1:8000/chapter7/author author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" username="alice" email="alice@alice.com"
@@ -126,9 +124,7 @@ Expected output
     }
     ...
 
-The response to the HTTP request and the Authors in the database are not the only outcome generated. In RabbitMQ, there are store multiple events of type `NewAuthorSigned`. Those Domain Events are waiting to be handled. In order to do so, they will have to be consumed. Until not getting consumed, the Follower Counters Query will still return a 404 HTTP Status Code.
-
-#### Consuming Events
+#### 4. Consuming Events
 
     php bin/console messenger:consume events_async
 
@@ -144,11 +140,7 @@ Expected output
     08:59:13 INFO      [messenger] Message Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned handled by Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned","handler" => "Cheeper\Chapter7\Infrastructure\Application\Author\Event\SymfonyNewAuthorSignedEventHandler::handle"]
     08:59:13 INFO      [messenger] Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned was handled successfully (acknowledging to transport). ["message" => Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned^ { …},"class" => "Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned"]
 
-There is one `NewAuthorSigned` event to handle for each new Author signed in. That's a total of three. In Cheeper, the `NewAuthorSigned` is handled by the `SymfonyNewAuthorSignedEventHandler` class. Chapter 6 showed that `SymfonyNewAuthorSignedEventHandler` is 
-
-Now, that all the Domain Events are processed, and their corresponding Projections are calculated, the queries to check how many followers - an Author has - are not empty anymore.
-
-#### Follower Counters Query
+#### 5. Follower Counters Query
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/followers-counter
@@ -168,7 +160,7 @@ Expected output
     }
     ...
 
-#### Author Timeline
+#### 6. Author Timeline
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
@@ -180,18 +172,16 @@ Expected output
         "cheeps": []
     }
 
-#### Following other Authors
-
-Following an Author is a Command that is defined as asynchronous. This means that once the request to the Cheeper API is done, the Command will wait to be processed by a worker. The initial HTTP request to the API returns really fast, but the changes in the database will not be done until the Command is processed.
+#### 7. Following other Authors
 
     http --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id="8cc71bf2-f827-4c92-95a5-43bb1bc622ad" from_author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" to_author_id="a64a52cc-3ee9-4a15-918b-099e18b43119"
     http --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id="f3088920-841e-4577-a3c2-efdc80f0dea5" from_author_id="1da1366f-b066-4514-9b29-7346df41e371" to_author_id="a64a52cc-3ee9-4a15-918b-099e18b43119"
 
-#### Consuming Events
+#### 8. Consuming events again
 
     php bin/console messenger:consume events_async
 
-#### Follower Counters Query
+#### 9. Follower Counters Query
 
     http --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
     http --json http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/followers-counter
@@ -210,13 +200,13 @@ Expected output
         }
     }
 
-#### Posting Cheeps
+#### 10. Posting Cheeps
 
     http --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id="28bc90bd-2dfb-4b71-962f-81f02b0b3149" author_id="a64a52cc-3ee9-4a15-918b-099e18b43119" message="Hello world, this is Bob"
     http --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id="04efc3af-59a3-4695-803f-d37166c3af56" author_id="1fd7d739-2ad7-41a8-8c18-565603e3733f" message="Hello world, this is Alice"
     http --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id="8a5539e6-3be2-4fa7-906e-179efcfca46b" author_id="1da1366f-b066-4514-9b29-7346df41e371" message="Hello world, this is Charlie"
 
-#### Author Timeline
+#### 11. Author Timeline
 
     http --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
     http --json http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
