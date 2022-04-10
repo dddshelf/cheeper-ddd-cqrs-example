@@ -30,18 +30,24 @@
 
 ## Table of contents
 
-<details>
-    <summary>Click to expand</summary>
-
-    * [About the book](#about-the-book)
-    * [Code structure](#code-structure)
-    * [Running the application](#running-the-application)
-        * [Requirements](#requirements)
-        * [Getting started](#getting-started)
-        * [Set all the infrastructure up](#set-all-the-infrastructure-up)
-        * [Demo time!](#demo-time)
-            * [1. Followers counter query](#1-follower-counters-query)
-</details>
+* [About the book](#about-the-book)
+* [Code structure](#code-structure)
+* [Running the application](#running-the-application)
+    * [Requirements](#requirements)
+    * [Getting started](#getting-started)
+    * [Set all the infrastructure up](#set-all-the-infrastructure-up)
+    * [Demo time!](#demo-time)
+        * [1. Followers counter query](#1-follower-counters-query)
+        * [2. Author timeline](#2-author-timeline)
+        * [3. Adding authors](#3-adding-authors)
+        * [4. Consuming events](#4-consuming-events)
+        * [5. Follower counters query](#5-follower-counters-query)
+        * [6. Author timeline again](#6-author-timeline-again)
+        * [7. Following other authors](#7-following-other-authors)
+        * [8. Consuming events again](#8-consuming-events-again)
+        * [9. Follower counters query](#9-follower-counters-query)
+        * [10. Posting cheeps](#10-posting-cheeps)
+        * [11. Author timeline](#11-author-timeline)
 
 ## About the Book
 
@@ -169,7 +175,7 @@ Expected output
     }
     ...
 
-#### 6. Author Timeline
+#### 6. Author Timeline again
 
     http --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
     http --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
