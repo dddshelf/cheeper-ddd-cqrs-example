@@ -73,36 +73,36 @@ The `Cheeper` namespaces is a bit little different from a typical PHP applicatio
 
     src/Cheeper
     ├── AllChapters
-    │         ├── Application
-    │         ├── DomainModel
-    │         └── Infrastructure
+    │   ├── Application
+    │   ├── DomainModel
+    │   └── Infrastructure
     ├── Chapter2
-    │         ├── Author.php
-    │         ├── Cheep.php
-    │         ├── Hexagonal
-    │         ├── Layered
-    │         └── Spaghetti
+    │   ├── Author.php
+    │   ├── Cheep.php
+    │   ├── Hexagonal
+    │   ├── Layered
+    │   └── Spaghetti
     ├── Chapter4
-    │         ├── Application
-    │         ├── DomainModel
-    │         └── Infrastructure
+    │   ├── Application
+    │   ├── DomainModel
+    │   └── Infrastructure
     ├── Chapter5
-    │         ├── Application
-    │         └── Infrastructure
+    │   ├── Application
+    │   └── Infrastructure
     ├── Chapter6
-    │         ├── Application
-    │         └── Infrastructure
+    │   ├── Application
+    │   └── Infrastructure
     ├── Chapter7
-    │         ├── Application
-    │         ├── DomainModel
-    │         └── Infrastructure
+    │   ├── Application
+    │   ├── DomainModel
+    │   └── Infrastructure
     ├── Chapter8
-    │         ├── Application
-    │         ├── DomainModel
-    │         └── Infrastructure
+    │   ├── Application
+    │   ├── DomainModel
+    │   └── Infrastructure
     └── Chapter9
-    ├── DomainModel
-    └── Infrastructure
+        ├── DomainModel
+        └── Infrastructure
 
 ## Running the application
 
