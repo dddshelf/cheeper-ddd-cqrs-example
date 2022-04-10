@@ -59,7 +59,7 @@ Do you want to know more? Do you want to grasp further details about **CQRS**?
 
 ## Code Structure
 
-All the code follows a typical PHP application layout: All the code lives in the `src` folder and classes map 1:1 with the file where they live, following the [PSR-4](https://www.php-fig.org/psr/psr-4/) standard for class autoloading.
+This repository follows a typical PHP application layout: All the code lives in the `src` folder and classes map 1:1 with the file where they live, following the [PSR-4](https://www.php-fig.org/psr/psr-4/) standard for class autoloading.
 
 ### The `App` namespace
 
