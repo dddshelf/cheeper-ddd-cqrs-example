@@ -23,7 +23,7 @@ class NewAuthorSigned implements DomainEvent
         private ?string $authorLocation = null,
         private ?string $authorWebsite = null,
         private ?DateTimeImmutable $authorBirthDate = null,
-        private DateTimeImmutable $occurredOn
+        private DateTimeImmutable $occurredOn = new DateTimeImmutable(),
     ) {
     }
 
