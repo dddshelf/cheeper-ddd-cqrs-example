@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter7\DomainModel\Author;
 
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter7\Application\MessageTrait;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 use DateTimeImmutable;
-use DateTimeZone;
 
 // snippet new-author-signed-domain-event
 class NewAuthorSigned implements DomainEvent
@@ -26,9 +26,7 @@ class NewAuthorSigned implements DomainEvent
         return new static(
             $author->authorId()->toString(),
             $author->userName()->toString(),
-            new DateTimeImmutable(
-                timezone: new DateTimeZone("UTC")
-            )
+            Clock::instance()->now(),
         );
     }
 

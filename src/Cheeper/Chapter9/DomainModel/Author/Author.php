@@ -9,6 +9,7 @@ use Cheeper\AllChapters\DomainModel\Author\BirthDate;
 use Cheeper\AllChapters\DomainModel\Author\EmailAddress;
 use Cheeper\AllChapters\DomainModel\Author\UserName;
 use Cheeper\AllChapters\DomainModel\Author\Website;
+use Cheeper\Chapter7\DomainModel\Author\NewAuthorSigned;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 use Cheeper\Chapter9\DomainModel\EventSourcedTrait;
 use Cheeper\Chapter9\DomainModel\EventStream;
@@ -34,8 +35,13 @@ final class Author
         // We need an empty constructor
         // or an alternative way of instantiating
         // an empty instance of this object
+        // so we can change the internal fields
+        // when replaying events
     }
 
+    // The public interface of an Event Sourced
+    // Entity should still be the same as shown
+    // in the other chapters
     public static function signUp(
         AuthorId $authorId,
         UserName $userName,
@@ -59,7 +65,6 @@ final class Author
         $obj->website = $website?->toString();
         $obj->birthDate = $birthDate?->date();
 
-        //
         $obj->notifyDomainEvent(
             $obj->buildNewAuthorSignedDomainEvent()
         );
@@ -67,13 +72,23 @@ final class Author
         return $obj;
     }
 
-    public function authorId(): string
+    protected function buildNewAuthorSignedDomainEvent(): NewAuthorSigned
     {
-        return $this->authorId;
+        return NewAuthorSigned::fromAuthor($this);
     }
 
+    // The public interface of an Event Sourced
+    // Entity should still be the same as shown
+    // in the other chapters
     public function changeEmail(EmailAddress $newEmail)
     {
+        // If an Entity method invokes an
+        // external service, it goes here
+        // outside before the record and apply.
+        // This way, when replaying the events
+        // the external services are not called
+        // multiple times (for example, a payment
+        // method).
         $this->recordApplyAndPublishThat(
             AuthorEmailChanged::ofAuthorIdAndNewEmail(
                 $this->authorId(),
@@ -119,6 +134,46 @@ final class Author
     protected function applyAuthorEmailChangedSigned(AuthorEmailChanged $event)
     {
         $this->email = $event->authorEmail();
+    }
+
+    public function authorId(): AuthorId
+    {
+        return AuthorId::fromString($this->authorId);
+    }
+
+    public function userName(): UserName
+    {
+        return UserName::pick($this->userName);
+    }
+
+    public function email(): EmailAddress
+    {
+        return EmailAddress::from($this->email);
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
+    }
+
+    public function biography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function location(): ?string
+    {
+        return $this->location;
+    }
+
+    public function website(): ?Website
+    {
+        return $this->website !== null ? Website::fromString($this->website) : null;
+    }
+
+    public function birthDate(): ?BirthDate
+    {
+        return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
     }
 
     //...

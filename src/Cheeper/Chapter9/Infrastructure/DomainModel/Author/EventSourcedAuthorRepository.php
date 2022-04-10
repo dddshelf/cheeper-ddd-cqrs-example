@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter9\Infrastructure\DomainModel\Author;
 
 use Cheeper\AllChapters\DomainModel\Author\AuthorId;
-use Cheeper\AllChapters\DomainModel\Author\UserName;
-use Cheeper\Chapter9\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter9\DomainModel\Author\Author;
+use Cheeper\Chapter9\DomainModel\Author\AuthorRepository;
 use Cheeper\Chapter9\DomainModel\EventStore;
 use Cheeper\Chapter9\DomainModel\EventStream;
 
@@ -30,18 +29,25 @@ final class EventSourcedAuthorRepository implements AuthorRepository
         return Author::reconstitute($eventStream);
     }
 
+    /*
     public function ofUserName(UserName $userName): ?Author
     {
-        // It's not possible to look
-        // for an entity by the username
-        // except that we consume
+        // When doing Event Sourcing, Repositories
+        // responsibility is reduced to hold
+        // a finder by id, and add.
+        // Other finder methods become
+        // a Projection
     }
+    */
 
     public function add(Author $author): void
     {
-        $eventStream = new EventStream($author->authorId(), $author->domainEvents());
-
-        $this->eventStore->append($eventStream);
+        $this->eventStore->append(
+            new EventStream(
+                $author->authorId()->toString(),
+                $author->domainEvents()
+            )
+        );
     }
 }
 //end-snippet
