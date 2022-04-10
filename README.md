@@ -59,7 +59,13 @@ Do you want to know more? Do you want to grasp further details about **CQRS**?
 
 ## Code Structure
 
-TBC
+All the code follows a typical PHP application layout: All the code lives in the `src` folder and classes map 1:1 with the file where they live, following the [PSR-4](https://www.php-fig.org/psr/psr-4/) standard for class autoloading.
+
+### The `App` namespace
+
+This namespace contains all the classes that are specific to the delivery mechanism. In this case the delivery mechanism is the [Symfony framework](https://symfony.com/) following the recommended structure.
+
+### The `Cheeper` namespace
 
 ## Running the application
 
