@@ -33,14 +33,14 @@
 <details>
     <summary>Click to expand</summary>
 
-* [About the book](#about-the-book)
-* [Code structure](#code-structure)
-* [Running the application](#running-the-application)
-    * [Requirements](#requirements)
-    * [Getting started](#getting-started)
-    * [Set all the infrastructure up](#set-all-the-infrastructure-up)
-    * [Demo time!](#demo-time)
-        * [1. Followers counter query](#1-follower-counters-query)
+    * [About the book](#about-the-book)
+    * [Code structure](#code-structure)
+    * [Running the application](#running-the-application)
+        * [Requirements](#requirements)
+        * [Getting started](#getting-started)
+        * [Set all the infrastructure up](#set-all-the-infrastructure-up)
+        * [Demo time!](#demo-time)
+            * [1. Followers counter query](#1-follower-counters-query)
 </details>
 
 ## About the Book
