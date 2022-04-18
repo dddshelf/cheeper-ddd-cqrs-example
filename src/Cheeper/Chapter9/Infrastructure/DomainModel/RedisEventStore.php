@@ -22,14 +22,23 @@ final class RedisEventStore implements EventStore
 
     public function append(EventStream $eventStream): void
     {
-        /** @var DomainEvent */
-        foreach ($eventStream as $event) {
-            $serializedEvent = $this->serialize($event);
+        $tx = $this->redis->multi();
 
-            $this->redis->rpush(
-                'events:' . $eventStream->getAggregateId(),
-                $this->serializer->serialize($serializedEvent, 'json')
-            );
+        try {
+            /** @var DomainEvent */
+            foreach ($eventStream as $event) {
+                $serializedEvent = $this->serialize($event);
+
+                $tx->rpush(
+                    'events:' . $eventStream->getAggregateId(),
+                    $this->serializer->serialize($serializedEvent, 'json')
+                );
+            }
+
+            $tx->exec();
+        } catch (\Exception $ex) {
+            $tx->discard();
+            throw $ex;
         }
     }
 

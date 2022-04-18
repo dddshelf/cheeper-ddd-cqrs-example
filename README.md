@@ -115,7 +115,7 @@ The `Cheeper` namespaces is a bit little different from a typical PHP applicatio
 
 The first thing you should do is to have a fresh copy of the code. To do so just clone the repository
 
-    git clone https://github.com/cqrs-by-example/ddd-cqrs-example
+    git clone https://github.com/cqrs-by-example/cheeper-ddd-cqrs-example
 
 Then, in order to get environment set up properly, you should have a `.env.local` file with all the correct values 👇
 
@@ -152,8 +152,30 @@ Cheeper starts totally as a blank application. There is no Author, Cheeps, Follo
 Expected output
 
     {
-        "_meta": [],
-        "data": "Author \"a64a52cc-3ee9-4a15-918b-099e18b43119\" does not exist"
+        "data": {
+            "message": "Author \"a64a52cc-3ee9-4a15-918b-099e18b43119\" does not exist"
+        },
+        "meta": {
+            "message_id": "c0342dfe-782e-4ffa-9e9c-8d6d82533ab2"
+        }
+    }
+
+    {
+        "data": {
+            "message": "Author \"1fd7d739-2ad7-41a8-8c18-565603e3733f\" does not exist"
+        },
+        "meta": {
+            "message_id": "35089f63-53ca-4a44-9a7c-6e588ba6d885"
+        }
+    }
+
+    {
+        "data": {
+            "message": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
+        },
+        "meta": {
+            "message_id": "d07a6984-abc9-4a3a-92bb-829ad5dd85df"
+        }
     }
 
 #### 2. Author Timeline
