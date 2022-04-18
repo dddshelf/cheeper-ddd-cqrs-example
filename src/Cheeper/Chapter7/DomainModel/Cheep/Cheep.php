@@ -8,6 +8,7 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepDate;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepId;
 use Cheeper\AllChapters\DomainModel\Cheep\CheepMessage;
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter7\DomainModel\TriggerEventsTrait;
 
 class Cheep
@@ -27,8 +28,13 @@ class Cheep
 
     public static function compose(AuthorId $authorId, CheepId $cheepId, CheepMessage $cheepMessage): self
     {
+        $now = Clock::instance()
+            ->now()
+            ->setTimezone(new \DateTimeZone('UTC'))
+        ;
+
         $cheepDate = new CheepDate(
-            (new \DateTimeImmutable(timezone: new \DateTimeZone('UTC')))->format('Y-m-d H:i:s')
+            $now->format('Y-m-d H:i:s')
         );
 
         return new self(

@@ -6,7 +6,7 @@ namespace Cheeper\AllChapters\DomainModel\Clock;
 
 use DateTimeImmutable;
 
-class DateCollectionClockStrategy implements ClockStrategy
+final class DateCollectionClockStrategy implements ClockStrategy
 {
     private int $iterator;
 

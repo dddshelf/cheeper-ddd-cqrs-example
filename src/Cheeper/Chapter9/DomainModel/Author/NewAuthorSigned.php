@@ -14,6 +14,8 @@ class NewAuthorSigned implements DomainEvent
 {
     use MessageTrait;
 
+    private DateTimeImmutable $occurredOn;
+
     private function __construct(
         private string $authorId,
         private string $authorUsername,
@@ -23,8 +25,13 @@ class NewAuthorSigned implements DomainEvent
         private ?string $authorLocation = null,
         private ?string $authorWebsite = null,
         private ?DateTimeImmutable $authorBirthDate = null,
-        private DateTimeImmutable $occurredOn = new DateTimeImmutable(),
+        ?DateTimeImmutable $occurredOn = null,
     ) {
+        if (null === $occurredOn) {
+            $occurredOn = Clock::instance()->now();
+        }
+
+        $this->occurredOn = $occurredOn;
     }
 
     public static function fromAuthor(Author $author): static

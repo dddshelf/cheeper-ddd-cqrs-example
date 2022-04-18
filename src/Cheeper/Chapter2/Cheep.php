@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Chapter2;
 
 //snippet cheep
+use Cheeper\AllChapters\DomainModel\Clock;
+
 final class Cheep
 {
     private ?int $id = null;
@@ -18,7 +20,7 @@ final class Cheep
 
     private function __construct(private int $authorId, string $message)
     {
-        $this->date = new \DateTimeImmutable();
+        $this->date = Clock::instance()->now();
         $this->setMessage($message);
     }
 

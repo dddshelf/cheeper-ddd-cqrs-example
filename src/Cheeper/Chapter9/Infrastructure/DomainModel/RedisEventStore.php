@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter9\Infrastructure\DomainModel;
 
+use Cheeper\AllChapters\DomainModel\Clock;
 use Cheeper\Chapter7\DomainModel\DomainEvent;
 use Cheeper\Chapter9\DomainModel\EventStore;
 use Cheeper\Chapter9\DomainModel\EventStream;
@@ -69,7 +70,7 @@ final class RedisEventStore implements EventStore
     {
         return [
             'type' => get_class($event),
-            'created_on' => (new \DateTimeImmutable())->format('YmdHis'),
+            'created_on' => Clock::instance()->now()->format('YmdHis'),
             'data' => $this->serializer->serialize($event, 'json')
         ];
     }

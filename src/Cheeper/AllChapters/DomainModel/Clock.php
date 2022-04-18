@@ -8,23 +8,23 @@ use Cheeper\AllChapters\DomainModel\Clock\ClockStrategy;
 use Cheeper\AllChapters\DomainModel\Clock\DefaultClockStrategy;
 use DateTimeImmutable;
 
-class Clock
+final class Clock
 {
-    protected static ?Clock $instance = null;
-    protected ClockStrategy $strategy;
+    private static ?Clock $instance = null;
+    private ClockStrategy $strategy;
 
     private function __construct()
     {
         $this->strategy = new DefaultClockStrategy();
     }
 
-    public static function instance(): static
+    public static function instance(): self
     {
-        if (null === static::$instance) {
-            static::$instance = new static();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
 
-        return static::$instance;
+        return self::$instance;
     }
 
     public function now(): DateTimeImmutable
