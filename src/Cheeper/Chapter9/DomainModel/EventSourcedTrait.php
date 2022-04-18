@@ -29,7 +29,8 @@ trait EventSourcedTrait
         $this->domainEvents = [];
     }
 
-    protected function recordApplyAndPublishThat(DomainEvent $event): void {
+    protected function recordApplyAndPublishThat(DomainEvent $event): void
+    {
         $this->notifyDomainEvent($event);
         $this->applyThat($event);
     }

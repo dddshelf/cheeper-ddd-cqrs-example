@@ -12,7 +12,7 @@ use Cheeper\Chapter7\DomainModel\DomainEvent;
 use DateTimeImmutable;
 
 // snippet code
-class AuthorEmailChanged implements DomainEvent
+final class AuthorEmailChanged implements DomainEvent
 {
     use MessageTrait;
 
@@ -26,8 +26,8 @@ class AuthorEmailChanged implements DomainEvent
     public static function ofAuthorIdAndNewEmail(
         AuthorId $authorId,
         EmailAddress $emailAddress
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             $authorId->toString(),
             $emailAddress->value(),
             Clock::instance()->now()
