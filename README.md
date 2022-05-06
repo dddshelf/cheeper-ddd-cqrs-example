@@ -1,31 +1,31 @@
 <h1 align="center">
-    <a href="http://leanpub.com/cqrs-by-example">
-        <img src="http://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
+    <a href="https://leanpub.com/cqrs-by-example">
+        <img src="https://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
     </a>
     <br>
     Hexagonal Architecture + DDD + CQRS by Example Book code repository
 </h1>
 
 <p align="center">
-    <a href="http://github.com/cqrs-by-example/cheeper/actions"><img src="http://github.com/cqrs-by-example/cheeper/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
+    <a href="https://github.com/dddshelf/cheeper-ddd-cqrs-example/actions"><img src="https://github.com/dddshelf/cheeper-ddd-cqrs-example/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
     <img src="https://img.shields.io/static/v1?label=PHP&message=8.1&color=blueviolet" alt="PHP Version" />
     <img src="https://img.shields.io/static/v1?label=Symfony&message=6.0&color=informational" alt="Symfony Version" />
     <img src="https://img.shields.io/static/v1?label=Built+with&message=%E2%9D%A4%EF%B8%8F&color=FDE0D9" alt="Built with love" />
 </p>
 
 <p align="justify">
-    Cheeper is a Twitter clone used in the book <a href="http://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case <strong>PHP</strong> application.
+    Cheeper is a Twitter clone used in the book <a href="https://leanpub.com/cqrs-by-example/">CQRS By Example</a> as a reference implementation. Here you will find an example of applying <strong>Hexagonal Architecture</strong>, <strong>DDD (tactical patterns)</strong> and <strong>CQRS (Command query responsibility segregation)</strong> in a real use case <strong>PHP</strong> application.
 </p>
 <p align="center">
   Take a look around, play a bit with the code, and if you like what you see ... 
-  <a href="https://github.com/cqrs-by-example/book/stargazers">Give us a star 💫</a>
+  <a href="https://github.com/dddshelf/cheeper-ddd-cqrs-example/stargazers">Give us a star 💫</a>
   <br />
   <br />
   <strong><a href="https://leanpub.com/cqrs-by-example/">📕 Check out the book</a></strong>
   ·
-  <a href="https://github.com/cqrs-by-example/book-issues/issues">Report an issue in the book</a>
+  <a href="https://github.com/dddshelf/cqrs-by-example-book-issues/issues">Report an issue in the book</a>
   ·
-  <a href="https://github.com/cqrs-by-example/book/issues">Report an issue in the code</a>
+  <a href="https://github.com/dddshelf/cheeper-ddd-cqrs-example/issues">Report an issue in the code</a>
 </p>
 
 ## Table of contents
@@ -108,14 +108,14 @@ The `Cheeper` namespaces is a bit little different from a typical PHP applicatio
 
 ### Requirements
 
-* [Docker](http://docs.docker.com/get-docker/) 👉 To run all services in your computer without installing all the dependencies.
+* [Docker](https://docs.docker.com/get-docker/) 👉 To run all services in your computer without installing all the dependencies.
 * [Docker Compose](https://docs.docker.com/compose/) 👉 To orchestrate the services. If you're on Mac or Windows and you have installed [Docker Desktop](https://docs.docker.com/desktop/) you already have Docker Compose installed. If you're on Linux, you can check out installation [here](https://docs.docker.com/compose/install/).
 
 ### Getting started
 
 The first thing you should do is to have a fresh copy of the code. To do so just clone the repository
 
-    git clone https://github.com/cqrs-by-example/cheeper-ddd-cqrs-example
+    git clone https://github.com/dddshelf/cheeper-ddd-cqrs-example
 
 Then, in order to get environment set up properly, you should have a `.env.local` file with all the correct values 👇
 
