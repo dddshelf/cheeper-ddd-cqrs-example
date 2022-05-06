@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Chapter2;
 
-//snippet cheep
 use Cheeper\AllChapters\DomainModel\Clock;
 
+//snippet cheep
 final class Cheep
 {
     private ?int $id = null;
