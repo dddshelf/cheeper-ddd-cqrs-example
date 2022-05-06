@@ -66,8 +66,6 @@ services:
     Cheeper\Chapter5\Application\QueryBus:
         class: 'Cheeper\Chapter5\Infrastructure\Application\SymfonyQueryBus'
 
-#    Architecture\CQRS\Infrastructure\Persistence\Doctrine\DoctrineFollowersRepository: ~
-
     chapter5_query_handlers:
         namespace: Cheeper\Chapter5\Application\
         resource: '../src/Cheeper/Chapter5/Application/**/*QueryHandler.php'
