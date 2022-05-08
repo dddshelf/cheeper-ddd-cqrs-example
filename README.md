@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-    <a href="https://github.com/dddshelf/cheeper-ddd-cqrs-example/actions"><img src="https://github.com/dddshelf/cheeper-ddd-cqrs-example/workflows/CI/badge.svg?branch=master" alt="CI status" /></a>
+    <a href="https://github.com/dddshelf/cheeper-ddd-cqrs-example/actions"><img src="https://github.com/dddshelf/cheeper-ddd-cqrs-example/workflows/CI/badge.svg?branch=main" alt="CI status" /></a>
     <img src="https://img.shields.io/static/v1?label=PHP&message=8.1&color=blueviolet" alt="PHP Version" />
     <img src="https://img.shields.io/static/v1?label=Symfony&message=6.0&color=informational" alt="Symfony Version" />
     <img src="https://img.shields.io/static/v1?label=Built+with&message=%E2%9D%A4%EF%B8%8F&color=FDE0D9" alt="Built with love" />
