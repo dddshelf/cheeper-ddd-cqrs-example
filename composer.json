@@ -1,4 +1,5 @@
 {
+    "name": "dddshelf/cheeper-ddd-cqrs-example",
     "type": "project",
     "license": "proprietary",
     "require": {
