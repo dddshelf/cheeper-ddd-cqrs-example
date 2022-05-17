@@ -110,6 +110,7 @@ The `Cheeper` namespaces is a bit little different from a typical PHP applicatio
 
 * [Docker](https://docs.docker.com/get-docker/) 👉 To run all services in your computer without installing all the dependencies.
 * [Docker Compose](https://docs.docker.com/compose/) 👉 To orchestrate the services. If you're on Mac or Windows and you have installed [Docker Desktop](https://docs.docker.com/desktop/) you already have Docker Compose installed. If you're on Linux, you can check out installation [here](https://docs.docker.com/compose/install/).
+* [HTTPie](https://httpie.io/cli) 👉 To make HTTP requests in the same way as they're done in this README file.
 
 ### Getting started
 
