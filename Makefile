@@ -27,6 +27,10 @@ default: start
 start:
 	$(DOCKER_COMPOSE) up -d --remove-orphans
 
+.PHONY: deps
+deps:
+	$(PHP) composer.phar install
+
 .PHONY: infrastructure
 infrastructure:
 	$(DOCKER_COMPOSE) exec redis redis-cli flushall
