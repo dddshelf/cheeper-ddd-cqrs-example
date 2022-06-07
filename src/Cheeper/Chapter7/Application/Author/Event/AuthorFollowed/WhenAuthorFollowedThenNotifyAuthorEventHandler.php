@@ -6,7 +6,10 @@ namespace Cheeper\Chapter7\Application\Author\Event\AuthorFollowed;
 
 use Cheeper\Chapter7\Application\Author\Command\NotifyToAuthorAboutNewFollowerCommand;
 use Cheeper\Chapter7\Application\CommandBus;
-use Cheeper\Chapter7\DomainModel\Follow\AuthorFollowed;
+
+// We use AuthorFollowed from chapter 8 so this handler does not
+// handle the correct Domain Event, so the demo works as expected
+use Cheeper\Chapter8\DomainModel\Follow\AuthorFollowed;
 
 //snippet snippet
 final class WhenAuthorFollowedThenNotifyAuthorEventHandler
