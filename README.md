@@ -1,6 +1,6 @@
 <h1 align="center">
     <a href="https://leanpub.com/cqrs-by-example">
-        <img src="https://gitmood.app/assets/images/cheeper.svg" width="150" alt="cheeper logo">
+        <img src="https://raw.githubusercontent.com/dddshelf/cheeper-ddd-cqrs-example/main/public/cheeper.svg" width="150" alt="cheeper logo">
     </a>
     <br>
     Hexagonal Architecture + DDD + CQRS by Example Book code repository
