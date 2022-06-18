@@ -27,12 +27,11 @@ final class AuthorFollowedEventHandler
             )
         );
 
-        // Other actions, like notifying the author
-        // about the new follower can be added here.
+        // Other actions, like notifying the Author
+        // about the new Follower can be added here.
         // Alternatively, a more scalable design is
-        // to create one Event Handler for each of
-        // the needed actions to happen in reaction.
-        // All of those listening to the same
+        // to create an Event Handler for each of
+        // action that has to happen per
         // AuthorFollowed Domain Event.
         // @see: WhenAuthorFollowedThenIncrementFollowersProjectionEventHandler
         // @see: WhenAuthorFollowedThenWelcomeAuthorEventHandler

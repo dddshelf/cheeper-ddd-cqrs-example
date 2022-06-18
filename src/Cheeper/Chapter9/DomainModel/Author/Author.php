@@ -36,12 +36,12 @@ final class Author
         // or an alternative way of instantiating
         // an empty instance of this object
         // so we can change the internal fields
-        // when replaying events
+        // when replaying Events.
     }
 
     // The public interface of an Event Sourced
     // Entity should still be the same as shown
-    // in the other chapters
+    // in the other chapters.
     public static function signUp(
         AuthorId $authorId,
         UserName $userName,
@@ -53,7 +53,7 @@ final class Author
         ?BirthDate $birthDate = null
     ): self {
         // Regular semantic constructors
-        // still apply as a proper design
+        // still apply as a proper design.
         $obj = new self();
 
         $obj->authorId = $authorId->toString();
@@ -79,7 +79,7 @@ final class Author
 
     // The public interface of an Event Sourced
     // Entity should still be the same as shown
-    // in the other chapters
+    // in the other chapters.
     public function changeEmail(EmailAddress $newEmail)
     {
         // If an Entity method invokes an

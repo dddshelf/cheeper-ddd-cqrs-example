@@ -28,7 +28,7 @@ class Follow
          * implementing an Observer pattern with
          * Subscribers that will publish the triggered
          * Domain Events into a queue system like
-         * Rabbit. It's useful for Legacy projects
+         * Rabbit. It's useful for legacy projects
          * because you can trigger any Domain Event
          * from any place in your code, not only
          * Entities.

@@ -31,9 +31,9 @@ final class GetFollowersCounterController extends AbstractController
             );
 
         /**
-         * In case of errors like the author does not exist, you can:
+         * In case of errors like the Author is not existing, you can:
          * A) Let your framework catch the Exceptions and automatically
-         *    generate 404 o 500
+         *    generate 404 or 500
          * B) Do it manually here in the Controller, using a try block
          *    and multiple catch blocks
          *

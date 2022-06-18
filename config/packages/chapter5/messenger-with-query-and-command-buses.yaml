@@ -30,9 +30,9 @@ framework:
 
             # Query Transports
             # It makes no sense to queries to
-            # have an async transport. It has
-            # to be sync so the customer can
-            # get back the response
+            # have an asynchronous transport. It has
+            # to be synchronous so the customer can
+            # get back the response.
             queries_sync: 'sync://'
 
             # Dead letter box
@@ -49,7 +49,7 @@ framework:
 
             # Events can be run synchronously, however
             # all the benefits like performance and
-            # transaction isolation comes when using
+            # transaction isolation come when using
             # the asynchronous transport.
             Cheeper\Chapter4\DomainModel\DomainEvent: events_async
 

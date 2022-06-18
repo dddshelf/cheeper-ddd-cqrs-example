@@ -28,10 +28,10 @@ final class CheepPostedEventHandler
         );
 
         foreach ($follows as $follow) {
-            // Sending the projection to be processed
-            // asynchronously helps on improving
+            // Sending the Projection to be processed
+            // asynchronously helps improve
             // performance by distributing the tasks
-            // between multiple workers
+            // between multiple workers.
             $this->projectionBus->project(
                 new AddCheepToTimelineProjection(
                     authorId:       $follow->fromAuthorId()->toString(),
@@ -43,10 +43,10 @@ final class CheepPostedEventHandler
                 )
             );
 
-            // This is an example on how to straightly do
+            // This is a straightforward example of how to do
             // it with a Redis class instance. This approach
             // is synchronous. Depending on the case, it could
-            // be the right choice.
+            // be the correct choice.
             //
             // $this->redis->lPush(
             //     sprintf("timelines_%s", $follow->fromAuthorId()->toString()),

@@ -32,11 +32,11 @@ final class EventSourcedAuthorRepository implements AuthorRepository
     /*
     public function ofUserName(UserName $userName): ?Author
     {
-        // When doing Event Sourcing, Repositories
-        // responsibility is reduced to hold
-        // a finder by id, and add.
+        // In Event Sourcing, a Repository's
+        // responsibility is limited to providing
+        // a finder by ID and an add method.
         // Other finder methods become
-        // a Projection
+        // a Projection.
     }
     */
 

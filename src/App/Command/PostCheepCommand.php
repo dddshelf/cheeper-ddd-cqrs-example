@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 //snippet post-cheep-command
-#[AsCommand(name: "app:post-chepp", description: "Post cheep from command line")]
+#[AsCommand(name: "app:post-chepp", description: "Post Cheep from command line")]
 final class PostCheepCommand extends Command
 {
     protected static $defaultName = 'app:post-cheep';

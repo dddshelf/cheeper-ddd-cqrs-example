@@ -15,11 +15,11 @@ final class CountFollowersProjectionHandlerTest extends TestCase
 {
     /**
      * @test
-     * @Given Non Existing Author
+     * @Given Non-Existent Author
      * @When Counting Followers
-     * @Then Non Existing Author Exception Should Be Thrown
+     * @Then Non-Existent Author Exception Should Be Thrown
      */
-    public function nonExistingAuthor(): void
+    public function nonExistentAuthor(): void
     {
         $authorId = '1c22ed61-c305-44dd-a558-f261f434f583';
 

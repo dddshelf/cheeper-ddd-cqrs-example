@@ -31,7 +31,7 @@ final class CountFollowersQueryHandler
 
         $followersCount = count($this->followRepository->toAuthorId($authorId));
 
-        // Other option would be with a counter method in the Repository
+        // Another option would be with a counter method in the Repository
         // $followersCount = $this->followers->countOfAuthorId($authorId));
 
         return new CountFollowersResponse(

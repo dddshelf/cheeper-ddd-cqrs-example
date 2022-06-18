@@ -57,13 +57,13 @@ final class ComplexPostCheepController extends AbstractController
         );
 
         try {
-            $logger->info('Executing SignUp command');
+            $logger->info('Executing signup command');
             $entityManager->wrapInTransaction(function () use ($command, $postCheepHandler, $logger): void {
                 ($postCheepHandler)($command);
-                $logger->info('SignUp command executed successfully');
+                $logger->info('Signup command executed successfully');
             });
         } catch (AuthorDoesNotExist | InvalidArgumentException $exception) {
-            $logger->error('SignUp command failed');
+            $logger->error('Signup command failed');
             throw new BadRequestHttpException($exception->getMessage(), $exception);
         }
         //end-snippet

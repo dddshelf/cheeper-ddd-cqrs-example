@@ -77,7 +77,7 @@ final class Author
     public function compose(string $message): Cheep
     {
         if (!$this->id) {
-            throw new \RuntimeException('Author id has not been assigned yet');
+            throw new \RuntimeException('Author ID has not been assigned yet');
         }
 
         return Cheep::compose($this->id, $message);

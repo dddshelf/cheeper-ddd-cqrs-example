@@ -20,11 +20,11 @@ final class CountFollowersQueryHandlerTest extends TestCase
 {
     /**
      * @test
-     * @Given Non Existing Author
+     * @Given Non-Existent Author
      * @When Counting Followers
-     * @Then Non Existing Author Exception Should Be Thrown
+     * @Then Non-Existent Author Exception Should Be Thrown
      */
-    public function nonExistingAuthor(): void
+    public function nonExistentAuthor(): void
     {
         $this->expectException(AuthorDoesNotExist::class);
         $this->expectExceptionMessage('Author "3409a21d-83b3-471e-a4f1-cf6748af65d2" does not exist');
