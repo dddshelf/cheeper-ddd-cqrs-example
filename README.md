@@ -152,32 +152,38 @@ Cheeper starts totally as a blank application. There is no Author, Cheeps, Follo
 
 Expected output
 
-    {
-        "data": {
-            "message": "Author \"a64a52cc-3ee9-4a15-918b-099e18b43119\" does not exist"
-        },
-        "meta": {
-            "message_id": "c0342dfe-782e-4ffa-9e9c-8d6d82533ab2"
-        }
+``` json
+{
+    "data": {
+        "message": "Author \"a64a52cc-3ee9-4a15-918b-099e18b43119\" does not exist"
+    },
+    "meta": {
+        "message_id": "c0342dfe-782e-4ffa-9e9c-8d6d82533ab2"
     }
+}
+```
 
-    {
-        "data": {
-            "message": "Author \"1fd7d739-2ad7-41a8-8c18-565603e3733f\" does not exist"
-        },
-        "meta": {
-            "message_id": "35089f63-53ca-4a44-9a7c-6e588ba6d885"
-        }
+``` json
+{
+    "data": {
+        "message": "Author \"1fd7d739-2ad7-41a8-8c18-565603e3733f\" does not exist"
+    },
+    "meta": {
+        "message_id": "35089f63-53ca-4a44-9a7c-6e588ba6d885"
     }
+}
+```
 
-    {
-        "data": {
-            "message": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
-        },
-        "meta": {
-            "message_id": "d07a6984-abc9-4a3a-92bb-829ad5dd85df"
-        }
+``` json
+{
+    "data": {
+        "message": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
+    },
+    "meta": {
+        "message_id": "d07a6984-abc9-4a3a-92bb-829ad5dd85df"
     }
+}
+```
 
 #### 2. Author Timeline
 
@@ -187,11 +193,12 @@ Expected output
 
 Expected output
 
-    {
-        "_meta": [],
-        "data": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
-    }
-    ...
+``` json
+{
+    "_meta": [],
+    "data": "Author \"1da1366f-b066-4514-9b29-7346df41e371\" does not exist"
+}
+```
 
 #### 3. Adding Authors
 
@@ -201,11 +208,12 @@ Expected output
 
 Expected output
 
-    {
-        "author_id": "a64a52cc-3ee9-4a15-918b-099e18b43119",
-        "message_id": "d3c90181-c2c1-4e5c-90e9-99a799197b88"
-    }
-    ...
+``` json
+{
+    "author_id": "a64a52cc-3ee9-4a15-918b-099e18b43119",
+    "message_id": "d3c90181-c2c1-4e5c-90e9-99a799197b88"
+}
+```
 
 #### 4. Consuming Events
 
@@ -231,17 +239,18 @@ Expected output
 
 Expected output
 
-    {
-        "_meta": {
-            "message_id": "8db6fc1d-41d5-4f6b-8950-e5766eee53e9"
-        },
-        "data": {
-            "authorId": "1da1366f-b066-4514-9b29-7346df41e371",
-            "authorUsername": "charlie",
-            "numberOfFollowers": 0
-        }
+``` json
+{
+    "_meta": {
+        "message_id": "8db6fc1d-41d5-4f6b-8950-e5766eee53e9"
+    },
+    "data": {
+        "authorId": "1da1366f-b066-4514-9b29-7346df41e371",
+        "authorUsername": "charlie",
+        "numberOfFollowers": 0
     }
-    ...
+}
+```
 
 #### 6. Author Timeline again
 
@@ -251,9 +260,11 @@ Expected output
 
 Expected output
 
-    {
-        "cheeps": []
-    }
+``` json
+{
+    "cheeps": []
+}
+```
 
 #### 7. Following other Authors
 
@@ -272,16 +283,18 @@ Expected output
 
 Expected output
 
-    {
-        "_meta": {
-            "message_id": "0e9df870-894f-4d37-a140-4d598941fa4f"
-        },
-        "data": {
-            "authorId": "a64a52cc-3ee9-4a15-918b-099e18b43119",
-            "authorUsername": "bob",
-            "numberOfFollowers": 1
-        }
+``` json
+{
+    "_meta": {
+        "message_id": "0e9df870-894f-4d37-a140-4d598941fa4f"
+    },
+    "data": {
+        "authorId": "a64a52cc-3ee9-4a15-918b-099e18b43119",
+        "authorUsername": "bob",
+        "numberOfFollowers": 1
     }
+}
+```
 
 #### 10. Posting Cheeps
 
