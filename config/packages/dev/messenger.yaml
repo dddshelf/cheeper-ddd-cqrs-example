@@ -1,5 +1,0 @@
-framework:
-    messenger:
-        transports:
-            # This is the trick for fixtures or testing
-            async: 'sync://'

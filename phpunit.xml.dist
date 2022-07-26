@@ -10,11 +10,6 @@
         </include>
         <exclude>
             <directory>src/App</directory>
-            <directory>src/Cheeper/Chapter2/Spaghetti</directory>
-            <directory>src/Cheeper/Chapter4/Infrastructure</directory>
-            <directory>src/Cheeper/Chapter5/Infrastructure</directory>
-            <directory>src/Cheeper/Chapter6/Infrastructure</directory>
-            <directory>src/Cheeper/Chapter7/Infrastructure</directory>
         </exclude>
     </coverage>
     <php>
@@ -24,11 +19,7 @@
     </php>
     <testsuites>
         <testsuite name="Full">
-            <directory>tests/Cheeper/Tests/Chapter2</directory>
-            <directory>tests/Cheeper/Tests/Chapter4</directory>
-            <directory>tests/Cheeper/Tests/Chapter5</directory>
-            <directory>tests/Cheeper/Tests/Chapter6</directory>
-            <directory>tests/Cheeper/Tests/Chapter7</directory>
+            <directory>tests/Cheeper/Tests</directory>
         </testsuite>
     </testsuites>
     <extensions>
