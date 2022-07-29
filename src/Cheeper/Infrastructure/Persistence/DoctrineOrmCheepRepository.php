@@ -53,4 +53,24 @@ final class DoctrineOrmCheepRepository implements CheepRepository
     {
         // TODO: Implement groupedByMonth() method.
     }
+
+    public function ofFollowingPeopleOf(Author $author, int $offset, int $size): array
+    {
+        $dql = <<<DQL
+SELECT c
+FROM Cheeper\DomainModel\Cheep\Cheep c
+    JOIN Cheeper\DomainModel\Follow\Follow f WITH f.toAuthorId = c.authorId
+WHERE f.fromAuthorId = :fromAuthorId
+ORDER BY c.cheepDate DESC
+
+DQL;
+
+        $query = $this->em->createQuery($dql);
+        $query->setFirstResult($offset);
+        $query->setMaxResults($size);
+
+        return $query->execute([
+            'fromAuthorId' => $author->authorId()
+        ]);
+    }
 }

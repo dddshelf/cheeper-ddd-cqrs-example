@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Tests\AllChapters\DomainModel\Author;
+namespace Cheeper\Tests\DomainModel\Author;
 
 use Cheeper\DomainModel\Author\UserName;
 use PHPUnit\Framework\TestCase;

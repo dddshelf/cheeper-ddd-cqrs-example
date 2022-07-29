@@ -26,4 +26,7 @@ interface CheepRepository
 
     /** @return Cheep[] */
     public function groupedByMonth(int $year): array;
+
+    /** @return Cheep[] */
+    public function ofFollowingPeopleOf(Author $author, int $offset, int $size): array;
 }

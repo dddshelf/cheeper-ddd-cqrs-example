@@ -3,13 +3,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Cheeper\Chapter7\DomainModel\Cheep\Cheep" table="cheeps">
+    <entity name="Cheeper\DomainModel\Cheep\Cheep" table="cheeps">
         <id name="cheepId" column="cheep_id" type="string" length="36">
             <generator strategy="NONE"/>
         </id>
 
-        <embedded name="cheepMessage" class="Cheeper\AllChapters\DomainModel\Cheep\CheepMessage" />
-        <embedded name="cheepDate" class="Cheeper\AllChapters\DomainModel\Cheep\CheepDate" />
+        <embedded name="cheepMessage" class="Cheeper\DomainModel\Cheep\CheepMessage" />
+        <embedded name="cheepDate" class="Cheeper\DomainModel\Cheep\CheepDate" />
 
         <field name="authorId" column="author_id" length="36" />
     </entity>

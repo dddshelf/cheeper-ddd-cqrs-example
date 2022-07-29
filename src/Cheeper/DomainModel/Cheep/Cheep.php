@@ -4,57 +4,60 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Cheep;
 
+use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Clock\Clock;
-use DateTimeInterface;
 
-final class Cheep
+class Cheep
 {
-    private ?int $id = null;
-    private string $message;
-    private DateTimeInterface $date;
-
-    public static function compose(int $authorId, string $message): self
-    {
-        return new self($authorId, $message);
+    private function __construct(
+        private AuthorId $authorId,
+        private CheepId $cheepId,
+        private CheepMessage $cheepMessage,
+        private CheepDate $cheepDate,
+    ) {
     }
 
-    private function __construct(private readonly int $authorId, string $message)
+    public static function compose(AuthorId $authorId, CheepId $cheepId, CheepMessage $cheepMessage): self
     {
-        $this->date = Clock::instance()->now();
-        $this->setMessage($message);
+        $now = Clock::instance()
+            ->now()
+            ->setTimezone(new \DateTimeZone('UTC'))
+        ;
+
+        $cheepDate = new CheepDate(
+            $now->format('Y-m-d H:i:s')
+        );
+
+        return new self(
+            $authorId,
+            $cheepId,
+            $cheepMessage,
+            $cheepDate
+        );
     }
 
-    private function setMessage(string $message): void
-    {
-        if (empty($message)) {
-            throw new \RuntimeException('Message cannot be empty');
-        }
-
-        $this->message = $message;
-    }
-
-    public function authorId(): int
+    final public function authorId(): AuthorId
     {
         return $this->authorId;
     }
 
-    public function message(): string
+    final public function cheepId(): CheepId
     {
-        return $this->message;
+        return $this->cheepId;
     }
 
-    public function date(): DateTimeInterface
+    final public function cheepMessage(): CheepMessage
     {
-        return $this->date;
+        return $this->cheepMessage;
     }
 
-    public function setId(int $id): void
+    final public function cheepDate(): CheepDate
     {
-        $this->id = $id;
+        return $this->cheepDate;
     }
 
-    public function id(): ?int
+    final public function recomposeWith(CheepMessage $cheepMessage): void
     {
-        return $this->id;
+        $this->cheepMessage = $cheepMessage;
     }
 }

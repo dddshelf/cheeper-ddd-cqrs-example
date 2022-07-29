@@ -4,83 +4,120 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
-use Cheeper\DomainModel\Cheep\Cheep;
+use Cheeper\DomainModel\Follow\FollowId;
+use Cheeper\DomainModel\Follow\Follow;
+use DateTimeImmutable;
+use InvalidArgumentException;
 
-final class Author
+class Author
 {
-    private ?int $id = null;
-    private ?string $website = null;
-    private ?string $bio = null;
-    private string $username;
-
-    public static function create(string $username): self
-    {
-        return new self($username);
+    private function __construct(
+        private string             $authorId,
+        private string             $userName,
+        private string             $email,
+        private ?string            $name = null,
+        private ?string            $biography = null,
+        private ?string            $location = null,
+        private ?string            $website = null,
+        private ?DateTimeImmutable $birthDate = null,
+    ) {
+        $this->setName($name);
+        $this->setBiography($biography);
+        $this->setLocation($location);
     }
 
-    private function __construct(string $username)
-    {
-        $this->setUsername($username);
+    public static function signUp(
+        AuthorId $authorId,
+        UserName $userName,
+        EmailAddress $email,
+        ?string $name = null,
+        ?string $biography = null,
+        ?string $location = null,
+        ?Website $website = null,
+        ?BirthDate $birthDate = null
+    ): static {
+        return new static(
+            $authorId->toString(),
+            $userName->userName(),
+            $email->value(),
+            $name,
+            $biography,
+            $location,
+            $website?->toString(),
+            $birthDate?->date()
+        );
     }
 
-    public function setUsername(string $username): void
+    protected function setName(?string $name): void
     {
-        if (empty($username)) {
-            throw new \RuntimeException('Username cannot be empty');
+        $this->name = $this->checkIsNotNull($name, 'Name cannot be empty');
+    }
+
+    protected function setBiography(?string $biography): void
+    {
+        $this->biography = $this->checkIsNotNull($biography, 'Biography cannot be empty');
+    }
+
+    protected function setLocation(?string $location): void
+    {
+        $this->location = $this->checkIsNotNull($location, 'Location cannot be empty');
+    }
+
+    public function authorId(): AuthorId
+    {
+        return AuthorId::fromString($this->authorId);
+    }
+
+    public function userName(): UserName
+    {
+        return UserName::pick($this->userName);
+    }
+
+    public function email(): EmailAddress
+    {
+        return EmailAddress::from($this->email);
+    }
+
+    public function name(): ?string
+    {
+        return $this->name;
+    }
+
+    public function biography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function location(): ?string
+    {
+        return $this->location;
+    }
+
+    public function website(): ?Website
+    {
+        return $this->website !== null ? Website::fromString($this->website) : null;
+    }
+
+    public function birthDate(): ?BirthDate
+    {
+        return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
+    }
+
+    public function followAuthorId(AuthorId $toFollow): Follow
+    {
+        return Follow::fromAuthorToAuthor(
+            followId: FollowId::nextIdentity(),
+            fromAuthorId: $this->authorId(),
+            toAuthorId: $toFollow
+        );
+    }
+
+    private function checkIsNotNull(?string $value, string $errorMessage): ?string
+    {
+        if ('' === $value) {
+            throw new InvalidArgumentException($errorMessage);
         }
 
-        $this->username = $username;
-    }
-
-    public function username(): string
-    {
-        return $this->username;
-    }
-
-    public function setWebsite(?string $website): void
-    {
-        if ($website !== null && !filter_var($website, FILTER_VALIDATE_URL)) {
-            throw new \RuntimeException('Website must be a valid URL');
-        }
-
-        $this->website = $website;
-    }
-
-    public function website(): ?string
-    {
-        return $this->website;
-    }
-
-    public function setBio(?string $bio): void
-    {
-        if ($bio !== null && empty($bio)) {
-            throw new \RuntimeException('Bio cannot be empty');
-        }
-
-        $this->bio = $bio;
-    }
-
-    public function bio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function id(): ?int
-    {
-        return $this->id;
-    }
-
-    public function compose(string $message): Cheep
-    {
-        if (!$this->id) {
-            throw new \RuntimeException('Author ID has not been assigned yet');
-        }
-
-        return Cheep::compose($this->id, $message);
+        return $value;
     }
 }

@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Cheeper\Chapter7\DomainModel\Follow\Follow" table="follows">
+    <entity name="Cheeper\DomainModel\Follow\Follow" table="follows">
         <id name="followId" type="string" column="follow_id" length="36">
             <generator strategy="NONE"/>
         </id>

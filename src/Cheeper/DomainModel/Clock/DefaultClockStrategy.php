@@ -6,7 +6,7 @@ namespace Cheeper\DomainModel\Clock;
 
 use DateTimeImmutable;
 
-class DefaultClockStrategy implements ClockStrategy
+final class DefaultClockStrategy implements ClockStrategy
 {
     public function now(): DateTimeImmutable
     {
