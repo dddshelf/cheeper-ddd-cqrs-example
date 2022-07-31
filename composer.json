@@ -51,9 +51,11 @@
         "phpunit/phpunit": "^9.0",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "6.0.*",
+        "symfony/css-selector": "6.0.*",
         "symfony/debug-bundle": "6.0.*",
         "symfony/maker-bundle": "^1.14",
         "symfony/monolog-bundle": "^3.0",
+        "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "6.0.*",
         "symfony/web-profiler-bundle": "6.0.*",
         "theofidry/psysh-bundle": "^4.3"

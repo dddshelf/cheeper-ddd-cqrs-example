@@ -16,6 +16,15 @@ use Ramsey\Uuid\Uuid;
 
 final class AuthorApplicationServiceTest extends TestCase
 {
+    private AuthorApplicationService $authorApplicationService;
+    private AuthorRepository $authorRepository;
+
+    protected function setUp(): void
+    {
+        $this->authorRepository = new InMemoryAuthorRepository();
+        $this->authorApplicationService = new AuthorApplicationService($this->authorRepository);
+    }
+
     /** @test */
     public function givenAuthorSignUpWhenAuthorUsernameIsAlreadyPickedUpThenAnExceptionShouldBeThrown(): void
     {
@@ -30,13 +39,11 @@ final class AuthorApplicationServiceTest extends TestCase
         $website = 'https://google.com';
         $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
 
-        $authorRepository = new InMemoryAuthorRepository();
-        $authorRepository->add(
+        $this->authorRepository->add(
             AuthorTestDataBuilder::anAuthor()->build()
         );
 
-        $authorApplicationService = new AuthorApplicationService($authorRepository);
-        $authorApplicationService->signUp(
+        $this->authorApplicationService->signUp(
             $id,
             $username,
             $email,
@@ -60,10 +67,7 @@ final class AuthorApplicationServiceTest extends TestCase
         $website = 'https://google.com';
         $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
 
-        $authorRepository = new InMemoryAuthorRepository();
-
-        $authorApplicationService = new AuthorApplicationService($authorRepository);
-        $authorApplicationService->signUp(
+        $this->authorApplicationService->signUp(
             $id,
             $username,
             $email,
@@ -75,7 +79,7 @@ final class AuthorApplicationServiceTest extends TestCase
         );
 
         $this->assertNotNull(
-            $authorRepository->ofUserName(UserName::pick('irrelevant'))
+            $this->authorRepository->ofUserName(UserName::pick('irrelevant'))
         );
     }
 }

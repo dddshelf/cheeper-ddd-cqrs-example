@@ -34,26 +34,6 @@ final class DoctrineOrmCheepRepository implements CheepRepository
         return $this->em->getRepository(Cheep::class)->findAll();
     }
 
-    public function allBetween(DateTimeInterface $from, DateTimeInterface $to): array
-    {
-        // TODO: Implement allBetween() method.
-    }
-
-    public function allGroupedByMonthAndYear(): array
-    {
-        // TODO: Implement allGroupedByMonthAndYear() method.
-    }
-
-    public function ofFollowersOfAuthor(Author $author): array
-    {
-        // TODO: Implement ofFollowersOfAuthor() method.
-    }
-
-    public function groupedByMonth(int $year): array
-    {
-        // TODO: Implement groupedByMonth() method.
-    }
-
     public function ofFollowingPeopleOf(Author $author, int $offset, int $size): array
     {
         $dql = <<<DQL

@@ -30,23 +30,22 @@ final class FollowApplicationService
 
     public function countFollowersOf(string $authorId): int
     {
-        $authorId = AuthorId::fromString($authorId);
+        $this->tryToFindAuthor($authorId);
 
-        if (null === $this->authorRepository->ofId($authorId)) {
-            throw AuthorDoesNotExist::withAuthorIdOf($authorId);
-        }
-
-        return $this->followRepository->numberOfFollowersFor($authorId);
+        return $this->followRepository->numberOfFollowersFor(
+            AuthorId::fromString($authorId)
+        );
     }
 
     private function tryToFindAuthor(string $authorId): Author
     {
-        $fromAuthor = $this->authorRepository->ofId(AuthorId::fromString($authorId));
+        $id = AuthorId::fromString($authorId);
+        $author = $this->authorRepository->ofId($id);
 
-        if (null === $fromAuthor) {
-            throw AuthorDoesNotExist::withAuthorIdOf(AuthorId::fromString($authorId));
+        if (null === $author) {
+            throw AuthorDoesNotExist::withAuthorIdOf($id);
         }
 
-        return $fromAuthor;
+        return $author;
     }
 }

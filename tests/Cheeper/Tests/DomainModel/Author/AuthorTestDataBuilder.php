@@ -10,6 +10,8 @@ use Cheeper\DomainModel\Author\BirthDate;
 use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\Website;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class AuthorTestDataBuilder
 {
@@ -28,6 +30,19 @@ final class AuthorTestDataBuilder
     public static function anAuthor(): self
     {
         return new self();
+    }
+
+    public static function anAuthorIdentity(string | UuidInterface | null $anAuthorId = null): AuthorId
+    {
+        if ($anAuthorId && is_string($anAuthorId)) {
+            return AuthorId::fromString($anAuthorId);
+        }
+
+        if ($anAuthorId) {
+            return AuthorId::fromUuid($anAuthorId);
+        }
+
+        return AuthorId::nextIdentity();
     }
 
     public function withUserNameOf(string $userName): self

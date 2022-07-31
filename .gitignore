@@ -7,14 +7,9 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
-
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
-
 ###> application ###
 infection.log
+coverage
 ###< application ###
 ###> php-cs-fixer ###
 .php-cs-fixer.cache
@@ -28,3 +23,7 @@ infection.log
 !.yarn/sdks
 !.yarn/versions
 ###< yarn ###
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
