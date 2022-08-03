@@ -47,6 +47,6 @@ final class PostFollowersController extends AbstractController
             throw $this->createNotFoundException($e->getMessage());
         }
 
-        return new Response(status: Response::HTTP_OK);
+        return new Response(status: Response::HTTP_CREATED);
     }
 }

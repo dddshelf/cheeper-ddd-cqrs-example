@@ -22,6 +22,7 @@ final class DoctrineOrmCheepRepository implements CheepRepository
     public function add(Cheep $cheep): void
     {
         $this->em->persist($cheep);
+        $this->em->flush();
     }
 
     public function ofId(CheepId $cheepId): ?Cheep

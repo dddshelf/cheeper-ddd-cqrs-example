@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\AuthorDto;
 use Cheeper\Application\AuthorApplicationService;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +33,7 @@ final class PostAuthorController extends AbstractController
             'biography' => new Assert\Optional(),
             'location' => new Assert\Optional(),
             'website' => new Assert\Optional(new Assert\Url()),
-            'birth_date' => new Assert\Optional(new Assert\DateTime())
+            'birth_date' => new Assert\Optional(new Assert\DateTime(format: "Y-m-d"))
         ]);
 
         $data = json_decode($request->getContent(), true);
@@ -53,6 +54,9 @@ final class PostAuthorController extends AbstractController
             $data['birth_date']
         );
 
-        return $this->json($author, Response::HTTP_CREATED);
+        return $this->json(
+            data: AuthorDto::assembleFrom($author),
+            status: Response::HTTP_CREATED
+        );
     }
 }

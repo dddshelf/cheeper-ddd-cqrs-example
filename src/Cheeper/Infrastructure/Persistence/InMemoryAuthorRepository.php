@@ -34,4 +34,9 @@ final class InMemoryAuthorRepository implements AuthorRepository
     {
         $this->authors[$author->authorId()->toString()] = $author;
     }
+
+    public function all(): array
+    {
+        return $this->authors;
+    }
 }

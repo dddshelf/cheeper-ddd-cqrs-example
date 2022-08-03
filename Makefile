@@ -40,7 +40,7 @@ infrastructure:
 	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed_messages/contents
 	$(PHP) bin/console doc:sch:drop --force
 	$(PHP) bin/console doc:sch:create
-	$(PHP) bin/console messenger:setup-transports
+	#$(PHP) bin/console messenger:setup-transports
 
 .PHONY: stop
 stop:

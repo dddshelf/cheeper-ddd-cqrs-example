@@ -36,5 +36,13 @@ final class DoctrineOrmAuthorRepository implements AuthorRepository
     public function add(Author $author): void
     {
         $this->em->persist($author);
+        $this->em->flush();
+    }
+
+    public function all(): array
+    {
+        return $this->em
+            ->getRepository(Author::class)
+            ->findAll();
     }
 }
