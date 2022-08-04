@@ -13,7 +13,7 @@ final class CheepDto
         public readonly string $id,
         public readonly string $authorId,
         public readonly string $text,
-        public readonly DateTimeInterface $createdAt,
+        public readonly string $createdAt,
     )
     {
     }
@@ -24,7 +24,7 @@ final class CheepDto
             $cheep->cheepId()->toString(),
             $cheep->authorId()->toString(),
             $cheep->cheepMessage()->message(),
-            \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $cheep->cheepDate()->date())
+            \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $cheep->cheepDate()->date())->format(DateTimeInterface::ATOM)
         );
     }
 }

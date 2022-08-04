@@ -10,14 +10,14 @@ use DateTimeImmutable;
 final class AuthorDto
 {
     public function __construct(
-        public readonly string $id,
-        public readonly string             $userName,
-        public readonly string             $email,
-        public readonly ?string            $name = null,
-        public readonly ?string            $biography = null,
-        public readonly ?string            $location = null,
-        public readonly ?string            $website = null,
-        public readonly ?DateTimeImmutable $birthDate = null,
+        public readonly string  $id,
+        public readonly string  $userName,
+        public readonly string  $email,
+        public readonly ?string $name = null,
+        public readonly ?string $biography = null,
+        public readonly ?string $location = null,
+        public readonly ?string $website = null,
+        public readonly ?string $birthDate = null,
     )
     {
     }
@@ -32,7 +32,7 @@ final class AuthorDto
             $author->biography(),
             $author->location(),
             $author->website()?->toString(),
-            $author->birthDate()?->date()
+            $author->birthDate()?->date()->format(\DateTimeInterface::ATOM)
         );
     }
 }

@@ -56,6 +56,11 @@ final class AuthorApplicationService
         return $author;
     }
 
+    public function getAuthors(): array
+    {
+        return $this->authorRepository->all();
+    }
+
     private function checkAuthorDoesNotAlreadyExistByUsername(?Author $author, UserName $userName): void
     {
         if (null !== $author) {

@@ -82,4 +82,17 @@ final class AuthorApplicationServiceTest extends TestCase
             $this->authorRepository->ofUserName(UserName::pick('irrelevant'))
         );
     }
+
+    /** @test */
+    public function itReturnsAllAuthors(): void
+    {
+        $this->authorRepository->add(
+            AuthorTestDataBuilder::anAuthor()->build()
+        );
+
+        $authors = $this->authorApplicationService->getAuthors();
+
+        $this->assertCount(1, $authors);
+        $this->assertContainsOnlyInstancesOf(Author::class, $authors);
+    }
 }

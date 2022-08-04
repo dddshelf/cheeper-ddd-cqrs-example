@@ -64,4 +64,11 @@ trait HelperFunctions
 
         return $client->getResponse()->toArray();
     }
+
+    private function getAuthors(Client $client): array
+    {
+        $client->request(Request::METHOD_GET, "/authors");
+
+        return $client->getResponse()->toArray();
+    }
 }
