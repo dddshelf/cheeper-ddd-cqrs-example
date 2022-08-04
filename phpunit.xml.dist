@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" colors="true"
-         bootstrap="tests/bootstrap.php" executionOrder="random"
-         resolveDependencies="true">
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         colors="true"
+         bootstrap="tests/bootstrap.php"
+         executionOrder="random"
+         defaultTestSuite="UnitTests"
+>
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src/Cheeper</directory>
@@ -21,6 +24,12 @@
     <testsuites>
         <testsuite name="Full">
             <directory>tests</directory>
+        </testsuite>
+        <testsuite name="UnitTests">
+            <directory>tests/Cheeper/Tests</directory>
+        </testsuite>
+        <testsuite name="FunctionalTests">
+            <directory>tests/App/Tests</directory>
         </testsuite>
     </testsuites>
     <extensions>

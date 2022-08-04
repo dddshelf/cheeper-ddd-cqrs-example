@@ -9,62 +9,28 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GetFollowersCountControllerTest extends ApiTestCase
 {
+    use HelperFunctions;
+
     /** @test */
     public function itReturnsTheNumberOfFollowersOfAUser(): void
     {
         $client = self::createClient();
-        $faker = FakerFactory::create();
 
         // Register first author
-        $client->request(Request::METHOD_POST, "/authors", [
-            'json' => [
-                'username' => $faker->userName(),
-                'email' => $faker->email(),
-                'name' => $faker->name(),
-                'biography' => $faker->sentence(),
-                'location' => $faker->country(),
-                'website' => $faker->url(),
-                'birth_date' => $faker->dateTime()->format('Y-m-d')
-            ]
-        ]);
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
-
-        $response = $client->getResponse();
-        $firstAuthorData = $response->toArray();
+        $fromAuthor = $this->createAuthorWithRandomizedData($client);
 
         // Register second author
-        $client->request(Request::METHOD_POST, "/authors", [
-            'json' => [
-                'username' => $faker->userName(),
-                'email' => $faker->email(),
-                'name' => $faker->name(),
-                'biography' => $faker->sentence(),
-                'location' => $faker->country(),
-                'website' => $faker->url(),
-                'birth_date' => $faker->dateTime()->format('Y-m-d')
-            ]
-        ]);
-
-        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
-
-        $response = $client->getResponse();
-        $secondAuthorData = $response->toArray();
+        $toAuthor = $this->createAuthorWithRandomizedData($client);
 
         // Make first follow second author
-        $client->request(Request::METHOD_POST, "/followers", [
-            'json' => [
-                'from_author_id' => $firstAuthorData['id'],
-                'to_author_id' => $secondAuthorData['id'],
-            ]
-        ]);
+        $this->makeFollow($client, $fromAuthor['id'], $toAuthor['id']);
 
-        $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
-
-        $client->request(Request::METHOD_GET, "/authors/${secondAuthorData['id']}/followers/total");
+        $client->request(Request::METHOD_GET, "/authors/${toAuthor['id']}/followers/total");
 
         $this->assertJsonContains([
             'count' => 1
         ]);
     }
+
+
 }

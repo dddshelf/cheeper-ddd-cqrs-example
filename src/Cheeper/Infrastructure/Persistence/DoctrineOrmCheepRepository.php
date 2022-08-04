@@ -42,7 +42,7 @@ SELECT c
 FROM Cheeper\DomainModel\Cheep\Cheep c
     JOIN Cheeper\DomainModel\Follow\Follow f WITH f.toAuthorId = c.authorId
 WHERE f.fromAuthorId = :fromAuthorId
-ORDER BY c.cheepDate DESC
+ORDER BY c.cheepDate.date DESC
 
 DQL;
 

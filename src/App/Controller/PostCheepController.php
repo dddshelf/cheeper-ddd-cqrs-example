@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -29,24 +31,29 @@ final class PostCheepController extends AbstractController
             'message' => new Assert\NotBlank()
         ]);
 
+        $data = json_decode($request->getContent(), true);
+
         $violations = $this->validator->validate(
-            json_decode($request->getContent()),
+            $data,
             $constraint
         );
 
         if (count($violations) > 0) {
-            throw new HttpException(statusCode: Response::HTTP_BAD_REQUEST, message: "Invalid input data!");
+            return $this->json($violations, Response::HTTP_BAD_REQUEST);
         }
 
         try {
-            $this->cheepService->postCheep(
-                $request->request->get('username'),
-                $request->request->get('message')
+            $cheep = $this->cheepService->postCheep(
+                $data['username'],
+                $data['message'],
             );
         } catch (\Exception) {
             throw new HttpException(statusCode: Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return new Response(status: Response::HTTP_OK);
+        return new JsonResponse(
+            data: CheepDto::assembleFrom($cheep),
+            status: Response::HTTP_CREATED,
+        );
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
+use Cheeper\DomainModel\Cheep\Cheep;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +27,10 @@ final class GetTimelineController extends AbstractController
         $offset     = $request->query->getInt('offset');
         $size       = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
 
-        $cheeps = $this->cheepApplicationService->timelineFrom($id, $offset, $size);
+        $cheeps = array_map(
+            static fn(Cheep $c) => CheepDto::assembleFrom($c),
+            $this->cheepApplicationService->timelineFrom($id, $offset, $size)
+        );
 
         return $this->json($cheeps);
     }

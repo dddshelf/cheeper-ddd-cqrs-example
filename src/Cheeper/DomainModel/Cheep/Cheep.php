@@ -10,8 +10,8 @@ use Cheeper\DomainModel\Clock\Clock;
 class Cheep
 {
     private function __construct(
-        private AuthorId $authorId,
-        private CheepId $cheepId,
+        private string $authorId,
+        private string $cheepId,
         private CheepMessage $cheepMessage,
         private CheepDate $cheepDate,
     ) {
@@ -29,8 +29,8 @@ class Cheep
         );
 
         return new self(
-            $authorId,
-            $cheepId,
+            $authorId->toString(),
+            $cheepId->toString(),
             $cheepMessage,
             $cheepDate
         );
@@ -38,12 +38,12 @@ class Cheep
 
     final public function authorId(): AuthorId
     {
-        return $this->authorId;
+        return AuthorId::fromString($this->authorId);
     }
 
     final public function cheepId(): CheepId
     {
-        return $this->cheepId;
+        return CheepId::fromString($this->cheepId);
     }
 
     final public function cheepMessage(): CheepMessage
