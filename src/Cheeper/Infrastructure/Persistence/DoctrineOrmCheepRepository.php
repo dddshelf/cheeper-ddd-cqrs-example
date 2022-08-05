@@ -8,7 +8,6 @@ use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\CheepRepository;
-use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Ramsey\Uuid\Uuid;
 
@@ -42,8 +41,8 @@ SELECT c
 FROM Cheeper\DomainModel\Cheep\Cheep c
     JOIN Cheeper\DomainModel\Follow\Follow f WITH f.toAuthorId = c.authorId
 WHERE f.fromAuthorId = :fromAuthorId
+    OR c.authorId = :fromAuthorId
 ORDER BY c.cheepDate.date DESC
-
 DQL;
 
         $query = $this->em->createQuery($dql);

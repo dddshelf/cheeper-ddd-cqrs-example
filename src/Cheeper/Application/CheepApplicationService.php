@@ -51,4 +51,9 @@ final class CheepApplicationService
 
         return $this->cheepRepository->ofFollowingPeopleOf($author, $offset, $size);
     }
+
+    public function getCheep(string $id): Cheep
+    {
+        return $this->cheepRepository->ofId(CheepId::fromString($id));
+    }
 }

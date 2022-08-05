@@ -6,6 +6,7 @@
          bootstrap="tests/bootstrap.php"
          executionOrder="random"
          defaultTestSuite="UnitTests"
+         verbose="true"
 >
     <coverage processUncoveredFiles="true">
         <include>

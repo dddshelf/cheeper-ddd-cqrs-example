@@ -71,4 +71,13 @@ trait HelperFunctions
 
         return $client->getResponse()->toArray();
     }
+
+    private function getAuthorTimeline(Client $client, string $authorId): array
+    {
+        $client->request(Request::METHOD_GET, "/authors/${authorId}/timeline");
+
+        $this->assertResponseIsSuccessful();
+
+        return $client->getResponse()->toArray();
+    }
 }
