@@ -6,7 +6,7 @@ namespace App\Tests\Controller;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
 
-final class PostFollowerControllerTest extends ApiTestCase
+final class PostFollowersControllerTest extends ApiTestCase
 {
     use HelperFunctions;
 
