@@ -80,4 +80,13 @@ trait HelperFunctions
 
         return $client->getResponse()->toArray();
     }
+
+    private function getFollowersCount(Client $client, string $authorId): int
+    {
+        $client->request(Request::METHOD_GET, "/authors/${authorId}/followers/total");
+
+        $this->assertResponseIsSuccessful();
+
+        return $client->getResponse()->toArray()['count'];
+    }
 }
