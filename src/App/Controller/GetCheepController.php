@@ -31,12 +31,20 @@ final class GetCheepController extends AbstractController
             ]
         )
     )]
+    #[OA\Response(
+        response: Response::HTTP_NOT_FOUND,
+        description: "When cheep does not exist given the ID."
+    )]
     public function __invoke(string $id): Response
     {
+        $cheep = $this->cheepApplicationService->getCheep($id);
+
+        if (null === $cheep) {
+            throw $this->createNotFoundException("Cheep with ID $id was not found.");
+        }
+
         return $this->json(
-            CheepDto::assembleFrom(
-                $this->cheepApplicationService->getCheep($id)
-            )
+            CheepDto::assembleFrom($cheep)
         );
     }
 }
