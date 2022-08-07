@@ -25,11 +25,9 @@ final class GetFollowersCountControllerTest extends ApiTestCase
         // Make first follow second author
         $this->makeFollow($client, $fromAuthor['id'], $toAuthor['id']);
 
-        $client->request(Request::METHOD_GET, "/authors/${toAuthor['id']}/followers/total");
+        $totalFollowers = $this->getFollowersCount($client, $toAuthor['id']);
 
-        $this->assertJsonContains([
-            'count' => 1
-        ]);
+        $this->assertSame(1, $totalFollowers);
     }
 
 

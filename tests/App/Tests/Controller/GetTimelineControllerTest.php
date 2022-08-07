@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
-use Faker\Factory as FakerFactory;
-use Symfony\Component\HttpFoundation\Request;
 use function Functional\pluck;
 
 final class GetTimelineControllerTest extends ApiTestCase

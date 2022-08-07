@@ -13,7 +13,7 @@ trait HelperFunctions
 {
     private function createAuthor(Client $client, array $data): array
     {
-        $client->request(Request::METHOD_POST, "/authors", [
+        $client->request(Request::METHOD_POST, "/api/authors", [
             'json' => $data
         ]);
 
@@ -39,7 +39,7 @@ trait HelperFunctions
 
     private function makeFollow(Client $client, string $fromAuthorId, string $toAuthorId): void
     {
-        $client->request(Request::METHOD_POST, "/followers", [
+        $client->request(Request::METHOD_POST, "/api/followers", [
             'json' => [
                 'from_author_id' => $fromAuthorId,
                 'to_author_id' => $toAuthorId,
@@ -53,7 +53,7 @@ trait HelperFunctions
     {
         $faker = FakerFactory::create();
 
-        $client->request(Request::METHOD_POST, "/cheeps", [
+        $client->request(Request::METHOD_POST, "/api/cheeps", [
             'json' => [
                 'username' => $authorUserName,
                 'message' => $faker->text(260),
@@ -67,14 +67,14 @@ trait HelperFunctions
 
     private function getAuthors(Client $client): array
     {
-        $client->request(Request::METHOD_GET, "/authors");
+        $client->request(Request::METHOD_GET, "/api/authors");
 
         return $client->getResponse()->toArray();
     }
 
     private function getAuthorTimeline(Client $client, string $authorId): array
     {
-        $client->request(Request::METHOD_GET, "/authors/${authorId}/timeline");
+        $client->request(Request::METHOD_GET, "/api/authors/${authorId}/timeline");
 
         $this->assertResponseIsSuccessful();
 
@@ -83,7 +83,7 @@ trait HelperFunctions
 
     private function getFollowersCount(Client $client, string $authorId): int
     {
-        $client->request(Request::METHOD_GET, "/authors/${authorId}/followers/total");
+        $client->request(Request::METHOD_GET, "/api/authors/${authorId}/followers/total");
 
         $this->assertResponseIsSuccessful();
 
