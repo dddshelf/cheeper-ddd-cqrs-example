@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Dto;
 
 use Cheeper\DomainModel\Author\Author;
-use DateTimeImmutable;
 
 final class AuthorDto
 {

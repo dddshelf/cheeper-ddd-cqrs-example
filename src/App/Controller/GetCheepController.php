@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\AuthorDto;
 use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
 use Nelmio\ApiDocBundle\Annotation\Model;
@@ -26,9 +25,7 @@ final class GetCheepController extends AbstractController
         response: Response::HTTP_OK,
         description: "Retrieves a single cheep by ID",
         content: new OA\JsonContent(
-            oneOf: [
-                new OA\Schema(ref: new Model(type: CheepDto::class),)
-            ]
+            ref: new Model(type: CheepDto::class)
         )
     )]
     #[OA\Response(
