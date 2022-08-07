@@ -6,3 +6,9 @@ controllers:
 kernel:
     resource: ../../src/App/Kernel.php
     type: annotation
+
+home_redirect:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: app.swagger_ui

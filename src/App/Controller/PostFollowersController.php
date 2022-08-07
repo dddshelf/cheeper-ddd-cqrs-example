@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\CheepDto;
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use InvalidArgumentException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use function Safe\json_decode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
+use OpenApi\Attributes as OA;
 
 final class PostFollowersController extends AbstractController
 {
@@ -27,6 +26,53 @@ final class PostFollowersController extends AbstractController
     }
 
     #[Route("/followers", methods: [Request::METHOD_POST])]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: "from_author_id", type: "string", nullable: false),
+                new OA\Property(property: "to_author_id", type: "string", nullable: false),
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: Response::HTTP_CREATED,
+        description: "Creates a new follower",
+    )]
+    #[OA\Response(
+        response: Response::HTTP_BAD_REQUEST,
+        description: "When the data submitted is not valid",
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: "type", type: "string"),
+                new OA\Property(property: "title", type: "string"),
+                new OA\Property(property: "detail", type: "string"),
+                new OA\Property(
+                    property: "violations",
+                    type: "array",
+                    items: new OA\Items(
+                        properties: [
+                            new OA\Property(property: "propertyPath", type: "string"),
+                            new OA\Property(property: "title", type: "string"),
+                            new OA\Property(
+                                property: "parameters",
+                                properties: [
+                                    new OA\Property(property: "{{ field }}", type: "string", nullable: true),
+                                    new OA\Property(property: "{{ value }}", type: "string", nullable: true),
+                                ],
+                                type: "object"
+                            ),
+                            new OA\Property(property: "type", type: "string")
+                        ]
+                    )
+                ),
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: Response::HTTP_NOT_FOUND,
+        description: "When one of the authors don't exist"
+    )]
     public function __invoke(Request $request): Response
     {
         $constraints = new Assert\Collection([

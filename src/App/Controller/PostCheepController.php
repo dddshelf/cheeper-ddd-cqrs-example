@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Dto\AuthorDto;
 use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
+use Cheeper\DomainModel\Author\AuthorDoesNotExist;
+use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use function Safe\json_decode;
+use OpenApi\Attributes as OA;
 
 final class PostCheepController extends AbstractController
 {
@@ -24,6 +28,56 @@ final class PostCheepController extends AbstractController
     }
 
     #[Route("/cheeps", methods: [Request::METHOD_POST])]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: "username", type: "string", nullable: false),
+                new OA\Property(property: "message", type: "string", nullable: false),
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: Response::HTTP_CREATED,
+        description: "Creates a new cheep",
+        content: new OA\JsonContent(
+            ref: new Model(type: CheepDto::class)
+        )
+    )]
+    #[OA\Response(
+        response: Response::HTTP_BAD_REQUEST,
+        description: "When the data submitted is not valid",
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: "type", type: "string"),
+                new OA\Property(property: "title", type: "string"),
+                new OA\Property(property: "detail", type: "string"),
+                new OA\Property(
+                    property: "violations",
+                    type: "array",
+                    items: new OA\Items(
+                        properties: [
+                            new OA\Property(property: "propertyPath", type: "string"),
+                            new OA\Property(property: "title", type: "string"),
+                            new OA\Property(
+                                property: "parameters",
+                                properties: [
+                                    new OA\Property(property: "{{ field }}", type: "string", nullable: true),
+                                    new OA\Property(property: "{{ value }}", type: "string", nullable: true),
+                                ],
+                                type: "object"
+                            ),
+                            new OA\Property(property: "type", type: "string")
+                        ]
+                    )
+                ),
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: Response::HTTP_NOT_FOUND,
+        description: "When the author does not exist"
+    )]
     public function __invoke(Request $request): Response
     {
         $constraint = new Assert\Collection([
@@ -47,8 +101,8 @@ final class PostCheepController extends AbstractController
                 $data['username'],
                 $data['message'],
             );
-        } catch (\Exception) {
-            throw new HttpException(statusCode: Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (AuthorDoesNotExist) {
+            throw $this->createNotFoundException();
         }
 
         return new JsonResponse(
