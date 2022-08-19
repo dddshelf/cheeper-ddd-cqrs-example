@@ -6,6 +6,7 @@ namespace App\Dto;
 
 use Cheeper\DomainModel\Cheep\Cheep;
 use DateTimeInterface;
+use Safe\DateTimeImmutable;
 
 final class CheepDto
 {
@@ -24,7 +25,7 @@ final class CheepDto
             $cheep->cheepId()->toString(),
             $cheep->authorId()->toString(),
             $cheep->cheepMessage()->message(),
-            \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $cheep->cheepDate()->date())->format(DateTimeInterface::ATOM)
+            DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $cheep->cheepDate()->date())->format(DateTimeInterface::ATOM)
         );
     }
 }

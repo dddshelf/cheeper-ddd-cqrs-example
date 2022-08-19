@@ -5,21 +5,16 @@ declare(strict_types=1);
 namespace Cheeper\Tests\Application;
 
 use Cheeper\Application\CheepApplicationService;
-use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
-use Cheeper\DomainModel\Author\EmailAddress;
-use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Cheep\Cheep;
-use Cheeper\DomainModel\Cheep\CheepId;
-use Cheeper\DomainModel\Cheep\CheepMessage;
 use Cheeper\DomainModel\Cheep\CheepRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthorRepository;
+use Cheeper\Infrastructure\Persistence\InMemoryCheepRepository;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
 use Cheeper\Tests\DomainModel\Cheep\CheepTestDataBuilder;
-use Mockery;
 use PHPUnit\Framework\TestCase;
+use Psl\Iter;
 
 final class CheepApplicationServiceTest extends TestCase
 {
@@ -29,7 +24,7 @@ final class CheepApplicationServiceTest extends TestCase
 
     public function setUp(): void
     {
-        $this->cheepRepository = Mockery::mock(CheepRepository::class);
+        $this->cheepRepository = new InMemoryCheepRepository();
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->cheepService = new CheepApplicationService($this->authorRepository, $this->cheepRepository);
     }
@@ -49,11 +44,8 @@ final class CheepApplicationServiceTest extends TestCase
             AuthorTestDataBuilder::anAuthor()->build()
         );
 
-        $this->cheepRepository->expects('add');
-
         $cheep = $this->cheepService->postCheep('irrelevant', 'message');
 
-        $this->assertNotNull($cheep);
         $this->assertNotNull($cheep->authorId());
         $this->assertEquals('message', $cheep->cheepMessage()->message());
     }
@@ -74,12 +66,12 @@ final class CheepApplicationServiceTest extends TestCase
         $this->authorRepository->add($author);
 
         $cheeps = [
-            CheepTestDataBuilder::aCheep()->withAMessage("test1"),
-            CheepTestDataBuilder::aCheep()->withAMessage("test2"),
-            CheepTestDataBuilder::aCheep()->withAMessage("test3"),
+            CheepTestDataBuilder::aCheep()->withAMessage("test1")->build(),
+            CheepTestDataBuilder::aCheep()->withAMessage("test2")->build(),
+            CheepTestDataBuilder::aCheep()->withAMessage("test3")->build(),
         ];
 
-        $this->cheepRepository->allows()->ofFollowingPeopleOf($author, 0, 10)->andReturn($cheeps);
+        Iter\apply($cheeps, fn(Cheep $c) => $this->cheepRepository->add($c));
 
         $this->assertCount(
             count($cheeps),

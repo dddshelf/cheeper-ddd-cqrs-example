@@ -28,6 +28,7 @@ final class AppFixtures extends Fixture
         $manager->flush();
     }
 
+    /** @return Author[] */
     private function makeAuthorFixtures(ObjectManager $manager): array
     {
         $carlos = Author::signUp(

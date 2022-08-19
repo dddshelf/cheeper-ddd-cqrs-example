@@ -19,11 +19,11 @@ final class PostCheepControllerTest extends ApiTestCase
         $autorData = $this->createAuthorWithRandomizedData($client);
         $cheepData = $this->makeRandomizedCheep($client, $autorData['userName']);
 
-        $client->request(Request::METHOD_GET, "/api/cheeps/${cheepData['id']}");
+        $response = $client->request(Request::METHOD_GET, "/api/cheeps/${cheepData['id']}");
 
         $this->assertResponseIsSuccessful();
 
-        $data = $client->getResponse()->toArray();
+        $data = $response->toArray();
 
         $this->assertEquals($cheepData, $data);
     }

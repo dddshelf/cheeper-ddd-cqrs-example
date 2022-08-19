@@ -10,11 +10,11 @@ use DateTimeInterface;
 interface CheepRepository
 {
     public function add(Cheep $cheep): void;
-    public function ofId(CheepId $cheepId): ?Cheep;
+    public function ofId(CheepId $cheepId): Cheep|null;
 
-    /** @return Cheep[] */
+    /** @return list<Cheep> */
     public function all(): array;
 
-    /** @return Cheep[] */
+    /** @return list<Cheep> */
     public function ofFollowingPeopleOf(Author $author, int $offset, int $size): array;
 }

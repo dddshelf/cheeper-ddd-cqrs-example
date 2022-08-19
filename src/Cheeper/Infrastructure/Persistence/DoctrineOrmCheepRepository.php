@@ -9,6 +9,7 @@ use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\CheepRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query;
 use Ramsey\Uuid\Uuid;
 
 final class DoctrineOrmCheepRepository implements CheepRepository
@@ -45,12 +46,14 @@ WHERE f.fromAuthorId = :fromAuthorId
 ORDER BY c.cheepDate.date DESC
 DQL;
 
+        /** @psalm-var Query<Cheep> $query */
         $query = $this->em->createQuery($dql);
         $query->setFirstResult($offset);
         $query->setMaxResults($size);
-
-        return $query->execute([
+        $query->setParameters([
             'fromAuthorId' => $author->authorId()
         ]);
+
+        return $query->getResult();
     }
 }

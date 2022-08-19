@@ -9,6 +9,9 @@ use Cheeper\DomainModel\Follow\Follow;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
+/**
+ * @final
+ */
 class Author
 {
     private function __construct(
@@ -35,8 +38,8 @@ class Author
         ?string $location = null,
         ?Website $website = null,
         ?BirthDate $birthDate = null
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             $authorId->toString(),
             $userName->userName(),
             $email->value(),

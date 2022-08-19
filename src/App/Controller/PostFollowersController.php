@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\CheepDto;
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use function Safe\json_decode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use OpenApi\Attributes as OA;
+use Psl\Json;
+use Psl\Type;
 
 final class PostFollowersController extends AbstractController
 {
@@ -80,7 +79,7 @@ final class PostFollowersController extends AbstractController
             'to_author_id' => [new Assert\NotBlank(), new Assert\Uuid()],
         ]);
 
-        $data = json_decode($request->getContent(), true);
+        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
         $violations = $this->validator->validate($data, $constraints);
 
         if (count($violations) > 0) {

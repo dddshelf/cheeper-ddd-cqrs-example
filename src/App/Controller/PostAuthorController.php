@@ -16,7 +16,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use function Safe\json_decode;
+use Psl\Type;
+use Psl\Json;
 use OpenApi\Attributes as OA;
 
 final class PostAuthorController extends AbstractController
@@ -95,7 +96,7 @@ final class PostAuthorController extends AbstractController
             'birth_date' => new Assert\Optional(new Assert\DateTime(format: "Y-m-d"))
         ]);
 
-        $data = json_decode($request->getContent(), true);
+        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
         $violations = $this->validator->validate($data, $constraint);
 
         if (count($violations) > 0) {

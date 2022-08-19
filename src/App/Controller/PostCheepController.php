@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\AuthorDto;
 use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
@@ -12,11 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use function Safe\json_decode;
+use Psl\Json;
+use Psl\Type;
 use OpenApi\Attributes as OA;
 
 final class PostCheepController extends AbstractController
@@ -85,7 +84,7 @@ final class PostCheepController extends AbstractController
             'message' => new Assert\NotBlank()
         ]);
 
-        $data = json_decode($request->getContent(), true);
+        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
 
         $violations = $this->validator->validate(
             $data,

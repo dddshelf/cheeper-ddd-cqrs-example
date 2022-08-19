@@ -9,6 +9,7 @@
         "ext-json": "*",
         "ext-pdo": "*",
         "ext-redis": "*",
+        "azjezz/psl": "^2.0",
         "beberlei/assert": "^3.2",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.4",
@@ -53,7 +54,11 @@
         "fakerphp/faker": "^1.20",
         "keyvanakbary/mimic": "^1.0",
         "mockery/mockery": "^1.5",
+        "php-standard-library/psalm-plugin": "^2.0",
         "phpunit/phpunit": "^9.0",
+        "psalm/plugin-mockery": "^0.9.1",
+        "psalm/plugin-phpunit": "^0.17.0",
+        "psalm/plugin-symfony": "^3.1",
         "roave/security-advisories": "dev-latest",
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
@@ -63,7 +68,9 @@
         "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "6.1.*",
         "symfony/web-profiler-bundle": "6.1.*",
-        "theofidry/psysh-bundle": "^4.3"
+        "theofidry/psysh-bundle": "^4.3",
+        "vimeo/psalm": "^4.26",
+        "weirdan/doctrine-psalm-plugin": "^2.3"
     },
     "config": {
         "preferred-install": {
