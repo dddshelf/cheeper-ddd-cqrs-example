@@ -15,8 +15,7 @@ final class CheepDto
         public readonly string $authorId,
         public readonly string $text,
         public readonly string $createdAt,
-    )
-    {
+    ) {
     }
 
     public static function assembleFrom(Cheep $cheep): self

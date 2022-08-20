@@ -6,13 +6,13 @@ namespace App\Controller;
 
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
+use OpenApi\Attributes as OA;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Attributes as OA;
 
 final class GetFollowersCountController extends AbstractController
 {
@@ -29,9 +29,9 @@ final class GetFollowersCountController extends AbstractController
             oneOf: [
                 new OA\Schema(
                     properties: [
-                        new OA\Property(property: "count", type: "int")
+                        new OA\Property(property: "count", type: "int"),
                     ]
-                )
+                ),
             ]
         )
     )]
@@ -52,7 +52,7 @@ final class GetFollowersCountController extends AbstractController
         try {
             $count = $this->followApplicationService->countFollowersOf($authorId);
             return $this->json([
-                'count' => $count
+                'count' => $count,
             ]);
         } catch (AuthorDoesNotExist $e) {
             throw $this->createNotFoundException($e->getMessage());

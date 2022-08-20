@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Cheep;
 
 use Cheeper\DomainModel\Author\Author;
-use DateTimeInterface;
 
 interface CheepRepository
 {

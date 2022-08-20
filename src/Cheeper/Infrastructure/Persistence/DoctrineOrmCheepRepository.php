@@ -38,20 +38,20 @@ final class DoctrineOrmCheepRepository implements CheepRepository
     public function ofFollowingPeopleOf(Author $author, int $offset, int $size): array
     {
         $dql = <<<DQL
-SELECT c
-FROM Cheeper\DomainModel\Cheep\Cheep c
-    JOIN Cheeper\DomainModel\Follow\Follow f WITH f.toAuthorId = c.authorId
-WHERE f.fromAuthorId = :fromAuthorId
-    OR c.authorId = :fromAuthorId
-ORDER BY c.cheepDate.date DESC
-DQL;
+            SELECT c
+            FROM Cheeper\DomainModel\Cheep\Cheep c
+                JOIN Cheeper\DomainModel\Follow\Follow f WITH f.toAuthorId = c.authorId
+            WHERE f.fromAuthorId = :fromAuthorId
+                OR c.authorId = :fromAuthorId
+            ORDER BY c.cheepDate.date DESC
+            DQL;
 
         /** @psalm-var Query<Cheep> $query */
         $query = $this->em->createQuery($dql);
         $query->setFirstResult($offset);
         $query->setMaxResults($size);
         $query->setParameters([
-            'fromAuthorId' => $author->authorId()
+            'fromAuthorId' => $author->authorId(),
         ]);
 
         return $query->getResult();

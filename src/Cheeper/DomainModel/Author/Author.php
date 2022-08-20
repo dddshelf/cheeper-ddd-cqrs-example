@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Author;
 
-use Cheeper\DomainModel\Follow\FollowId;
 use Cheeper\DomainModel\Follow\Follow;
+use Cheeper\DomainModel\Follow\FollowId;
 use DateTimeImmutable;
 use InvalidArgumentException;
 

@@ -22,7 +22,7 @@ final class InMemoryCheepRepository implements CheepRepository
 
     public function ofId(CheepId $cheepId): Cheep|null
     {
-        return Iter\search($this->cheeps, fn(Cheep $c) => $c->cheepId()->equals($cheepId));
+        return Iter\search($this->cheeps, static fn (Cheep $c) => $c->cheepId()->equals($cheepId));
     }
 
     public function all(): array

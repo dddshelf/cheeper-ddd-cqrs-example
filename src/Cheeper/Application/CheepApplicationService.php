@@ -6,12 +6,12 @@ namespace Cheeper\Application;
 
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
-use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Author\AuthorRepository;
+use Cheeper\DomainModel\Author\UserName;
+use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepId;
 use Cheeper\DomainModel\Cheep\CheepMessage;
 use Cheeper\DomainModel\Cheep\CheepRepository;
-use Cheeper\DomainModel\Cheep\Cheep;
 
 final class CheepApplicationService
 {

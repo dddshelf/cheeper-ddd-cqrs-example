@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\DataFixtures;
@@ -16,6 +17,7 @@ use Cheeper\DomainModel\Follow\Follow;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Psl\Iter;
 
 final class AppFixtures extends Fixture
 {
@@ -114,16 +116,21 @@ final class AppFixtures extends Fixture
 
         $follows[] = $vaughn->followAuthorId($carlos->authorId());
 
-        \Functional\each($follows, fn(Follow $follow) => $manager->persist($follow));
+        Iter\apply($follows, static fn (Follow $follow) => $manager->persist($follow));
     }
 
     private function makeCheepFixtures(ObjectManager $manager, Author...$authors): void
     {
         $faker = Faker\Factory::create();
 
-        \Functional\each($authors, static function(Author $a) use ($manager, $faker) {
-            \Functional\each(range(1, random_int(10, 20)), static function() use ($manager, $faker, $a) {
-                $cheep = Cheep::compose($a->authorId(), CheepId::nextIdentity(), CheepMessage::write($faker->text(260)));
+        Iter\apply($authors, static function (Author $a) use ($manager, $faker): void {
+            Iter\apply(range(1, random_int(10, 20)), static function () use ($manager, $faker, $a): void {
+                $cheep = Cheep::compose(
+                    $a->authorId(),
+                    CheepId::nextIdentity(),
+                    CheepMessage::write($faker->text(260))
+                );
+
                 $manager->persist($cheep);
             });
         });

@@ -8,17 +8,17 @@ use App\Dto\AuthorDto;
 use Cheeper\Application\AuthorApplicationService;
 use Cheeper\DomainModel\Author\AuthorAlreadyExists;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
+use Psl\Json;
+use Psl\Type;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Psl\Type;
-use Psl\Json;
-use OpenApi\Attributes as OA;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PostAuthorController extends AbstractController
 {
@@ -73,7 +73,7 @@ final class PostAuthorController extends AbstractController
                                 ],
                                 type: "object"
                             ),
-                            new OA\Property(property: "type", type: "string")
+                            new OA\Property(property: "type", type: "string"),
                         ]
                     )
                 ),
@@ -93,7 +93,7 @@ final class PostAuthorController extends AbstractController
             'biography' => new Assert\Optional(),
             'location' => new Assert\Optional(),
             'website' => new Assert\Optional(new Assert\Url()),
-            'birth_date' => new Assert\Optional(new Assert\DateTime(format: "Y-m-d"))
+            'birth_date' => new Assert\Optional(new Assert\DateTime(format: "Y-m-d")),
         ]);
 
         $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));

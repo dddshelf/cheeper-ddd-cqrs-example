@@ -18,7 +18,7 @@ final class InMemoryFollowRepository implements FollowRepository
         return count(
             array_filter(
                 $this->follows,
-                static fn(Follow $f) => $f->toAuthorId()->equals($authorId)
+                static fn (Follow $f) => $f->toAuthorId()->equals($authorId)
             )
         );
     }
@@ -32,7 +32,7 @@ final class InMemoryFollowRepository implements FollowRepository
     {
         $candidates = array_filter(
             $this->follows,
-            static fn(Follow $f) => $f->fromAuthorId()->equals($fromAuthorId) && $f->toAuthorId()->equals($toAuthorId)
+            static fn (Follow $f) => $f->fromAuthorId()->equals($fromAuthorId) && $f->toAuthorId()->equals($toAuthorId)
         );
 
         return current($candidates);
@@ -42,7 +42,7 @@ final class InMemoryFollowRepository implements FollowRepository
     {
         return array_filter(
             $this->follows,
-            static fn(Follow $f) => $f->toAuthorId()->equals($authorId)
+            static fn (Follow $f) => $f->toAuthorId()->equals($authorId)
         );
     }
 }

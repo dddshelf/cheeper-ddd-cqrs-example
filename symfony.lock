@@ -152,9 +152,6 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "lstrojny/functional-php": {
-        "version": "1.11.0"
-    },
     "mockery/mockery": {
         "version": "1.5.0"
     },

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -7,16 +8,16 @@ use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
+use Psl\Json;
+use Psl\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Psl\Json;
-use Psl\Type;
-use OpenApi\Attributes as OA;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PostCheepController extends AbstractController
 {
@@ -66,7 +67,7 @@ final class PostCheepController extends AbstractController
                                 ],
                                 type: "object"
                             ),
-                            new OA\Property(property: "type", type: "string")
+                            new OA\Property(property: "type", type: "string"),
                         ]
                     )
                 ),
@@ -81,7 +82,7 @@ final class PostCheepController extends AbstractController
     {
         $constraint = new Assert\Collection([
             'username' => new Assert\NotBlank(),
-            'message' => new Assert\NotBlank()
+            'message' => new Assert\NotBlank(),
         ]);
 
         $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));

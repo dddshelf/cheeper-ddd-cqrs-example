@@ -15,7 +15,6 @@
         "doctrine/doctrine-bundle": "^2.4",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.9",
-        "lstrojny/functional-php": "^1.11",
         "nelmio/api-doc-bundle": "^4.9",
         "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
@@ -114,10 +113,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "fix-cs": "php php-cs-fixer.phar --verbose --config=.php_cs.dist --using-cache=no --path-mode=intersection fix",
+        "fix-cs": "php bin/php-cs-fixer.phar -vvvv --config=.php-cs-fixer.dist.php --using-cache=no --path-mode=intersection fix src",
         "unit-tests": "php vendor/bin/phpunit",
         "psalm": "php vendor/bin/psalm.phar --show-info=true --no-cache",
-        "phpstan": "php vendor/bin/phpstan analyse",
         "clear-db": [
             "php bin/console doctrine:database:drop --force",
             "php bin/console doctrine:database:create",

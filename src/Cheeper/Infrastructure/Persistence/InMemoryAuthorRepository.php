@@ -21,7 +21,7 @@ final class InMemoryAuthorRepository implements AuthorRepository
 
     public function ofUserName(UserName $userName): ?Author
     {
-        $candidates = array_filter($this->authors, static fn(Author $a) => $a->userName()->equalsTo($userName));
+        $candidates = array_filter($this->authors, static fn (Author $a) => $a->userName()->equalsTo($userName));
 
         if (count($candidates) === 0) {
             return null;

@@ -6,15 +6,15 @@ namespace App\Controller;
 
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use OpenApi\Attributes as OA;
+use Psl\Json;
+use Psl\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
-use OpenApi\Attributes as OA;
-use Psl\Json;
-use Psl\Type;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PostFollowersController extends AbstractController
 {
@@ -61,7 +61,7 @@ final class PostFollowersController extends AbstractController
                                 ],
                                 type: "object"
                             ),
-                            new OA\Property(property: "type", type: "string")
+                            new OA\Property(property: "type", type: "string"),
                         ]
                     )
                 ),

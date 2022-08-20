@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Application;
 
+use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorAlreadyExists;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
-use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\BirthDate;
 use Cheeper\DomainModel\Author\EmailAddress;
 use Cheeper\DomainModel\Author\UserName;

@@ -17,8 +17,7 @@ final class AuthorDto
         public readonly ?string $location = null,
         public readonly ?string $website = null,
         public readonly ?string $birthDate = null,
-    )
-    {
+    ) {
     }
 
     public static function assembleFrom(Author $author): self
