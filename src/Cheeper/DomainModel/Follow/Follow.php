@@ -6,9 +6,10 @@ namespace Cheeper\DomainModel\Follow;
 
 use Cheeper\DomainModel\Author\AuthorId;
 
+/** @final */
 class Follow
 {
-    protected function __construct(
+    private function __construct(
         private string $followId,
         private string $fromAuthorId,
         private string $toAuthorId,

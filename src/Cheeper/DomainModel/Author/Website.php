@@ -9,24 +9,19 @@ use Assert\AssertionFailedException;
 use Cheeper\DomainModel\Common\ValueObject;
 use Stringable;
 
+/** @psalm-immutable  */
 final class Website extends ValueObject implements Stringable
 {
     public function __construct(
-        private string $uri
+        private readonly string $uri
     ) {
-        $this->setUri($uri);
+        $this->assertUriIsValid($this->uri);
     }
 
+    /** @psalm-pure */
     public static function fromString(string $value): self
     {
         return new self($value);
-    }
-
-    private function setUri(string $uri): void
-    {
-        $this->assertValidUrl($uri);
-
-        $this->uri = $uri;
     }
 
     public function toString(): string
@@ -34,7 +29,8 @@ final class Website extends ValueObject implements Stringable
         return $this->uri;
     }
 
-    private function assertValidUrl(string $uri): void
+    /** @psalm-suppress ImpureMethodCall */
+    private function assertUriIsValid(string $uri): void
     {
         try {
             Assertion::url($uri);

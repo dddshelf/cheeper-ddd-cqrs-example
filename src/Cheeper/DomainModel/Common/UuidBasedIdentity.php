@@ -8,6 +8,7 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Stringable;
 
+/** @psalm-immutable  */
 abstract class UuidBasedIdentity extends ValueObject implements Stringable
 {
     final private function __construct(
@@ -15,6 +16,7 @@ abstract class UuidBasedIdentity extends ValueObject implements Stringable
     ) {
     }
 
+    /** @psalm-pure */
     public static function fromString(string $uuid): static
     {
         if (!Uuid::isValid($uuid)) {
@@ -29,6 +31,7 @@ abstract class UuidBasedIdentity extends ValueObject implements Stringable
         return new static(Uuid::uuid4()->toString());
     }
 
+    /** @psalm-pure */
     public static function fromUuid(UuidInterface $uuid): static
     {
         return new static($uuid->toString());

@@ -7,8 +7,10 @@ namespace Cheeper\DomainModel\Author;
 use Cheeper\DomainModel\Common\ValueObject;
 use DateTimeImmutable;
 
+/** @psalm-immutable  */
 final class BirthDate extends ValueObject
 {
+    /** @psalm-allow-private-mutation  */
     private DateTimeImmutable $date;
 
     public function __construct(string $date)
@@ -16,6 +18,7 @@ final class BirthDate extends ValueObject
         $this->setDate($date);
     }
 
+    /** @psalm-pure */
     public static function fromString(string $value): self
     {
         return new self($value);

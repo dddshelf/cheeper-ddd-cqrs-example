@@ -7,14 +7,16 @@ namespace Cheeper\DomainModel\Author;
 use Cheeper\DomainModel\Common\ValueObject;
 use Stringable;
 
+/** @psalm-immutable  */
 final class EmailAddress extends ValueObject implements Stringable
 {
     public function __construct(
-        private string $value
+        private readonly string $value
     ) {
         $this->assertEmailIsValid($value);
     }
 
+    /** @psalm-pure */
     public static function from(string $value): self
     {
         return new self($value);

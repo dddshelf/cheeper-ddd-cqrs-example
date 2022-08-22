@@ -7,21 +7,16 @@ namespace Cheeper\DomainModel\Author;
 use Cheeper\DomainModel\Common\ValueObject;
 use Stringable;
 
+/** @psalm-immutable  */
 final class UserName extends ValueObject implements Stringable
 {
     private function __construct(
-        private string $userName
+        private readonly string $userName
     ) {
-        $this->setUserName($userName);
+        $this->assertUserNameIsNotEmpty($userName);
     }
 
-    private function setUserName(string $userName): void
-    {
-        $this->assertNotEmpty($userName);
-
-        $this->userName = $userName;
-    }
-
+    /** @psalm-pure */
     public static function pick(string $userName): self
     {
         return new self($userName);
@@ -37,7 +32,7 @@ final class UserName extends ValueObject implements Stringable
         return $this->userName === $userName->userName;
     }
 
-    private function assertNotEmpty(string $userName): void
+    private function assertUserNameIsNotEmpty(string $userName): void
     {
         if ('' === $userName) {
             throw new \InvalidArgumentException("Username cannot be empty");

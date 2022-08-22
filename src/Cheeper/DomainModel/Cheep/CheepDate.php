@@ -8,8 +8,10 @@ use Cheeper\DomainModel\Common\ValueObject;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
+/** @psalm-immutable  */
 final class CheepDate extends ValueObject
 {
+    /** @psalm-allow-private-mutation */
     private DateTimeImmutable $date;
 
     public function __construct(string $date)

@@ -14,12 +14,12 @@ final class InMemoryAuthorRepository implements AuthorRepository
     /** @var Author[] */
     private array $authors = [];
 
-    public function ofId(AuthorId $authorId): ?Author
+    public function ofId(AuthorId $authorId): Author|null
     {
         return $this->authors[$authorId->toString()] ?? null;
     }
 
-    public function ofUserName(UserName $userName): ?Author
+    public function ofUserName(UserName $userName): Author|null
     {
         $candidates = array_filter($this->authors, static fn (Author $a) => $a->userName()->equalsTo($userName));
 

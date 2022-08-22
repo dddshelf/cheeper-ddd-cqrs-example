@@ -8,7 +8,7 @@ use DateTimeImmutable;
 
 final class Clock
 {
-    private static ?Clock $instance = null;
+    private static Clock|null $instance = null;
     private ClockStrategy $strategy;
 
     private function __construct()

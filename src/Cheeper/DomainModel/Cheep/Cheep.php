@@ -7,6 +7,7 @@ namespace Cheeper\DomainModel\Cheep;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Clock\Clock;
 
+/** @final */
 class Cheep
 {
     private function __construct(
