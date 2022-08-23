@@ -18,5 +18,6 @@ RUN apt-get update \
 
 FROM prod AS local
 
-RUN pecl install xdebug \
+RUN apt-get install git \
+    && pecl install xdebug \
     && docker-php-ext-enable xdebug
