@@ -6,8 +6,9 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN apt-get update \
     && apt-get -y install librabbitmq-dev \
                           libicu-dev \
+                          libzip-dev \
                           $PHPIZE_DEPS \
-    && docker-php-ext-install pdo_mysql mysqli pcntl bcmath intl \
+    && docker-php-ext-install pdo_mysql mysqli pcntl bcmath intl zip \
     && pecl install redis \
     && pecl install amqp \
     && docker-php-ext-enable redis amqp \
