@@ -68,7 +68,7 @@ Now you're ready to go with the workshop! 🚀
 
 From here you can access to the Cheeper API documentation
 
-**https://127.0.0.1:8000/api/docs**
+**http://127.0.0.1:8000/api/docs**
 
 ### Running tests
 
