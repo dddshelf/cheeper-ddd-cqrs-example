@@ -37,8 +37,6 @@ jobs:
 
       - name: FUNCTIONAL TESTS
         run: make functional-tests
-        env:
-          SYMFONY_DEPRECATIONS_HELPER: disabled=1
 
       - name: CODE STYLE
         run: make check-cs
