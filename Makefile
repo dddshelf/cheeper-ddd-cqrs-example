@@ -25,7 +25,7 @@ APP_SHELL = $(DOCKER_COMPOSE) --env-file=.env.docker.dist run --rm app
 PHP = $(APP_SHELL) php
 
 # Default target when run with just 'make'
-default: start
+default: help
 
 .PHONY: start
 start:
@@ -35,8 +35,8 @@ start:
 deps:
 	$(PHP) composer.phar install
 
-.PHONY: reset-fixtures
-reset-fixtures:
+.PHONY: refresh-fixtures
+refresh-fixtures:
 	$(PHP) bin/console doc:sch:drop --force
 	$(PHP) bin/console doc:sch:create
 	$(PHP) bin/console doc:fix:load --no-interaction
@@ -47,13 +47,14 @@ stop:
 
 .PHONY: help
 help:
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_\-\.]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@LC_ALL=C $(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/(^|\n)# Files(\n|$$)/,/(^|\n)# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
 .PHONY: docker-build
 docker-build:
 	docker-compose build
 
-ci: tests psalm check-cs deptrack
+ci: tests psalm-github check-cs deptrack
+local-ci: unit-tests psalm check-cs deptrack
 
 tests: unit-tests functional-tests mutation-tests
 
@@ -62,7 +63,7 @@ unit-tests: deps
 	$(PHP) bin/phpunit
 
 .PHONY: functional-tests
-functional-tests: start deps reset-fixtures
+functional-tests: start deps refresh-fixtures
 	$(PHP) bin/phpunit --testsuite FunctionalTests
 
 .PHONY: mutation-tests
