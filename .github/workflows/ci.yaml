@@ -7,7 +7,7 @@ env:
   DOCKER_IMAGE_TAG: ${{ github.sha }}
 
 jobs:
-  images:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
