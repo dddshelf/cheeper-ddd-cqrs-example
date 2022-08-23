@@ -1,16 +1,20 @@
 {
+    "$schema": "vendor/infection/infection/resources/schema.json",
     "source": {
         "directories": [
-            "src/Cheeper"
+            "src/Cheeper/Application"
         ],
         "excludes": [
-            "src/Cheeper/Infrastructure"
+            "{Infrastructure/.*}"
         ]
     },
     "logs": {
-        "text": "infection.log"
+        "text": "php://stderr",
+        "github": true
     },
     "mutators": {
         "@default": true
-    }
+    },
+    "minMsi": 91,
+    "minCoveredMsi": 100
 }

@@ -1,3 +1,6 @@
+# Run `make` (no arguments) to get a short description of what is available
+# within this `Makefile`.
+
 # Default shell to use
 SHELL := bash
 
@@ -18,7 +21,8 @@ MAKEFLAGS += --no-builtin-rules
 DOCKER = $(shell which docker)
 DOCKER_COMPOSE = $(DOCKER) compose
 HTTPIE = docker run --network=host -ti --rm alpine/httpie
-PHP = $(DOCKER_COMPOSE) exec app php
+APP_SHELL = $(DOCKER_COMPOSE) --env-file=.env.docker.dist run --rm app
+PHP = $(APP_SHELL) php
 
 # Default target when run with just 'make'
 default: start
@@ -31,44 +35,60 @@ start:
 deps:
 	$(PHP) composer.phar install
 
-.PHONY: infrastructure
-infrastructure:
-	$(DOCKER_COMPOSE) exec redis redis-cli flushall
-	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/events/contents
-	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/commands/contents
-	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/projections/contents
-	$(HTTPIE) --auth guest:guest DELETE http://localhost:15672/api/queues/%2F/failed_messages/contents
+.PHONY: reset-fixtures
+reset-fixtures:
 	$(PHP) bin/console doc:sch:drop --force
 	$(PHP) bin/console doc:sch:create
-	#$(PHP) bin/console messenger:setup-transports
+	$(PHP) bin/console doc:fix:load --no-interaction
 
 .PHONY: stop
 stop:
 	$(DOCKER_COMPOSE) --profile async-events --profile async-commands --profile async-projections stop
 
-.PHONY: demo
-demo:
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/author author_id='a64a52cc-3ee9-4a15-918b-099e18b43119' username='bob' email='bob@bob.com'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/author author_id='1fd7d739-2ad7-41a8-8c18-565603e3733f' username='alice' email='alice@alice.com'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/author author_id='1da1366f-b066-4514-9b29-7346df41e371' username='charlie' email='charlie@charlie.com'
-	$(PHP) bin/console messenger:consume events_async --limit 3 -vv
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id='8cc71bf2-f827-4c92-95a5-43bb1bc622ad' from_author_id='1fd7d739-2ad7-41a8-8c18-565603e3733f' to_author_id='a64a52cc-3ee9-4a15-918b-099e18b43119'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id='f3088920-841e-4577-a3c2-efdc80f0dea5' from_author_id='1da1366f-b066-4514-9b29-7346df41e371' to_author_id='a64a52cc-3ee9-4a15-918b-099e18b43119'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/follow follow_id='f3088920-841e-4577-a3c2-efdc80f0dea5' from_author_id='1da1366f-b066-4514-9b29-7346df41e371' to_author_id='a64a52cc-3ee9-4a15-918b-099e18b43119'
-	$(PHP) bin/console messenger:consume commands_async --limit 3 -vv
-	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
-	$(PHP) bin/console messenger:consume events_async --limit 2 -vv
-	$(HTTPIE) --json http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/followers-counter
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='28bc90bd-2dfb-4b71-962f-81f02b0b3149' author_id='a64a52cc-3ee9-4a15-918b-099e18b43119' message='Hello world, this is Bob'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='04efc3af-59a3-4695-803f-d37166c3af56' author_id='1fd7d739-2ad7-41a8-8c18-565603e3733f' message='Hello world, this is Alice'
-	$(HTTPIE) --json --body POST http://127.0.0.1:8000/chapter7/cheep cheep_id='8a5539e6-3be2-4fa7-906e-179efcfca46b' author_id='1da1366f-b066-4514-9b29-7346df41e371' message='Hello world, this is Charlie'
-	$(PHP) bin/console messenger:consume commands_async --limit 3 -vv
-	$(PHP) bin/console messenger:consume events_async --limit 3 -vv
-	$(PHP) bin/console messenger:consume projections_async --limit 2 -vv
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/a64a52cc-3ee9-4a15-918b-099e18b43119/timeline
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/1fd7d739-2ad7-41a8-8c18-565603e3733f/timeline
-	$(HTTPIE) --json --body http://127.0.0.1:8000/chapter7/author/1da1366f-b066-4514-9b29-7346df41e371/timeline
+.PHONY: help
+help:
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_\-\.]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+.PHONY: docker-build
+docker-build:
+	docker-compose build
+
+ci: tests psalm check-cs deptrack
+
+tests: unit-tests functional-tests mutation-tests
+
+.PHONY: unit-tests
+unit-tests: deps
+	$(PHP) bin/phpunit
+
+.PHONY: functional-tests
+functional-tests: start deps reset-fixtures
+	$(PHP) bin/phpunit --testsuite FunctionalTests
+
+.PHONY: mutation-tests
+mutation-tests: deps
+	$(PHP) vendor/bin/roave-infection-static-analysis-plugin
+
+.PHONY: psalm
+psalm: deps
+	$(PHP) vendor/bin/psalm --no-cache
+
+.PHONY: psalm-github
+psalm-github: deps
+	$(PHP) vendor/bin/psalm --no-cache --no-progress --output-format=github
+
+.PHONY: check-cs
+check-cs:
+	$(PHP) bin/php-cs-fixer.phar -vvvv --config=.php-cs-fixer.dist.php --using-cache=no --dry-run --path-mode=intersection fix src
+
+.PHONY: fix-cs
+fix-cs:
+	$(PHP) bin/php-cs-fixer.phar -vvvv --config=.php-cs-fixer.dist.php --using-cache=no --dry-run --path-mode=intersection fix src
+
+.PHONY: deptrack
+deptrack: deps
+	$(PHP) ./vendor/bin/deptrac analyse
+
+.PHONY: shell
+shell:
+	$(APP_SHELL) bash

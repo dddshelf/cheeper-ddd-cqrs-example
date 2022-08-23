@@ -40,11 +40,14 @@ final class CheepApplicationServiceTest extends TestCase
     /** @test */
     public function itShouldAddCheep(): void
     {
-        $this->authorRepository->add(
-            AuthorTestDataBuilder::anAuthor()->build()
-        );
+        $author = AuthorTestDataBuilder::anAuthor()->build();
 
-        $cheep = $this->cheepService->postCheep('irrelevant', 'message');
+        $this->authorRepository->add($author);
+
+        $cheep = $this->cheepService->postCheep($author->userName()->toString(), 'message');
+
+        // Retrieve cheep by ID in order to make sure it has been persisted into the persistence store
+        $cheep = $this->cheepService->getCheep($cheep->cheepId()->toString());
 
         $this->assertNotNull($cheep->authorId());
         $this->assertEquals('message', $cheep->cheepMessage()->message());

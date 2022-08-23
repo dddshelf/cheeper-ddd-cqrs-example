@@ -1,0 +1,32 @@
+parameters:
+    paths:
+        - ./src
+    exclude_files:
+        - '#.*test.*#'
+    layers:
+        - name: Delivery
+          collectors:
+              - type: directory
+                value: src/App/.*
+        - name: ApplicationServices
+          collectors:
+              - type: directory
+                value: "src/Cheeper/Application/.*.AppicationService.php"
+        - name: DomainModel
+          collectors:
+              - type: directory
+                value: src/Cheeper/DomainModel/.*
+        - name: Infrastructure
+          collectors:
+              - type: directory
+                value: src/Cheeper/Infrastructure/.*
+    ruleset:
+        DomainModel: ~
+        Infrastructure:
+            - DomainModel
+        ApplicationServices:
+            - Infrastructure
+            - DomainModel
+        Delivery:
+            - DomainModel
+            - ApplicationServices

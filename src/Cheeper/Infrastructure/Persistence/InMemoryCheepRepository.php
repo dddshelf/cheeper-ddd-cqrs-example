@@ -12,7 +12,7 @@ use Psl\Iter;
 
 final class InMemoryCheepRepository implements CheepRepository
 {
-    /** @var list<Cheep> */
+    /** @psalm-var list<Cheep> */
     private array $cheeps = [];
 
     public function add(Cheep $cheep): void

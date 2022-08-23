@@ -57,6 +57,6 @@ final class GetTimelineControllerTest extends ApiTestCase
         $this->assertSame($cheep1['id'], $timeline[2]['id']);
 
         // Check that it does not have the cheep that the author does not follow
-        $this->assertNotContains($fifthAuthorData['id'], pluck($timeline, 'authorId'));
+        $this->assertNotContains($fifthAuthorData['id'], array_column($timeline, 'authorId'));
     }
 }
