@@ -46,7 +46,7 @@
     },
     "require-dev": {
         "api-platform/core": "^2.6",
-        "dama/doctrine-test-bundle": "^7.1",
+        "dama/doctrine-test-bundle": "^6.7",
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "elasticsearch/elasticsearch": "^7.14",
         "fakerphp/faker": "^1.20",
