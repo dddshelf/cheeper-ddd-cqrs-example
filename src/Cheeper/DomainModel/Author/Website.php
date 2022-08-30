@@ -12,13 +12,18 @@ use Stringable;
 /** @psalm-immutable  */
 final class Website extends ValueObject implements Stringable
 {
+    /** @psalm-param non-empty-string $uri */
     public function __construct(
-        private readonly string $uri
+        public readonly string $uri
     ) {
         $this->assertUriIsValid($this->uri);
     }
 
-    /** @psalm-pure */
+    /**
+     * @psalm-param non-empty-string $value
+     *
+     * @psalm-pure
+     */
     public static function fromString(string $value): self
     {
         return new self($value);

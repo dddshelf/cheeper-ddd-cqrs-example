@@ -18,6 +18,10 @@ final class FollowApplicationService
     ) {
     }
 
+    /**
+     * @psalm-param non-empty-string $fromAuthorId
+     * @psalm-param non-empty-string $toAuthorId
+     */
     public function followTo(string $fromAuthorId, string $toAuthorId): void
     {
         $fromAuthor = $this->tryToFindAuthor($fromAuthorId);
@@ -28,6 +32,9 @@ final class FollowApplicationService
         $this->followRepository->add($follow);
     }
 
+    /**
+     * @psalm-param non-empty-string $authorId
+     */
     public function countFollowersOf(string $authorId): int
     {
         $this->tryToFindAuthor($authorId);
@@ -37,15 +44,24 @@ final class FollowApplicationService
         );
     }
 
+    /**
+     * @psalm-param non-empty-string $authorId
+     */
     private function tryToFindAuthor(string $authorId): Author
     {
         $id = AuthorId::fromString($authorId);
         $author = $this->authorRepository->ofId($id);
 
+        $this->assertAuthorIsNotNull($author, $id);
+
+        return $author;
+    }
+
+    /** @psalm-assert Author $author */
+    private function assertAuthorIsNotNull(Author|null $author, AuthorId $id): void
+    {
         if (null === $author) {
             throw AuthorDoesNotExist::withAuthorIdOf($id);
         }
-
-        return $author;
     }
 }

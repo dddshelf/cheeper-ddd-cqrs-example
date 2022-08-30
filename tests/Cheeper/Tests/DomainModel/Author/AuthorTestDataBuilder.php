@@ -17,11 +17,11 @@ final class AuthorTestDataBuilder
 {
     private string $userName = "irrelevant";
     private string $email = "test@email.com";
-    private ?string $name = null;
-    private ?string $biography = null;
-    private ?string $location = null;
-    private ?string $website = null;
-    private ?string $birthDate = null;
+    private string|null $name = null;
+    private string|null $biography = null;
+    private string|null $location = null;
+    private string|null $website = null;
+    private string|null $birthDate = null;
 
     private function __construct()
     {

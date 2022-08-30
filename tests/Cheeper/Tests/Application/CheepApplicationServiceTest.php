@@ -44,13 +44,13 @@ final class CheepApplicationServiceTest extends TestCase
 
         $this->authorRepository->add($author);
 
-        $cheep = $this->cheepService->postCheep($author->userName()->toString(), 'message');
+        $cheep = $this->cheepService->postCheep($author->userName()->userName, 'message');
 
         // Retrieve cheep by ID in order to make sure it has been persisted into the persistence store
-        $cheep = $this->cheepService->getCheep($cheep->cheepId()->toString());
+        $cheep = $this->cheepService->getCheep($cheep->cheepId()->id);
 
         $this->assertNotNull($cheep->authorId());
-        $this->assertEquals('message', $cheep->cheepMessage()->message());
+        $this->assertEquals('message', $cheep->cheepMessage()->message);
     }
 
     /** @test */
@@ -58,7 +58,7 @@ final class CheepApplicationServiceTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->cheepService->timelineFrom(AuthorTestDataBuilder::anAuthorIdentity()->toString(), 0, 1);
+        $this->cheepService->timelineFrom(AuthorTestDataBuilder::anAuthorIdentity()->id, 0, 1);
     }
 
     /** @test */
@@ -78,7 +78,7 @@ final class CheepApplicationServiceTest extends TestCase
 
         $this->assertCount(
             count($cheeps),
-            $this->cheepService->timelineFrom($author->authorId()->toString(), 0, 10)
+            $this->cheepService->timelineFrom($author->authorId()->id, 0, 10)
         );
     }
 }

@@ -25,9 +25,9 @@ final class DoctrineOrmCheepRepository implements CheepRepository
         $this->em->flush();
     }
 
-    public function ofId(CheepId $cheepId): ?Cheep
+    public function ofId(CheepId $cheepId): Cheep|null
     {
-        return $this->em->find(Cheep::class, Uuid::fromString($cheepId->id()));
+        return $this->em->find(Cheep::class, Uuid::fromString($cheepId->id));
     }
 
     public function all(): array

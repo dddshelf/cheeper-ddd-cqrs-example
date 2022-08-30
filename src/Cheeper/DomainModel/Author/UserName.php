@@ -10,21 +10,21 @@ use Stringable;
 /** @psalm-immutable  */
 final class UserName extends ValueObject implements Stringable
 {
+    /** @psalm-param non-empty-string $userName */
     private function __construct(
-        private readonly string $userName
+        public readonly string $userName
     ) {
-        $this->assertUserNameIsNotEmpty($userName);
+        $this->assertNotEmpty($this->userName);
     }
 
-    /** @psalm-pure */
+    /**
+     * @psalm-param non-empty-string $userName
+     *
+     * @psalm-pure
+     */
     public static function pick(string $userName): self
     {
         return new self($userName);
-    }
-
-    public function userName(): string
-    {
-        return $this->userName;
     }
 
     public function equalsTo(UserName $userName): bool
@@ -32,20 +32,15 @@ final class UserName extends ValueObject implements Stringable
         return $this->userName === $userName->userName;
     }
 
-    private function assertUserNameIsNotEmpty(string $userName): void
-    {
-        if ('' === $userName) {
-            throw new \InvalidArgumentException("Username cannot be empty");
-        }
-    }
-
-    public function toString(): string
+    public function __toString(): string
     {
         return $this->userName;
     }
 
-    public function __toString(): string
+    private function assertNotEmpty(string $userName): void
     {
-        return $this->toString();
+        if ('' === $userName) {
+            throw new \InvalidArgumentException("Username cannot be empty!");
+        }
     }
 }

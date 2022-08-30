@@ -96,7 +96,19 @@ final class PostAuthorController extends AbstractController
             'birth_date' => new Assert\Optional(new Assert\DateTime(format: "Y-m-d")),
         ]);
 
-        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
+        $data = Json\typed(
+            $request->getContent(),
+            Type\shape([
+                'username' => Type\non_empty_string(),
+                'email' => Type\non_empty_string(),
+                'name' => Type\optional(Type\non_empty_string()),
+                'biography' => Type\optional(Type\non_empty_string()),
+                'location' => Type\optional(Type\non_empty_string()),
+                'website' => Type\optional(Type\non_empty_string()),
+                'birth_date' => Type\optional(Type\non_empty_string()),
+            ])
+        );
+
         $violations = $this->validator->validate($data, $constraint);
 
         if (count($violations) > 0) {
@@ -108,11 +120,11 @@ final class PostAuthorController extends AbstractController
                 Uuid::uuid4()->toString(),
                 $data['username'],
                 $data['email'],
-                $data['name'],
-                $data['biography'],
-                $data['location'],
-                $data['website'],
-                $data['birth_date']
+                $data['name'] ?? null,
+                $data['biography'] ?? null,
+                $data['location'] ?? null,
+                $data['website'] ?? null,
+                $data['birth_date'] ?? null,
             );
         } catch (AuthorAlreadyExists) {
             throw new HttpException(statusCode: Response::HTTP_CONFLICT);

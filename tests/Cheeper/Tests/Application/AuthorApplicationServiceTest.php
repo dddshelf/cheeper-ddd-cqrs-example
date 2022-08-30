@@ -81,7 +81,7 @@ final class AuthorApplicationServiceTest extends TestCase
         $author = $this->authorRepository->ofUserName(UserName::pick('irrelevant'));
 
         $this->assertNotNull($author);
-        $this->assertSame($website, $author->website()->toString());
+        $this->assertSame($website, $author->website()->uri);
         $this->assertSame($birthDate, $author->birthDate()->date()->format('Y-m-d'));
     }
 

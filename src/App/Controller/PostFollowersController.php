@@ -79,7 +79,14 @@ final class PostFollowersController extends AbstractController
             'to_author_id' => [new Assert\NotBlank(), new Assert\Uuid()],
         ]);
 
-        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
+        $data = Json\typed(
+            $request->getContent(),
+            Type\shape([
+                'from_author_id' => Type\non_empty_string(),
+                'to_author_id' => Type\non_empty_string(),
+            ])
+        );
+
         $violations = $this->validator->validate($data, $constraints);
 
         if (count($violations) > 0) {

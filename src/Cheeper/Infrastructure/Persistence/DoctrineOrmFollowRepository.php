@@ -27,7 +27,7 @@ final class DoctrineOrmFollowRepository implements FollowRepository
         $this->em->flush();
     }
 
-    public function fromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): ?Follow
+    public function fromAuthorIdAndToAuthorId(AuthorId $fromAuthorId, AuthorId $toAuthorId): Follow|null
     {
         return $this->em->getRepository(Follow::class)->findOneBy([
             'fromAuthorId' => $fromAuthorId,

@@ -85,7 +85,13 @@ final class PostCheepController extends AbstractController
             'message' => new Assert\NotBlank(),
         ]);
 
-        $data = Json\typed($request->getContent(), Type\dict(Type\string(), Type\string()));
+        $data = Json\typed(
+            $request->getContent(),
+            Type\shape([
+                'username' => Type\non_empty_string(),
+                'message' => Type\non_empty_string(),
+            ])
+        );
 
         $violations = $this->validator->validate(
             $data,

@@ -18,6 +18,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Psl\Iter;
+use Psl\Type;
 
 final class AppFixtures extends Fixture
 {
@@ -128,7 +129,7 @@ final class AppFixtures extends Fixture
                 $cheep = Cheep::compose(
                     $a->authorId(),
                     CheepId::nextIdentity(),
-                    CheepMessage::write($faker->text(260))
+                    CheepMessage::write(Type\non_empty_string()->coerce($faker->text(260)))
                 );
 
                 $manager->persist($cheep);

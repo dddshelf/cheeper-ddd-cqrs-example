@@ -15,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class GetCheepController extends AbstractController
 {
+    use ProtectsInvaritans;
+
     public function __construct(
         private readonly CheepApplicationService $cheepApplicationService
     ) {
@@ -34,6 +36,8 @@ final class GetCheepController extends AbstractController
     )]
     public function __invoke(string $id): Response
     {
+        $this->assertNotEmptyString($id, "Cheep ID");
+
         $cheep = $this->cheepApplicationService->getCheep($id);
 
         if (null === $cheep) {

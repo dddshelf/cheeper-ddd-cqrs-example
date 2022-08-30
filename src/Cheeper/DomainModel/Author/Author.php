@@ -9,61 +9,73 @@ use Cheeper\DomainModel\Follow\FollowId;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
-/**
- * @final
- */
+/** @final */
 class Author
 {
+    /**
+     * @psalm-param non-empty-string $authorId
+     * @psalm-param non-empty-string $userName
+     * @psalm-param non-empty-string $email
+     * @psalm-param non-empty-string|null $name
+     * @psalm-param non-empty-string|null $biography
+     * @psalm-param non-empty-string|null $location
+     * @psalm-param non-empty-string|null $website
+     */
     private function __construct(
-        private string             $authorId,
-        private string             $userName,
-        private string             $email,
-        private ?string            $name = null,
-        private ?string            $biography = null,
-        private ?string            $location = null,
-        private ?string            $website = null,
-        private ?DateTimeImmutable $birthDate = null,
+        private string                 $authorId,
+        private string                 $userName,
+        private string                 $email,
+        private string|null            $name = null,
+        private string|null            $biography = null,
+        private string|null            $location = null,
+        private string|null            $website = null,
+        private DateTimeImmutable|null $birthDate = null,
     ) {
         $this->setName($name);
         $this->setBiography($biography);
         $this->setLocation($location);
     }
 
+    /**
+     * @psalm-param non-empty-string|null $name
+     * @psalm-param non-empty-string|null $biography
+     * @psalm-param non-empty-string|null $location
+     */
     public static function signUp(
-        AuthorId $authorId,
-        UserName $userName,
+        AuthorId     $authorId,
+        UserName     $userName,
         EmailAddress $email,
-        ?string $name = null,
-        ?string $biography = null,
-        ?string $location = null,
-        ?Website $website = null,
-        ?BirthDate $birthDate = null
+        string|null  $name = null,
+        string|null  $biography = null,
+        string|null  $location = null,
+        Website|null $website = null,
+        BirthDate|null $birthDate = null,
     ): self {
         return new self(
-            $authorId->toString(),
-            $userName->userName(),
-            $email->value(),
+            $authorId->id,
+            $userName->userName,
+            $email->value,
             $name,
             $biography,
             $location,
-            $website?->toString(),
+            $website?->uri,
             $birthDate?->date()
         );
     }
 
-    protected function setName(?string $name): void
+    protected function setName(string|null $name): void
     {
-        $this->name = $this->checkIsNotNull($name, 'Name cannot be empty');
+        $this->name = $this->assertNotEmpty($name, 'Name cannot be empty');
     }
 
-    protected function setBiography(?string $biography): void
+    protected function setBiography(string|null $biography): void
     {
-        $this->biography = $this->checkIsNotNull($biography, 'Biography cannot be empty');
+        $this->biography = $this->assertNotEmpty($biography, 'Biography cannot be empty');
     }
 
-    protected function setLocation(?string $location): void
+    protected function setLocation(string|null $location): void
     {
-        $this->location = $this->checkIsNotNull($location, 'Location cannot be empty');
+        $this->location = $this->assertNotEmpty($location, 'Location cannot be empty');
     }
 
     public function authorId(): AuthorId
@@ -81,27 +93,30 @@ class Author
         return EmailAddress::from($this->email);
     }
 
-    public function name(): ?string
+    /** @psalm-return non-empty-string */
+    public function name(): string|null
     {
         return $this->name;
     }
 
-    public function biography(): ?string
+    /** @psalm-return non-empty-string */
+    public function biography(): string|null
     {
         return $this->biography;
     }
 
-    public function location(): ?string
+    /** @psalm-return non-empty-string */
+    public function location(): string|null
     {
         return $this->location;
     }
 
-    public function website(): ?Website
+    public function website(): Website|null
     {
         return $this->website !== null ? Website::fromString($this->website) : null;
     }
 
-    public function birthDate(): ?BirthDate
+    public function birthDate(): BirthDate|null
     {
         return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
     }
@@ -115,7 +130,11 @@ class Author
         );
     }
 
-    private function checkIsNotNull(?string $value, string $errorMessage): ?string
+    /**
+     * @psalm-assert non-empty-string|null $value
+     * @psalm-return non-empty-string|null
+     */
+    private function assertNotEmpty(string|null $value, string $errorMessage): string|null
     {
         if ('' === $value) {
             throw new InvalidArgumentException($errorMessage);

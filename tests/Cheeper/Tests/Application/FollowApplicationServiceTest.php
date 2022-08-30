@@ -33,8 +33,8 @@ final class FollowApplicationServiceTest extends TestCase
         $this->expectException(AuthorDoesNotExist::class);
 
         $this->followApplicationService->followTo(
-            AuthorTestDataBuilder::anAuthorIdentity()->toString(),
-            AuthorTestDataBuilder::anAuthorIdentity()->toString(),
+            AuthorTestDataBuilder::anAuthorIdentity()->id,
+            AuthorTestDataBuilder::anAuthorIdentity()->id,
         );
     }
 
@@ -48,8 +48,8 @@ final class FollowApplicationServiceTest extends TestCase
         $this->authorRepository->add($author);
 
         $this->followApplicationService->followTo(
-            $author->authorId()->toString(),
-            AuthorTestDataBuilder::anAuthorIdentity()->toString(),
+            $author->authorId()->id,
+            AuthorTestDataBuilder::anAuthorIdentity()->id,
         );
     }
 
@@ -63,8 +63,8 @@ final class FollowApplicationServiceTest extends TestCase
         $this->authorRepository->add($toAuthor);
 
         $this->followApplicationService->followTo(
-            $fromAuthor->authorId()->toString(),
-            $toAuthor->authorId()->toString()
+            $fromAuthor->authorId()->id,
+            $toAuthor->authorId()->id
         );
 
         $follows = $this->followRepository->toAuthorId($toAuthor->authorId());
@@ -78,7 +78,7 @@ final class FollowApplicationServiceTest extends TestCase
         $this->expectException(AuthorDoesNotExist::class);
 
         $this->followApplicationService->countFollowersOf(
-            AuthorTestDataBuilder::anAuthorIdentity()->toString()
+            AuthorTestDataBuilder::anAuthorIdentity()->id
         );
     }
 
@@ -96,11 +96,11 @@ final class FollowApplicationServiceTest extends TestCase
         $this->authorRepository->add($follower2);
         $this->authorRepository->add($follower3);
 
-        $this->followApplicationService->followTo($follower1->authorId()->toString(), $author->authorId()->toString());
-        $this->followApplicationService->followTo($follower2->authorId()->toString(), $author->authorId()->toString());
-        $this->followApplicationService->followTo($follower3->authorId()->toString(), $author->authorId()->toString());
+        $this->followApplicationService->followTo($follower1->authorId()->id, $author->authorId()->id);
+        $this->followApplicationService->followTo($follower2->authorId()->id, $author->authorId()->id);
+        $this->followApplicationService->followTo($follower3->authorId()->id, $author->authorId()->id);
 
-        $totalNumberOfFollowers = $this->followApplicationService->countFollowersOf($author->authorId()->toString());
+        $totalNumberOfFollowers = $this->followApplicationService->countFollowersOf($author->authorId()->id);
 
         $this->assertSame(3, $totalNumberOfFollowers);
     }

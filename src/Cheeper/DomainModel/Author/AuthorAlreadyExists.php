@@ -8,6 +8,10 @@ use RuntimeException;
 
 final class AuthorAlreadyExists extends RuntimeException
 {
+    /**
+     * @psalm-param non-empty-string $authorName
+     * @psalm-param non-empty-string $fieldName
+     */
     private function __construct(string $authorName, string $fieldName)
     {
         parent::__construct(
@@ -17,11 +21,11 @@ final class AuthorAlreadyExists extends RuntimeException
 
     public static function withUserNameOf(UserName $userName): self
     {
-        return new self($userName->userName(), 'name');
+        return new self($userName->userName, 'name');
     }
 
     public static function withIdOf(AuthorId $authorId): self
     {
-        return new self($authorId->id(), 'id');
+        return new self($authorId->id, 'id');
     }
 }

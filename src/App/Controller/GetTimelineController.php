@@ -10,15 +10,15 @@ use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Cheep\Cheep;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
-use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class GetTimelineController extends AbstractController
 {
+    use ProtectsInvaritans;
+
     private const DEFAULT_TIMELINE_CHUNK_SIZE = 10;
 
     public function __construct(
@@ -61,9 +61,8 @@ final class GetTimelineController extends AbstractController
     )]
     public function __invoke(string $id, Request $request): Response
     {
-        if (!Uuid::isValid($id)) {
-            throw new BadRequestException("Invalid author ID");
-        }
+        $this->assertNotEmptyString($id, "Author ID");
+        $this->assertValidUuid($id);
 
         $offset     = $request->query->getInt('offset');
         $size       = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);

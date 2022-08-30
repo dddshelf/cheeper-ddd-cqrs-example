@@ -13,7 +13,7 @@
         <field name="name" column="name" length="100" nullable="true" />
         <field name="biography" column="biography" type="text" nullable="true" />
         <field name="location" column="location" length="100" nullable="true" />
-        <field name="website" column="website" length="100" nullable="true" />
+        <field name="website" column="website" length="255" nullable="true" />
         <field name="birthDate" column="birth_date" type="date_immutable" nullable="true" />
     </entity>
 </doctrine-mapping>

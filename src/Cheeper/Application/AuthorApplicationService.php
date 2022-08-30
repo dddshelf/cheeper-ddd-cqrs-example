@@ -20,22 +20,32 @@ final class AuthorApplicationService
     ) {
     }
 
+    /**
+     * @psalm-param non-empty-string $id
+     * @psalm-param non-empty-string $username
+     * @psalm-param non-empty-string $email
+     * @psalm-param non-empty-string|null $name
+     * @psalm-param non-empty-string|null $biography
+     * @psalm-param non-empty-string|null $location
+     * @psalm-param non-empty-string|null $website
+     * @psalm-param non-empty-string|null $birthDate
+     */
     public function signUp(
-        string  $id,
-        string  $username,
-        string  $email,
-        ?string $name,
-        ?string $biography,
-        ?string $location,
-        ?string $website,
-        ?string $birthDate,
+        string      $id,
+        string      $username,
+        string      $email,
+        string|null $name,
+        string|null $biography,
+        string|null $location,
+        string|null $website,
+        string|null $birthDate,
     ): Author {
         $authorUserName = UserName::pick($username);
         $authorId = AuthorId::fromString($id);
         $authorEmail = EmailAddress::from($email);
 
         $author = $this->authorRepository->ofUserName($authorUserName);
-        $this->checkAuthorDoesNotAlreadyExistByUsername($author, $authorUserName);
+        $this->assertAuthorIsNotNull($author, $authorUserName);
 
         $authorWebsite = $this->getWebsite($website);
         $authorBirthDate = $this->getBirthDate($birthDate);
@@ -56,24 +66,32 @@ final class AuthorApplicationService
         return $author;
     }
 
+    /** @return list<Author> */
     public function getAuthors(): array
     {
         return $this->authorRepository->all();
     }
 
-    private function checkAuthorDoesNotAlreadyExistByUsername(?Author $author, UserName $userName): void
+    /** @psalm-assert Author $author */
+    private function assertAuthorIsNotNull(Author|null $author, UserName $userName): void
     {
         if (null !== $author) {
             throw AuthorAlreadyExists::withUserNameOf($userName);
         }
     }
 
-    private function getBirthDate(?string $inputBirthDate): ?BirthDate
+    /**
+     * @psalm-param non-empty-string $inputBirthDate
+     */
+    private function getBirthDate(string|null $inputBirthDate): ?BirthDate
     {
         return null !== $inputBirthDate ? BirthDate::fromString($inputBirthDate) : null;
     }
 
-    private function getWebsite(?string $inputWebsite): ?Website
+    /**
+     * @psalm-param non-empty-string $inputWebsite
+     */
+    private function getWebsite(string|null $inputWebsite): ?Website
     {
         return null !== $inputWebsite ? Website::fromString($inputWebsite) : null;
     }

@@ -10,7 +10,6 @@ use Cheeper\DomainModel\Author\Author;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,7 +36,7 @@ final class GetAuthorsController extends AbstractController
     {
         $authors = $this->authorApplicationService->getAuthors();
 
-        return new JsonResponse(
+        return $this->json(
             array_map(
                 static fn (Author $a) => AuthorDto::assembleFrom($a),
                 $authors

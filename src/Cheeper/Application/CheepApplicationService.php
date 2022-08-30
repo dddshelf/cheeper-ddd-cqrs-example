@@ -21,6 +21,10 @@ final class CheepApplicationService
     ) {
     }
 
+    /**
+     * @psalm-param non-empty-string $username
+     * @psalm-param non-empty-string $message
+     */
     public function postCheep(string $username, string $message): Cheep
     {
         $authorUsername = UserName::pick($username);
@@ -41,6 +45,9 @@ final class CheepApplicationService
         return $cheep;
     }
 
+    /**
+     * @psalm-param non-empty-string $authorId
+     */
     public function timelineFrom(string $authorId, int $offset, int $size): array
     {
         $author = $this->authorRepository->ofId(AuthorId::fromString($authorId));
@@ -52,7 +59,8 @@ final class CheepApplicationService
         return $this->cheepRepository->ofFollowingPeopleOf($author, $offset, $size);
     }
 
-    public function getCheep(string $id): ?Cheep
+    /** @psalm-param non-empty-string $id */
+    public function getCheep(string $id): Cheep|null
     {
         return $this->cheepRepository->ofId(CheepId::fromString($id));
     }

@@ -7,15 +7,15 @@ namespace App\Controller;
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
-use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 final class GetFollowersCountController extends AbstractController
 {
+    use ProtectsInvaritans;
+
     public function __construct(
         private readonly FollowApplicationService $followApplicationService,
     ) {
@@ -45,17 +45,17 @@ final class GetFollowersCountController extends AbstractController
     )]
     public function __invoke(string $authorId): Response
     {
-        if (!Uuid::isValid($authorId)) {
-            throw new BadRequestException("The identifier ${authorId} is not valid.");
-        }
+        $this->assertNotEmptyString($authorId, "Author ID");
+        $this->assertValidUuid($authorId);
 
         try {
             $count = $this->followApplicationService->countFollowersOf($authorId);
-            return $this->json([
-                'count' => $count,
-            ]);
         } catch (AuthorDoesNotExist $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
+
+        return $this->json([
+            'count' => $count,
+        ]);
     }
 }

@@ -11,12 +11,17 @@ use Stringable;
 /** @psalm-immutable  */
 abstract class UuidBasedIdentity extends ValueObject implements Stringable
 {
+    /** @psalm-param non-empty-string $id */
     final private function __construct(
-        protected string $id
+        public readonly string $id
     ) {
     }
 
-    /** @psalm-pure */
+    /**
+     * @psalm-param non-empty-string $uuid
+     *
+     * @psalm-pure
+     */
     public static function fromString(string $uuid): static
     {
         if (!Uuid::isValid($uuid)) {
@@ -42,17 +47,7 @@ abstract class UuidBasedIdentity extends ValueObject implements Stringable
         return $this->id === $other->id;
     }
 
-    final public function toString(): string
-    {
-        return $this->__toString();
-    }
-
     public function __toString(): string
-    {
-        return $this->id;
-    }
-
-    final public function id(): string
     {
         return $this->id;
     }

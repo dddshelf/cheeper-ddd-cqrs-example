@@ -9,6 +9,11 @@ use Cheeper\DomainModel\Author\AuthorId;
 /** @final */
 class Follow
 {
+    /**
+     * @psalm-param non-empty-string $followId
+     * @psalm-param non-empty-string $fromAuthorId
+     * @psalm-param non-empty-string $toAuthorId
+     */
     private function __construct(
         private string $followId,
         private string $fromAuthorId,
@@ -22,9 +27,9 @@ class Follow
         AuthorId $toAuthorId,
     ): self {
         return new self(
-            followId: $followId->toString(),
-            fromAuthorId: $fromAuthorId->toString(),
-            toAuthorId: $toAuthorId->toString()
+            followId: $followId->id,
+            fromAuthorId: $fromAuthorId->id,
+            toAuthorId: $toAuthorId->id,
         );
     }
 

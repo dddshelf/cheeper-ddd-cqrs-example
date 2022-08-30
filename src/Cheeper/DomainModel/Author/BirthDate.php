@@ -18,7 +18,9 @@ final class BirthDate extends ValueObject
         $this->setDate($date);
     }
 
-    /** @psalm-pure */
+    /**
+     * @psalm-pure
+     */
     public static function fromString(string $value): self
     {
         return new self($value);

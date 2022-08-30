@@ -10,6 +10,10 @@ use Cheeper\DomainModel\Clock\Clock;
 /** @final */
 class Cheep
 {
+    /**
+     * @psalm-param non-empty-string $authorId
+     * @psalm-param non-empty-string $cheepId
+     */
     private function __construct(
         private string $authorId,
         private string $cheepId,
@@ -30,8 +34,8 @@ class Cheep
         );
 
         return new self(
-            $authorId->toString(),
-            $cheepId->toString(),
+            $authorId->id,
+            $cheepId->id,
             $cheepMessage,
             $cheepDate
         );

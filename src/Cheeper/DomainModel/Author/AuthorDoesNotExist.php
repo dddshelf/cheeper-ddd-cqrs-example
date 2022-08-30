@@ -8,6 +8,9 @@ use RuntimeException;
 
 final class AuthorDoesNotExist extends RuntimeException
 {
+    /**
+     * @psalm-param non-empty-string $authorName
+     */
     private function __construct(string $authorName)
     {
         parent::__construct(
@@ -17,11 +20,11 @@ final class AuthorDoesNotExist extends RuntimeException
 
     public static function withUserNameOf(UserName $userName): self
     {
-        return new self($userName->userName());
+        return new self($userName->userName);
     }
 
     public static function withAuthorIdOf(AuthorId $authorId): self
     {
-        return new self($authorId->toString());
+        return new self($authorId->id);
     }
 }

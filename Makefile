@@ -84,7 +84,7 @@ check-cs:
 
 .PHONY: fix-cs
 fix-cs:
-	$(PHP) bin/php-cs-fixer.phar -vvvv --config=.php-cs-fixer.dist.php --using-cache=no --dry-run --path-mode=intersection fix src
+	$(PHP) bin/php-cs-fixer.phar -vvvv --config=.php-cs-fixer.dist.php --using-cache=no --path-mode=intersection fix src
 
 .PHONY: deptrack
 deptrack: deps

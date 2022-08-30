@@ -18,6 +18,6 @@ RUN apt-get update \
 
 FROM prod AS local
 
-RUN apt-get -y install git \
+RUN apt-get -y install git httpie \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug

@@ -22,7 +22,7 @@ final class DoctrineOrmAuthorRepository implements AuthorRepository
         return $this->em
             ->getRepository(Author::class)
             ->findOneBy([
-                'authorId' => $authorId->id(),
+                'authorId' => $authorId->id,
             ]);
     }
 
@@ -30,7 +30,7 @@ final class DoctrineOrmAuthorRepository implements AuthorRepository
     {
         return $this->em
             ->getRepository(Author::class)
-            ->findOneBy(['userName' => $userName->userName()]);
+            ->findOneBy(['userName' => $userName->userName]);
     }
 
     public function add(Author $author): void

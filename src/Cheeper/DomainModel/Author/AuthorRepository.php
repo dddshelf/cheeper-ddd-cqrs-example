@@ -9,6 +9,6 @@ interface AuthorRepository
     public function ofId(AuthorId $authorId): Author|null;
     public function ofUserName(UserName $userName): Author|null;
     public function add(Author $author): void;
-    /** @return Author[] */
+    /** @return list<Author> */
     public function all(): array;
 }
