@@ -48,8 +48,6 @@ final class GetTimelineControllerTest extends ApiTestCase
         // Get timeline
         $timeline = $this->getAuthorTimeline($client, $firstAuthorData['id']);
 
-        $this->assertIsArray($timeline);
-
         // Check that it only has the three cheeps that the author follows
         $this->assertCount(3, $timeline);
         $this->assertSame($cheep3['id'], $timeline[0]['id']);

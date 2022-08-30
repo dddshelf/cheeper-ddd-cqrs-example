@@ -63,7 +63,7 @@ unit-tests: deps
 	$(PHP) bin/phpunit
 
 .PHONY: functional-tests
-functional-tests: start deps refresh-fixtures
+functional-tests: start refresh-fixtures
 	$(PHP) bin/phpunit --testsuite FunctionalTests
 
 .PHONY: mutation-tests

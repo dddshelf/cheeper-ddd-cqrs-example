@@ -14,6 +14,7 @@ final class UserNameTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
+        /** @psalm-suppress InvalidArgument */
         UserName::pick('');
     }
 }

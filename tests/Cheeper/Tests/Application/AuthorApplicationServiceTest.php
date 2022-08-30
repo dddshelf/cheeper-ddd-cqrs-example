@@ -39,6 +39,8 @@ final class AuthorApplicationServiceTest extends TestCase
         $website = 'https://google.com';
         $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
 
+        $this->assertNotEmpty($birthDate);
+
         $this->authorRepository->add(
             AuthorTestDataBuilder::anAuthor()->build()
         );
@@ -67,6 +69,8 @@ final class AuthorApplicationServiceTest extends TestCase
         $website = 'https://google.com';
         $birthDate = (new \DateTimeImmutable())->format('Y-m-d');
 
+        $this->assertNotEmpty($birthDate);
+
         $this->authorApplicationService->signUp(
             $id,
             $username,
@@ -81,8 +85,8 @@ final class AuthorApplicationServiceTest extends TestCase
         $author = $this->authorRepository->ofUserName(UserName::pick('irrelevant'));
 
         $this->assertNotNull($author);
-        $this->assertSame($website, $author->website()->uri);
-        $this->assertSame($birthDate, $author->birthDate()->date()->format('Y-m-d'));
+        $this->assertSame($website, $author->website()?->uri);
+        $this->assertSame($birthDate, $author->birthDate()?->date()->format('Y-m-d'));
     }
 
     /** @test */

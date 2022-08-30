@@ -19,7 +19,7 @@ final class GetAuthorsControllerTest extends ApiTestCase
 
         $firstAuthorsResponse = $this->getAuthors($client);
 
-        $this->assertIsArray($firstAuthorsResponse);
+        $this->assertGreaterThan(0, $firstAuthorsResponse);
 
         $this->createAuthorWithRandomizedData($client);
 

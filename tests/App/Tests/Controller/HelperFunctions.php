@@ -8,20 +8,40 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use Faker\Factory as FakerFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Psl\Json;
+use Psl\Type;
 
+/**
+ * @psalm-type AuthorResponse = array{id: non-empty-string, userName: non-empty-string, email: non-empty-string, name: non-empty-string|null, biography: non-empty-string|null, location: non-empty-string|null, website: non-empty-string|null, birthDate: non-empty-string|null}
+ * @psalm-type CheepResponse = array{id: non-empty-string, authorId: non-empty-string, text: non-empty-string, createdAt: non-empty-string}
+ */
 trait HelperFunctions
 {
+    /** @psalm-return AuthorResponse */
     private function createAuthor(Client $client, array $data): array
     {
-        $client->request(Request::METHOD_POST, "/api/authors", [
+        $response = $client->request(Request::METHOD_POST, "/api/authors", [
             'json' => $data
         ]);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
 
-        return $client->getResponse()->toArray();
+        return Json\typed(
+            $response->getContent(),
+            Type\shape([
+                'id' => Type\non_empty_string(),
+                'userName' => Type\non_empty_string(),
+                'email' => Type\non_empty_string(),
+                'name' => Type\union(Type\non_empty_string(), Type\null()),
+                'biography' => Type\union(Type\non_empty_string(), Type\null()),
+                'location' => Type\union(Type\non_empty_string(), Type\null()),
+                'website' => Type\union(Type\non_empty_string(), Type\null()),
+                'birthDate' => Type\union(Type\non_empty_string(), Type\null()),
+            ])
+        );
     }
 
+    /** @psalm-return AuthorResponse */
     private function createAuthorWithRandomizedData(Client $client): array
     {
         $faker = FakerFactory::create();
@@ -49,11 +69,12 @@ trait HelperFunctions
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
     }
 
+    /** @psalm-return CheepResponse */
     private function makeRandomizedCheep(Client $client, string $authorUserName): array
     {
         $faker = FakerFactory::create();
 
-        $client->request(Request::METHOD_POST, "/api/cheeps", [
+        $response = $client->request(Request::METHOD_POST, "/api/cheeps", [
             'json' => [
                 'username' => $authorUserName,
                 'message' => $faker->text(260),
@@ -62,31 +83,72 @@ trait HelperFunctions
 
         $this->assertResponseIsSuccessful();
 
-        return $client->getResponse()->toArray();
+        return Json\typed(
+            $response->getContent(),
+            Type\shape([
+                'id' => Type\non_empty_string(),
+                'authorId' => Type\non_empty_string(),
+                'text' => Type\non_empty_string(),
+                'createdAt' => Type\non_empty_string(),
+            ])
+        );
     }
 
+    /** @psalm-return list<AuthorResponse> */
     private function getAuthors(Client $client): array
     {
-        $client->request(Request::METHOD_GET, "/api/authors");
+        $response = $client->request(Request::METHOD_GET, "/api/authors");
 
-        return $client->getResponse()->toArray();
+        return Json\typed(
+            $response->getContent(),
+            Type\vec(
+                Type\shape([
+                    'id' => Type\non_empty_string(),
+                    'userName' => Type\non_empty_string(),
+                    'email' => Type\non_empty_string(),
+                    'name' => Type\union(Type\non_empty_string(), Type\null()),
+                    'biography' => Type\union(Type\non_empty_string(), Type\null()),
+                    'location' => Type\union(Type\non_empty_string(), Type\null()),
+                    'website' => Type\union(Type\non_empty_string(), Type\null()),
+                    'birthDate' => Type\union(Type\non_empty_string(), Type\null()),
+                ])
+            )
+        );
     }
 
+    /** @psalm-return list<CheepResponse> */
     private function getAuthorTimeline(Client $client, string $authorId): array
     {
-        $client->request(Request::METHOD_GET, "/api/authors/${authorId}/timeline");
+        $response = $client->request(Request::METHOD_GET, "/api/authors/${authorId}/timeline");
 
         $this->assertResponseIsSuccessful();
 
-        return $client->getResponse()->toArray();
+        return Json\typed(
+            $response->getContent(),
+            Type\vec(
+                Type\shape([
+                    'id' => Type\non_empty_string(),
+                    'authorId' => Type\non_empty_string(),
+                    'text' => Type\non_empty_string(),
+                    'createdAt' => Type\non_empty_string(),
+                ])
+            )
+        );
     }
 
     private function getFollowersCount(Client $client, string $authorId): int
     {
-        $client->request(Request::METHOD_GET, "/api/authors/${authorId}/followers/total");
+        $response = $client->request(Request::METHOD_GET, "/api/authors/${authorId}/followers/total");
 
         $this->assertResponseIsSuccessful();
 
-        return $client->getResponse()->toArray()['count'];
+        $responseBody = Json\typed(
+            $response->getContent(),
+            Type\shape([
+                'count' => Type\int()
+            ])
+        );
+
+        return $responseBody['count'];
     }
 }

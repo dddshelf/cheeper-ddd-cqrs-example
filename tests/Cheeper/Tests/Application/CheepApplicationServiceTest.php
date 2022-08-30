@@ -49,6 +49,7 @@ final class CheepApplicationServiceTest extends TestCase
         // Retrieve cheep by ID in order to make sure it has been persisted into the persistence store
         $cheep = $this->cheepService->getCheep($cheep->cheepId()->id);
 
+        $this->assertNotNull($cheep);
         $this->assertNotNull($cheep->authorId());
         $this->assertEquals('message', $cheep->cheepMessage()->message);
     }

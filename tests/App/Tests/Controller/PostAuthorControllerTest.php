@@ -10,7 +10,9 @@ final class PostAuthorControllerTest extends ApiTestCase
 {
     use HelperFunctions;
 
-    /** @test */
+    /**
+     * @test
+     */
     public function itSignsUpNewAuthors(): void
     {
         $client = self::createClient();

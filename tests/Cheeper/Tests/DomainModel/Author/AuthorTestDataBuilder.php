@@ -15,12 +15,25 @@ use Ramsey\Uuid\UuidInterface;
 
 final class AuthorTestDataBuilder
 {
+    /** @psalm-var non-empty-string  */
     private string $userName = "irrelevant";
+
+    /** @psalm-var non-empty-string  */
     private string $email = "test@email.com";
+
+    /** @psalm-var non-empty-string|null  */
     private string|null $name = null;
+
+    /** @psalm-var non-empty-string|null  */
     private string|null $biography = null;
+
+    /** @psalm-var non-empty-string|null  */
     private string|null $location = null;
+
+    /** @psalm-var non-empty-string|null  */
     private string|null $website = null;
+
+    /** @psalm-var non-empty-string|null  */
     private string|null $birthDate = null;
 
     private function __construct()
@@ -32,6 +45,7 @@ final class AuthorTestDataBuilder
         return new self();
     }
 
+    /** @psalm-param non-empty-string|UuidInterface|null $anAuthorId */
     public static function anAuthorIdentity(string | UuidInterface | null $anAuthorId = null): AuthorId
     {
         if ($anAuthorId && is_string($anAuthorId)) {
@@ -45,6 +59,7 @@ final class AuthorTestDataBuilder
         return AuthorId::nextIdentity();
     }
 
+    /** @psalm-param non-empty-string $userName */
     public function withUserNameOf(string $userName): self
     {
         $this->userName = $userName;
@@ -52,6 +67,7 @@ final class AuthorTestDataBuilder
         return $this;
     }
 
+    /** @psalm-param non-empty-string $email */
     public function withEmail(string $email): self
     {
         $this->email = $email;
@@ -59,6 +75,7 @@ final class AuthorTestDataBuilder
         return $this;
     }
 
+    /** @psalm-param non-empty-string $name */
     public function withName(string $name): self
     {
         $this->name = $name;
@@ -66,6 +83,7 @@ final class AuthorTestDataBuilder
         return $this;
     }
 
+    /** @psalm-param non-empty-string $biography */
     public function withBiography(string $biography): self
     {
         $this->biography = $biography;
@@ -73,6 +91,7 @@ final class AuthorTestDataBuilder
         return $this;
     }
 
+    /** @psalm-param non-empty-string $location */
     public function withLocation(string $location): self
     {
         $this->location = $location;

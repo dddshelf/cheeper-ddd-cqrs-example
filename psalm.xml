@@ -8,8 +8,10 @@
 >
     <projectFiles>
         <directory name="src"/>
+        <directory name="tests"/>
         <ignoreFiles>
             <directory name="vendor"/>
+            <file name="tests/bootstrap.php" />
         </ignoreFiles>
     </projectFiles>
 
