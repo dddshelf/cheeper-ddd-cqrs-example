@@ -29,6 +29,9 @@ jobs:
             ghcr.io/dddshelf/cheeper-ddd-cqrs-example/app:latest
             ghcr.io/dddshelf/cheeper-ddd-cqrs-example/app:${{ github.sha }}
 
+      - name: START SERVICES
+        run: make start
+
       - name: STATIC ANALISYS
         run: make psalm-github
 
