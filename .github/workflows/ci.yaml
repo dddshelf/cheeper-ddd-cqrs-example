@@ -36,7 +36,9 @@ jobs:
         run: make unit-tests
 
       - name: FUNCTIONAL TESTS
-        run: make functional-tests
+        run: |
+          cp .env.docker.dist .env.local
+          make functional-tests
 
       - name: CODE STYLE
         run: make check-cs
