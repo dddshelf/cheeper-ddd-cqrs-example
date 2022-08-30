@@ -1,6 +1,6 @@
 services:
   mysql:
-    image: mariadb:10.9.2
+    image: mariadb
     ports:
       - "3306:3306"
     environment:
