@@ -54,6 +54,10 @@ As the code runs fully on docker, several `make` targets have been carefully pre
 
     make start
 
+The first time booting the project you will need to install dependencies. To install them run
+
+    make deps
+
 This `make` target, runs docker compose, and ensures all services are up and running. Next, once all the services have been started, we must make sure the database is created, database migrations are executed successfully and fixtures are loaded properly. To do so, just run
 
     make refresh-fixtures
