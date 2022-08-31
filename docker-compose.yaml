@@ -13,7 +13,7 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      target: local
+      target: dev
       args:
         - UID=${UID:-}
         - GID=${GID:-}
