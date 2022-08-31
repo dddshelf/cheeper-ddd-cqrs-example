@@ -22,6 +22,7 @@ jobs:
           load: true
           file: Dockerfile
           context: .
+          target: prod
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
