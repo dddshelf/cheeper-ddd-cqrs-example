@@ -1,6 +1,9 @@
 # Run `make` (no arguments) to get a short description of what is available
 # within this `Makefile`.
-
+# Our user and group id used as default container user:group id. Avoid permissions pollution
+UID := $(shell id -u)
+GID := $(shell id -g)
+	export UID GID
 # Default shell to use
 SHELL := bash
 

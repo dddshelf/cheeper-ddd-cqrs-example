@@ -14,6 +14,9 @@ services:
       dockerfile: Dockerfile
       context: .
       target: local
+      args:
+        - UID=${UID:-}
+        - GID=${GID:-}
     init: true
     env_file: .env.docker.dist
     ports:
