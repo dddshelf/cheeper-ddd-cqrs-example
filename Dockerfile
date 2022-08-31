@@ -23,6 +23,8 @@ RUN apt-get -y install git httpie \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+FROM local AS dev
+
 ARG UID
 ARG GID
 RUN usermod -u $UID www-data  \
