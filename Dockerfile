@@ -28,8 +28,7 @@ FROM local AS dev
 ARG UID
 ARG GID
 RUN usermod -u $UID www-data  \
-    && groupmod -g $GID www-data \
-    && chown www-data:www-data /var/www
+    && chown www-data:$GID /var/www
 
 USER $UID:$GID
 WORKDIR /var/www/html
