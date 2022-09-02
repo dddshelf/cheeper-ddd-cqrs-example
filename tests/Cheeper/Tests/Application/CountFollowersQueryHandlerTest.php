@@ -11,6 +11,7 @@ use Cheeper\Application\FollowCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;
+use Cheeper\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryFollowRepository;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
@@ -58,7 +59,7 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
         $authorId = $author->authorId()->id;
 
-        $followCommandHandler = new FollowCommandHandler($this->authorRepository, $this->followRepository);
+        $followCommandHandler = new FollowCommandHandler($this->authorRepository, $this->followRepository, new InMemoryEventBus());
         ($followCommandHandler)(new FollowCommand($follower1->authorId()->id, $authorId));
         ($followCommandHandler)(new FollowCommand($follower2->authorId()->id, $authorId));
         ($followCommandHandler)(new FollowCommand($follower3->authorId()->id, $authorId));

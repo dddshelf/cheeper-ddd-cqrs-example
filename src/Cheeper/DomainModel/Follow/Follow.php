@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace Cheeper\DomainModel\Follow;
 
 use Cheeper\DomainModel\Author\AuthorId;
+use Cheeper\DomainModel\Author\AuthorWasFollowed;
+use Cheeper\DomainModel\Clock\Clock;
+use Cheeper\DomainModel\RecordsEvents;
 
 /** @final */
 class Follow
 {
+    use RecordsEvents;
+
     /**
      * @psalm-param non-empty-string $followId
      * @psalm-param non-empty-string $fromAuthorId
@@ -26,11 +31,21 @@ class Follow
         AuthorId $fromAuthorId,
         AuthorId $toAuthorId,
     ): self {
-        return new self(
+        $follow = new self(
             followId: $followId->id,
             fromAuthorId: $fromAuthorId->id,
             toAuthorId: $toAuthorId->id,
         );
+
+        $follow->recordThat(
+            new AuthorWasFollowed(
+                $fromAuthorId->id,
+                $toAuthorId->id,
+                Clock::instance()->now()
+            )
+        );
+
+        return $follow;
     }
 
     public function fromAuthorId(): AuthorId

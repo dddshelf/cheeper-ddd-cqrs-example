@@ -15,6 +15,7 @@ final class FollowCommandHandler
     public function __construct(
         private readonly AuthorRepository $authorRepository,
         private readonly FollowRepository $followRepository,
+        private readonly EventBus $eventBus,
     )
     {
     }
@@ -30,6 +31,8 @@ final class FollowCommandHandler
         $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
 
         $this->followRepository->add($follow);
+
+        $this->eventBus->publishAll($follow->pullEvents());
     }
 
     /** @psalm-param non-empty-string $authorId */

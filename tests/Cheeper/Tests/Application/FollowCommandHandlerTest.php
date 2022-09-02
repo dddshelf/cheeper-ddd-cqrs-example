@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application;
 
+use Cheeper\Application\EventBus;
 use Cheeper\Application\FollowCommand;
 use Cheeper\Application\FollowCommandHandler;
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;
+use Cheeper\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryFollowRepository;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
@@ -19,14 +21,16 @@ final class FollowCommandHandlerTest extends TestCase
 {
     private AuthorRepository $authorRepository;
     private FollowRepository $followRepository;
+    private InMemoryEventBus $eventBus;
     private FollowCommandHandler $followCommandHandler;
 
     protected function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->followRepository = new InMemoryFollowRepository();
+        $this->eventBus = new InMemoryEventBus();
 
-        $this->followCommandHandler = new FollowCommandHandler($this->authorRepository, $this->followRepository);
+        $this->followCommandHandler = new FollowCommandHandler($this->authorRepository, $this->followRepository, $this->eventBus);
     }
 
     /** @test */
@@ -56,7 +60,7 @@ final class FollowCommandHandlerTest extends TestCase
     }
 
     /** @test */
-    public function givenTwoExistingAuthorsWhenFollowUseCaseIsExecutedThenAnExceptionShouldBeThrown(): void
+    public function itCreatesAFollowRelationshipBetweenAuthors(): void
     {
         $fromAuthor = AuthorTestDataBuilder::anAuthor()->build();
         $toAuthor = AuthorTestDataBuilder::anAuthor()->build();
@@ -69,6 +73,7 @@ final class FollowCommandHandlerTest extends TestCase
         $follows = $this->followRepository->toAuthorId($toAuthor->authorId());
 
         $this->assertCount(1, $follows);
+        $this->assertNotEmpty($this->eventBus->getEvents());
     }
 
     private function follow(Author $fromAuthor, Author $toAuthor): void
