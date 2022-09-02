@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cheeper\Application\CountFollowersQuery;
+use Cheeper\Application\CountFollowersQueryHandler;
 use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
@@ -18,6 +20,7 @@ final class GetFollowersCountController extends AbstractController
 
     public function __construct(
         private readonly FollowApplicationService $followApplicationService,
+        private readonly CountFollowersQueryHandler $countFollowersQueryHandler,
     ) {
     }
 
@@ -49,7 +52,9 @@ final class GetFollowersCountController extends AbstractController
         $this->assertValidUuid($authorId);
 
         try {
-            $count = $this->followApplicationService->countFollowersOf($authorId);
+            $count = ($this->countFollowersQueryHandler)(
+                new CountFollowersQuery($authorId)
+            );
         } catch (AuthorDoesNotExist $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
