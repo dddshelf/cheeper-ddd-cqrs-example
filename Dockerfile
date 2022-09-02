@@ -22,14 +22,3 @@ FROM prod AS local
 RUN apt-get -y install git httpie \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
-
-FROM local AS dev
-
-ARG UID
-ARG GID
-RUN usermod -u $UID www-data  \
-    && groupmod -g $GID www-data \
-    && chown www-data:www-data /var/www
-
-USER $UID:$GID
-WORKDIR /var/www/html
