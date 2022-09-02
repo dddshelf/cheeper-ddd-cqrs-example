@@ -6,7 +6,8 @@ namespace Cheeper\Tests\Application;
 
 use Cheeper\Application\CountFollowersQuery;
 use Cheeper\Application\CountFollowersQueryHandler;
-use Cheeper\Application\FollowApplicationService;
+use Cheeper\Application\FollowCommand;
+use Cheeper\Application\FollowCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;
@@ -19,7 +20,6 @@ final class CountFollowersQueryHandlerTest extends TestCase
 {
     private AuthorRepository $authorRepository;
     private FollowRepository $followRepository;
-    private FollowApplicationService $followApplicationService;
     private CountFollowersQueryHandler $countFollowersQueryHandler;
 
     protected function setUp(): void
@@ -27,7 +27,6 @@ final class CountFollowersQueryHandlerTest extends TestCase
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->followRepository = new InMemoryFollowRepository();
 
-        $this->followApplicationService = new FollowApplicationService($this->followRepository, $this->authorRepository);
         $this->countFollowersQueryHandler = new CountFollowersQueryHandler($this->authorRepository, $this->followRepository);
     }
 
@@ -59,9 +58,10 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
         $authorId = $author->authorId()->id;
 
-        $this->followApplicationService->followTo($follower1->authorId()->id, $authorId);
-        $this->followApplicationService->followTo($follower2->authorId()->id, $authorId);
-        $this->followApplicationService->followTo($follower3->authorId()->id, $authorId);
+        $followCommandHandler = new FollowCommandHandler($this->authorRepository, $this->followRepository);
+        ($followCommandHandler)(new FollowCommand($follower1->authorId()->id, $authorId));
+        ($followCommandHandler)(new FollowCommand($follower2->authorId()->id, $authorId));
+        ($followCommandHandler)(new FollowCommand($follower3->authorId()->id, $authorId));
 
         $totalNumberOfFollowers = ($this->countFollowersQueryHandler)(
             new CountFollowersQuery($authorId)

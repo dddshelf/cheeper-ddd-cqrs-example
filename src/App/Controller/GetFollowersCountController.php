@@ -6,7 +6,6 @@ namespace App\Controller;
 
 use Cheeper\Application\CountFollowersQuery;
 use Cheeper\Application\CountFollowersQueryHandler;
-use Cheeper\Application\FollowApplicationService;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +18,6 @@ final class GetFollowersCountController extends AbstractController
     use ProtectsInvaritans;
 
     public function __construct(
-        private readonly FollowApplicationService $followApplicationService,
         private readonly CountFollowersQueryHandler $countFollowersQueryHandler,
     ) {
     }

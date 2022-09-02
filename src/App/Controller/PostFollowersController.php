@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cheeper\Application\FollowApplicationService;
+use Cheeper\Application\FollowCommand;
+use Cheeper\Application\FollowCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
 use Psl\Json;
@@ -19,7 +20,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class PostFollowersController extends AbstractController
 {
     public function __construct(
-        private readonly FollowApplicationService $followApplicationService,
+        private readonly FollowCommandHandler $followCommandHandler,
         private readonly ValidatorInterface $validator,
     ) {
     }
@@ -94,7 +95,12 @@ final class PostFollowersController extends AbstractController
         }
 
         try {
-            $this->followApplicationService->followTo($data['from_author_id'], $data['to_author_id']);
+            ($this->followCommandHandler)(
+                new FollowCommand(
+                    $data['from_author_id'],
+                    $data['to_author_id']
+                )
+            );
         } catch (AuthorDoesNotExist $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
