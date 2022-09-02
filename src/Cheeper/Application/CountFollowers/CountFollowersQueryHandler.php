@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Application;
+namespace Cheeper\Application\CountFollowers;
 
 use Cheeper\DomainModel\Author\Author;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
@@ -10,40 +10,30 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;
 
-final class FollowCommandHandler
+final class CountFollowersQueryHandler
 {
     public function __construct(
         private readonly AuthorRepository $authorRepository,
         private readonly FollowRepository $followRepository,
-        private readonly EventBus $eventBus,
-    )
-    {
+    ) {
     }
 
-    public function __invoke(FollowCommand $command): void
+    public function __invoke(CountFollowersQuery $query): int
     {
-        $fromAuthorId = $command->fromAuthorId;
-        $toAuthorId = $command->toAuthorId;
+        $this->tryToFindAuthor($query->authorId);
 
-        $fromAuthor = $this->tryToFindAuthor($fromAuthorId);
-        $toAuthor = $this->tryToFindAuthor($toAuthorId);
-
-        $follow = $fromAuthor->followAuthorId($toAuthor->authorId());
-
-        $this->followRepository->add($follow);
-
-        $this->eventBus->publishAll($follow->pullEvents());
+        return $this->followRepository->numberOfFollowersFor(
+            AuthorId::fromString($query->authorId)
+        );
     }
 
     /** @psalm-param non-empty-string $authorId */
-    private function tryToFindAuthor(string $authorId): Author
+    private function tryToFindAuthor(string $authorId): void
     {
         $id = AuthorId::fromString($authorId);
         $author = $this->authorRepository->ofId($id);
 
         $this->assertAuthorIsNotNull($author, $id);
-
-        return $author;
     }
 
     /** @psalm-assert Author $author */

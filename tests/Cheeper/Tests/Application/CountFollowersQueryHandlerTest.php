@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application;
 
-use Cheeper\Application\CountFollowersQuery;
-use Cheeper\Application\CountFollowersQueryHandler;
-use Cheeper\Application\FollowCommand;
-use Cheeper\Application\FollowCommandHandler;
+use Cheeper\Application\CountFollowers\CountFollowersQuery;
+use Cheeper\Application\CountFollowers\CountFollowersQueryHandler;
+use Cheeper\Application\Follow\FollowCommand;
+use Cheeper\Application\Follow\FollowCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;

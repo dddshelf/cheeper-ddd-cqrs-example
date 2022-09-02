@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cheeper\Application;
+namespace Cheeper\Application\Follow;
+
+use Cheeper\Application\Command;
 
 /** @psalm-immutable */
 final class FollowCommand implements Command

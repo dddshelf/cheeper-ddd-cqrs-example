@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cheeper\Application\CountFollowersQuery;
-use Cheeper\Application\CountFollowersQueryHandler;
+use Cheeper\Application\CountFollowers\CountFollowersQuery;
+use Cheeper\Application\CountFollowers\CountFollowersQueryHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
