@@ -6,6 +6,12 @@ framework:
         buses:
             default:
                 default_middleware: allow_no_handlers
+            command_bus:
+                middleware:
+                    - validation
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration

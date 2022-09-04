@@ -10,7 +10,9 @@ use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Follow\FollowRepository;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final class FollowCommandHandler
 {
     public function __construct(

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cheeper\Application\CommandBus;
 use Cheeper\Application\Follow\FollowCommand;
-use Cheeper\Application\Follow\FollowCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
 use Psl\Json;
@@ -20,8 +20,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 final class PostFollowersController extends AbstractController
 {
     public function __construct(
-        private readonly FollowCommandHandler $followCommandHandler,
         private readonly ValidatorInterface $validator,
+        private readonly CommandBus $commandBus,
     ) {
     }
 
@@ -95,7 +95,7 @@ final class PostFollowersController extends AbstractController
         }
 
         try {
-            ($this->followCommandHandler)(
+            $this->commandBus->handle(
                 new FollowCommand(
                     $data['from_author_id'],
                     $data['to_author_id']
