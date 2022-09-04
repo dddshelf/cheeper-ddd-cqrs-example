@@ -17,8 +17,7 @@ final class FollowCommandHandler
         private readonly AuthorRepository $authorRepository,
         private readonly FollowRepository $followRepository,
         private readonly EventBus $eventBus,
-    )
-    {
+    ) {
     }
 
     public function __invoke(FollowCommand $command): void

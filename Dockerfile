@@ -8,6 +8,7 @@ RUN apt-get update \
                           libicu-dev \
                           libzip-dev \
                           unzip \
+                          redis \
                           $PHPIZE_DEPS \
     && docker-php-ext-install pdo_mysql mysqli pcntl bcmath intl zip \
     && pecl install redis \

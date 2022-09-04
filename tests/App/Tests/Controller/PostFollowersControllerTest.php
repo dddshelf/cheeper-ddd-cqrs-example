@@ -20,6 +20,8 @@ final class PostFollowersControllerTest extends ApiTestCase
 
         $this->makeFollow($client, $firstAuthor['id'], $secondAuthor['id']);
 
+        sleep(3);
+
         $this->assertSame(0, $this->getFollowersCount($client, $firstAuthor['id']));
         $this->assertSame(1, $this->getFollowersCount($client, $secondAuthor['id']));
     }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Cheeper\Infrastructure\Application;
 
 use Cheeper\Application\EventBus;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Psl\Iter;
+use Symfony\Component\Messenger\MessageBusInterface;
 
 final class SymfonyMessengerEventBus implements EventBus
 {

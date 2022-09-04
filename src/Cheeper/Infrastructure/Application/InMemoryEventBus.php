@@ -16,6 +16,7 @@ final class InMemoryEventBus implements EventBus
      */
     private array $events = [];
 
+    /** @psalm-param list<DomainEvent> $events */
     public function publishAll(array $events): void
     {
         $this->events = Vec\concat($this->events, $events);

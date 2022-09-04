@@ -13,13 +13,13 @@ services:
     build:
       dockerfile: Dockerfile
       context: .
-      target: dev
-      args:
-        - UID=${UID:-}
-        - GID=${GID:-}
+      target: local
     init: true
-    env_file: .env.docker.dist
     ports:
       - "8000:80"
     volumes:
       - ./:/var/www/html
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"

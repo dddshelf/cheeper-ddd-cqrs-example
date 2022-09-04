@@ -24,11 +24,10 @@ final class GetFollowersCountControllerTest extends ApiTestCase
 
         // Make first follow second author
         $this->makeFollow($client, $fromAuthor['id'], $toAuthor['id']);
+        sleep(2);
 
         $totalFollowers = $this->getFollowersCount($client, $toAuthor['id']);
 
         $this->assertSame(1, $totalFollowers);
     }
-
-
 }

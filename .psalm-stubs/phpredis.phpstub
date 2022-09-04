@@ -1,0 +1,7 @@
+<?php
+
+class Redis
+{
+    /** @return false|string */
+    public function get(string $key);
+}

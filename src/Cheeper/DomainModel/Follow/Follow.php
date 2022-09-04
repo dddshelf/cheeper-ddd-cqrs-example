@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Follow;
 
+use Cheeper\DomainModel\AggregateRoot;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorWasFollowed;
 use Cheeper\DomainModel\Clock\Clock;
-use Cheeper\DomainModel\RecordsEvents;
 
-/** @final */
-class Follow
+/**
+ * @final
+ * @extends AggregateRoot<AuthorWasFollowed>
+ */
+class Follow extends AggregateRoot
 {
-    use RecordsEvents;
-
     /**
      * @psalm-param non-empty-string $followId
      * @psalm-param non-empty-string $fromAuthorId

@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel;
 
-trait RecordsEvents
+/** @template T of DomainEvent */
+abstract class AggregateRoot
 {
     /**
-     * @psalm-var list<DomainEvent>
+     * @psalm-var list<T>
      * @var DomainEvent[]
      */
     private array $events = [];
 
-    private function recordThat(DomainEvent $eventHappened): void
+    /** @psalm-param T $eventHappened */
+    protected function recordThat(DomainEvent $eventHappened): void
     {
         $this->events[] = $eventHappened;
     }
 
     /**
-     * @psalm-return list<DomainEvent>
+     * @psalm-return list<T>
      * @return DomainEvent[]
      */
     public function pullEvents(): array

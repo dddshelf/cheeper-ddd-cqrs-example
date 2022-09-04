@@ -13,6 +13,7 @@ services:
             Cheeper\DomainModel\Cheep\CheepRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheepRepository'
             Cheeper\DomainModel\Follow\FollowRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollowRepository'
             Cheeper\Application\EventBus: '@Cheeper\Infrastructure\Application\SymfonyMessengerEventBus'
+            Redis: '@snc_redis.default'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
