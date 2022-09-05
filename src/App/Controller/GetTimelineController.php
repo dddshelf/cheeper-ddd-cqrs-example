@@ -90,11 +90,6 @@ final class GetTimelineController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $cheeps = array_map(
-            static fn (Cheep $c) => CheepDto::assembleFrom($c),
-            $timeline->timeline
-        );
-
-        return $this->json($cheeps);
+        return $this->json($timeline->timeline);
     }
 }

@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\Timeline;
 
+use App\Dto\CheepDto;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
+use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepRepository;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Psl\Vec;
 
 #[AsMessageHandler]
 final class TimelineQueryHandler
@@ -28,8 +31,13 @@ final class TimelineQueryHandler
             throw AuthorDoesNotExist::withAuthorIdOf($authorId);
         }
 
+        $cheeps = $this->cheepRepository->ofFollowingPeopleOf($author, $query->offset, $query->size);
+
         return new TimelineQueryResponse(
-            $this->cheepRepository->ofFollowingPeopleOf($author, $query->offset, $query->size)
+            Vec\map(
+                $cheeps,
+                static fn (Cheep $c) => CheepDto::assembleFrom($c),
+            )
         );
     }
 }
