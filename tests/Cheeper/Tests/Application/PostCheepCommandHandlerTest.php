@@ -9,6 +9,7 @@ use Cheeper\Application\PostCheep\PostCheepCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Cheep\CheepRepository;
+use Cheeper\Infrastructure\Application\InMemoryEventBus;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryCheepRepository;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
@@ -21,12 +22,14 @@ final class PostCheepCommandHandlerTest extends TestCase
     private AuthorRepository $authorRepository;
     private CheepRepository $cheepRepository;
     private PostCheepCommandHandler $postCheepCommandHandler;
+    private InMemoryEventBus $eventBus;
 
     public function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
         $this->cheepRepository = new InMemoryCheepRepository();
-        $this->postCheepCommandHandler = new PostCheepCommandHandler($this->authorRepository, $this->cheepRepository);
+        $this->eventBus = new InMemoryEventBus();
+        $this->postCheepCommandHandler = new PostCheepCommandHandler($this->authorRepository, $this->cheepRepository, $this->eventBus);
     }
 
     /** @test */
@@ -65,5 +68,6 @@ final class PostCheepCommandHandlerTest extends TestCase
         );
 
         $this->assertNotNull($cheep);
+        $this->assertNotEmpty($this->eventBus->getEvents());
     }
 }

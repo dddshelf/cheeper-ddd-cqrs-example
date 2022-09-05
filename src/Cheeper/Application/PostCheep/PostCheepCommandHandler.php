@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\PostCheep;
 
+use Cheeper\Application\EventBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Author\UserName;
@@ -19,6 +20,7 @@ final class PostCheepCommandHandler
     public function __construct(
         private readonly AuthorRepository $authorRepository,
         private readonly CheepRepository  $cheepRepository,
+        private readonly EventBus $eventBus,
     ) {
     }
 
@@ -39,5 +41,6 @@ final class PostCheepCommandHandler
         );
 
         $this->cheepRepository->add($cheep);
+        $this->eventBus->publishAll($cheep->pullEvents());
     }
 }

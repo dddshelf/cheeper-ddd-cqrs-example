@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Cheeper\DomainModel\Cheep;
 
+use Cheeper\DomainModel\AggregateRoot;
 use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Clock\Clock;
 
-/** @final */
-class Cheep
+/**
+ * @final
+ * @extends AggregateRoot<CheepWasPosted>
+ */
+class Cheep extends AggregateRoot
 {
     /**
      * @psalm-param non-empty-string $authorId
@@ -33,12 +37,24 @@ class Cheep
             $now->format('Y-m-d H:i:s')
         );
 
-        return new self(
+        $cheep = new self(
             $authorId->id,
             $cheepId->id,
             $cheepMessage,
             $cheepDate
         );
+
+        $cheep->recordThat(
+            new CheepWasPosted(
+                $authorId->id,
+                $cheepId->id,
+                $cheepMessage->message,
+                $now,
+                $now
+            )
+        );
+
+        return $cheep;
     }
 
     final public function authorId(): AuthorId
