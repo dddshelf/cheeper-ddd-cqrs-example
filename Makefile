@@ -1,9 +1,3 @@
-# Run `make` (no arguments) to get a short description of what is available
-# within this `Makefile`.
-# Our user and group id used as default container user:group id. Avoid permissions pollution
-UID := $(shell id -u)
-GID := $(shell id -g)
-	export UID GID
 # Default shell to use
 SHELL := bash
 
@@ -23,8 +17,7 @@ MAKEFLAGS += --no-builtin-rules
 # Shortcuts
 DOCKER = $(shell which docker)
 DOCKER_COMPOSE = $(DOCKER) compose
-HTTPIE = docker run --network=host -ti --rm alpine/httpie
-APP_SHELL = $(DOCKER_COMPOSE) --env-file=.env.docker.dist run --rm app
+APP_SHELL = $(DOCKER_COMPOSE) run --rm app
 PHP = $(APP_SHELL) php
 
 # Default target when run with just 'make'

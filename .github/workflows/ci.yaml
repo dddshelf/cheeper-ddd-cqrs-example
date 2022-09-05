@@ -33,6 +33,9 @@ jobs:
       - name: START SERVICES
         run: make start
 
+      - name: SET UP ENVIRONMENT VARIABLES
+        run: cp .env.docker.dist .env.local
+
       - name: STATIC ANALISYS
         run: make psalm-github
 

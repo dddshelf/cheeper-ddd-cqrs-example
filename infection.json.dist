@@ -10,7 +10,7 @@
     },
     "logs": {
         "text": "php://stderr",
-        "github": false
+        "github": true
     },
     "mutators": {
         "@default": true
