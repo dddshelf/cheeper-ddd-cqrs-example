@@ -48,6 +48,18 @@ final class CountFollowersQueryHandlerTest extends TestCase
     }
 
     /** @test */
+    public function whenAuthorDoesNotExistThenItShouldReturnZero(): void
+    {
+        $this->redis->get(Argument::type('string'))->willReturn(false);
+
+        $queryResponse = ($this->countFollowersQueryHandler)(
+            new CountFollowersQuery(AuthorTestDataBuilder::anAuthorIdentity()->id)
+        );
+
+        $this->assertSame(0, $queryResponse->totalNumberOfFollowers);
+    }
+
+    /** @test */
     public function givenFollowersCountWhenCountIsRequestedThenItShouldReturnTheTotalNumberOfFollowers(): void
     {
         $author = AuthorTestDataBuilder::anAuthor()->build();
@@ -71,26 +83,34 @@ final class CountFollowersQueryHandlerTest extends TestCase
         ($followCommandHandler)(new FollowCommand($follower3->authorId()->id, $authorId));
 
         $followersCounter = new class() {
-            private int $count = 0;
+            /** @psalm-var array<string, int> */
+            private array $counts = [];
 
-            public function increment(): void
+            public function increment(string $key): void
             {
-                ++$this->count;
+                if (!array_key_exists($key, $this->counts)) {
+                    $this->counts[$key] = 0;
+                }
+
+                ++$this->counts[$key];
             }
 
-            public function getCount(): int
+            public function getCounts(string $key): int
             {
-                return $this->count;
+                return $this->counts[$key] ?? 0;
             }
         };
 
-        $this->redis->incr(Argument::type('string'))->will(function () use($followersCounter): int {
-            $followersCounter->increment();
-            return $followersCounter->getCount();
+        $this->redis->incr(Argument::type('string'))->will(function (array $args) use($followersCounter): int {
+            [$key] = Type\shape([0 => Type\non_empty_string()])->coerce($args);
+            $followersCounter->increment($key);
+            return $followersCounter->getCounts($key);
         });
 
-        $this->redis->get(Argument::type('string'))->will(static fn() => $followersCounter->getCount());
-        $this->redis->exists(Argument::type('string'))->willReturn(true);
+        $this->redis->get(Argument::type('string'))->will(static function (array $args) use ($followersCounter) {
+            [$key] = Type\shape([0 => Type\non_empty_string()])->coerce($args);
+            return (string)$followersCounter->getCounts($key);
+        });
 
         $events = Type\vec(
             Type\instance_of(AuthorWasFollowed::class)

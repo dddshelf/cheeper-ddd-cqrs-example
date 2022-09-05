@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application;
 
+use App\Dto\CheepDto;
 use Cheeper\Application\AddCheepToFollowersTimeline\AddCheepToFollowersTimelineProjection;
 use Cheeper\Application\AddCheepToFollowersTimeline\AddCheepToFollowerTimelineProjectionHandler;
 use Cheeper\Application\AuthorApplicationService;
@@ -200,10 +201,10 @@ final class TimelineQueryHandlerTest extends TestCase
 
         Iter\apply($projections, ($this->addCheepToFollowerTimelineProjectionHandler)(...));
 
-        $this->assertCount(
-            3,
-            $this->timelineFrom($author2->authorId()->id, 0, 10)->timeline
-        );
+        $timeline = $this->timelineFrom($author2->authorId()->id, 0, 10)->timeline;
+
+        $this->assertCount(3, $timeline);
+        $this->assertContainsOnlyInstancesOf(CheepDto::class, $timeline);
     }
 
     /**

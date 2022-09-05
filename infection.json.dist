@@ -10,11 +10,11 @@
     },
     "logs": {
         "text": "php://stderr",
-        "github": true
+        "github": false
     },
     "mutators": {
         "@default": true
     },
     "minMsi": 91,
-    "minCoveredMsi": 100
+    "minCoveredMsi": 90
 }

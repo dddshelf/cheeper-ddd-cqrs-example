@@ -18,8 +18,12 @@ final class CountFollowersQueryHandler
     {
         $totalFollowers = $this->redis->get("followers_of:" . $query->authorId);
 
+        if (false !== $totalFollowers) {
+            $totalFollowers = (int)$totalFollowers;
+        }
+
         return new CountFollowersQueryResponse(
-            false === $totalFollowers ? 0 : (int)$totalFollowers
+            false === $totalFollowers ? 0 : $totalFollowers
         );
     }
 }
