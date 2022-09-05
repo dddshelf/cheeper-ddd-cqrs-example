@@ -64,7 +64,7 @@ functional-tests: start refresh-fixtures
 
 .PHONY: mutation-tests
 mutation-tests: deps
-	$(PHP) vendor/bin/roave-infection-static-analysis-plugin
+	$(PHP) vendor/bin/infection
 
 .PHONY: psalm
 psalm: deps
