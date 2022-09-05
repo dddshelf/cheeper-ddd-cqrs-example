@@ -13,6 +13,7 @@ services:
             Cheeper\DomainModel\Cheep\CheepRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmCheepRepository'
             Cheeper\DomainModel\Follow\FollowRepository: '@Cheeper\Infrastructure\Persistence\DoctrineOrmFollowRepository'
             Cheeper\Application\EventBus: '@Cheeper\Infrastructure\Application\SymfonyMessengerEventBus'
+            Cheeper\Application\ProjectionBus: '@Cheeper\Infrastructure\Application\SymfonyMessengerProjectionBus'
             Redis: '@snc_redis.default'
             Symfony\Component\Messenger\MessageBusInterface $commandBus: '@command_bus'
             Symfony\Component\Messenger\MessageBusInterface $queryBus: '@query_bus'

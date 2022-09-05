@@ -11,7 +11,7 @@ final class TimelineQuery implements Query
 {
     /**
      * @psalm-param non-empty-string $authorId
-     * @psalm-param positive-int|0 $offste
+     * @psalm-param positive-int|0 $offset
      * @psalm-param positive-int $size
      */
     public function __construct(

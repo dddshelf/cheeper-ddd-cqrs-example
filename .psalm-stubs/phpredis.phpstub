@@ -2,6 +2,17 @@
 
 class Redis
 {
-    /** @return false|string */
-    public function get(string $key);
+    /**
+     * @psalm-param non-empty-string $key
+     * @return false|string
+     */
+    public function get(string $key) {}
+
+    /**
+     * @psalm-param non-empty-string $key
+     * @psalm-param positive-int|0 $offset
+     * @psalm-param positive-int $size
+     * @psalm-return list<string>
+     */
+    public function lRange(string $key, int $offset, int $size): array {}
 }

@@ -22,6 +22,11 @@ final class InMemoryEventBus implements EventBus
         $this->events = Vec\concat($this->events, $events);
     }
 
+    public function flush(): void
+    {
+        $this->events = [];
+    }
+
     /**
      * @psalm-return list<DomainEvent>
      * @return DomainEvent[]

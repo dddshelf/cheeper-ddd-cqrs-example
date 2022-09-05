@@ -12,8 +12,8 @@ use Cheeper\Application\Timeline\TimelineQueryResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
+use Psl\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -68,17 +68,11 @@ final class GetTimelineController extends AbstractController
         $this->assertNotEmptyString($id, "Author ID");
         $this->assertValidUuid($id);
 
-        $offset = $request->query->getInt('offset');
+        $offset = Type\union(Type\literal_scalar(0), Type\positive_int())
+            ->coerce($request->query->getInt('offset'));
 
-        if ($offset < 0) {
-            throw new BadRequestException("Offset should be 0 or greater");
-        }
-
-        $size = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
-
-        if ($size <= 0) {
-            throw new BadRequestException("Size should be greater than 0");
-        }
+        $size = Type\positive_int()
+            ->coerce($request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE));
 
         try {
             $timeline = $this->queryBus->askFor(
