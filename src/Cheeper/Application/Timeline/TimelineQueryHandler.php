@@ -10,8 +10,8 @@ use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepRepository;
-use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Psl\Vec;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]
 final class TimelineQueryHandler

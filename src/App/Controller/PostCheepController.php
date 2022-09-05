@@ -4,26 +4,27 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Dto\CheepDto;
-use Cheeper\Application\CheepApplicationService;
+use Cheeper\Application\CommandBus;
+use Cheeper\Application\PostCheep\PostCheepCommand;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Psl\Json;
 use Psl\Type;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class PostCheepController extends AbstractController
 {
     public function __construct(
-        private readonly CheepApplicationService $cheepService,
-        private readonly ValidatorInterface      $validator,
+        private readonly ValidatorInterface $validator,
+        private readonly CommandBus $commandBus,
+        private readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 
@@ -40,9 +41,12 @@ final class PostCheepController extends AbstractController
     #[OA\Response(
         response: Response::HTTP_CREATED,
         description: "Creates a new cheep",
-        content: new OA\JsonContent(
-            ref: new Model(type: CheepDto::class)
-        )
+        headers: [
+            new OA\Header(
+                header: "Location",
+                description: "The URI where the new cheep can be fetched from",
+            ),
+        ]
     )]
     #[OA\Response(
         response: Response::HTTP_BAD_REQUEST,
@@ -102,18 +106,25 @@ final class PostCheepController extends AbstractController
             return $this->json($violations, Response::HTTP_BAD_REQUEST);
         }
 
+        $cheepId = Uuid::uuid6();
+
         try {
-            $cheep = $this->cheepService->postCheep(
-                $data['username'],
-                $data['message'],
+            $this->commandBus->handle(
+                new PostCheepCommand(
+                    $cheepId->toString(),
+                    $data['username'],
+                    $data['message'],
+                )
             );
         } catch (AuthorDoesNotExist) {
             throw $this->createNotFoundException();
         }
 
-        return new JsonResponse(
-            data: CheepDto::assembleFrom($cheep),
+        return new Response(
             status: Response::HTTP_CREATED,
+            headers: [
+                "Location" => $this->urlGenerator->generate("get_cheep", ['id' => $cheepId->toString()], UrlGeneratorInterface::ABSOLUTE_URL),
+            ]
         );
     }
 }

@@ -22,7 +22,7 @@ final class GetCheepController extends AbstractController
     ) {
     }
 
-    #[Route("/cheeps/{id}", methods: [Request::METHOD_GET])]
+    #[Route("/cheeps/{id}", name: "get_cheep", methods: [Request::METHOD_GET])]
     #[OA\Response(
         response: Response::HTTP_OK,
         description: "Retrieves a single cheep by ID",

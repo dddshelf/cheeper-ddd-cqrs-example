@@ -83,8 +83,12 @@ trait HelperFunctions
 
         $this->assertResponseIsSuccessful();
 
+        $headers = $response->getHeaders();
+        $cheepUri = $headers["location"][0];
+        $cheepResponse = $client->request(Request::METHOD_GET, parse_url($cheepUri, PHP_URL_PATH));
+
         return Json\typed(
-            $response->getContent(),
+            $cheepResponse->getContent(),
             Type\shape([
                 'id' => Type\non_empty_string(),
                 'authorId' => Type\non_empty_string(),

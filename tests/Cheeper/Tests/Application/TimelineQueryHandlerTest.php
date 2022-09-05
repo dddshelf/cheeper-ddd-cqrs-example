@@ -23,14 +23,12 @@ final class TimelineQueryHandlerTest extends TestCase
 {
     private CheepRepository $cheepRepository;
     private AuthorRepository $authorRepository;
-    private CheepApplicationService $cheepService;
     private TimelineQueryHandler $timelineQueryHandler;
 
     public function setUp(): void
     {
         $this->cheepRepository = new InMemoryCheepRepository();
         $this->authorRepository = new InMemoryAuthorRepository();
-        $this->cheepService = new CheepApplicationService($this->authorRepository, $this->cheepRepository);
         $this->timelineQueryHandler = new TimelineQueryHandler($this->authorRepository, $this->cheepRepository);
     }
 

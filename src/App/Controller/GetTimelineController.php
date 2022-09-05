@@ -10,7 +10,6 @@ use Cheeper\Application\QueryBus;
 use Cheeper\Application\Timeline\TimelineQuery;
 use Cheeper\Application\Timeline\TimelineQueryResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Cheep\Cheep;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

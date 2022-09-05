@@ -4,27 +4,29 @@ declare(strict_types=1);
 
 namespace Cheeper\Tests\Application;
 
-use Cheeper\Application\CheepApplicationService;
+use Cheeper\Application\PostCheep\PostCheepCommand;
+use Cheeper\Application\PostCheep\PostCheepCommandHandler;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Author\AuthorRepository;
-use Cheeper\DomainModel\Cheep\Cheep;
 use Cheeper\DomainModel\Cheep\CheepRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryAuthorRepository;
 use Cheeper\Infrastructure\Persistence\InMemoryCheepRepository;
 use Cheeper\Tests\DomainModel\Author\AuthorTestDataBuilder;
 use Cheeper\Tests\DomainModel\Cheep\CheepTestDataBuilder;
 use PHPUnit\Framework\TestCase;
-use Psl\Iter;
+use Ramsey\Uuid\Uuid;
 
-final class CheepApplicationServiceTest extends TestCase
+final class PostCheepCommandHandlerTest extends TestCase
 {
     private AuthorRepository $authorRepository;
-    private CheepApplicationService $cheepService;
+    private CheepRepository $cheepRepository;
+    private PostCheepCommandHandler $postCheepCommandHandler;
 
     public function setUp(): void
     {
         $this->authorRepository = new InMemoryAuthorRepository();
-        $this->cheepService = new CheepApplicationService($this->authorRepository, new InMemoryCheepRepository());
+        $this->cheepRepository = new InMemoryCheepRepository();
+        $this->postCheepCommandHandler = new PostCheepCommandHandler($this->authorRepository, $this->cheepRepository);
     }
 
     /** @test */
@@ -32,7 +34,13 @@ final class CheepApplicationServiceTest extends TestCase
     {
         $this->expectException(AuthorDoesNotExist::class);
 
-        $this->cheepService->postCheep('irrelevant', 'irrelevant');
+        ($this->postCheepCommandHandler)(
+            new PostCheepCommand(
+                Uuid::uuid6()->toString(),
+                'irrelevant',
+                'irrelevant'
+            )
+        );
     }
 
     /** @test */
@@ -42,13 +50,20 @@ final class CheepApplicationServiceTest extends TestCase
 
         $this->authorRepository->add($author);
 
-        $cheep = $this->cheepService->postCheep($author->userName()->userName, 'message');
+        $cheepId = Uuid::uuid6();
 
-        // Retrieve cheep by ID in order to make sure it has been persisted into the persistence store
-        $cheep = $this->cheepService->getCheep($cheep->cheepId()->id);
+        ($this->postCheepCommandHandler)(
+            new PostCheepCommand(
+                $cheepId->toString(),
+                'irrelevant',
+                'irrelevant'
+            )
+        );
+
+        $cheep = $this->cheepRepository->ofId(
+            CheepTestDataBuilder::aCheepIdentity($cheepId)
+        );
 
         $this->assertNotNull($cheep);
-        $this->assertNotNull($cheep->authorId());
-        $this->assertEquals('message', $cheep->cheepMessage()->message);
     }
 }
