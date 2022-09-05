@@ -17,6 +17,7 @@
 
     <stubs>
         <file name=".psalm-stubs/phpredis.phpstub"/>
+        <file name=".psalm-stubs/symfony-messenger.phpstub"/>
     </stubs>
 
     <plugins>

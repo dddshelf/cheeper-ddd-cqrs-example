@@ -98,10 +98,10 @@ final class CountFollowersQueryHandlerTest extends TestCase
 
         Iter\apply($events, ($this->authorWasFollowedEventHandler)(...));
 
-        $totalNumberOfFollowers = ($this->countFollowersQueryHandler)(
+        $queryResponse = ($this->countFollowersQueryHandler)(
             new CountFollowersQuery($authorId)
         );
 
-        $this->assertSame(3, $totalNumberOfFollowers);
+        $this->assertSame(3, $queryResponse->totalNumberOfFollowers);
     }
 }

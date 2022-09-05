@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cheeper\Application\CountFollowers;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
+#[AsMessageHandler]
 final class CountFollowersQueryHandler
 {
     public function __construct(
@@ -11,10 +14,12 @@ final class CountFollowersQueryHandler
     ) {
     }
 
-    public function __invoke(CountFollowersQuery $query): int
+    public function __invoke(CountFollowersQuery $query): CountFollowersQueryResponse
     {
         $totalFollowers = $this->redis->get("followers_of:" . $query->authorId);
 
-        return false === $totalFollowers ? 0 : (int)$totalFollowers;
+        return new CountFollowersQueryResponse(
+            false === $totalFollowers ? 0 : (int)$totalFollowers
+        );
     }
 }

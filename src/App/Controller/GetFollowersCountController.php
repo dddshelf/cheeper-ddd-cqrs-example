@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use Cheeper\Application\CountFollowers\CountFollowersQuery;
 use Cheeper\Application\CountFollowers\CountFollowersQueryHandler;
+use Cheeper\Application\CountFollowers\CountFollowersQueryResponse;
+use Cheeper\Application\QueryBus;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,7 @@ final class GetFollowersCountController extends AbstractController
 
     public function __construct(
         private readonly CountFollowersQueryHandler $countFollowersQueryHandler,
+        private readonly QueryBus $queryBus,
     ) {
     }
 
@@ -50,15 +53,16 @@ final class GetFollowersCountController extends AbstractController
         $this->assertValidUuid($authorId);
 
         try {
-            $count = ($this->countFollowersQueryHandler)(
+            $response = $this->queryBus->askFor(
                 new CountFollowersQuery($authorId)
             );
+            assert($response instanceof CountFollowersQueryResponse);
         } catch (AuthorDoesNotExist $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
 
         return $this->json([
-            'count' => $count,
+            'count' => $response->totalNumberOfFollowers,
         ]);
     }
 }

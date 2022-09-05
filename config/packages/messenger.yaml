@@ -12,6 +12,9 @@ framework:
                     - doctrine_ping_connection
                     - doctrine_close_connection
                     - doctrine_transaction
+            query_bus:
+                middleware:
+                    - validation
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
