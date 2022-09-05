@@ -6,11 +6,15 @@ namespace App\Controller;
 
 use App\Dto\CheepDto;
 use Cheeper\Application\CheepApplicationService;
+use Cheeper\Application\QueryBus;
+use Cheeper\Application\Timeline\TimelineQuery;
+use Cheeper\Application\Timeline\TimelineQueryResponse;
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
 use Cheeper\DomainModel\Cheep\Cheep;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,7 +26,8 @@ final class GetTimelineController extends AbstractController
     private const DEFAULT_TIMELINE_CHUNK_SIZE = 10;
 
     public function __construct(
-        private readonly CheepApplicationService $cheepApplicationService
+        private readonly CheepApplicationService $cheepApplicationService,
+        private readonly QueryBus $queryBus,
     ) {
     }
 
@@ -64,18 +69,30 @@ final class GetTimelineController extends AbstractController
         $this->assertNotEmptyString($id, "Author ID");
         $this->assertValidUuid($id);
 
-        $offset     = $request->query->getInt('offset');
-        $size       = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
+        $offset = $request->query->getInt('offset');
+
+        if ($offset < 0) {
+            throw new BadRequestException("Offset should be 0 or greater");
+        }
+
+        $size = $request->query->getInt('size', self::DEFAULT_TIMELINE_CHUNK_SIZE);
+
+        if ($size <= 0) {
+            throw new BadRequestException("Size should be greater than 0");
+        }
 
         try {
-            $timeline = $this->cheepApplicationService->timelineFrom($id, $offset, $size);
+            $timeline = $this->queryBus->askFor(
+                new TimelineQuery($id, $offset, $size)
+            );
+            assert($timeline instanceof TimelineQueryResponse);
         } catch (AuthorDoesNotExist) {
             throw $this->createNotFoundException();
         }
 
         $cheeps = array_map(
             static fn (Cheep $c) => CheepDto::assembleFrom($c),
-            $timeline
+            $timeline->timeline
         );
 
         return $this->json($cheeps);

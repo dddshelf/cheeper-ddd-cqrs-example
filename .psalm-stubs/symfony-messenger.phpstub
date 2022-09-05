@@ -19,7 +19,7 @@ namespace Symfony\Component\Messenger
         /**
          * @template T
          * @psalm-param object|Envelope $message
-         * @psalm-return T|Envelope<HandledStamp>
+         * @psalm-return T
          */
         private function handle($message) { }
     }

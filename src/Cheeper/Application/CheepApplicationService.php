@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cheeper\Application;
 
 use Cheeper\DomainModel\Author\AuthorDoesNotExist;
-use Cheeper\DomainModel\Author\AuthorId;
 use Cheeper\DomainModel\Author\AuthorRepository;
 use Cheeper\DomainModel\Author\UserName;
 use Cheeper\DomainModel\Cheep\Cheep;
@@ -43,20 +42,6 @@ final class CheepApplicationService
         $this->cheepRepository->add($cheep);
 
         return $cheep;
-    }
-
-    /**
-     * @psalm-param non-empty-string $authorId
-     */
-    public function timelineFrom(string $authorId, int $offset, int $size): array
-    {
-        $author = $this->authorRepository->ofId(AuthorId::fromString($authorId));
-
-        if (null === $author) {
-            throw AuthorDoesNotExist::withAuthorIdOf(AuthorId::fromString($authorId));
-        }
-
-        return $this->cheepRepository->ofFollowingPeopleOf($author, $offset, $size);
     }
 
     /** @psalm-param non-empty-string $id */

@@ -18,15 +18,13 @@ use Psl\Iter;
 
 final class CheepApplicationServiceTest extends TestCase
 {
-    private CheepRepository $cheepRepository;
     private AuthorRepository $authorRepository;
     private CheepApplicationService $cheepService;
 
     public function setUp(): void
     {
-        $this->cheepRepository = new InMemoryCheepRepository();
         $this->authorRepository = new InMemoryAuthorRepository();
-        $this->cheepService = new CheepApplicationService($this->authorRepository, $this->cheepRepository);
+        $this->cheepService = new CheepApplicationService($this->authorRepository, new InMemoryCheepRepository());
     }
 
     /** @test */
@@ -52,34 +50,5 @@ final class CheepApplicationServiceTest extends TestCase
         $this->assertNotNull($cheep);
         $this->assertNotNull($cheep->authorId());
         $this->assertEquals('message', $cheep->cheepMessage()->message);
-    }
-
-    /** @test */
-    public function givenATimelineRequestWhenTheAuthorDoesNotExistThenAnExceptionShouldBeThrown(): void
-    {
-        $this->expectException(AuthorDoesNotExist::class);
-
-        $this->cheepService->timelineFrom(AuthorTestDataBuilder::anAuthorIdentity()->id, 0, 1);
-    }
-
-    /** @test */
-    public function givenATimelineRequestWhenExecutionGoesWellThenAListOfCheepsShouldBeReturned(): void
-    {
-        $author = AuthorTestDataBuilder::anAuthor()->build();
-
-        $this->authorRepository->add($author);
-
-        $cheeps = [
-            CheepTestDataBuilder::aCheep()->withAMessage("test1")->build(),
-            CheepTestDataBuilder::aCheep()->withAMessage("test2")->build(),
-            CheepTestDataBuilder::aCheep()->withAMessage("test3")->build(),
-        ];
-
-        Iter\apply($cheeps, fn(Cheep $c) => $this->cheepRepository->add($c));
-
-        $this->assertCount(
-            count($cheeps),
-            $this->cheepService->timelineFrom($author->authorId()->id, 0, 10)
-        );
     }
 }
