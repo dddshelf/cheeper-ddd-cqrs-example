@@ -32,8 +32,6 @@ final class SignUpCommandHandlerTest extends TestCase
         $this->expectException(AuthorAlreadyExists::class);
         $this->expectExceptionMessage('Author with name "johndoe" already exists');
 
-        $eventBus = new InMemoryEventBus();
-
         $signUpHandler = new SignUpCommandHandler(
             $this->authorRepository,
             $this->eventBus
@@ -52,7 +50,7 @@ final class SignUpCommandHandlerTest extends TestCase
             )
         );
 
-        $eventBus->reset();
+        $this->eventBus->reset();
 
         $signUpHandler(
             new SignUpCommand(

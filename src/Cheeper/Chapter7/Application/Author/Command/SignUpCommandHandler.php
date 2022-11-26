@@ -18,8 +18,8 @@ use Cheeper\Chapter7\DomainModel\Author\AuthorRepository;
 final class SignUpCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private EventBus         $eventBus
+        private readonly AuthorRepository $authors,
+        private readonly EventBus         $eventBus
     ) {
     }
 
@@ -72,8 +72,14 @@ final class SignUpCommandHandler
         return null !== $inputWebsite ? Website::fromString($inputWebsite) : null;
     }
 
-    private function signUpAuthor(AuthorId $authorId, UserName $userName, EmailAddress $email, SignUpCommand $command, ?Website $website, ?BirthDate $birthDate): Author
-    {
+    private function signUpAuthor(
+        AuthorId $authorId,
+        UserName $userName,
+        EmailAddress $email,
+        SignUpCommand $command,
+        ?Website $website,
+        ?BirthDate $birthDate)
+    : Author {
         return Author::signUp(
             $authorId,
             $userName,

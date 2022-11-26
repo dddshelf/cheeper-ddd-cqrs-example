@@ -14,9 +14,9 @@ use Cheeper\Chapter7\DomainModel\Follow\FollowRepository;
 final class FollowCommandHandler
 {
     public function __construct(
-        private AuthorRepository $authors,
-        private FollowRepository $follows,
-        private EventBus         $eventBus
+        private readonly AuthorRepository $authors,
+        private readonly FollowRepository $follows,
+        private readonly EventBus         $eventBus
     ) {
     }
 
@@ -53,11 +53,11 @@ final class FollowCommandHandler
 
     private function notifyEvents(FollowCommand $command, array $domainEvents): void
     {
-        $stamppedEvents = array_map(
+        $stampedEvents = array_map(
             static fn ($event) => $event->stampAsResponseTo($command),
             $domainEvents
         );
 
-        $this->eventBus->notifyAll($stamppedEvents);
+        $this->eventBus->notifyAll($stampedEvents);
     }
 }
