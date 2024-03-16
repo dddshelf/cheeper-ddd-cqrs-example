@@ -10,6 +10,7 @@ use Cheeper\Chapter7\Application\Author\Projection\IncrementCountFollowersProjec
 use Cheeper\Chapter7\Application\ProjectionBus;
 use Cheeper\Chapter8\DomainModel\Follow\AuthorFollowed;
 use Cheeper\Chapter8\DomainModel\Follow\FollowRepository;
+use Cheeper\Chapter9\Application\Author\Projection\AddAuthorToListOfAuthorsWithMoreThanThousandFollowersProjection;
 
 final readonly class WhenAuthorFollowedThenListAuthorsWithMoreThanThousandFollowersEventHandler
 {
@@ -23,9 +24,7 @@ final readonly class WhenAuthorFollowedThenListAuthorsWithMoreThanThousandFollow
     {
         if ($this->followRepository->numberOfFollowersFor(AuthorId::fromString($event->toAuthorId())) >= 1000) {
             $this->projectionBus->project(
-                IncrementCountFollowersProjection::ofAuthor(
-                    $event->toAuthorId()
-                )
+                new AddAuthorToListOfAuthorsWithMoreThanThousandFollowersProjection($event->toAuthorId())
             );
         }
     }
