@@ -21,14 +21,15 @@ final class Author
 {
     use EventSourcedTrait;
 
-    private string             $authorId;
-    private string             $userName;
-    private string             $email;
-    private ?string            $name = null;
-    private ?string            $biography = null;
-    private ?string            $location = null;
-    private ?string            $website = null;
-    private ?DateTimeImmutable $birthDate = null;
+    private string              $authorId;
+    private string              $userName;
+    private string              $email;
+    private ?string             $name = null;
+    private ?string             $biography = null;
+    private ?string             $location = null;
+    private ?string             $website = null;
+    private ?DateTimeImmutable  $birthDate = null;
+    private bool                $upgraded = false;
 
     private function __construct()
     {
@@ -119,6 +120,13 @@ final class Author
         $this->$modifier($event);
     }
 
+    public function upgrade(): void
+    {
+        $this->recordApplyAndPublishThat(
+            new AuthorWasUpgraded($this->authorId)
+        );
+    }
+
     protected function applyNewAuthorSigned(NewAuthorSigned $event)
     {
         $this->authorId = $event->authorId();
@@ -134,6 +142,11 @@ final class Author
     protected function applyAuthorEmailChangedSigned(AuthorEmailChanged $event)
     {
         $this->email = $event->authorEmail();
+    }
+
+    private function applyAuthorWasUpgraded(): void
+    {
+        $this->upgraded = true;
     }
 
     public function authorId(): AuthorId
@@ -174,6 +187,11 @@ final class Author
     public function birthDate(): ?BirthDate
     {
         return $this->birthDate !== null ? BirthDate::fromString($this->birthDate->format('Y-m-d')) : null;
+    }
+
+    public function upgraded(): bool
+    {
+        return $this->upgraded;
     }
 
     //...

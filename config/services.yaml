@@ -16,6 +16,7 @@ services:
             Symfony\Component\Messenger\MessageBusInterface $projectionBus: "@projection.bus"
 
             Redis: '@snc_redis.default'
+            string $filePath: "%kernel.project_dir%/data/authors-with-more-than-thousand-followers.txt"
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -186,4 +187,7 @@ services:
             - name: "doctrine.orm.entity_listener"
               event: "postPersist"
               entity: 'App\Entity\User'
+
+    Cheeper\Chapter9\DomainModel\Author\AuthorsWithMoreThanAThousandOfFollowers:
+        class: 'Cheeper\Chapter9\Infrastructure\DomainModel\Author\TextFileAuthorsWithMoreThanAThousandOfFollowers'
 #end-ignore

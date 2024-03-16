@@ -10,6 +10,6 @@ use Cheeper\AllChapters\DomainModel\Author\AuthorId;
 interface AuthorRepository
 {
     public function ofId(AuthorId $authorId): ?Author;
-    public function add(Author $author): void;
+    public function save(Author $author): void;
 }
 //end-snippet

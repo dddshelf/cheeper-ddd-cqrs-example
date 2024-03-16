@@ -40,7 +40,7 @@ final class EventSourcedAuthorRepository implements AuthorRepository
     }
     */
 
-    public function add(Author $author): void
+    public function save(Author $author): void
     {
         $this->eventStore->append(
             new EventStream(
